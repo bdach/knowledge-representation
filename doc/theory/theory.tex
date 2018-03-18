@@ -1,0 +1,87 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fullpage}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage[polish]{babel}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{2mm}
+
+\newtheorem{defn}{Definicja}
+
+\begin{document}
+
+\title{Reprezentacja wiedzy \\
+\Large{
+    Projekt nr 4. --- Programy działań z akcjami współbieżnymi \\
+    Podstawy teoretyczne
+}}
+\author{
+    Bartłomiej Dach \and
+    Jacek Dziwulski \and
+    Tymon Felski \and
+    Jędrzej Fijałkowski \and
+    Filip Grajek \and
+    Maciej Grzeszczak \and
+    Michał Kołodziej \and
+    Piotr Piwowarski \and
+    Mateusz Rymuszka \and
+    Piotr Wolski
+}
+\maketitle
+
+\section{Założenia}
+
+Dana jest klasa systemów dynamicznych spełniających następujące warunki:
+
+\begin{enumerate}
+    \item Prawo inercji.
+    \item Niedeterminizm.
+    \item W języku kwerend występują akcje złożone (zbiory co najwyżej $k$ akcji atomowych), w~języku akcji jedynie akcje atomowe.
+    \item Pełna informacja o~wszystkich akcjach atomowych i~wszystkich ich skutkach bezpośrednich.
+    \item Z~każdą akcją atomową związany jest jej warunek wstępny (ew. \textsc{True}) i~końcowy (efekt akcji).
+    \item Wykonywane są jedynie akcje bezkonfliktowe (żadne dwie akcje składowe nie~mogą mieć wspólnych zmiennych, na~które w~żadnym stanie mają wpływ).
+    \item Wynikiem akcji złożonej jest suma skutków wszystkich składowych akcji bezkonfliktowych.
+    \item Akcje mogą być niewykonalne w~pewnych stanach; jeśli akcja jest niewykonywalna, to~każda akcja ją zawierająca też jest niewykonalna.
+    \item Dopuszczalny jest opis częściowy zarówno stanu początkowego, jak i~pewnych stanów wynikających z~wykonań sekwencji akcji.
+\end{enumerate}
+
+\begin{defn}
+    \textbf{Programem $P$ działań} jest ciąg $P = (A_1, \dots,A_n)$ akcji złożonych.
+\end{defn}
+
+\begin{defn}
+    Program $P = (A_1, \dots, A_n)$ jest \textbf{realizowalny}, jeśli wszystkie akcje złożone $A_i$ są~wykonalne.
+\end{defn}
+
+Celem projektu jest opracowanie i~zaimplementowanie języka akcji dla~specyfikacji podanej klasy systemów dynamicznych oraz~odpowiadającego mu języka kwerend zapewniającego uzyskanie odpowiedzi na następujące zapytania:
+
+\begin{enumerate}
+    \item Czy podany program $P$ działań jest możliwy do~realizacji zawsze/kiedykolwiek ze stanu początkowego?
+    \item Czy wykonanie programu $P$ w~stanie początkowym działań prowadzi zawsze/kiedykolwiek do~osiągnięcia celu~$\gamma$?
+    \item Czy cel~$\gamma$ jest osiągalny ze~stanu początkowego?
+\end{enumerate}
+
+% TODO: definicja struktury, formuły
+
+\section{Język akcji}
+
+\subsection{Składnia języka}
+
+\subsection{Semantyka języka}
+
+\section{Język kwerend}
+
+\subsection{Składnia języka}
+
+\subsection{Semantyka języka}
+
+\section{Przykładowe kwerendy}
+
+\end{document}
