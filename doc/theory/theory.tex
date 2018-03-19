@@ -74,6 +74,66 @@ Celem projektu jest opracowanie i~zaimplementowanie języka akcji dla~specyfikac
 
 \subsection{Składnia języka}
 
+Język opracowany w ramach projektu będzie bazować na językach z rodziny $\mathcal{AR}$.
+
+\begin{defn}
+    \textbf{Sygnaturą} języka jest uporządkowana para zbiorów $\Upsilon = (\mathcal{F}, \mathcal{A}c)$, gdzie $\mathcal{F}$ to zbiór fluentów, a $ \mathcal{A}c$ to zbiór akcji. Dodatkowo definiuje się zbiór \textbf{fluentów inercjalnych} $\mathcal{F}_I \subseteq \mathcal{F}$.
+\end{defn}
+
+\begin{defn}
+    \textbf{Formuła} nad zbiorem fluentów $\mathcal{F}$ to dowolny predykat zbudowany z fluentów: 
+    $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \rightarrow \alpha_2\ |\ \alpha_1 \leftrightarrow \alpha_2 $$
+    Ponadto definiujemy dwie specjalne formuły:
+    
+    \quad$\top\colon$ prawda
+    
+    \quad$\bot\colon$ fałsz
+    
+    Zbiór wszystkich formuł nad zbiorem fluentów $\mathcal{F}$ oznaczamy jako $Forms(\mathcal{F})$.
+\end{defn}
+
+W języku istnieje pięć rodzajów zdań:
+\begin{enumerate}
+    \item Zdania wartości:
+    \begin{itemize}
+        \item \textit{initially} $\alpha$ - wartość początkowa formuły $\alpha$
+        \item $\alpha$ \textit{after} $A$ - formuła $\alpha$ musi być spełniona po akcji $A$
+        \item \textit{observable} $\alpha$ \textit{after} $A$ - formuła $\alpha$ może ale nie musi być spełniona po akcji $A$
+    \end{itemize}
+        
+    gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$
+    
+    \item Zdania efektu:
+    \begin{itemize}
+        \item $A$ \textit{causes} $\alpha$ \textit{if} $\pi$ - Wykonanie akcji $A$ w dowolnym stanie spełniającym $\pi$ daje efekt $\alpha$
+        \item $A$ \textit{causes} $\alpha$ - Wykonanie akcji $A$ w każdym stanie daje efekt $\alpha$
+        \item \textit{impossible} $A$ \textit{if} $\pi$ - Akcja $A$ jest niewykonalna w każdym stanie spełniającym $\pi$
+    \end{itemize}
+    
+    gdzie $\alpha, \pi \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$
+    
+    \item Zdania uwolnienia (release):
+    \begin{itemize}
+        \item $A$ \textit{releases} $f$ \textit{if} $\pi$ - wykonanie akcji $A$ w dowolnym stanie spełniającym $\pi$ może, ale nie musi zmienić wartości fluentu inercjalnego $f$
+        \item $A$ \textit{releases} $f$ - wykonanie akcji $A$ w każdym stanie może, ale nie musi zmienić wartości fluentu inercjalnego $f$
+    \end{itemize}
+    
+    gdzie $\pi \in Forms(\mathcal{F})$, $f \in \mathcal{F}_I$ oraz $A \in \mathcal{A}c$
+    
+    \item Zdania ograniczenia (constraint):
+    \begin{itemize}
+        \item \textit{always} $\alpha$ - formuła $\alpha$ jest spełniona w każdym stanie
+    \end{itemize}
+    gdzie $\alpha \in Forms(\mathcal{F})$
+    
+    \item Zdania sepcyfikacji fluentu:
+    \begin{itemize}
+        \item \textit{noninertial} $f$ - oznacza fluent $f$ jako nieinercjalny
+    \end{itemize}
+    gdzie $f \notin \mathcal{F}_I$
+    
+\end{enumerate}
+
 \subsection{Semantyka języka}
 
 \section{Język kwerend}
