@@ -15,6 +15,18 @@
 
 \newtheorem{defn}{Definicja}
 
+% definicje operatorów w zdaniach
+
+\DeclareMathOperator{\Initially}{\textbf{\textit{initially}}}
+\DeclareMathOperator{\After}{\textbf{\textit{after}}}
+\DeclareMathOperator{\Observable}{\textbf{\textit{observable}}}
+\DeclareMathOperator{\Causes}{\textbf{\textit{causes}}}
+\DeclareMathOperator{\If}{\textbf{\textit{if}}}
+\DeclareMathOperator{\Impossible}{\textbf{\textit{impossible}}}
+\DeclareMathOperator{\Releases}{\textbf{\textit{releases}}}
+\DeclareMathOperator{\Always}{\textbf{\textit{always}}}
+\DeclareMathOperator{\Noninertial}{\textbf{\textit{noninertial}}}
+
 \begin{document}
 
 \title{Reprezentacja wiedzy \\
@@ -74,63 +86,65 @@ Celem projektu jest opracowanie i~zaimplementowanie języka akcji dla~specyfikac
 
 \subsection{Składnia języka}
 
-Język opracowany w ramach projektu będzie bazować na językach z rodziny $\mathcal{AR}$.
+Język opracowany w~ramach projektu będzie bazować na~językach z~rodziny $\mathcal{AR}$.
 
 \begin{defn}
-    \textbf{Sygnaturą} języka jest uporządkowana para zbiorów $\Upsilon = (\mathcal{F}, \mathcal{A}c)$, gdzie $\mathcal{F}$ to zbiór fluentów, a $ \mathcal{A}c$ to zbiór akcji. Dodatkowo definiuje się zbiór \textbf{fluentów inercjalnych} $\mathcal{F}_I \subseteq \mathcal{F}$.
+    \textbf{Sygnaturą} języka jest uporządkowana para zbiorów $\Upsilon = (\mathcal{F}, \mathcal{A}c)$, gdzie $\mathcal{F}$ to~zbiór fluentów, a $ \mathcal{A}c$ to~zbiór akcji. Dodatkowo definiuje~się zbiór \textbf{fluentów inercjalnych} $\mathcal{F}_I \subseteq \mathcal{F}$.
 \end{defn}
 
 \begin{defn}
-    \textbf{Formuła} nad zbiorem fluentów $\mathcal{F}$ to dowolny predykat zbudowany z fluentów: 
+    \textbf{Formuła} nad~zbiorem fluentów~$\mathcal{F}$ to~dowolny predykat zbudowany z~fluentów: 
     $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \rightarrow \alpha_2\ |\ \alpha_1 \leftrightarrow \alpha_2 $$
     Ponadto definiujemy dwie specjalne formuły:
     
-    \quad$\top\colon$ prawda
+    \begin{itemize}
+    \item $\top\colon$ prawda,
     
-    \quad$\bot\colon$ fałsz
+    \item $\bot\colon$ fałsz.
+    \end{itemize}
     
-    Zbiór wszystkich formuł nad zbiorem fluentów $\mathcal{F}$ oznaczamy jako $Forms(\mathcal{F})$.
+    Zbiór wszystkich formuł nad~zbiorem fluentów $\mathcal{F}$ oznaczamy jako $Forms(\mathcal{F})$.
 \end{defn}
 
 W języku istnieje pięć rodzajów zdań:
 \begin{enumerate}
     \item Zdania wartości:
     \begin{itemize}
-        \item \textit{initially} $\alpha$ - wartość początkowa formuły $\alpha$
-        \item $\alpha$ \textit{after} $A$ - formuła $\alpha$ musi być spełniona po akcji $A$
-        \item \textit{observable} $\alpha$ \textit{after} $A$ - formuła $\alpha$ może ale nie musi być spełniona po akcji $A$
+        \item $\Initially \alpha$ -- określa, że w~stanie początkowym formuła~$\alpha$ musi być spełniona,
+        \item $\alpha \After A$ -- formuła~$\alpha$ musi być spełniona po~wykonaniu akcji~$A$,
+        \item $\Observable \alpha \After A$ -- formuła~$\alpha$ może (ale nie~musi) być spełniona po~wykonaniu akcji~$A$,
     \end{itemize}
         
-    gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$
+    gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
     
     \item Zdania efektu:
     \begin{itemize}
-        \item $A$ \textit{causes} $\alpha$ \textit{if} $\pi$ - Wykonanie akcji $A$ w dowolnym stanie spełniającym $\pi$ daje efekt $\alpha$
-        \item $A$ \textit{causes} $\alpha$ - Wykonanie akcji $A$ w każdym stanie daje efekt $\alpha$
-        \item \textit{impossible} $A$ \textit{if} $\pi$ - Akcja $A$ jest niewykonalna w każdym stanie spełniającym $\pi$
+        \item $A \Causes \alpha \If \pi$ -- wykonanie akcji $A$ w~dowolnym stanie spełniającym~$\pi$ daje efekt~$\alpha$,
+        \item $A \Causes \alpha$ -- wykonanie akcji $A$ w~każdym stanie daje efekt~$\alpha$,
+        \item $\Impossible A \If \pi$ -- akcja $A$ jest niewykonalna w~każdym stanie spełniającym $\pi$,
     \end{itemize}
     
-    gdzie $\alpha, \pi \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$
+    gdzie $\alpha, \pi \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
     
-    \item Zdania uwolnienia (release):
+    \item Zdania uwolnienia fluentu:
     \begin{itemize}
-        \item $A$ \textit{releases} $f$ \textit{if} $\pi$ - wykonanie akcji $A$ w dowolnym stanie spełniającym $\pi$ może, ale nie musi zmienić wartości fluentu inercjalnego $f$
-        \item $A$ \textit{releases} $f$ - wykonanie akcji $A$ w każdym stanie może, ale nie musi zmienić wartości fluentu inercjalnego $f$
+        \item $A \Releases f \If \pi$ -- wykonanie akcji~$A$ w~dowolnym stanie spełniającym~$\pi$ może, ale nie~musi zmienić wartości fluentu inercjalnego~$f$,
+        \item $A \Releases f$ -- wykonanie akcji~$A$ w~każdym stanie może, ale nie~musi zmienić wartości fluentu inercjalnego~$f$,
     \end{itemize}
     
-    gdzie $\pi \in Forms(\mathcal{F})$, $f \in \mathcal{F}_I$ oraz $A \in \mathcal{A}c$
+    gdzie $\pi \in Forms(\mathcal{F})$, $f \in \mathcal{F}_I$ oraz $A \in \mathcal{A}c$.
     
-    \item Zdania ograniczenia (constraint):
+    \item Zdania ograniczenia:
     \begin{itemize}
-        \item \textit{always} $\alpha$ - formuła $\alpha$ jest spełniona w każdym stanie
+        \item $\Always \alpha$ -- formuła $\alpha$ jest spełniona w~każdym stanie,
     \end{itemize}
-    gdzie $\alpha \in Forms(\mathcal{F})$
+    gdzie $\alpha \in Forms(\mathcal{F})$.
     
-    \item Zdania sepcyfikacji fluentu:
+    \item Zdania specyfikacji fluentu:
     \begin{itemize}
-        \item \textit{noninertial} $f$ - oznacza fluent $f$ jako nieinercjalny
+        \item $\Noninertial f$ - oznacza fluent $f$ jako nieinercjalny,
     \end{itemize}
-    gdzie $f \notin \mathcal{F}_I$
+    gdzie $f \notin \mathcal{F}_I$.
     
 \end{enumerate}
 
