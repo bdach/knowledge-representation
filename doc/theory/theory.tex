@@ -161,6 +161,25 @@ W języku istnieje pięć rodzajów zdań:
 
 % Model, funkcje psi - Michał
 
+%Model
+
+Niech $D$ będzie domeną akcji w $\mathcal{AC}$. Struktura $S = (\Sigma,\sigma_0,Res)$ jest \textbf{modelem D} wtw:
+\begin{enumerate}
+\item $\Sigma$ jest zbiorem wszystkich stanów w $D$ (tj. zbiorem wszystkich stanów satysfakcjonujących wszystkie ograniczenia z $D$);
+\item każde zdanie wartości i każde zdanie obserwacji jest prawdziwe w $S$;
+\item dla każdej akcji $A \subseteq \mathcal{A}c$ i dla każdego stanu $\sigma \in \Sigma$, $Res(A,\sigma) \subseteq Res_0(A,\sigma)$ jest zbiorem wszystkich stanów $\sigma'$, dla którego zbiory $New(A,\sigma,\sigma')$ są minimalne (mając na względzie zawierania się zbiorów)
+%w oryginale powyższy fragment: "are minimal (wrt set inclusion)." wrt - with regards to, nie jestem pewien czy to dobrze przetłumaczyłem
+\end{enumerate}
+
+%Funkcje psi
+
+Niech $D$ będzie domeną akcji. Dla struktury $S = (\Sigma,\sigma_0,Res)$, definiujemy częściowe mapowanie 
+$\Psi_S : 2^{\mathcal{A}c^*} \times \Sigma \rightarrow \Sigma$ w następujący sposób:
+\begin{itemize}
+\item $\Psi_S(\epsilon,\sigma) = \sigma$
+\item jeśli dla $n \geq 1, \Psi_S((A_1,...,A_n),\sigma)$ jest zdefiniowane i $Res((A_1,...,A_n,A_{n+1}),\sigma) \neq \emptyset$, to $\Psi_S((A_1,...,A_n,A_{n+1}),\sigma) \in Res(A_n,\Psi_S((A_1,...,A_n),\sigma)).$
+\end{itemize}
+
 \section{Język kwerend}
 
 \subsection{Składnia języka}
