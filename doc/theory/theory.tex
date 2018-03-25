@@ -153,6 +153,50 @@ W języku istnieje pięć rodzajów zdań:
 
 \subsection{Semantyka języka}
 
+\begin{defn}
+Stanem nazywamy funkcję $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$.
+\end{defn}
+Dodatkowo, przez $\sigma^{*}$ określamy rozszerzenie tej funkcji, zdefiniowane dla wszystkich formuł nad zbiorem fluentów:
+$$\sigma^{*} : Forms(\mathcal{F}) \rightarrow \left\{0,1\right\}$$
+gdzie:
+$$\sigma^{*}\left(f\right) = \sigma\left(f\right) \text{ dla } f \in \mathcal{F}$$
+$$\sigma^{*}\left(\neg \alpha\right) = 1 - \sigma^{*}\left(\alpha\right)$$
+$$\sigma^{*}\left(\alpha \land \beta\right) = min\left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right)$$
+$$\sigma^{*}\left(\alpha \lor \beta\right) = max\left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right)$$
+$$\sigma^{*}\left(\alpha \rightarrow \beta\right) = \sigma^{*}\left(\neg \alpha \lor \beta\right)$$
+$$\sigma^{*}\left(\alpha \equiv \beta\right) = \sigma^{*}\left(\left(\alpha \rightarrow \beta\right)\land\left(\beta \rightarrow \alpha\right)\right)$$
+
+Dla każdej formuły $\alpha \in Forms\left(\mathcal{F}\right)$, gdy $\sigma^*\left(\alpha\right) = 1$, piszemy $\sigma^{*} \models \alpha$. 
+
+W dalszej części dokumentu będziemy pisać $\sigma\left(\alpha\right)$ zamiast $\sigma^*\left(\alpha\right)$.
+
+\begin{defn}
+Strukturą dla języka $\mathcal{L}$ nazywamy trójkę
+$$\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$$
+gdzie:
+\begin{enumerate}
+    \item $\Sigma$ - zbiór stanów spełniających wszystkie ograniczenia
+    \item $\sigma_0 \in \Sigma$ - stan poczatkowy
+    \item $Res : 2^{Ac} \times \Sigma \rightarrow 2^\Sigma$ - funkcja przejścia
+\end{enumerate}
+\end{defn}
+
+Dla każdego zbioru akcji $A \in 2^{Ac}$ i dla każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkowuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A$ w stanie $\sigma$.
+
+Dodatkowo przez $Res\left(\left(A_1,A_2,\dots,A_n\right),\sigma\right)$ gdzie $A_1,A_2,\dots,A_n \in 2^{Ac}$ oznaczamy zbiór stanów możliwych do osiągnięcia po wykonaniu ciągu zbiorów akcji $A_1,A_2,\dots,A_n$.
+
+\begin{defn}
+Domeną akcji $\mathcal{D}$ nazywamy zbiór wszystkich zdań.
+\end{defn}
+
+Niech $\mathcal{D}$ - domena akcji, $\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$ - struktura języka.
+
+Mówimy, że:
+\begin{enumerate}
+    \item fluent $f \in \mathcal{F}$  jest inercjalny w $\mathcal{S}$ wtedy i tylko wtedy, gdy $\left(\text{noninertial f}\right) \in \mathcal{D}$.
+    \item $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$ jest stanem $\mathcal{S}$ wtedy i tylko wtedy, gdy dla każdego ograniczenia $\left(\text{always } \alpha\right) \in \mathcal{D}$ zachodzi $\sigma \models \alpha$.
+\end{enumerate}
+
 % Stan, struktura - Maciek
 
 % DNF - Jacek
