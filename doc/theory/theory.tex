@@ -290,6 +290,35 @@ $\Psi_S : 2^{\mathcal{A}c^*} \times \Sigma \rightarrow \Sigma$ w następujący s
 
 \subsection{Semantyka języka}
 
+    Niech $\mathcal{D}$ będzie domeną akcji, a $\mathcal{Q}$ kwerendą. % TODO: dopisać jakiego języka?
+    Mówimy, że $\mathcal{Q}$ jest \textbf{konsekwencją} $\mathcal{D}$ (ozn. $\mathcal{D} \; |\!\!\!\approx \mathcal{Q}$), jeżeli:
+
+    \begin{enumerate}
+        \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wartości postaci:
+        \begin{itemize}
+            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \; |\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ istnieje mapowanie $\Psi_S$ takie, że zachodzi $\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$,
+            \item $\Necessary \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \; |\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ zachodzi $\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$,
+        \end{itemize}
+        \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wykonywalności postaci:
+        \begin{itemize}
+            \item $\Executable A_1, \dots, A_n$ -- wówczas $\mathcal{D} \; |\!\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy istnieje model % TODO: do uzgodnienia
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ taki, że istnieje % TODO: do uzgodnienia
+            mapowanie $\Psi_S$ takie, że $\Psi_S((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
+            \item $\Executable \Always A_1, \dots, A_n$ -- wówczas $\mathcal{D} \; |\!\!\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ $\Psi_S((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
+        \end{itemize}
+        \item w przypadku gdy $\mathcal{Q}$ jest kwerendą osiągalności postaci:
+        \begin{itemize}
+            \item $\Accessible \gamma$ -- wówczas $\mathcal{D} \; |\!\!\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ istnieje ciąg akcji $(A_1,...,A_n), \; n \geq 0$ taki, że:
+            \begin{itemize}
+                \item $\Psi_S((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
+                \item $\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$.
+            \end{itemize}
+        \end{itemize}
+    \end{enumerate}
+
 % kwerendy - Tymek
 
 \section{Przykładowe kwerendy}
