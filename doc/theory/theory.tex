@@ -29,7 +29,8 @@
 
 \DeclareMathOperator{\Executable}{\textbf{\textit{executable}}}
 \DeclareMathOperator{\Accessible}{\textbf{\textit{accessible}}}
-\DeclareMathOperator{\With}{\textbf{\textit{with}}}
+\DeclareMathOperator{\Possibly}{\textbf{\textit{possibly}}}
+\DeclareMathOperator{\Necessary}{\textbf{\textit{necessary}}}
 
 \begin{document}
 
@@ -155,9 +156,17 @@ W języku istnieje pięć rodzajów zdań:
 \subsection{Semantyka języka}
 
 \section{Język kwerend}
+
+\subsection{Składnia języka}
+
     \textbf{Kwerendą} będziemy nazywać jedno z~następujących wyrażeń:
 
     \begin{enumerate}
+        \item Kwerendy wartości:
+        \begin{itemize}            
+            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego prowadzi kiedykolwiek do~osiągnięcia celu~$\gamma$,
+            \item $\Necessary \gamma \After A_1, \dots, A_n$ -- określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego zawsze prowadzi do~osiągnięciu celu~$\gamma$,
+        \end{itemize}
         \item Kwerendy wykonywalności:
         \begin{itemize}
             \item $\Executable A_1, \dots, A_n$ -- określa, czy program $(A_1, \dots, A_n)$ jest kiedykolwiek wykonywalny ze~stanu początkowego,
@@ -166,14 +175,11 @@ W języku istnieje pięć rodzajów zdań:
         gdzie $A_1, \dots, A_n \subseteq \mathcal{A}c$.
         \item Kwerendy osiągalności:
         \begin{itemize}
-            \item $\Accessible \gamma \With A_1, \dots, A_n$ -- określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego prowadzi kiedykolwiek do~osiągnięcia celu~$\gamma$,
-            \item $\Accessible \Always \gamma \With A_1, \dots, A_n$ -- określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego zawsze prowadzi do~osiągnięciu celu~$\gamma$,
             \item $\Accessible \gamma$ -- określa, czy~istnieje taki program $(A_1, \dots, A_n)$, $n \geq 0$ wykonywalny ze~stanu początkowego, po~którego wykonaniu osiągnięty zostanie cel~$\gamma$.
         \end{itemize}
         gdzie $\gamma \in Forms(f)$, $A_1, \dots, A_n \subseteq \mathcal{A}c$.
     \end{enumerate}
 
-\subsection{Składnia języka}
 
 \subsection{Semantyka języka}
 
