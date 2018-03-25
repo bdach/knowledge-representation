@@ -33,6 +33,8 @@
 \DeclareMathOperator{\Possibly}{\textbf{\textit{possibly}}}
 \DeclareMathOperator{\Necessary}{\textbf{\textit{necessary}}}
 
+\def\consequence{\mathrel|\joinrel\approx}
+
 \begin{document}
 
 \title{Reprezentacja wiedzy \\
@@ -241,9 +243,79 @@ Metoda sprowadzania formuły do dysjunkcyjnej postaci normalnej:
 
 % dekompozycja, konflikt, Res0 - Filip
 
-% Model, funkcje psi - Michał
+\begin{defn}
+Niech $D$ to będzie domena akcji, niech $\sigma$ to będzie stan oraz niech $A, B \in \mathcal{AC}$ to dwie akcje elementarne. Akcje $A, B$ są konfliktujące wtedy i tylko wtedy gdy przynajmniej jeden z warunków jest prawdziwy:
+\begin{itemize}
+    \item Są w $D$ dwa zdania postaci:
+    \begin{center}
+        $A$ $\Causes$ $\alpha$ $\If$ $\pi_1 $ \\
+        $B$ $\Causes$ $\beta$ $\If$ $\pi_2 $
+    \end{center}
+    takie, że:
+    \begin{itemize}
+        \item $\sigma \models \pi_1 \land \pi_2$
+        \item Jakiś komponent z $\alpha$ jest sprzeczny z jakimś komponentem z $\beta$.
+    \end{itemize}
+    \item Są w $D$ dwa zdania postaci:
+    \begin{center}
+        $A$ $\Causes$ $\alpha$ $\If$ $\pi_1 $ \\
+        $B$ $\Releases$ $f$ $\If$ $\pi_2 $
+    \end{center}
+    takie, że:
+    \begin{itemize}
+        \item $\sigma \models \pi_1 \land \pi_2$
+        \item W jakimś komponencie z $\alpha$ występuje $f$.
+    \end{itemize}
+\end{itemize}
+\end{defn}
+
+\begin{defn}
+Niech $D$ to będzie domena akcji, niech $\sigma$ to będzie stan. Akcja złożona $\{ A_1, \dots A_k \}$, gdzie $A_i$ to akcje elementarne, jest \textbf{potencjalnie wykonywalna} w $\sigma$ wtedy i tylko wtedy gdy nie istnieje $B \subseteq A_1 \cup \dots \cup A_k$ takie, że $D$ zawiera zdania:
+\begin{center}
+    $B$ $\Causes$ $\alpha_1$ $\If$ $\pi_1 $ \\
+    $\cdots$ \\
+    $B$ $\Causes$ $\alpha_k$ $\If$ $\pi_k $
+\end{center}
+takie, że:
+\begin{itemize}
+    \item $\sigma \models \pi_1 \land \dots \pi_k$
+    \item $\alpha1 \land \dots \alpha_k$ jest sprzeczne
+\end{itemize}
+\end{defn}
+
+\begin{defn}
+Niech $D$ to będzie domena akcji, niech $\sigma$ to będzie stan oraz niech $A \subseteq \mathcal{AC}$. \textbf{Dekompozycją} $A$ w $\sigma$ będziemy nazywać będzie taki zbiór $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ akcji elementarnych w $D$, że:
+\begin{enumerate}
+    \item $\bigcup_{i = 1}^{k} E_i \subseteq A$
+    \item  $\Delta(A, \sigma)$ jest zbiorem niekonfliktujących akcji potencjalnie wykonywalnych w  $\sigma$.
+    \item Nie ma żadnego zbioru $\{ E_1^\prime \dots E_k^\prime, E_{k+1}^\prime, \dots, E_m^\prime \}$ akcji spełniającego powyższe warunki i w dodatku takiego, że $E_i \subset E_i^\prime$ dla pewnego $i = 1, \dots, k$.
+\end{enumerate}
+\end{defn}
+
+\begin{defn}
+Niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ będzie dekompozycją $A$ w $\sigma$, wtedy dla każdego $i$, $E_i$ jest nazywane \textbf{komponentem wykonania} $A$ w stanie $\sigma$.
+\end{defn}
+
+\begin{defn}
+Niech $D$ to będzie domena akcji, niech $\sigma, \sigma^\prime$ to będą stany oraz niech $A \subseteq \mathcal{AC}$ to akcja i niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ to dekompozycja $A$ w $\sigma$. Mówimy, że $\sigma^\prime$ \textbf{potencjalnym wynikiem wykonania} $A$ w $\sigma$ wtedy i tylko wtedy gdy dla każdego $i = 1, \dots k$ i dla każdego zdania postaci: 
+\begin{center}
+    $(E_i \Causes \alpha \If \pi) \in D $
+\end{center}
+zachodzi, że $\sigma \models \pi \Rightarrow \sigma^\prime \models \alpha $
+\end{defn} 
+
+Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który spełnia wszystkie efekty komponentów $E_i$ z jednej dekompozycji. Jeśli mamy $n$ różnych dekompozycji to potencjalny wynik akcji (stan po wykonaniu akcji) musi spełniać efekty tylko komponentów jednej z nich.
+
+\begin{defn}
+\textbf{Strukturą} dla $\mathcal{AC}$ jest taka trójka $(\Sigma, \sigma_0, Res)$, gdzie $\Sigma$ to zbiór stanów, $\sigma_0$ to stan początkowy i $Res: 2^{\mathcal{AC}} \times \Sigma \rightarrow 2^\Sigma$.
+
+Dodatkowo definiowane jest mapowanie pomocnicze $Res_0: 2^{\mathcal{AC}} \times \Sigma \rightarrow 2^\Sigma$ w następujący sposób: dla każdego stanu $\sigma$ oraz dla każdej akcji $A \subseteq \mathcal{AC}$ zachodzi: jeśli $A$ posiada w $\sigma$ $n$ dekompozycji $\Delta_1(A, \sigma), \dots, \Delta_n(A, \sigma)$, gdzie $\Delta_i(A, \sigma) = \{ A_1^i, \dots, A_{k_i}^i \}$, to będzie zbiór wszystkich potencjalnych wyników wykonania $A$ w $\sigma$ dla każdej dekompozycji.
+\end{defn}
+
+% Mo d;del, funkcje psi - Michał
 
 %Model
+\begin{defn}
 
 Niech $D$ będzie domeną akcji w $\mathcal{AC}$. Struktura $S = (\Sigma,\sigma_0,Res)$ jest \textbf{modelem D} wtw:
 \begin{enumerate}
@@ -252,6 +324,7 @@ Niech $D$ będzie domeną akcji w $\mathcal{AC}$. Struktura $S = (\Sigma,\sigma_
 \item dla każdej akcji $A \subseteq \mathcal{A}c$ i dla każdego stanu $\sigma \in \Sigma$, $Res(A,\sigma) \subseteq Res_0(A,\sigma)$ jest zbiorem wszystkich stanów $\sigma'$, dla którego zbiory $New(A,\sigma,\sigma')$ są minimalne (mając na względzie zawierania się zbiorów)
 %w oryginale powyższy fragment: "are minimal (wrt set inclusion)." wrt - with regards to, nie jestem pewien czy to dobrze przetłumaczyłem
 \end{enumerate}
+\end{defn}
 
 %Funkcje psi
 
@@ -291,27 +364,27 @@ $\Psi_S : 2^{\mathcal{A}c^*} \times \Sigma \rightarrow \Sigma$ w następujący s
 \subsection{Semantyka języka}
 
     Niech $\mathcal{D}$ będzie domeną akcji, a $\mathcal{Q}$ kwerendą. % TODO: dopisać jakiego języka?
-    Mówimy, że $\mathcal{Q}$ jest \textbf{konsekwencją} $\mathcal{D}$ (ozn. $\mathcal{D} \; |\!\!\!\approx \mathcal{Q}$), jeżeli:
+    Mówimy, że $\mathcal{Q}$ jest \textbf{konsekwencją} $\mathcal{D}$ (ozn. $\mathcal{D} \consequence \mathcal{Q}$), jeżeli:
 
     \begin{enumerate}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wartości postaci:
         \begin{itemize}
-            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \; |\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ istnieje mapowanie $\Psi_S$ takie, że zachodzi $\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$,
-            \item $\Necessary \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \; |\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            \item $\Necessary \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ zachodzi $\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$,
         \end{itemize}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wykonywalności postaci:
         \begin{itemize}
-            \item $\Executable A_1, \dots, A_n$ -- wówczas $\mathcal{D} \; |\!\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy istnieje model % TODO: do uzgodnienia
+            \item $\Executable A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy istnieje model % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ taki, że istnieje % TODO: do uzgodnienia
             mapowanie $\Psi_S$ takie, że $\Psi_S((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
-            \item $\Executable \Always A_1, \dots, A_n$ -- wówczas $\mathcal{D} \; |\!\!\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            \item $\Executable \Always A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ $\Psi_S((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
         \end{itemize}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą osiągalności postaci:
         \begin{itemize}
-            \item $\Accessible \gamma$ -- wówczas $\mathcal{D} \; |\!\!\!\!\!\approx \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ istnieje ciąg akcji $(A_1,...,A_n), \; n \geq 0$ taki, że:
+            \item $\Accessible \gamma$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ istnieje ciąg akcji $(A_1,...,A_n), \; n \geq 0$ taki, że:
             \begin{itemize}
                 \item $\Psi_S((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
                 \item $\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$.
