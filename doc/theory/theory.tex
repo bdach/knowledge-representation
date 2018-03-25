@@ -14,6 +14,7 @@
 \setlength{\parskip}{2mm}
 
 \newtheorem{defn}{Definicja}
+\newtheorem{theorem}{Twierdzenie}
 
 % definicje operatorów w zdaniach
 
@@ -156,6 +157,43 @@ W języku istnieje pięć rodzajów zdań:
 % Stan, struktura - Maciek
 
 % DNF - Jacek
+
+\begin{defn}
+Niech $\alpha$ będzie dowolną formułą nad zbiorem fluentów $\mathcal{F}$. Mówimy, że $\alpha$ jest w~\textbf{dysjunkcyjnej postaci normalnej (DNF)} wtedy i tylko wtedy, gdy 
+$$\alpha = \bigvee_{i=1}^{n} \bigwedge_{j=1}^{k(i)} \lambda_{ij}$$
+gdzie $\lambda_{ij}$ jest literałem.
+\end{defn}
+
+\begin{theorem}
+Każdą formułę $\alpha$ można przekształcić do formuły $\alpha'$, która jest w postaci DNF.
+\end{theorem}
+
+Formułę $\alpha$ przekształconą do postaci DNF oznaczamy jako $DNF(\alpha)$.
+
+\begin{defn}
+Niech $DNF(\alpha) = \gamma_1 \vee \dots \vee \gamma_k$. Każdą formułę $\gamma_i$ nazywamy komponentem formuły $\alpha$.
+\end{defn}
+
+Metoda sprowadzania formuły do dysjunkcyjnej postaci normalnej:
+
+\begin{enumerate}
+	\item Eliminacja implikacji oraz równoważności, poprzez zastąpienie ich 			odpowiadającymi formułami 
+		\begin{itemize}
+			\item $\alpha \rightarrow \beta \equiv \neg\alpha \vee \beta$
+			\item $\alpha \leftrightarrow \beta \equiv (\neg\alpha \vee \beta) \wedge (\neg\beta \vee \alpha)$
+		\end{itemize}
+	\item Przekształcenie formuły tak, aby negacje stały bezpośrednio przy odpowiadających im literałach
+		\begin{itemize}
+			\item $\neg(\alpha \wedge \beta) \equiv \neg\alpha \vee \neg\beta$
+			\item $\neg(\alpha \vee \beta) \equiv \neg\alpha \wedge \neg\beta$
+			\item $\neg\neg\alpha \equiv \alpha$
+		\end{itemize}
+		\item Rozdzielenie alternatywy względem koniunkcji
+		\begin{itemize}
+			\item $\alpha \wedge (\beta \vee \gamma) \equiv (\alpha \wedge \beta) \vee (\alpha \wedge \gamma)$
+			\item $(\beta \vee \gamma) \wedge \alpha \equiv (\beta \wedge \alpha) \vee (\gamma \wedge \alpha)$
+		\end{itemize}
+\end{enumerate}
 
 % dekompozycja, konflikt, Res0 - Filip
 
