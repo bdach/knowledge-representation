@@ -103,6 +103,12 @@ Zgodnie z~założeniami projektu, w~języku akcji będą rozważane jedynie nast
 Sygnatura języka określa zarówno logiczne zmienne określające stan świata (fluenty), jak i~możliwe metody manipulacji tym światem (akcje).
 
 \begin{defn}
+    \textbf{Literałem} $\overline{f}$ będziemy nazywać jedno z~wyrażeń
+    $$ \overline{f} ::= f\ |\ \neg f $$
+    gdzie $f \in \mathcal{F}$.
+\end{defn}
+
+\begin{defn}
     \textbf{Formuła} nad~zbiorem fluentów~$\mathcal{F}$ to~dowolny predykat zbudowany z~fluentów: 
     $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \Rightarrow \alpha_2\ |\ \alpha_1 \Leftrightarrow \alpha_2 $$
     Ponadto definiujemy dwie specjalne formuły:
@@ -203,7 +209,7 @@ Powyższe zdanie można traktować jak deklarację istnienia nieinercjalnego flu
 Funkcja stanu definiuje w~sposób jednoznaczny wartość wszystkich fluentów.
 
 \begin{defn}
-    Strukturą dla języka $\mathcal{L}$ nazywamy trójkę
+    \textbf{Strukturą} dla języka $\mathcal{L}$ nazywamy trójkę
     $$\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$$
     gdzie:
     \begin{enumerate}
@@ -214,6 +220,8 @@ Funkcja stanu definiuje w~sposób jednoznaczny wartość wszystkich fluentów.
 \end{defn}
 
 Docelowo, dla~każdego zbioru akcji $A' \in 2^{\mathcal{A}c}$ i dla~każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A'$ w~stanie $\sigma$.
+
+Zauważmy, że~docelowo w~systemie może~być rozważane wiele struktur dla~jednej domeny akcji, z~racji niepełnej wiedzy o~stanie początkowym fluentów.
 
 \subsubsection{Akcje złożone}
 
@@ -268,7 +276,8 @@ Po~zdefiniowaniu DNF przystąpmy do~określenia, jakie akcje będą~rozważane z
     \end{itemize}
 \end{defn}
 
-Zauważmy, że~warunek o~sprzeczności komponentów z~$\alpha$ i~$\beta$ jest równoważny sprzeczności formuły $\alpha \land \beta$.
+Zauważmy, że~w~pierwszym przypadku warunek o~sprzeczności komponentów z~$\alpha$ i~$\beta$ jest równoważny sprzeczności formuły $\alpha \land \beta$.
+W~drugim przypadku przyjmujemy, że~zdanie efektu ma~większą wagę niż~zdanie uwolnienia fluentu. % TODO: SPRAWDZIĆ, ŻE TAK JEST
 
 \begin{defn}
     \label{defn:potentially-executable}
@@ -299,11 +308,11 @@ Innymi słowy, dekompozycja akcji złożonej $A$ określa maksymalne ze~względu
 Zauważmy, że na~mocy definicji \ref{defn:conflict} i~\ref{defn:potentially-executable} możemy wspomóc~się dysjunkcyjną postacią normalną przy~wyznaczaniu niekonfliktujących akcji.
     
 \begin{defn}
-    Niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ będzie dekompozycją $A$ w $\sigma$. Każdą akcję $E_i$ nazywamy \textbf{komponentem wykonania} $A$ w~stanie $\sigma$.
+    Niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ będzie dekompozycją $A$ w $\sigma$. Każdą akcję $E_i$ nazywamy \textbf{komponentem wykonania} $A$ w~stanie $\sigma$.
 \end{defn}
     
 \begin{defn}
-    Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma, \sigma^\prime$ będą stanami, niech $A \subseteq \mathcal{A}c$ będzie akcją i niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ będzie dekompozycją $A$ w~$\sigma$.
+    Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma, \sigma^\prime$ będą stanami, niech $A \subseteq \mathcal{A}c$ będzie akcją i niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ będzie dekompozycją $A$ w~$\sigma$.
     Mówimy, że $\sigma^\prime$ jest \textbf{potencjalnym wynikiem wykonania} $A$ w $\sigma$ wtedy i~tylko wtedy gdy dla każdego $i = 1, \dots k$ i~dla~każdego zdania postaci: 
     $$ (E_i \Causes \alpha \If \pi) \in D $$
     zachodzi $\sigma \models \pi \Rightarrow \sigma^\prime \models \alpha $.
@@ -314,32 +323,45 @@ Wybór komponentu jest jednym z~elementów niedeterminizmu w~rozważanym systemi
 
 \subsubsection{Model domeny akcji}
 
-Niech $\mathcal{D}$ - domena akcji, $\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$ - struktura języka.
-
-Mówimy, że:
-\begin{enumerate}
-    \item fluent $f \in \mathcal{F}$  jest inercjalny w $\mathcal{S}$ wtedy i tylko wtedy, gdy $\left(\text{noninertial f}\right) \in \mathcal{D}$.
-    \item $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$ jest stanem $\mathcal{S}$ wtedy i tylko wtedy, gdy dla każdego ograniczenia $\left(\text{always } \alpha\right) \in \mathcal{D}$ zachodzi $\sigma \models \alpha$.
-\end{enumerate}
-
+Niech $\mathcal{D}$ będzie domeną akcji, zaś $\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$ pewną strukturą języka.
 
 \begin{defn}
-\textbf{Strukturą} dla $\mathcal{AC}$ jest taka trójka $(\Sigma, \sigma_0, Res)$, gdzie $\Sigma$ to zbiór stanów, $\sigma_0$ to stan początkowy i $Res: 2^{\mathcal{AC}} \times \Sigma \rightarrow 2^\Sigma$.
-
-Dodatkowo definiowane jest mapowanie pomocnicze $Res_0: 2^{\mathcal{AC}} \times \Sigma \rightarrow 2^\Sigma$ w następujący sposób: dla każdego stanu $\sigma$ oraz dla każdej akcji $A \subseteq \mathcal{AC}$ zachodzi: jeśli $A$ posiada w $\sigma$ $n$ dekompozycji $\Delta_1(A, \sigma), \dots, \Delta_n(A, \sigma)$, gdzie $\Delta_i(A, \sigma) = \{ A_1^i, \dots, A_{k_i}^i \}$, to będzie zbiór wszystkich potencjalnych wyników wykonania $A$ w $\sigma$ dla każdej dekompozycji.
+    Fluent $f \in \mathcal{F}$ jest inercjalny w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy $\left(\Noninertial f\right) \notin \mathcal{D}$.
 \end{defn}
 
-
-%Model
 \begin{defn}
+    $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$ jest \textbf{stanem} $\mathcal{S}$ względem~$\mathcal{D}$ wtedy i~tylko wtedy, gdy dla~każdego zdania ograniczenia $\left(\Always \alpha\right) \in \mathcal{D}$ zachodzi $\sigma \models \alpha$.
+\end{defn}
 
-Niech $D$ będzie domeną akcji w $\mathcal{AC}$. Struktura $S = (\Sigma,\sigma_0,Res)$ jest \textbf{modelem D} wtw:
-\begin{enumerate}
-\item $\Sigma$ jest zbiorem wszystkich stanów w $D$ (tj. zbiorem wszystkich stanów satysfakcjonujących wszystkie ograniczenia z $D$);
-\item każde zdanie wartości i każde zdanie obserwacji jest prawdziwe w $S$;
-\item dla każdej akcji $A \subseteq \mathcal{A}c$ i dla każdego stanu $\sigma \in \Sigma$, $Res(A,\sigma) \subseteq Res_0(A,\sigma)$ jest zbiorem wszystkich stanów $\sigma'$, dla którego zbiory $New(A,\sigma,\sigma')$ są minimalne (mając na względzie zawierania się zbiorów)
-%w oryginale powyższy fragment: "are minimal (wrt set inclusion)." wrt - with regards to, nie jestem pewien czy to dobrze przetłumaczyłem
-\end{enumerate}
+Aby móc zdefiniować funkcję przejścia dla~modelu, wprowadzimy kilka pojęć pomocniczych.
+
+\begin{defn}
+    Zdefiniujmy pomocniczą funkcję $Res_0: 2^{\mathcal{A}c} \times \Sigma \rightarrow 2^\Sigma$.
+
+    Niech dany będzie stan $\sigma \in \Sigma$ i~akcja złożona $A \subseteq \mathcal{A}c$.
+    Niech $\Delta_1(A, \sigma), \dots, \Delta_n(A, \sigma)$ będą dekompozycjami akcji~$A$ względem stanu~$\sigma$.
+    Wówczas $\sigma' \in Res_0(\sigma, A)$ wtedy i~tylko wtedy, gdy $\sigma'$ jest potencjalnym wynikiem wykonania $A$ dla~pewnej dekompozycji $\Delta_i(A, \sigma)$.
+\end{defn}
+
+Funkcja $Res_0$ określa możliwe zmiany w~stanie~$\sigma$ spowodowane przez~zdania $\Causes$.
+
+\begin{defn}
+    Dla~każdych stanów $\sigma, \sigma' \in \Sigma$ i~dla~każdej akcji $A \in \mathcal{A}c$, zbiorem $New(A, \sigma, \sigma')$ będziemy nazywać zbiór wszystkich literałów $\overline{f}$ takich, że $\sigma' \models f$ oraz:
+    \begin{itemize}
+        \item $f$ jest inercjalny oraz $\sigma(f) \neq \sigma'(f)$, lub
+        \item w~$\mathcal{D}$ istnieje zdanie $(A \Releases f \If \pi)$ oraz~$\sigma \models \pi$.
+    \end{itemize}
+\end{defn}
+
+Zbiory $New$ określają, które fluenty inercjalne zmieniły~się pomiędzy dwoma stanami, a~ponadto uwzględniają możliwość dowolnych fluktuacji fluentów nieinercjalnych.
+
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji w $\mathcal{A}c$. Struktura $\mathcal{S} = (\Sigma,\sigma_0,Res)$ jest \textbf{modelem $\mathcal{D}$} wtw:
+    \begin{enumerate}
+    \item $\Sigma$ jest zbiorem wszystkich stanów w $\mathcal{D}$ (tj. zbiorem wszystkich stanów satysfakcjonujących wszystkie ograniczenia z $\mathcal{D}$);
+    \item każde zdanie wartości i każde zdanie obserwacji jest prawdziwe w $\mathcal{S}$;
+    \item dla każdej akcji $A \subseteq \mathcal{A}c$ i dla każdego stanu $\sigma \in \Sigma$, $Res(A,\sigma) \subseteq Res_0(A,\sigma)$ jest zbiorem wszystkich stanów $\sigma'$, dla którego zbiory $New(A,\sigma,\sigma')$ są~minimalne ze~względu na~relację inkluzji.
+    \end{enumerate}
 \end{defn}
 
 %Funkcje psi
