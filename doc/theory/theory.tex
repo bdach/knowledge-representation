@@ -90,17 +90,21 @@ Celem projektu jest opracowanie i~zaimplementowanie języka akcji dla~specyfikac
 
 \section{Język akcji}
 
+Scenariusze dla~zadanej klasy systemów dynamicznych będą reprezentowane za~pomocą języka akcji wzorowanego na~językach z~rodziny $\mathcal{AR}$.
+Zgodnie z~założeniami projektu, w~języku akcji będą rozważane jedynie następstwa akcji atomowych.
+
 \subsection{Składnia języka}
 
-Język opracowany w~ramach projektu będzie bazować na~językach z~rodziny $\mathcal{AR}$.
-
 \begin{defn}
-    \textbf{Sygnaturą} języka jest uporządkowana para zbiorów $\Upsilon = (\mathcal{F}, \mathcal{A}c)$, gdzie $\mathcal{F}$ to~zbiór fluentów, a $ \mathcal{A}c$ to~zbiór akcji. Dodatkowo definiuje~się zbiór \textbf{fluentów inercjalnych} $\mathcal{F}_I \subseteq \mathcal{F}$.
+    \textbf{Sygnaturą} języka jest uporządkowana para zbiorów $\Upsilon = (\mathcal{F}, \mathcal{A}c)$, gdzie $\mathcal{F}$ to~zbiór fluentów, a $ \mathcal{A}c$ to~zbiór akcji.
+    Dodatkowo definiuje~się zbiór \textbf{fluentów inercjalnych} $\mathcal{F}_I \subseteq \mathcal{F}$.
 \end{defn}
+
+Sygnatura języka określa zarówno logiczne zmienne określające stan świata (fluenty), jak i~możliwe metody manipulacji tym światem (akcje).
 
 \begin{defn}
     \textbf{Formuła} nad~zbiorem fluentów~$\mathcal{F}$ to~dowolny predykat zbudowany z~fluentów: 
-    $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \rightarrow \alpha_2\ |\ \alpha_1 \leftrightarrow \alpha_2 $$
+    $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \implies \alpha_2\ |\ \alpha_1 \iff \alpha_2 $$
     Ponadto definiujemy dwie specjalne formuły:
     
     \begin{itemize}
@@ -112,47 +116,71 @@ Język opracowany w~ramach projektu będzie bazować na~językach z~rodziny $\ma
     Zbiór wszystkich formuł nad~zbiorem fluentów $\mathcal{F}$ oznaczamy jako $Forms(\mathcal{F})$.
 \end{defn}
 
-W języku istnieje pięć rodzajów zdań:
-\begin{enumerate}
-    \item Zdania wartości:
-    \begin{itemize}
-        \item $\Initially \alpha$ -- określa, że w~stanie początkowym formuła~$\alpha$ musi być spełniona,
-        \item $\alpha \After A$ -- formuła~$\alpha$ musi być spełniona po~wykonaniu akcji~$A$,
-        \item $\Observable \alpha \After A$ -- formuła~$\alpha$ może (ale nie~musi) być spełniona po~wykonaniu akcji~$A$,
-    \end{itemize}
-        
-    gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
-    
-    \item Zdania efektu:
-    \begin{itemize}
-        \item $A \Causes \alpha \If \pi$ -- wykonanie akcji $A$ w~dowolnym stanie spełniającym~$\pi$ daje efekt~$\alpha$,
-        \item $A \Causes \alpha$ -- wykonanie akcji $A$ w~każdym stanie daje efekt~$\alpha$,
-        \item $\Impossible A \If \pi$ -- akcja $A$ jest niewykonalna w~każdym stanie spełniającym $\pi$,
-    \end{itemize}
-    
-    gdzie $\alpha, \pi \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
-    
-    \item Zdania uwolnienia fluentu:
-    \begin{itemize}
-        \item $A \Releases f \If \pi$ -- wykonanie akcji~$A$ w~dowolnym stanie spełniającym~$\pi$ może, ale nie~musi zmienić wartości fluentu inercjalnego~$f$,
-        \item $A \Releases f$ -- wykonanie akcji~$A$ w~każdym stanie może, ale nie~musi zmienić wartości fluentu inercjalnego~$f$,
-    \end{itemize}
-    
-    gdzie $\pi \in Forms(\mathcal{F})$, $f \in \mathcal{F}_I$ oraz $A \in \mathcal{A}c$.
-    
-    \item Zdania ograniczenia:
-    \begin{itemize}
-        \item $\Always \alpha$ -- formuła $\alpha$ jest spełniona w~każdym stanie,
-    \end{itemize}
+Proponowany język definiuje następujące sześć typów wyrażeń:
+
+\begin{defn}
+    \textbf{Zdaniem wartości początkowej} nazywamy zdanie postaci
+    $$ \Initially \alpha $$
     gdzie $\alpha \in Forms(\mathcal{F})$.
-    
-    \item Zdania specyfikacji fluentu:
+\end{defn}
+
+Zdanie wartości początkowej będzie służyło do~określenia początkowego stanu fluentów.
+Zgodnie z~założeniami, w~systemie nie~jest wymagane wyspecyfikowanie wartości początkowej wszystkich fluentów.
+
+\begin{defn}
+    \textbf{Zdaniem wartości} nazywamy zdanie postaci
+    $$ \alpha \After A \qquad \text{lub} \qquad \Observable \alpha \After A $$
+    gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
+\end{defn}
+
+Zdanie $\After$ służy do~opisu pewnych następstw akcji~$A$, z~kolei zdanie $\Observable \dots \After$ określa niedeterministyczne skutki akcji.
+
+\begin{defn}
+    \textbf{Zdaniem efektu} nazywamy zdanie postaci
+    $$A \Causes \alpha \If \pi$$
+    gdzie $\alpha, \pi \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
+
+    W~szczególności:
     \begin{itemize}
-        \item $\Noninertial f$ - oznacza fluent $f$ jako nieinercjalny,
+        \item jeśli $\pi = \top$, to piszemy, że $A \Causes \alpha$,
+        \item jeśli $\alpha = \bot$, to piszemy, że $\Impossible A \If \pi$.
     \end{itemize}
-    gdzie $f \notin \mathcal{F}_I$.
-    
-\end{enumerate}
+\end{defn}
+
+Zdania efektu określają następstwa akcji pod~warunkiem spełnienia warunku~$\alpha$, zwanego również \textbf{warunkiem wstępnym} akcji.
+Szczególną wagę ma~zdanie $\Impossible$, które może uniemożliwić wykonanie danej akcji atomowej pod~warunkiem spełnienia warunku wstępnego.
+
+\begin{defn}
+    \textbf{Zdaniem uwolnienia fluentu} nazywamy zdanie postaci
+    $$ A \Releases f \If \pi $$
+    gdzie $\pi \in Forms(\mathcal{F})$, $f \in \mathcal{F}_I$ oraz $A \in \mathcal{A}c$.
+
+    W~szczególności, jeśli $\pi = \top$, to piszemy $A \Releases f$.
+\end{defn}
+
+Zdanie to~należy interpretować tak, że wykonanie akcji~$A$ w~każdym stanie może, ale nie~musi zmienić wartości fluentu inercjalnego~$f$.
+Innymi słowy, może ono służyć do~modelowania akcji losowych.
+
+\begin{defn}
+    \textbf{Zdaniem ograniczenia} nazywamy zdanie postaci
+    $$ \Always \alpha $$
+    gdzie $\alpha \in Forms(\mathcal{F})$.
+\end{defn}
+
+Ograniczenia stosowane~są do~wyeliminowania pewnych niepożądanych stanów systemu.
+Wyrażenie $\alpha$ zwane jest w~szczególności \textbf{warunkiem integralności}.
+
+\begin{defn}
+    \textbf{Zdaniem specyfikacji fluentu} nazywamy zdanie postaci
+    $$ \Noninertial f $$
+    gdzie $f \notin \mathcal{F}_I$. 
+\end{defn}
+
+Powyższe zdanie można traktować jak deklarację istnienia nieinercjalnego fluentu w~danej sygnaturze.
+
+\begin{defn}
+    Domeną akcji $\mathcal{D}$ nazywamy skończony zbiór zdań zdefiniowanych powyżej.
+\end{defn}
 
 \subsection{Semantyka języka}
 
@@ -187,10 +215,6 @@ gdzie:
 Dla każdego zbioru akcji $A \in 2^{Ac}$ i dla każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkowuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A$ w stanie $\sigma$.
 
 Dodatkowo przez $Res\left(\left(A_1,A_2,\dots,A_n\right),\sigma\right)$ gdzie $A_1,A_2,\dots,A_n \in 2^{Ac}$ oznaczamy zbiór stanów możliwych do osiągnięcia po wykonaniu ciągu zbiorów akcji $A_1,A_2,\dots,A_n$.
-
-\begin{defn}
-Domeną akcji $\mathcal{D}$ nazywamy zbiór wszystkich zdań.
-\end{defn}
 
 Niech $\mathcal{D}$ - domena akcji, $\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$ - struktura języka.
 
