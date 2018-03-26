@@ -104,7 +104,7 @@ Sygnatura języka określa zarówno logiczne zmienne określające stan świata 
 
 \begin{defn}
     \textbf{Formuła} nad~zbiorem fluentów~$\mathcal{F}$ to~dowolny predykat zbudowany z~fluentów: 
-    $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \implies \alpha_2\ |\ \alpha_1 \iff \alpha_2 $$
+    $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \Rightarrow \alpha_2\ |\ \alpha_1 \Leftrightarrow \alpha_2 $$
     Ponadto definiujemy dwie specjalne formuły:
     
     \begin{itemize}
@@ -185,36 +185,35 @@ Powyższe zdanie można traktować jak deklarację istnienia nieinercjalnego flu
 \subsection{Semantyka języka}
 
 \begin{defn}
-Stanem nazywamy funkcję $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$.
+    Stanem nazywamy funkcję $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$.
+
+    Dodatkowo, przez $\sigma^{*} : Forms(\mathcal{F}) \rightarrow \left\{0,1\right\}$ określamy rozszerzenie tej funkcji, zdefiniowane dla wszystkich formuł nad zbiorem fluentów:
+    gdzie
+    \begin{align*}
+        \sigma^{*}\left(f\right) &= \sigma\left(f\right) \text{ dla } f \in \mathcal{F} \\
+        \sigma^{*}\left(\neg \alpha\right) &= 1 - \sigma^{*}\left(\alpha\right) \\
+        \sigma^{*}\left(\alpha \land \beta\right) &= \min \left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right) \\
+        \sigma^{*}\left(\alpha \lor \beta\right) &= \max \left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right) \\
+        \sigma^{*}\left(\alpha \Rightarrow \beta\right) &= \sigma^{*}\left(\neg \alpha \lor \beta\right) \\
+        \sigma^{*}\left(\alpha \Leftrightarrow \beta\right) &= \sigma^{*}\left(\left(\alpha \rightarrow \beta\right)\land\left(\beta \rightarrow \alpha\right)\right)
+    \end{align*}
+    Dla każdej formuły $\alpha \in Forms\left(\mathcal{F}\right)$, gdy $\sigma^*\left(\alpha\right) = 1$, piszemy $\sigma \models \alpha$.
 \end{defn}
-Dodatkowo, przez $\sigma^{*}$ określamy rozszerzenie tej funkcji, zdefiniowane dla wszystkich formuł nad zbiorem fluentów:
-$$\sigma^{*} : Forms(\mathcal{F}) \rightarrow \left\{0,1\right\}$$
-gdzie:
-$$\sigma^{*}\left(f\right) = \sigma\left(f\right) \text{ dla } f \in \mathcal{F}$$
-$$\sigma^{*}\left(\neg \alpha\right) = 1 - \sigma^{*}\left(\alpha\right)$$
-$$\sigma^{*}\left(\alpha \land \beta\right) = min\left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right)$$
-$$\sigma^{*}\left(\alpha \lor \beta\right) = max\left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right)$$
-$$\sigma^{*}\left(\alpha \rightarrow \beta\right) = \sigma^{*}\left(\neg \alpha \lor \beta\right)$$
-$$\sigma^{*}\left(\alpha \equiv \beta\right) = \sigma^{*}\left(\left(\alpha \rightarrow \beta\right)\land\left(\beta \rightarrow \alpha\right)\right)$$
 
-Dla każdej formuły $\alpha \in Forms\left(\mathcal{F}\right)$, gdy $\sigma^*\left(\alpha\right) = 1$, piszemy $\sigma^{*} \models \alpha$. 
-
-W dalszej części dokumentu będziemy pisać $\sigma\left(\alpha\right)$ zamiast $\sigma^*\left(\alpha\right)$.
+Funkcja stanu definiuje w~sposób jednoznaczny wartość wszystkich fluentów.
 
 \begin{defn}
-Strukturą dla języka $\mathcal{L}$ nazywamy trójkę
-$$\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$$
-gdzie:
-\begin{enumerate}
-    \item $\Sigma$ - zbiór stanów spełniających wszystkie ograniczenia
-    \item $\sigma_0 \in \Sigma$ - stan poczatkowy
-    \item $Res : 2^{Ac} \times \Sigma \rightarrow 2^\Sigma$ - funkcja przejścia
-\end{enumerate}
+    Strukturą dla języka $\mathcal{L}$ nazywamy trójkę
+    $$\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$$
+    gdzie:
+    \begin{enumerate}
+        \item $\Sigma$ to zbiór stanów,
+        \item $\sigma_0 \in \Sigma$ to stan początkowy,
+        \item $Res : 2^{\mathcal{A}c} \times \Sigma \rightarrow 2^\Sigma$ to funkcja przejścia.
+    \end{enumerate}
 \end{defn}
 
-Dla każdego zbioru akcji $A \in 2^{Ac}$ i dla każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkowuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A$ w stanie $\sigma$.
-
-Dodatkowo przez $Res\left(\left(A_1,A_2,\dots,A_n\right),\sigma\right)$ gdzie $A_1,A_2,\dots,A_n \in 2^{Ac}$ oznaczamy zbiór stanów możliwych do osiągnięcia po wykonaniu ciągu zbiorów akcji $A_1,A_2,\dots,A_n$.
+Docelowo, dla~każdego zbioru akcji $A' \in 2^{\mathcal{A}c}$ i dla każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A'$ w stanie $\sigma$.
 
 Niech $\mathcal{D}$ - domena akcji, $\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$ - struktura języka.
 
