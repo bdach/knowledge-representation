@@ -207,7 +207,7 @@ Powyższe zdanie można traktować jak deklarację istnienia nieinercjalnego flu
         \sigma^{*}\left(\alpha \land \beta\right) &= \min \left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right) \\
         \sigma^{*}\left(\alpha \lor \beta\right) &= \max \left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right) \\
         \sigma^{*}\left(\alpha \Rightarrow \beta\right) &= \sigma^{*}\left(\neg \alpha \lor \beta\right) \\
-        \sigma^{*}\left(\alpha \Leftrightarrow \beta\right) &= \sigma^{*}\left(\left(\alpha \rightarrow \beta\right)\land\left(\beta \rightarrow \alpha\right)\right)
+        \sigma^{*}\left(\alpha \Leftrightarrow \beta\right) &= \sigma^{*}\left(\left(\alpha \Rightarrow \beta\right)\land\left(\beta \Rightarrow \alpha\right)\right)
     \end{align*}
     Dla każdej formuły $\alpha \in Forms\left(\mathcal{F}\right)$, gdy $\sigma^*\left(\alpha\right) = 1$, piszemy $\sigma \models \alpha$.
 \end{defn}
@@ -273,7 +273,7 @@ Formułę $\alpha$ przekształconą do postaci DNF oznaczamy jako $DNF(\alpha)$.
 
 \begin{defn}
     Niech $DNF(\alpha) = \gamma_1 \vee \dots \vee \gamma_k$.
-    Każdą formułę $\gamma_i$ nazywamy komponentem formuły $\alpha$.
+    Każdą formułę $\gamma_i$ nazywamy \textbf{komponentem} formuły $\alpha$.
 \end{defn}
 
 Po~zdefiniowaniu DNF przystąpmy do~określenia, jakie akcje będą~rozważane za~konfliktowe.
@@ -347,8 +347,8 @@ Zauważmy, że na~mocy definicji \ref{defn:conflict} i~\ref{defn:potentially-exe
     zachodzi $\sigma \models \pi \Rightarrow \sigma^\prime \models \alpha $.
 \end{defn} 
     
-Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który spełnia wszystkie efekty jednego komponentu $E_i$ z~danej dekompozycji.
-Wybór komponentu jest jednym z~elementów niedeterminizmu w~rozważanym systemie.
+Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który spełnia wszystkie efekty każdego komponentu $E_i$ z~danej dekompozycji.
+Wybór dekompozycji jest jednym z~elementów niedeterminizmu w~rozważanym systemie.
 
 Zauważmy ponadto, że~takie zdefiniowanie potencjalnego wyniku wykonania akcji zapewnia, że~jeśli akcja złożona zawiera akcję atomową niewykonalną w~$\sigma$, to~cała akcja złożona również nie~będzie wykonalna.
 
@@ -363,6 +363,8 @@ Niech $\mathcal{D}$ będzie domeną akcji, zaś $\mathcal{S} = \left(\Sigma, \si
 \begin{defn}
     $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$ jest \textbf{stanem} $\mathcal{S}$ względem~$\mathcal{D}$ wtedy i~tylko wtedy, gdy dla~każdego zdania ograniczenia $\left(\Always \alpha\right) \in \mathcal{D}$ zachodzi $\sigma \models \alpha$.
 \end{defn}
+
+% TODO: te zdania głupio wyglądają z pojedynczymi akcjami
 
 \begin{defn}
     Zdanie wartości $(\alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy
@@ -397,6 +399,7 @@ Funkcja $Res_0$ określa możliwe zmiany w~stanie~$\sigma$ spowodowane przez~zda
 \end{defn}
 
 Zbiory $New$ określają, które fluenty inercjalne zmieniły~się pomiędzy dwoma stanami, a~ponadto uwzględniają możliwość dowolnych fluktuacji fluentów uwolnionych.
+Jest to drugi aspekt niedeterministyczny w~rozważanym systemie dynamicznym.
 
 \begin{defn}
     Niech $\mathcal{D}$ będzie domeną akcji w $\mathcal{A}c$. Struktura $\mathcal{S} = (\Sigma,\sigma_0,Res)$ jest \textbf{modelem $\mathcal{D}$} wtw:
@@ -406,6 +409,8 @@ Zbiory $New$ określają, które fluenty inercjalne zmieniły~się pomiędzy dwo
     \item dla każdej akcji $A \subseteq \mathcal{A}c$ i dla każdego stanu $\sigma \in \Sigma$, $Res(A,\sigma) \subseteq Res_0(A,\sigma)$ jest zbiorem wszystkich stanów $\sigma'$, dla którego zbiory $New(A,\sigma,\sigma')$ są~minimalne ze~względu na~relację inkluzji.
     \end{enumerate}
 \end{defn}
+
+Tak zdefiniowany model łączy niedeterminizm związany z~wyborem dekompozycji akcji złożonych (funkcja $Res_0$) i~niedeterminizm związany z~fluentami uwolnionymi (zbiór $New$).
 
 \section{Język kwerend}
 
