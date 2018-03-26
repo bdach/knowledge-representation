@@ -122,7 +122,7 @@ Sygnatura języka określa zarówno logiczne zmienne określające stan świata 
     Zbiór wszystkich formuł nad~zbiorem fluentów $\mathcal{F}$ oznaczamy jako $Forms(\mathcal{F})$.
 \end{defn}
 
-Proponowany język definiuje następujące sześć typów wyrażeń:
+Proponowany język definiuje następujące siedem typów wyrażeń:
 
 \begin{defn}
     \textbf{Zdaniem wartości początkowej} nazywamy zdanie postaci
@@ -135,11 +135,17 @@ Zgodnie z~założeniami, w~systemie nie~jest wymagane wyspecyfikowanie wartości
 
 \begin{defn}
     \textbf{Zdaniem wartości} nazywamy zdanie postaci
-    $$ \alpha \After A \qquad \text{lub} \qquad \Observable \alpha \After A $$
+    $$ \alpha \After A \qquad \text{lub} $$
     gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
 \end{defn}
 
-Zdanie $\After$ służy do~opisu pewnych następstw akcji~$A$, z~kolei zdanie $\Observable \dots \After$ określa niedeterministyczne skutki akcji.
+\begin{defn}
+    \textbf{Zdaniem obserwacji} nazywamy zdanie postaci
+    $$ \Observable \alpha \After A \qquad \text{lub} $$
+    gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
+\end{defn}
+
+Zdanie wartości służy do~opisu pewnych następstw akcji~$A$, z~kolei zdanie obserwacji określa niedeterministyczne skutki akcji.
 
 \begin{defn}
     \textbf{Zdaniem efektu} nazywamy zdanie postaci
@@ -222,6 +228,29 @@ Funkcja stanu definiuje w~sposób jednoznaczny wartość wszystkich fluentów.
 Docelowo, dla~każdego zbioru akcji $A' \in 2^{\mathcal{A}c}$ i dla~każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A'$ w~stanie $\sigma$.
 
 Zauważmy, że~docelowo w~systemie może~być rozważane wiele struktur dla~jednej domeny akcji, z~racji niepełnej wiedzy o~stanie początkowym fluentów.
+
+Funkcję przejścia możemy rozszerzyć na~pojęcie programu w~następujący sposób:
+
+\begin{defn}
+    Niech $\mathcal{S} = (\Sigma, \sigma_0, Res)$ będzie strukturą.
+    Niech $Res^* : (2^{\mathcal{A}c})^* \times \Sigma \to 2^\Sigma$ będzie funkcją taką, że:
+    \begin{itemize}
+        \item $Res^*(\varepsilon, \sigma) = \{ \sigma \}$,
+        \item $Res^*((A_1), \sigma) = Res(A_1, \sigma)$,
+        \item $Res^*((A_1,A_2,\dots,A_n,A_{n+1}), \sigma) = \bigcup_{\sigma' \in Res^*(A_1,A_2,\dots,A_n)} Res(A_{n+1}, \sigma')$.
+    \end{itemize}
+\end{defn}
+
+Wtedy pojedynczą ścieżkę wykonania programu możemy odtworzyć za~pomocą funkcji $\Psi_{\mathcal{S}}$ zdefiniowaną następująco:
+
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji. Dla struktury $S = (\Sigma,\sigma_0,Res)$, definiujemy funkcję częściową 
+    $\Psi_{\mathcal{S}} : (2^{\mathcal{A}c})^* \times \Sigma \rightarrow \Sigma$ w następujący sposób:
+    \begin{itemize}
+    \item $\Psi_{\mathcal{S}}(\varepsilon,\sigma) = \sigma$
+    \item jeśli dla $n \geq 1, \Psi_{\mathcal{S}}((A_1,\dots,A_n),\sigma)$ jest zdefiniowane i $Res^*((A_1,\dots,A_n,A_{n+1}),\sigma) \neq \emptyset$, to~$\Psi_{\mathcal{S}}((A_1,\dots,A_n,A_{n+1}),\sigma) \in Res(A_{n+1},\Psi_{\mathcal{S}}((A_1,\dots,A_n),\sigma)).$
+    \end{itemize}
+\end{defn}
 
 \subsubsection{Akcje złożone}
 
@@ -321,6 +350,8 @@ Zauważmy, że na~mocy definicji \ref{defn:conflict} i~\ref{defn:potentially-exe
 Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który spełnia wszystkie efekty jednego komponentu $E_i$ z~danej dekompozycji.
 Wybór komponentu jest jednym z~elementów niedeterminizmu w~rozważanym systemie.
 
+Zauważmy ponadto, że~takie zdefiniowanie potencjalnego wyniku wykonania akcji zapewnia, że~jeśli akcja złożona zawiera akcję atomową niewykonalną w~$\sigma$, to~cała akcja złożona również nie~będzie wykonalna.
+
 \subsubsection{Model domeny akcji}
 
 Niech $\mathcal{D}$ będzie domeną akcji, zaś $\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$ pewną strukturą języka.
@@ -333,7 +364,19 @@ Niech $\mathcal{D}$ będzie domeną akcji, zaś $\mathcal{S} = \left(\Sigma, \si
     $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$ jest \textbf{stanem} $\mathcal{S}$ względem~$\mathcal{D}$ wtedy i~tylko wtedy, gdy dla~każdego zdania ograniczenia $\left(\Always \alpha\right) \in \mathcal{D}$ zachodzi $\sigma \models \alpha$.
 \end{defn}
 
-Aby móc zdefiniować funkcję przejścia dla~modelu, wprowadzimy kilka pojęć pomocniczych.
+\begin{defn}
+    Zdanie wartości $(\alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy
+    $$\Psi_{\mathcal{S}}((A), \sigma_0) \models \alpha$$
+    dla~każdej funkcji $\Psi_{\mathcal{S}}$.
+\end{defn}
+
+\begin{defn}
+    Zdanie obserwacji $(\Observable \alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{D}$ wtedy i~tylko wtedy, gdy
+    $$\Psi_{\mathcal{S}}((A), \sigma_0) \models \alpha$$
+    dla~pewnej funkcji $\Psi_{\mathcal{S}}$.
+\end{defn}
+
+Aby móc zdefiniować warunki stawiane funkcji przejścia w~modelu, wprowadzimy kilka pojęć pomocniczych.
 
 \begin{defn}
     Zdefiniujmy pomocniczą funkcję $Res_0: 2^{\mathcal{A}c} \times \Sigma \rightarrow 2^\Sigma$.
@@ -353,25 +396,16 @@ Funkcja $Res_0$ określa możliwe zmiany w~stanie~$\sigma$ spowodowane przez~zda
     \end{itemize}
 \end{defn}
 
-Zbiory $New$ określają, które fluenty inercjalne zmieniły~się pomiędzy dwoma stanami, a~ponadto uwzględniają możliwość dowolnych fluktuacji fluentów nieinercjalnych.
+Zbiory $New$ określają, które fluenty inercjalne zmieniły~się pomiędzy dwoma stanami, a~ponadto uwzględniają możliwość dowolnych fluktuacji fluentów uwolnionych.
 
 \begin{defn}
     Niech $\mathcal{D}$ będzie domeną akcji w $\mathcal{A}c$. Struktura $\mathcal{S} = (\Sigma,\sigma_0,Res)$ jest \textbf{modelem $\mathcal{D}$} wtw:
     \begin{enumerate}
-    \item $\Sigma$ jest zbiorem wszystkich stanów w $\mathcal{D}$ (tj. zbiorem wszystkich stanów satysfakcjonujących wszystkie ograniczenia z $\mathcal{D}$);
-    \item każde zdanie wartości i każde zdanie obserwacji jest prawdziwe w $\mathcal{S}$;
+    \item $\Sigma$ jest zbiorem wszystkich stanów w $\mathcal{D}$ (tj. zbiorem wszystkich stanów satysfakcjonujących wszystkie ograniczenia z $\mathcal{D}$),
+    \item każde zdanie wartości i każde zdanie obserwacji jest prawdziwe w $\mathcal{S}$,
     \item dla każdej akcji $A \subseteq \mathcal{A}c$ i dla każdego stanu $\sigma \in \Sigma$, $Res(A,\sigma) \subseteq Res_0(A,\sigma)$ jest zbiorem wszystkich stanów $\sigma'$, dla którego zbiory $New(A,\sigma,\sigma')$ są~minimalne ze~względu na~relację inkluzji.
     \end{enumerate}
 \end{defn}
-
-%Funkcje psi
-
-Niech $D$ będzie domeną akcji. Dla struktury $S = (\Sigma,\sigma_0,Res)$, definiujemy częściowe mapowanie 
-$\Psi_S : 2^{\mathcal{A}c^*} \times \Sigma \rightarrow \Sigma$ w następujący sposób:
-\begin{itemize}
-\item $\Psi_S(\epsilon,\sigma) = \sigma$
-\item jeśli dla $n \geq 1, \Psi_S((A_1,...,A_n),\sigma)$ jest zdefiniowane i $Res((A_1,...,A_n,A_{n+1}),\sigma) \neq \emptyset$, to $\Psi_S((A_1,...,A_n,A_{n+1}),\sigma) \in Res(A_n,\Psi_S((A_1,...,A_n),\sigma)).$
-\end{itemize}
 
 \section{Język kwerend}
 
