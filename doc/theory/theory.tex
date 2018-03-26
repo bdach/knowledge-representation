@@ -409,62 +409,80 @@ Zbiory $New$ określają, które fluenty inercjalne zmieniły~się pomiędzy dwo
 
 \section{Język kwerend}
 
+W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu, którego zadaniem jest podanie odpowiedzi zgodnych z~daną domeną akcji.
+
 \subsection{Składnia języka}
+    Język kwerend wyróżnia ich następujące rodzaje:
 
-    \textbf{Kwerendą} będziemy nazywać jedno z~następujących wyrażeń:
-
-    \begin{enumerate}
-        \item Kwerendy wartości:
-        \begin{itemize}            
-            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego prowadzi kiedykolwiek do~osiągnięcia celu~$\gamma$,
-            \item $\Necessary \gamma \After A_1, \dots, A_n$ -- określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego zawsze prowadzi do~osiągnięciu celu~$\gamma$,
-        \end{itemize}
-        \item Kwerendy wykonywalności:
-        \begin{itemize}
-            \item $\Executable A_1, \dots, A_n$ -- określa, czy program $(A_1, \dots, A_n)$ jest kiedykolwiek wykonywalny ze~stanu początkowego,
-            \item $\Executable \Always A_1, \dots, A_n$ -- określa, czy program $(A_1, \dots, A_n)$ jest zawsze wykonywalny ze~stanu początkowego,
-        \end{itemize}
-        gdzie $A_1, \dots, A_n \subseteq \mathcal{A}c$.
-        \item Kwerendy osiągalności:
-        \begin{itemize}
-            \item $\Accessible \gamma$ -- określa, czy~istnieje taki program $(A_1, \dots, A_n)$, $n \geq 0$ wykonywalny ze~stanu początkowego, po~którego wykonaniu osiągnięty zostanie cel~$\gamma$.
-        \end{itemize}
+    \begin{defn}
+        \textbf{Egzystencjalną kwerendą wartości} nazywamy zdanie
+        $$ \Possibly \gamma \After A_1, \dots, A_n $$
         gdzie $\gamma \in Forms(f)$, $A_1, \dots, A_n \subseteq \mathcal{A}c$.
-    \end{enumerate}
+    \end{defn}
 
+    \begin{defn}
+        \textbf{Ogólną kwerendą wartości} nazywamy zdanie
+        $$ \Necessary \gamma \After A_1, \dots, A_n $$
+        gdzie $\gamma \in Forms(f)$, $A_1, \dots, A_n \subseteq \mathcal{A}c$.
+    \end{defn}
+
+    Kwerenda egzystencjalna określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego prowadzi kiedykolwiek do~osiągnięcia celu~$\gamma$; z~kolei ogólna określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego zawsze prowadzi do~osiągnięciu celu~$\gamma$.
+
+    \begin{defn}
+        \textbf{Egzystencjalną kwerendą wykonywalności} nazywamy zdanie
+        $$ \Executable A_1, \dots, A_n $$
+        gdzie $A_1, \dots, A_n \subseteq \mathcal{A}c$.
+    \end{defn}
+
+    \begin{defn}
+        \textbf{Ogólną kwerendą wykonywalności} nazywamy zdanie
+        $$ \Executable \Always A_1, \dots, A_n $$
+        gdzie $A_1, \dots, A_n \subseteq \mathcal{A}c$.
+    \end{defn}
+
+    Kwerendy wykonywalności mają na~celu odpowiedzieć na~pytanie, czy~dany program jest kiedykolwiek (egzystencjalna) lub~zawsze (ogólna) wykonywalny ze~stanu początkowego.
+
+    \begin{defn}
+        \textbf{Kwerendą osiągalności} nazywamy zdanie
+        $$ \Accessible \gamma $$
+        gdzie $\gamma \in Forms(f)$.
+    \end{defn}
+    
+    Celem tej kwerendy jest określenie, czy~istnieje taki program $(A_1, \dots, A_n)$, $n \geq 0$, wykonywalny ze~stanu początkowego, po~którego wykonaniu osiągnięty zostanie cel~$\gamma$.
 
 \subsection{Semantyka języka}
 
-    Niech $\mathcal{D}$ będzie domeną akcji, a $\mathcal{Q}$ kwerendą. % TODO: dopisać jakiego języka?
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji, a $\mathcal{Q}$ kwerendą. 
     Mówimy, że $\mathcal{Q}$ jest \textbf{konsekwencją} $\mathcal{D}$ (ozn. $\mathcal{D} \consequence \mathcal{Q}$), jeżeli:
 
     \begin{enumerate}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wartości postaci:
         \begin{itemize}
             \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
-            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ istnieje mapowanie $\Psi_S$ takie, że zachodzi $\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$,
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ istnieje funkcja $\Psi_\mathcal{S}$ taka, że zachodzi $$\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$$
             \item $\Necessary \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
-            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ zachodzi $\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$,
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdej funkcji $\Psi_\mathcal{S}$ zachodzi $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0}) \models \gamma$$
         \end{itemize}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wykonywalności postaci:
         \begin{itemize}
             \item $\Executable A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy istnieje model % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ taki, że istnieje % TODO: do uzgodnienia
-            mapowanie $\Psi_S$ takie, że $\Psi_S((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
+            funkcja $\Psi_\mathcal{S}$ taka, że
+            $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$$
+            jest zdefiniowane,
             \item $\Executable \Always A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
-            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ $\Psi_S((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_\mathcal{S}$
+            $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$$
+            jest zdefiniowane,
         \end{itemize}
-        \item w przypadku gdy $\mathcal{Q}$ jest kwerendą osiągalności postaci:
+        \item w przypadku gdy $\mathcal{Q}$ jest kwerendą osiągalności postaci $\Accessible \gamma$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_\mathcal{S}$ istnieje ciąg akcji $(A_1,...,A_n), \; n \geq 0$ taki, że:
         \begin{itemize}
-            \item $\Accessible \gamma$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdego mapowania $\Psi_S$ istnieje ciąg akcji $(A_1,...,A_n), \; n \geq 0$ taki, że:
-            \begin{itemize}
-                \item $\Psi_S((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
-                \item $\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$.
-            \end{itemize}
+            \item $\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
+            \item $\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0}) \models \gamma$.
         \end{itemize}
     \end{enumerate}
-
-% kwerendy - Tymek
+\end{defn}
 
 \section{Przykładowe kwerendy}
 
