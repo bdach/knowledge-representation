@@ -213,7 +213,106 @@ Funkcja stanu definiuje w~sposób jednoznaczny wartość wszystkich fluentów.
     \end{enumerate}
 \end{defn}
 
-Docelowo, dla~każdego zbioru akcji $A' \in 2^{\mathcal{A}c}$ i dla każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A'$ w stanie $\sigma$.
+Docelowo, dla~każdego zbioru akcji $A' \in 2^{\mathcal{A}c}$ i dla~każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A'$ w~stanie $\sigma$.
+
+\subsubsection{Akcje złożone}
+
+Zanim zdefiniujemy model dla~domen akcji rozważanego języka, należy określić, na~czym polega wykonanie akcji złożonej z~wielu akcji atomowych.
+Zauważmy, że w~domenie akcji mogą znajdować~się zdania, których efekty będą ze~sobą wzajemnie sprzeczne, tj. dla pewnego zbioru akcji atomowych i~pewnego stanu nie~będzie możliwe spełnienie ich warunków końcowych.
+Do~sformalizowania tej intuicji posłużymy~się dysjunkcyjną postacią normalną formuł rachunku zdań.
+
+\begin{defn}
+    Niech $\alpha$ będzie dowolną formułą nad zbiorem fluentów $\mathcal{F}$.
+    Mówimy, że $\alpha$ jest w~\textbf{dysjunkcyjnej postaci normalnej (DNF)} wtedy i tylko wtedy, gdy 
+    $$\alpha = \bigvee_{i=1}^{n} \bigwedge_{j=1}^{k(i)} \lambda_{ij}$$
+    gdzie $\lambda_{ij}$ jest literałem.
+\end{defn}
+    
+\begin{theorem}
+    Każdą formułę $\alpha$ można przekształcić do formuły $\alpha'$, która jest w postaci DNF.
+\end{theorem}
+
+Formułę $\alpha$ przekształconą do postaci DNF oznaczamy jako $DNF(\alpha)$.
+
+\begin{defn}
+    Niech $DNF(\alpha) = \gamma_1 \vee \dots \vee \gamma_k$.
+    Każdą formułę $\gamma_i$ nazywamy komponentem formuły $\alpha$.
+\end{defn}
+
+Po~zdefiniowaniu DNF przystąpmy do~określenia, jakie akcje będą~rozważane za~konfliktowe.
+
+\begin{defn}
+    \label{defn:conflict}
+    Niech $\mathcal{D}$ będzie domeną akcji, $\sigma$ będzie pewnym stanem oraz niech $A, B \in \mathcal{A}c$ będą akcjami elementarnymi. Akcje $A, B$ są~\textbf{konfliktowe} wtedy i tylko wtedy, gdy przynajmniej jeden z~następujących warunków jest prawdziwy:
+    \begin{itemize}
+        \item W~$D$ znajdują~się dwa zdania postaci:
+        \begin{align*}
+            A & \Causes \alpha \If \pi_1 \\
+            B & \Causes \beta \If \pi_2
+        \end{align*}
+        takie, że:
+        \begin{itemize}
+            \item $\sigma \models \pi_1 \land \pi_2$
+            \item Jakiś komponent z $\alpha$ jest sprzeczny z~jakimś komponentem z~$\beta$.
+        \end{itemize}
+        \item W~$D$ znajdują~się dwa zdania postaci:
+        \begin{align*}
+            A & \Causes \alpha \If \pi_1 \\
+            B & \Releases f \If \pi_2
+        \end{align*}
+        takie, że:
+        \begin{itemize}
+            \item $\sigma \models \pi_1 \land \pi_2$
+            \item w~jednym z~komponentów $\alpha$ występuje $f$.
+        \end{itemize}
+    \end{itemize}
+\end{defn}
+
+Zauważmy, że~warunek o~sprzeczności komponentów z~$\alpha$ i~$\beta$ jest równoważny sprzeczności formuły $\alpha \land \beta$.
+
+\begin{defn}
+    \label{defn:potentially-executable}
+    Niech $\mathcal{D}$ to domena akcji, niech $\sigma$ to pewien stan. Akcja złożona $\{ A_1, \dots A_k \}$, gdzie $A_i$ to akcje elementarne, jest \textbf{potencjalnie wykonywalna} w $\sigma$ wtedy i tylko wtedy gdy nie istnieje $B \subseteq A_1 \cup \dots \cup A_k$ takie, że~$\mathcal{D}$ zawiera zdania:
+    \begin{align*}
+        & B \Causes \alpha_1 \If \pi_1 \\
+        & \cdots \\
+        & B \Causes \alpha_k \If \pi_k
+    \end{align*}
+    takie, że:
+    \begin{itemize}
+        \item $\sigma \models \pi_1 \land \dots \land \pi_k$
+        \item $\alpha_1 \land \dots \land \alpha_k$ jest sprzeczne.
+    \end{itemize}
+\end{defn}
+
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma$ będzie stanem oraz niech $A \subseteq \mathcal{A}c$.
+    \textbf{Dekompozycją} $A$ w $\sigma$ będziemy nazywać taki zbiór $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ akcji elementarnych w $D$, że:
+    \begin{enumerate}
+        \item $\bigcup_{i = 1}^{k} E_i \subseteq A$,
+        \item $\Delta(A, \sigma)$ jest zbiorem niekonfliktujących akcji potencjalnie wykonywalnych w  $\sigma$,
+        \item Nie ma żadnego zbioru $\{ E'_1, \dots, E'_k, E'_{k+1}, \dots, E'_m \}$ akcji spełniającego powyższe warunki takiego, że $E_i \subset E_i^\prime$ dla pewnego $i = 1, \dots, k$.
+    \end{enumerate}
+\end{defn}
+
+Innymi słowy, dekompozycja akcji złożonej $A$ określa maksymalne ze~względu na~inkluzję potencjalnie wykonywane podakcje $A$.
+Zauważmy, że na~mocy definicji \ref{defn:conflict} i~\ref{defn:potentially-executable} możemy wspomóc~się dysjunkcyjną postacią normalną przy~wyznaczaniu niekonfliktujących akcji.
+    
+\begin{defn}
+    Niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ będzie dekompozycją $A$ w $\sigma$. Każdą akcję $E_i$ nazywamy \textbf{komponentem wykonania} $A$ w~stanie $\sigma$.
+\end{defn}
+    
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma, \sigma^\prime$ będą stanami, niech $A \subseteq \mathcal{A}c$ będzie akcją i niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ będzie dekompozycją $A$ w~$\sigma$.
+    Mówimy, że $\sigma^\prime$ jest \textbf{potencjalnym wynikiem wykonania} $A$ w $\sigma$ wtedy i~tylko wtedy gdy dla każdego $i = 1, \dots k$ i~dla~każdego zdania postaci: 
+    $$ (E_i \Causes \alpha \If \pi) \in D $$
+    zachodzi $\sigma \models \pi \Rightarrow \sigma^\prime \models \alpha $.
+\end{defn} 
+    
+Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który spełnia wszystkie efekty jednego komponentu $E_i$ z~danej dekompozycji.
+Wybór komponentu jest jednym z~elementów niedeterminizmu w~rozważanym systemie.
+
+\subsubsection{Model domeny akcji}
 
 Niech $\mathcal{D}$ - domena akcji, $\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$ - struktura języka.
 
@@ -223,111 +322,6 @@ Mówimy, że:
     \item $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$ jest stanem $\mathcal{S}$ wtedy i tylko wtedy, gdy dla każdego ograniczenia $\left(\text{always } \alpha\right) \in \mathcal{D}$ zachodzi $\sigma \models \alpha$.
 \end{enumerate}
 
-% Stan, struktura - Maciek
-
-% DNF - Jacek
-
-\begin{defn}
-Niech $\alpha$ będzie dowolną formułą nad zbiorem fluentów $\mathcal{F}$. Mówimy, że $\alpha$ jest w~\textbf{dysjunkcyjnej postaci normalnej (DNF)} wtedy i tylko wtedy, gdy 
-$$\alpha = \bigvee_{i=1}^{n} \bigwedge_{j=1}^{k(i)} \lambda_{ij}$$
-gdzie $\lambda_{ij}$ jest literałem.
-\end{defn}
-
-\begin{theorem}
-Każdą formułę $\alpha$ można przekształcić do formuły $\alpha'$, która jest w postaci DNF.
-\end{theorem}
-
-Formułę $\alpha$ przekształconą do postaci DNF oznaczamy jako $DNF(\alpha)$.
-
-\begin{defn}
-Niech $DNF(\alpha) = \gamma_1 \vee \dots \vee \gamma_k$. Każdą formułę $\gamma_i$ nazywamy komponentem formuły $\alpha$.
-\end{defn}
-
-Metoda sprowadzania formuły do dysjunkcyjnej postaci normalnej:
-
-\begin{enumerate}
-	\item Eliminacja implikacji oraz równoważności, poprzez zastąpienie ich 			odpowiadającymi formułami 
-		\begin{itemize}
-			\item $\alpha \rightarrow \beta \equiv \neg\alpha \vee \beta$
-			\item $\alpha \leftrightarrow \beta \equiv (\neg\alpha \vee \beta) \wedge (\neg\beta \vee \alpha)$
-		\end{itemize}
-	\item Przekształcenie formuły tak, aby negacje stały bezpośrednio przy odpowiadających im literałach
-		\begin{itemize}
-			\item $\neg(\alpha \wedge \beta) \equiv \neg\alpha \vee \neg\beta$
-			\item $\neg(\alpha \vee \beta) \equiv \neg\alpha \wedge \neg\beta$
-			\item $\neg\neg\alpha \equiv \alpha$
-		\end{itemize}
-		\item Rozdzielenie alternatywy względem koniunkcji
-		\begin{itemize}
-			\item $\alpha \wedge (\beta \vee \gamma) \equiv (\alpha \wedge \beta) \vee (\alpha \wedge \gamma)$
-			\item $(\beta \vee \gamma) \wedge \alpha \equiv (\beta \wedge \alpha) \vee (\gamma \wedge \alpha)$
-		\end{itemize}
-\end{enumerate}
-
-% dekompozycja, konflikt, Res0 - Filip
-
-\begin{defn}
-Niech $D$ to będzie domena akcji, niech $\sigma$ to będzie stan oraz niech $A, B \in \mathcal{AC}$ to dwie akcje elementarne. Akcje $A, B$ są konfliktujące wtedy i tylko wtedy gdy przynajmniej jeden z warunków jest prawdziwy:
-\begin{itemize}
-    \item Są w $D$ dwa zdania postaci:
-    \begin{center}
-        $A$ $\Causes$ $\alpha$ $\If$ $\pi_1 $ \\
-        $B$ $\Causes$ $\beta$ $\If$ $\pi_2 $
-    \end{center}
-    takie, że:
-    \begin{itemize}
-        \item $\sigma \models \pi_1 \land \pi_2$
-        \item Jakiś komponent z $\alpha$ jest sprzeczny z jakimś komponentem z $\beta$.
-    \end{itemize}
-    \item Są w $D$ dwa zdania postaci:
-    \begin{center}
-        $A$ $\Causes$ $\alpha$ $\If$ $\pi_1 $ \\
-        $B$ $\Releases$ $f$ $\If$ $\pi_2 $
-    \end{center}
-    takie, że:
-    \begin{itemize}
-        \item $\sigma \models \pi_1 \land \pi_2$
-        \item W jakimś komponencie z $\alpha$ występuje $f$.
-    \end{itemize}
-\end{itemize}
-\end{defn}
-
-\begin{defn}
-Niech $D$ to będzie domena akcji, niech $\sigma$ to będzie stan. Akcja złożona $\{ A_1, \dots A_k \}$, gdzie $A_i$ to akcje elementarne, jest \textbf{potencjalnie wykonywalna} w $\sigma$ wtedy i tylko wtedy gdy nie istnieje $B \subseteq A_1 \cup \dots \cup A_k$ takie, że $D$ zawiera zdania:
-\begin{center}
-    $B$ $\Causes$ $\alpha_1$ $\If$ $\pi_1 $ \\
-    $\cdots$ \\
-    $B$ $\Causes$ $\alpha_k$ $\If$ $\pi_k $
-\end{center}
-takie, że:
-\begin{itemize}
-    \item $\sigma \models \pi_1 \land \dots \pi_k$
-    \item $\alpha1 \land \dots \alpha_k$ jest sprzeczne
-\end{itemize}
-\end{defn}
-
-\begin{defn}
-Niech $D$ to będzie domena akcji, niech $\sigma$ to będzie stan oraz niech $A \subseteq \mathcal{AC}$. \textbf{Dekompozycją} $A$ w $\sigma$ będziemy nazywać będzie taki zbiór $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ akcji elementarnych w $D$, że:
-\begin{enumerate}
-    \item $\bigcup_{i = 1}^{k} E_i \subseteq A$
-    \item  $\Delta(A, \sigma)$ jest zbiorem niekonfliktujących akcji potencjalnie wykonywalnych w  $\sigma$.
-    \item Nie ma żadnego zbioru $\{ E_1^\prime \dots E_k^\prime, E_{k+1}^\prime, \dots, E_m^\prime \}$ akcji spełniającego powyższe warunki i w dodatku takiego, że $E_i \subset E_i^\prime$ dla pewnego $i = 1, \dots, k$.
-\end{enumerate}
-\end{defn}
-
-\begin{defn}
-Niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ będzie dekompozycją $A$ w $\sigma$, wtedy dla każdego $i$, $E_i$ jest nazywane \textbf{komponentem wykonania} $A$ w stanie $\sigma$.
-\end{defn}
-
-\begin{defn}
-Niech $D$ to będzie domena akcji, niech $\sigma, \sigma^\prime$ to będą stany oraz niech $A \subseteq \mathcal{AC}$ to akcja i niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ to dekompozycja $A$ w $\sigma$. Mówimy, że $\sigma^\prime$ \textbf{potencjalnym wynikiem wykonania} $A$ w $\sigma$ wtedy i tylko wtedy gdy dla każdego $i = 1, \dots k$ i dla każdego zdania postaci: 
-\begin{center}
-    $(E_i \Causes \alpha \If \pi) \in D $
-\end{center}
-zachodzi, że $\sigma \models \pi \Rightarrow \sigma^\prime \models \alpha $
-\end{defn} 
-
-Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który spełnia wszystkie efekty komponentów $E_i$ z jednej dekompozycji. Jeśli mamy $n$ różnych dekompozycji to potencjalny wynik akcji (stan po wykonaniu akcji) musi spełniać efekty tylko komponentów jednej z nich.
 
 \begin{defn}
 \textbf{Strukturą} dla $\mathcal{AC}$ jest taka trójka $(\Sigma, \sigma_0, Res)$, gdzie $\Sigma$ to zbiór stanów, $\sigma_0$ to stan początkowy i $Res: 2^{\mathcal{AC}} \times \Sigma \rightarrow 2^\Sigma$.
@@ -335,7 +329,6 @@ Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który
 Dodatkowo definiowane jest mapowanie pomocnicze $Res_0: 2^{\mathcal{AC}} \times \Sigma \rightarrow 2^\Sigma$ w następujący sposób: dla każdego stanu $\sigma$ oraz dla każdej akcji $A \subseteq \mathcal{AC}$ zachodzi: jeśli $A$ posiada w $\sigma$ $n$ dekompozycji $\Delta_1(A, \sigma), \dots, \Delta_n(A, \sigma)$, gdzie $\Delta_i(A, \sigma) = \{ A_1^i, \dots, A_{k_i}^i \}$, to będzie zbiór wszystkich potencjalnych wyników wykonania $A$ w $\sigma$ dla każdej dekompozycji.
 \end{defn}
 
-% Mo d;del, funkcje psi - Michał
 
 %Model
 \begin{defn}
