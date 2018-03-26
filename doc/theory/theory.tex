@@ -366,14 +366,14 @@ Niech $\mathcal{D}$ będzie domeną akcji, zaś $\mathcal{S} = \left(\Sigma, \si
 
 % TODO: te zdania głupio wyglądają z pojedynczymi akcjami
 \begin{defn}
-    Zdanie wartości $(\alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy
-    $$\Psi_{\mathcal{S}}((A), \sigma_0) \models \alpha$$
+    Zdanie wartości $(\alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy dla~każdej akcji złożonej $A'$ takiej, że~$A \in A'$
+    $$\Psi_{\mathcal{S}}((A'), \sigma_0) \models \alpha$$
     dla~każdej funkcji $\Psi_{\mathcal{S}}$.
 \end{defn}
 
 \begin{defn}
-    Zdanie obserwacji $(\Observable \alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{D}$ wtedy i~tylko wtedy, gdy
-    $$\Psi_{\mathcal{S}}((A), \sigma_0) \models \alpha$$
+    Zdanie obserwacji $(\Observable \alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{D}$ wtedy i~tylko wtedy, gdy dla~każdej akcji złożonej $A'$ takiej, że~$A \in A'$
+    $$\Psi_{\mathcal{S}}((A'), \sigma_0) \models \alpha$$
     dla~pewnej funkcji $\Psi_{\mathcal{S}}$.
 \end{defn}
 
@@ -384,7 +384,7 @@ Aby móc zdefiniować warunki stawiane funkcji przejścia w~modelu, wprowadzimy 
 
     Niech dany będzie stan $\sigma \in \Sigma$ i~akcja złożona $A \subseteq \mathcal{A}c$.
     Niech $\Delta_1(A, \sigma), \dots, \Delta_n(A, \sigma)$ będą dekompozycjami akcji~$A$ względem stanu~$\sigma$.
-    Wówczas $\sigma' \in Res_0(\sigma, A)$ wtedy i~tylko wtedy, gdy $\sigma'$ jest potencjalnym wynikiem wykonania $A$ dla~pewnej dekompozycji $\Delta_i(A, \sigma)$.
+    Wówczas stan $\sigma' \in Res_0(\sigma, A)$ wtedy i~tylko wtedy, gdy $\sigma'$ jest potencjalnym wynikiem wykonania $A$ dla~pewnej dekompozycji $\Delta_i(A, \sigma)$.
 \end{defn}
 
 Funkcja $Res_0$ określa możliwe zmiany w~stanie~$\sigma$ spowodowane przez~zdania $\Causes$.
