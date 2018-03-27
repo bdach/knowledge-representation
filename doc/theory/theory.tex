@@ -9,6 +9,8 @@
 \usepackage{tabularx}
 \usepackage[hidelinks]{hyperref}
 \usepackage[polish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{2mm}
@@ -405,7 +407,7 @@ Jest to drugi aspekt niedeterministyczny w~rozważanym systemie dynamicznym.
     \begin{enumerate}
     \item $\Sigma$ jest zbiorem wszystkich stanów w $\mathcal{D}$ (tj. zbiorem wszystkich stanów satysfakcjonujących wszystkie ograniczenia z $\mathcal{D}$),
     \item każde zdanie wartości i każde zdanie obserwacji jest prawdziwe w $\mathcal{S}$,
-    \item dla każdej akcji $A \subseteq \mathcal{A}c$ i dla każdego stanu $\sigma \in \Sigma$, $Res(A,\sigma) \subseteq Res_0(A,\sigma)$ jest zbiorem wszystkich stanów $\sigma'$, dla którego zbiory $New(A,\sigma,\sigma')$ są~minimalne ze~względu na~relację inkluzji.
+    \item dla każdej akcji $A \subseteq \mathcal{A}c$ i dla każdego stanu $\sigma \in \Sigma$, $Res(A,\sigma) \subseteq Res_0(A,\sigma)$ jest zbiorem wszystkich stanów $\sigma'$, dla~których zbiory $New(A,\sigma,\sigma')$ są~minimalne ze~względu na~relację inkluzji.
     \end{enumerate}
 \end{defn}
 
@@ -488,8 +490,113 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
     \end{enumerate}
 \end{defn}
 
-\section{Przykładowe kwerendy}
+\section{Przykłady}
 
-% przykłady - ja
+\subsection{Producent i~konsument}
+
+Załóżmy, że~dany jest producent i~konsument.
+Producent może wstawić do~bufora dokładnie jeden produkt przy~pomocy akcji \textsc{Put}.
+Konsument może pobrać z~bufora produkt z~użyciem akcji \textsc{Get},
+oraz~pozbyć~się go z~użyciem akcji \textsc{Consume}.
+Konsument nie~może skonsumować produktu, jeśli wcześniej go nie~pobrał.
+Na~początku bufor jest pusty.
+
+Reprezentacja tego scenariusza w~języku akcji wygląda następująco:
+\begin{align*}
+    & \textsc{Put} \Causes \neg \textit{bufferEmpty} \If \textit{bufferEmpty} \\
+    & \textsc{Get} \Causes \textit{bufferEmpty} \land \textit{hasItem} \If \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \\
+    & \textsc{Consume} \Causes \neg \textit{hasItem} \\
+    & \Impossible \textit{Consume} \If \neg \textit{hasItem} \\
+    & \Initially \textit{bufferEmpty}
+\end{align*}
+
+Rozważmy po~kolei wykonanie wszystkich możliwych akcji złożonych w~każdym stanie. Możliwe~są cztery stany:
+
+\begin{enumerate}
+    \item $\sigma_0 = \{ \textit{bufferEmpty}, \textit{hasItem} \}$,
+    \item $\sigma_1 = \{ \neg \textit{bufferEmpty}, \textit{hasItem} \}$,
+    \item $\sigma_2 = \{ \textit{bufferEmpty}, \neg \textit{hasItem} \}$,
+    \item $\sigma_3 = \{ \neg \textit{bufferEmpty}, \neg \textit{hasItem} \}$.
+\end{enumerate}
+
+Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_3$.
+
+\begin{itemize}
+    \item Dla~stanu $\sigma_0$ mamy
+    \begin{align*}
+        Res_0(\sigma_0, \{ \textsc{Put} \}) &= \{ \sigma_1 \} = Res(\sigma_0, \{ \textsc{Put} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Get} \}) &= \{ \sigma_0 \} = Res(\sigma_0, \{ \textsc{Get} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Consume} \}) &= \{ \sigma_2 \} = Res(\sigma_0, \{ \textsc{Consume} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Put, Get} \}) &= \{ \sigma_1 \} = Res(\sigma_0, \{ \textsc{Put, Get} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Put, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_0, \{ \textsc{Put, Consume} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Get, Consume} \}) &= \{ \sigma_2 \} = Res(\sigma_0, \{ \textsc{Get, Consume} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Put, Get, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_0, \{ \textsc{Put, Get, Consume} \})
+    \end{align*}
+    
+    \item Dla~stanu $\sigma_1$ mamy
+    \begin{align*}
+        Res_0(\sigma_1, \{ \textsc{Put} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{Put} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Get} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{Get} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Consume} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Put, Get} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{Put, Get} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Put, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Put, Consume} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Get, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Get, Consume} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Put, Get, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Put, Get, Consume} \})
+    \end{align*}
+    
+    \item Dla~stanu $\sigma_2$ mamy
+    \begin{align*}
+        Res_0(\sigma_2, \{ \textsc{Put} \}) &= \{ \sigma_3 \} = Res(\sigma_2, \{ \textsc{Put} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Get} \}) &= \{ \sigma_2 \} = Res(\sigma_2, \{ \textsc{Get} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Consume} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Put, Get} \}) &= \{ \sigma_3 \} = Res(\sigma_2, \{ \textsc{Put, Get} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Put, Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Put, Consume} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Get, Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Get, Consume} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Put, Get, Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Put, Get, Consume} \})
+    \end{align*}
+    Występowanie zbiorów pustych w~akcjach złożonych zawierających akcję atomową \textsc{Consume} zapewnia definicja \ref{defn:potentially-executable} -- nie~istnieje żaden potencjalny wynik wykonania tych akcji.
+
+    \item Dla~stanu $\sigma_3$ mamy
+    \begin{align*}
+        Res_0(\sigma_3, \{ \textsc{Put} \}) &= \{ \sigma_3 \} = Res(\sigma_3, \{ \textsc{Put} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Get} \}) &= \{ \sigma_0 \} = Res(\sigma_3, \{ \textsc{Get} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Consume} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Put, Get} \}) &= \{ \sigma_0 \} = Res(\sigma_3, \{ \textsc{Put, Get} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Put, Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Put, Consume} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Get, Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Get, Consume} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Put, Get, Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Put, Get, Consume} \})
+    \end{align*}
+\end{itemize}
+
+Graf funkcji przejścia dla~tego scenariusza znajduje~się na~rysunku~\ref{fig:producer-consumer-state}.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[->,node distance=9cm]
+        \tikzstyle{state} = [shape=rectangle,draw]
+        \tikzstyle{initial} = [fill=gray!25]
+        \node [initial,state] (s0) {$\{ \textit{BE}, \textit{HI} \}$};
+        \node [right of=s0,state] (s1) {$\{ \neg \textit{BE}, \textit{HI} \}$};
+        \node [below=of s0,initial,state] (s2) {$\{ \textit{BE}, \neg \textit{HI} \}$};
+        \node [below=of s1,state] (s3) {$\{ \neg \textit{BE}, \neg \textit{HI} \}$};
+
+        \path (s0)  edge node [above] {$\{ \textsc{Put} \}, \{ \textsc{Put, Get} \}$} (s1)
+                    edge [out=90, in=180, looseness=3] node [above left] {$\{ \textsc{Get} \}$} (s0)
+                    edge node [left, align=right] {$\{ \textsc{Consume} \}$ \\ $\{ \textsc{Get, Consume} \}$} (s2)
+                    edge node [below left, align=right] {$\{ \textsc{Put, Consume} \}$ \\ $\{ \textsc{Put, Get, Consume} \}$} (s3);
+        \path (s1)  edge [out=90, in=0, looseness=3] node [above right, align=left]             {$\{ \textsc{Put} \}$ \\ $\{ \textsc{Get} \}$ \\ $\{ \textsc{Put, Get} \}$} (s1)
+                    edge node [right, align=left] {$\{ \textsc{Consume} \}$ \\ $\{ \textsc{Put, Consume} \}$ \\ $\{ \textsc{Get, Consume} \}$ \\ $\{ \textsc{Put, Get, Consume} \}$} (s3);
+        \path (s2)  edge node [below] {$\{ \textsc{Put} \}$, $\{ \textsc{Put, Get} \}$} (s3)
+                    edge [out=270, in=180, looseness=3] node [below left] {$\{ \textsc{Get} \}$} (s2);
+
+        \path (s3)  edge [out=270, in=0, looseness=3] node [below right, align=left] {$\{ \textsc{Put} \}$} (s3)
+                    edge [bend right=20] node [above right, align=left] {$\{ \textsc{Get} \}$ \\ $\{ \textsc{Put, Get} \}$} (s0);
+    \end{tikzpicture}
+    \caption{
+        Graf funkcji przejścia dla~scenariusza \emph{producent-konsument}.
+        Kolorem szarym oznaczone potencjalne stany początkowe.
+    }
+    \label{fig:producer-consumer-state}
+\end{figure}
 
 \end{document}
