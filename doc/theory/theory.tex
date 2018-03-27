@@ -465,7 +465,7 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
     \begin{enumerate}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wartości postaci:
         \begin{itemize}
-            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy istnieje model % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ istnieje funkcja $\Psi_\mathcal{S}$ taka, że zachodzi $$\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$$
             \item $\Necessary \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdej funkcji $\Psi_\mathcal{S}$ zachodzi $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0}) \models \gamma$$
@@ -501,7 +501,7 @@ oraz~pozbyć~się go z~użyciem akcji \textsc{Consume}.
 Konsument nie~może skonsumować produktu, jeśli wcześniej go nie~pobrał.
 Na~początku bufor jest pusty.
 
-Reprezentacja tego scenariusza w~języku akcji wygląda następująco:
+Reprezentacja tego scenariusza w~postaci domeny akcji $\mathcal{D}$ wygląda następująco:
 \begin{align*}
     & \textsc{Put} \Causes \neg \textit{bufferEmpty} \If \textit{bufferEmpty} \\
     & \textsc{Get} \Causes \textit{bufferEmpty} \land \textit{hasItem} \If \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \\
@@ -568,6 +568,7 @@ Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_3$.
     \end{align*}
 \end{itemize}
 
+Warto zauważyć, że w~tym przypadku funkcja przejścia jest całkowicie deterministyczna, więc istnieje dokładnie jedna funkcja $\Psi_\mathcal{S}$ (choć jest ona nadal częściowo zdefiniowana).
 Graf funkcji przejścia dla~tego scenariusza znajduje~się na~rysunku~\ref{fig:producer-consumer-state}.
 
 \begin{figure}[H]
@@ -598,5 +599,27 @@ Graf funkcji przejścia dla~tego scenariusza znajduje~się na~rysunku~\ref{fig:p
     }
     \label{fig:producer-consumer-state}
 \end{figure}
+
+Rozważmy teraz kilka przykładowych kwerend nad~$\mathcal{D}$.
+
+\begin{enumerate}
+    \item Niech dana będzie kwerenda
+    $$ \Possibly \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) $$
+    Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ prowadzi dla~wszystkich $\Psi_\mathcal{S}$ (tj. dla~jedynej istniejącej funkcji $\Psi_\mathcal{S}$) do~osiągnięcia zadanego celu $\textit{bufferEmpty} \land \neg \textit{hasItem}$.
+
+    \item Niech dana będzie kwerenda
+    $$ \Necessary \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) $$
+    Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_2$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ nie~jest wykonywalny, więc odpowiednia wartość $\Psi_\mathcal{S}$ w~definicji konsekwencji nie~jest zdefiniowana.
+
+    \item Analogicznie, kwerenda
+    $$\Executable (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$$
+    \textbf{jest} konsekwencją $\mathcal{D}$, podczas gdy
+    $$\Executable \Always (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$$
+    \textbf{nie jest} konsekwencją $\mathcal{D}$.
+
+    \item Niech dana będzie kwerenda
+    $$ \Accessible \textit{bufferEmpty} \lor \neg \textit{hasItem} $$
+    Kwerenda ta \textbf{jest} konsekwencją $\mathcal{D}$, ponieważ w~szczególności program pusty prowadzi do~spełnienia celu $\textit{bufferEmpty} \lor \neg \textit{hasItem}$ (tj. w~każdym modelu stan początkowy spełnia zadany cel).
+\end{enumerate}
 
 \end{document}
