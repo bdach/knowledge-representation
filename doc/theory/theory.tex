@@ -576,10 +576,10 @@ Graf funkcji przejścia dla~tego scenariusza znajduje~się na~rysunku~\ref{fig:p
     \begin{tikzpicture}[->,node distance=9cm]
         \tikzstyle{state} = [shape=rectangle,draw]
         \tikzstyle{initial} = [fill=gray!25]
-        \node [initial,state] (s0) {$\{ \textit{BE}, \textit{HI} \}$};
-        \node [right of=s0,state] (s1) {$\{ \neg \textit{BE}, \textit{HI} \}$};
-        \node [below=of s0,initial,state] (s2) {$\{ \textit{BE}, \neg \textit{HI} \}$};
-        \node [below=of s1,state] (s3) {$\{ \neg \textit{BE}, \neg \textit{HI} \}$};
+        \node [initial,state] (s0) {$\sigma_0 = \{ \textit{BE}, \textit{HI} \}$};
+        \node [right of=s0,state] (s1) {$\sigma_1 = \{ \neg \textit{BE}, \textit{HI} \}$};
+        \node [below=of s0,initial,state] (s2) {$\sigma_2 = \{ \textit{BE}, \neg \textit{HI} \}$};
+        \node [below=of s1,state] (s3) {$\sigma_3 = \{ \neg \textit{BE}, \neg \textit{HI} \}$};
 
         \path (s0)  edge node [above] {$\{ \textsc{Put} \}, \{ \textsc{Put, Get} \}$} (s1)
                     edge [out=90, in=180, looseness=3] node [above left] {$\{ \textsc{Get} \}$} (s0)
