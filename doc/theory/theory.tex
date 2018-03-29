@@ -368,14 +368,14 @@ Niech $\mathcal{D}$ będzie domeną akcji, zaś $\mathcal{S} = \left(\Sigma, \si
 
 % TODO: te zdania głupio wyglądają z pojedynczymi akcjami
 \begin{defn}
-    Zdanie wartości $(\alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy dla~każdej akcji złożonej $A'$ takiej, że~$A \in A'$
-    $$\Psi_{\mathcal{S}}((A'), \sigma_0) \models \alpha$$
+    Zdanie wartości $(\alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy
+    $$\Psi_{\mathcal{S}}(\{ A \}, \sigma_0) \models \alpha$$
     dla~każdej funkcji $\Psi_{\mathcal{S}}$.
 \end{defn}
 
 \begin{defn}
-    Zdanie obserwacji $(\Observable \alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{D}$ wtedy i~tylko wtedy, gdy dla~każdej akcji złożonej $A'$ takiej, że~$A \in A'$
-    $$\Psi_{\mathcal{S}}((A'), \sigma_0) \models \alpha$$
+    Zdanie obserwacji $(\Observable \alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{D}$ wtedy i~tylko wtedy, gdy
+    $$\Psi_{\mathcal{S}}(\{ A \}, \sigma_0) \models \alpha$$
     dla~pewnej funkcji $\Psi_{\mathcal{S}}$.
 \end{defn}
 
@@ -465,20 +465,20 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
     \begin{enumerate}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wartości postaci:
         \begin{itemize}
-            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy istnieje model % TODO: do uzgodnienia
+            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ istnieje funkcja $\Psi_\mathcal{S}$ taka, że zachodzi $$\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$$
             \item $\Necessary \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
-            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdej funkcji $\Psi_\mathcal{S}$ zachodzi $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0}) \models \gamma$$
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ i~dla~każdej funkcji $\Psi_\mathcal{S}$ zachodzi $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0}) \models \gamma$$
         \end{itemize}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wykonywalności postaci:
         \begin{itemize}
-            \item $\Executable A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy istnieje model % TODO: do uzgodnienia
-            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ taki, że istnieje % TODO: do uzgodnienia
+            \item $\Executable A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ takiego, że istnieje % TODO: do uzgodnienia
             funkcja $\Psi_\mathcal{S}$ taka, że
             $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$$
             jest zdefiniowane,
             \item $\Executable \Always A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
-            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdej funkcji $\Psi_\mathcal{S}$
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ i~dla~każdej funkcji $\Psi_\mathcal{S}$
             $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$$
             jest zdefiniowane,
         \end{itemize}
