@@ -304,11 +304,16 @@ Po~zdefiniowaniu DNF przystąpmy do~określenia, jakie akcje będą~rozważane z
             \item $\sigma \models \pi_1 \land \pi_2$
             \item w~jednym z~komponentów $\alpha$ występuje $f$.
         \end{itemize}
+        \item W~$D$ znajdują~się dwa zdania postaci:
+        \begin{align*}
+            A & \Releases f \If \pi_1 \\
+            B & \Releases f \If \pi_2
+        \end{align*}
+        takie, że $\sigma \models \pi_1 \land \pi_2$.
     \end{itemize}
 \end{defn}
 
 Zauważmy, że~w~pierwszym przypadku warunek o~sprzeczności komponentów z~$\alpha$ i~$\beta$ nie~jest równoważny sprzeczności formuły $\alpha \land \beta$.
-W~drugim przypadku przyjmujemy, że~zdanie efektu ma~większą wagę niż~zdanie uwolnienia fluentu. % TODO: SPRAWDZIĆ, ŻE TAK JEST
 
 \begin{defn}
     \label{defn:potentially-executable}
