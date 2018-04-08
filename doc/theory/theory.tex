@@ -627,4 +627,134 @@ Rozważmy teraz kilka przykładowych kwerend nad~$\mathcal{D}$.
     Kwerenda ta \textbf{jest} konsekwencją $\mathcal{D}$, ponieważ w~szczególności program pusty prowadzi do~spełnienia celu $\textit{bufferEmpty} \lor \neg \textit{hasItem}$ (tj. w~każdym modelu stan początkowy spełnia zadany cel).
 \end{enumerate}
 
+\subsection{Kot Schrödingera}
+Załóżmy, że dany jest pojemnik z kotem i trucizną, która w każdym momencie może zostać uwolniona. Na początku wiadomo, że kot żyje. Przy pomocy akcji \textsc{PEEK} można zajrzeć do pojemnika, po czym może się okazać, że kot umarł, zaczął lub przestał mruczeć. Jeżeli kot żyje, wykonanie akcji \textsc{PET} spowoduje, że kot zacznie mruczeć. Jeżeli kot nie żyje, niemożliwe jest żeby mruczał.
+
+Powyższy scenariusz jest reprezentowany przez następującą domenę akcji $\mathcal{D}$:
+
+\begin{align*}
+    & \Initially \textit{alive} \\
+    & \textsc{Peek} \Releases \textit{alive}, \textit{purring} \If \textit{alive} \\
+    & \textsc{Pet} \Causes \textit{purring} \If  \textit{alive} \\
+    & \Always \neg \textit{alive} \Rightarrow \neg \textit{purring}
+\end{align*}
+
+Rozważmy po~kolei wykonanie wszystkich możliwych akcji złożonych w~każdym stanie. Możliwe~są trzy stany:
+
+\begin{enumerate}
+    \item $\sigma_0 = \{ \textit{alive}, \textit{purring} \}$,
+    \item $\sigma_1 = \{ \textit{alive}, \neg \textit{purring} \}$,
+    \item $\sigma_2 = \{ \neg \textit{alive}, \neg \textit{purring} \}$.
+\end{enumerate}
+
+Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_1$.
+
+
+\begin{itemize}
+    \item Dla~stanu $\sigma_0$ mamy
+    \begin{align*}
+        Res_0(\sigma_0, \{ \textsc{Peek} \}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\
+        New(\{ \textsc{Peek} \}, \sigma_0, \sigma_0) &=  \{ \textit{alive}, \textit{purring} \} \\
+        New(\{ \textsc{Peek} \}, \sigma_0, \sigma_1) &=  \{ \textit{alive}, \neg \textit{purring} \} \\
+        New(\{ \textsc{Peek} \}, \sigma_0, \sigma_2) &=  \{ \neg \textit{alive}, \neg \textit{purring} \} \\
+        Res(\sigma_0, \{ \textsc{Peek} \}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\
+        Res_0(\sigma_0, \{ \textsc{Pet} \}) &= \{ \sigma_0 \} = Res(\sigma_0, \{ \textsc{Pet} \}) \\
+        \Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0) &= \{\textsc{Peek}\} \\
+        \Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0) &= \{\textsc{Pet}\} \\
+        Res_0(\Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0), \sigma_0) &= Res_0(\sigma_0, \{ \textsc{Peek} \}) \\
+        Res_0(\Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0), \sigma_0) &= Res_0(\sigma_0, \{ \textsc{Pet} \}) \\
+        Res_0(\sigma_0, \{\textsc{Peek},\textsc{Pet}\}) &= Res_0(\Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0), \sigma_0) \cup Res_0(\Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0), \sigma_0) \\
+        Res_0(\sigma_0, \{\textsc{Peek},\textsc{Pet}\}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\
+        New(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0, \sigma_0) &=  \{ \textit{alive}, \textit{purring} \} \\
+        New(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0, \sigma_1) &=  \{ \textit{alive}, \neg \textit{purring} \} \\
+        New(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0, \sigma_2) &=  \{ \neg \textit{alive}, \neg \textit{purring} \} \\
+        Res(\sigma_0, \{\textsc{Peek},\textsc{Pet}\}) &= \{ \sigma_0, \sigma_1, \sigma_2 \}
+    \end{align*}
+    
+    W stanie $\sigma_0$ akcje $\textsc{Peek}, \textsc{Pet}$ są konfliktowe, ponieważ obie wpływają na fluent \textit{purring}. Dlatego dla akcji złożonej $\{\textsc{Peek}, \textsc{Pet}\}$ wyróżnione są dwie dekompozycje $\Delta_1$ i $\Delta_{2}$.
+    
+    \item Dla~stanu $\sigma_1$ mamy
+    \begin{align*}
+        Res_0(\sigma_1, \{ \textsc{Peek} \}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\
+        New(\{ \textsc{Peek} \}, \sigma_1, \sigma_0) &=  \{ \textit{alive}, \textit{purring} \} \\
+        New(\{ \textsc{Peek} \}, \sigma_1, \sigma_1) &=  \{ \textit{alive}, \neg \textit{purring} \} \\
+        New(\{ \textsc{Peek} \}, \sigma_1, \sigma_2) &=  \{ \neg \textit{alive}, \neg \textit{purring} \} \\
+        Res(\sigma_1, \{ \textsc{Peek} \}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\
+        Res_0(\sigma_1, \{ \textsc{Pet} \}) &= \{ \sigma_0 \} = Res(\sigma_1, \{ \textsc{Pet} \}) \\
+        \Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1) &= \{\textsc{Peek}\} \\
+        \Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1) &= \{\textsc{Pet}\} \\
+        Res_0(\Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1), \sigma_1) &= Res_0(\sigma_1, \{ \textsc{Peek} \}) \\
+        Res_0(\Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1), \sigma_1) &= Res_0(\sigma_1, \{ \textsc{Pet} \}) \\
+        Res_0(\sigma_1, \{\textsc{Peek},\textsc{Pet}\}) &= Res_0(\Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1), \sigma_1) \cup Res_0(\Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1), \sigma_1) \\
+        Res_0(\sigma_1, \{\textsc{Peek},\textsc{Pet}\}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\
+        New(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1, \sigma_0) &=  \{ \textit{alive}, \textit{purring} \} \\
+        New(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1, \sigma_1) &=  \{ \textit{alive}, \neg \textit{purring} \} \\
+        New(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1, \sigma_2) &=  \{ \neg \textit{alive}, \neg \textit{purring} \} \\
+        Res(\sigma_1, \{\textsc{Peek},\textsc{Pet}\}) &= \{ \sigma_0, \sigma_1, \sigma_2 \}
+    \end{align*}
+    
+    \item Dla~stanu $\sigma_2$ mamy
+    \begin{align*}
+        Res_0(\sigma_2, \{ \textsc{Peek} \}) &= \{ \sigma_2 \} = Res(\sigma_2, \{ \textsc{Peek} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Pet} \}) &= \{ \sigma_2 \} = Res(\sigma_2, \{ \textsc{Pet} \}) \\
+        \Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_2) &= \{\textsc{Peek}\} \\
+        \Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_2) &= \{\textsc{Pet}\} \\
+        Res_0(\Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_2), \sigma_2) &= Res_0(\sigma_2, \{ \textsc{Peek} \}) \\
+        Res_0(\Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_2), \sigma_2) &= Res_0(\sigma_2, \{ \textsc{Pet} \}) \\
+        Res_0(\sigma_2, \{\textsc{Peek},\textsc{Pet}\}) &= Res_0(\Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_2), \sigma_2) \cup Res_0(\Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_2), \sigma_2) \\
+        Res_0(\sigma_2, \{\textsc{Peek},\textsc{Pet}\}) &= \{ \sigma_2 \} = Res(\sigma_2, \{\textsc{Peek},\textsc{Pet}\})
+    \end{align*}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[->,node distance=9cm]
+        \tikzstyle{state} = [shape=rectangle,draw]
+        \tikzstyle{initial} = [fill=gray!25]
+        \node [initial,state] (s0) {$\sigma_0 = \{ \textit{alive}, \textit{purring} \}$};
+        \node [right of=s0,state] (s1) {$\sigma_2 = \{ \neg \textit{alive}, \neg \textit{purring} \}$};
+        \node [below=of s0,initial,state] (s2) {$\sigma_1 = \{ \textit{alive}, \neg \textit{purring} \}$};
+
+        \path (s0)  edge node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Peek, Pet} \}$} (s1)
+                    edge [out=90, in=180, looseness=3] node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Pet} \}, \{ \textsc{Peek}, \textsc{Pet} \}$} (s0)
+                    edge [out=0, in=70, looseness=0.25] node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Peek, Pet} \}$} (s2);
+        \path (s1)  edge [out=90, in=360, looseness=3] node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Pet} \}, \{ \textsc{Peek}, \textsc{Pet} \}$} (s1);
+        \path (s2)  edge [out=180, in=200, looseness=0.25] node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Pet} \}, \{ \textsc{Peek}, \textsc{Pet} \}$} (s0)
+                    edge [out=270, in=180, looseness=3] node [below] {$\{ \textsc{Peek} \}, \{ \textsc{Peek}, \textsc{Pet} \}$} (s2)
+                    edge node [above right] {$\{ \textsc{Peek} \}, \{ \textsc{Peek, Pet} \}$} (s1);
+                    
+                    
+                    
+        
+    \end{tikzpicture}
+    \caption{
+        Graf funkcji przejścia dla~scenariusza \emph{Kot Schrödingera}.
+        Kolorem szarym oznaczone potencjalne stany początkowe.
+    }
+    \label{fig:producer-consumer-state}
+\end{figure}
+
+Przykładowe kwerendy nad~$\mathcal{D}$:
+
+\begin{enumerate}
+    \item Niech dana będzie kwerenda
+    $$ \Possibly \neg \textit{alive} \After (\{ \textsc{Pet} \}, \{ \textsc{Peek} \}) $$
+    Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$ i dla modelu którego stanem początkowym jest $\sigma_1$, istnieje $\Psi_\mathcal{S}$, że program $(\{ \textsc{Pet} \}, \{ \textsc{Peek} \})$ prowadzi do stanu $\sigma_2$, w którym spełnione jest $\neg \textit{alive}$.
+
+    \item Niech dana będzie kwerenda
+    $$ \Necessary \textit{purring} \After (\{ \textsc{Peek}, \textsc{Pet} \}) $$
+    Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$ lub $\sigma_1$, dla progamu $(\{ \textsc{Peek}, \textsc{Pet} \})$ istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca   do stanu $\sigma_2$.
+
+    \item Analogicznie, kwerenda
+    $$\Executable (\{ \textsc{Peek} \}, \{ \textsc{Pet} \})$$
+    \textbf{jest} konsekwencją $\mathcal{D}$, podczas gdy
+    $$\Executable \Always (\{ \textsc{Peek} \}, \{ \textsc{Pet} \})$$
+    \textbf{nie jest} konsekwencją $\mathcal{D}$.
+
+    \item Niech dana będzie kwerenda
+    $$ \Accessible \textit{purring} $$
+    Kwerenda ta \textbf{jest} konsekwencją $\mathcal{D}$, ponieważ dla modelu $\mathcal{D}$, którego stanem początkowym jest $\sigma_0$, pusty program prowadzi do osiągnięcia celu. Z kolei dla modelu, którego stanem poczatkowym jest $\sigma_1$, program $(\{\textsc{Pet}\})$ prowadzi do osiągnięcia ceul.
+\end{enumerate}
+
+
 \end{document}
