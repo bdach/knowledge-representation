@@ -628,13 +628,14 @@ Rozważmy teraz kilka przykładowych kwerend nad~$\mathcal{D}$.
 \end{enumerate}
 
 \subsection{Kot Schrödingera}
-Załóżmy, że dany jest pojemnik z kotem i trucizną, która w każdym momencie może zostać uwolniona. Na początku wiadomo, że kot żyje. Przy pomocy akcji \textsc{PEEK} można zajrzeć do pojemnika, po czym może się okazać, że kot umarł, zaczął lub przestał mruczeć. Jeżeli kot żyje, wykonanie akcji \textsc{PET} spowoduje, że kot zacznie mruczeć. Jeżeli kot nie żyje, niemożliwe jest żeby mruczał.
+Załóżmy, że dany jest pojemnik z kotem i trucizną, która w każdym momencie może zostać uwolniona. Na początku wiadomo, że kot żyje. Przy pomocy akcji \textsc{Peek} można zajrzeć do pojemnika, po czym może się okazać, że kot umarł, zaczął lub przestał mruczeć. Jeżeli kot żyje, wykonanie akcji \textsc{Pet} spowoduje, że kot zacznie mruczeć. Jeżeli kot nie żyje, niemożliwe jest żeby mruczał.
 
 Powyższy scenariusz jest reprezentowany przez następującą domenę akcji $\mathcal{D}$:
 
 \begin{align*}
     & \Initially \textit{alive} \\
-    & \textsc{Peek} \Releases \textit{alive}, \textit{purring} \If \textit{alive} \\
+    & \textsc{Peek} \Releases \textit{alive} \If \textit{alive} \\
+    & \textsc{Peek} \Releases \textit{purring} \If \textit{alive} \\
     & \textsc{Pet} \Causes \textit{purring} \If  \textit{alive} \\
     & \Always \neg \textit{alive} \Rightarrow \neg \textit{purring}
 \end{align*}
@@ -658,7 +659,9 @@ Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_1$.
         New(\{ \textsc{Peek} \}, \sigma_0, \sigma_1) &=  \{ \textit{alive}, \neg \textit{purring} \} \\
         New(\{ \textsc{Peek} \}, \sigma_0, \sigma_2) &=  \{ \neg \textit{alive}, \neg \textit{purring} \} \\
         Res(\sigma_0, \{ \textsc{Peek} \}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\
+        \\
         Res_0(\sigma_0, \{ \textsc{Pet} \}) &= \{ \sigma_0 \} = Res(\sigma_0, \{ \textsc{Pet} \}) \\
+        \\
         \Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0) &= \{\textsc{Peek}\} \\
         \Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0) &= \{\textsc{Pet}\} \\
         Res_0(\Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_0), \sigma_0) &= Res_0(\sigma_0, \{ \textsc{Peek} \}) \\
@@ -680,7 +683,9 @@ Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_1$.
         New(\{ \textsc{Peek} \}, \sigma_1, \sigma_1) &=  \{ \textit{alive}, \neg \textit{purring} \} \\
         New(\{ \textsc{Peek} \}, \sigma_1, \sigma_2) &=  \{ \neg \textit{alive}, \neg \textit{purring} \} \\
         Res(\sigma_1, \{ \textsc{Peek} \}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\
+        \\
         Res_0(\sigma_1, \{ \textsc{Pet} \}) &= \{ \sigma_0 \} = Res(\sigma_1, \{ \textsc{Pet} \}) \\
+        \\
         \Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1) &= \{\textsc{Peek}\} \\
         \Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1) &= \{\textsc{Pet}\} \\
         Res_0(\Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_1), \sigma_1) &= Res_0(\sigma_1, \{ \textsc{Peek} \}) \\
@@ -696,7 +701,9 @@ Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_1$.
     \item Dla~stanu $\sigma_2$ mamy
     \begin{align*}
         Res_0(\sigma_2, \{ \textsc{Peek} \}) &= \{ \sigma_2 \} = Res(\sigma_2, \{ \textsc{Peek} \}) \\
+        \\
         Res_0(\sigma_2, \{ \textsc{Pet} \}) &= \{ \sigma_2 \} = Res(\sigma_2, \{ \textsc{Pet} \}) \\
+        \\
         \Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_2) &= \{\textsc{Peek}\} \\
         \Delta_2(\{\textsc{Peek},\textsc{Pet}\}, \sigma_2) &= \{\textsc{Pet}\} \\
         Res_0(\Delta_1(\{\textsc{Peek},\textsc{Pet}\}, \sigma_2), \sigma_2) &= Res_0(\sigma_2, \{ \textsc{Peek} \}) \\
@@ -708,24 +715,21 @@ Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_1$.
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[->,node distance=9cm]
+    \begin{tikzpicture}[->,node distance=8cm]
         \tikzstyle{state} = [shape=rectangle,draw]
         \tikzstyle{initial} = [fill=gray!25]
         \node [initial,state] (s0) {$\sigma_0 = \{ \textit{alive}, \textit{purring} \}$};
-        \node [right of=s0,state] (s1) {$\sigma_2 = \{ \neg \textit{alive}, \neg \textit{purring} \}$};
+        \node [right of=s0,below=4cm of s0,state] (s1) {$\sigma_2 = \{ \neg \textit{alive}, \neg \textit{purring} \}$};
         \node [below=of s0,initial,state] (s2) {$\sigma_1 = \{ \textit{alive}, \neg \textit{purring} \}$};
 
-        \path (s0)  edge node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Peek, Pet} \}$} (s1)
-                    edge [out=90, in=180, looseness=3] node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Pet} \}, \{ \textsc{Peek}, \textsc{Pet} \}$} (s0)
-                    edge [out=0, in=70, looseness=0.25] node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Peek, Pet} \}$} (s2);
-        \path (s1)  edge [out=90, in=360, looseness=3] node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Pet} \}, \{ \textsc{Peek}, \textsc{Pet} \}$} (s1);
-        \path (s2)  edge [out=180, in=200, looseness=0.25] node [above] {$\{ \textsc{Peek} \}, \{ \textsc{Pet} \}, \{ \textsc{Peek}, \textsc{Pet} \}$} (s0)
-                    edge [out=270, in=180, looseness=3] node [below] {$\{ \textsc{Peek} \}, \{ \textsc{Peek}, \textsc{Pet} \}$} (s2)
-                    edge node [above right] {$\{ \textsc{Peek} \}, \{ \textsc{Peek, Pet} \}$} (s1);
-                    
-                    
-                    
-        
+        \path (s0)  edge node [above right, align=left] {$\{ \textsc{Peek} \}$ \\ $\{ \textsc{Peek, Pet} \}$} (s1)
+                    edge [out=90, in=180, looseness=2] node [above left, align=right] {$\{ \textsc{Peek} \}$ \\ $\{ \textsc{Pet} \}$ \\ $\{ \textsc{Peek}, \textsc{Pet} \}$} (s0)
+                    edge [bend left=15] node [right, align=left] {$\{ \textsc{Peek} \}$ \\ $\{ \textsc{Peek, Pet} \}$} (s2);
+        \path (s1)  edge [out=90, in=360, looseness=2] node [above right, align=left] {$\{ \textsc{Peek} \}$ \\ $ \{ \textsc{Pet} \}$ \\ $ \{ \textsc{Peek}, \textsc{Pet} \}$} (s1);
+        \path (s2)  edge [bend left=15] node [left, align=right] {$\{ \textsc{Peek} \}$ \\ $\{ \textsc{Pet} \}$ 
+        \\ $\{ \textsc{Peek}, \textsc{Pet} \}$} (s0)
+                    edge [out=270, in=180, looseness=2] node [below left, align=right] {$\{ \textsc{Peek} \}$ \\ $\{ \textsc{Peek}, \textsc{Pet} \}$} (s2)
+                    edge node [below right, align=left] {$\{ \textsc{Peek} \}$ \\ $\{ \textsc{Peek, Pet} \}$} (s1);
     \end{tikzpicture}
     \caption{
         Graf funkcji przejścia dla~scenariusza \emph{Kot Schrödingera}.
