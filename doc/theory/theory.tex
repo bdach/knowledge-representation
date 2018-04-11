@@ -112,7 +112,7 @@ Sygnatura języka określa zarówno logiczne zmienne określające stan świata 
 
 \begin{defn}
     \textbf{Formuła} nad~zbiorem fluentów~$\mathcal{F}$ to~dowolny predykat zbudowany z~fluentów: 
-    $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \Rightarrow \alpha_2\ |\ \alpha_1 \Leftrightarrow \alpha_2 $$
+    $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \rightarrow \alpha_2\ |\ \alpha_1 \equiv \alpha_2 $$
     Ponadto definiujemy dwie specjalne formuły:
     
     \begin{itemize}
@@ -208,8 +208,8 @@ Powyższe zdanie można traktować jak deklarację istnienia nieinercjalnego flu
         \sigma^{*}\left(\neg \alpha\right) &= 1 - \sigma^{*}\left(\alpha\right) \\
         \sigma^{*}\left(\alpha \land \beta\right) &= \min \left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right) \\
         \sigma^{*}\left(\alpha \lor \beta\right) &= \max \left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right) \\
-        \sigma^{*}\left(\alpha \Rightarrow \beta\right) &= \sigma^{*}\left(\neg \alpha \lor \beta\right) \\
-        \sigma^{*}\left(\alpha \Leftrightarrow \beta\right) &= \sigma^{*}\left(\left(\alpha \Rightarrow \beta\right)\land\left(\beta \Rightarrow \alpha\right)\right)
+        \sigma^{*}\left(\alpha \rightarrow \beta\right) &= \sigma^{*}\left(\neg \alpha \lor \beta\right) \\
+        \sigma^{*}\left(\alpha \equiv \beta\right) &= \sigma^{*}\left(\left(\alpha \rightarrow \beta\right)\land\left(\beta \rightarrow \alpha\right)\right)
     \end{align*}
     Dla każdej formuły $\alpha \in Forms\left(\mathcal{F}\right)$, gdy $\sigma^*\left(\alpha\right) = 1$, piszemy $\sigma \models \alpha$.
 \end{defn}
@@ -351,7 +351,7 @@ Zauważmy, że na~mocy definicji \ref{defn:conflict} i~\ref{defn:potentially-exe
     Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma, \sigma^\prime$ będą stanami, niech $A \subseteq \mathcal{A}c$ będzie akcją i niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ będzie dekompozycją $A$ w~$\sigma$.
     Mówimy, że $\sigma^\prime$ jest \textbf{potencjalnym wynikiem wykonania} $A$ w $\sigma$ wtedy i~tylko wtedy gdy dla każdego $i = 1, \dots k$ i~dla~każdego zdania postaci: 
     $$ (E_i \Causes \alpha \If \pi) \in D $$
-    zachodzi $\sigma \models \pi \Rightarrow \sigma^\prime \models \alpha $.
+    zachodzi $\sigma \models \pi \rightarrow \sigma^\prime \models \alpha $.
 \end{defn} 
     
 Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który spełnia wszystkie efekty każdego komponentu $E_i$ z~danej dekompozycji.
