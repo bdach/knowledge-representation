@@ -894,11 +894,6 @@ Stanem początkowym będzie $\sigma_0$.
         \\                   
     \end{align*}
 \end{itemize}
-%\begin{enumerate}
-%    \item $\sigma_0 = \{ \neg \textit{brushA}, \neg \textit{brushB} \}$,
-%    \item $\sigma_1 = \{ \textit{brushA}, \neg \textit{brushB} \}$,
-%    \item $\sigma_2 = \{ \neg \textit{brushA}, \textit{brushB} \}$.
-%\end{enumerate}
 
 \begin{figure}[H]
     \hspace*{-4em}
@@ -911,7 +906,7 @@ Stanem początkowym będzie $\sigma_0$.
 
         \path (s0)  edge [out=90, in=180, looseness=2] node [above left, align=left] {$\{ \textsc{Paint} \}$ } (s0) 
         edge [out=360, in=180, bend left=20] node [above, align=left] {$\{ \textsc{TakeA} \}$, \\ $\{ \textsc{TakeA, TakeB} \}$, \\ $\{ \textsc{TakeA, Paint} \}$, \\ $\{ \textsc{TakeA, TakeB, Paint} \}$ } (s1)
-        edge [out=270, in=90, bend right=15] node [above left, align=left] {$\{ \textsc{TakeB} \}$, \\ $\{ \textsc{TakeA, TakeB} \}$, \\ $\{ \textsc{TakeB, Paint} \}$, \\ $\{ \textsc{TakeA, TakeB, Paint} \}$ } (s2);  
+        edge [out=270, in=90, bend right=15] node [above left, align=right] {$\{ \textsc{TakeB} \}$, \\ $\{ \textsc{TakeA, TakeB} \}$, \\ $\{ \textsc{TakeB, Paint} \}$, \\ $\{ \textsc{TakeA, TakeB, Paint} \}$ } (s2);  
         
         \path (s1)  edge [out=180, in=360] node [below right, align=left] {$\{ \textsc{Paint} \}$ } (s0)
         edge [out=360, in=90, looseness=2] node [above, align=left] {$\{ \textsc{TakeA} \}$, \\ $\{ \textsc{TakeA, TakeB} \}$, \\ $\{ \textsc{TakeA, Paint} \}$, \\ $\{ \textsc{TakeA, TakeB, Paint} \}$ } (s1)   
