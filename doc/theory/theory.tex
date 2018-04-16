@@ -760,5 +760,169 @@ Przykładowe kwerendy nad~$\mathcal{D}$:
     Kwerenda ta \textbf{jest} konsekwencją $\mathcal{D}$, ponieważ dla modelu $\mathcal{D}$, którego stanem początkowym jest $\sigma_0$, pusty program prowadzi do osiągnięcia celu. Z kolei dla modelu, którego stanem poczatkowym jest $\sigma_1$, program $(\{\textsc{Pet}\})$ prowadzi do osiągnięcia ceul.
 \end{enumerate}
 
+\subsection{Dwóch malarzy}
+Załóżmy, że mamy dwóch malarzy (oznaczmy ich jako $A$ i $B$) i jeden pędzel. Malarze mogą zabrać pędzel (akcje $\textsc{TakeA},\textsc{TakeB}$), na początku żaden z malarzy nie ma pędzla. Malarze mający pędzel mogą wykonać akcję $\textsc{Paint}$, po której znów odkładają pędzel.
+
+Powyższy scenariusz jest reprezentowany przez następującą domenę akcji $\mathcal{D}$:
+
+\begin{align*}
+    & \Initially  \neg \textit{brushA}, \neg \textit{brushB} \\
+	& \textsc{TakeA} \Causes \textit{brushA} \land \neg \textit{brushB}  \\
+	& \textsc{TakeB} \Causes \neg \textit{brushA} \land \textit{brushB}  \\
+	& \textsc{Paint} \Causes \neg \textit{brushA} \If \textit{brushA} \\
+	& \textsc{Paint} \Causes \neg \textit{brushB} \If \textit{brushB} \\
+	& \Always \neg \textit{brushA} \lor \neg \textit{brushB}
+\end{align*}
+
+Rozważmy po~kolei wykonanie wszystkich możliwych akcji złożonych w~każdym stanie. Możliwe~są trzy stany:
+
+\begin{enumerate}
+    \item $\sigma_0 = \{ \neg \textit{brushA}, \neg \textit{brushB} \}$,
+    \item $\sigma_1 = \{ \textit{brushA}, \neg \textit{brushB} \}$,
+    \item $\sigma_2 = \{ \neg \textit{brushA}, \textit{brushB} \}$.
+\end{enumerate}
+
+Stanem początkowym będzie $\sigma_0$.
+
+\begin{itemize}
+    \item Dla~stanu $\sigma_0$ mamy
+    
+    \begin{align*}
+		Res_0(\sigma_0, \{ \textsc{TakeA} \}) &= \{ \sigma_1 \} = Res(\sigma_0, \{ \textsc{TakeA} \}) \\
+        \\
+    	Res_0(\sigma_0, \{ \textsc{TakeB} \}) &= \{ \sigma_2 \} = Res(\sigma_0, \{ \textsc{TakeB} \}) \\
+    	\\
+    	Res_0(\sigma_0, \{ \textsc{Paint} \}) &= \{ \sigma_0 \} = Res(\sigma_0, \{ \textsc{Paint} \}) \\
+    	\\
+    	Res_0(\sigma_0, \Delta_1(\{\textsc{TakeA, TakeB} \}, \sigma_0 \})) &= Res_0(\sigma_0, \{ \textsc{TakeA} \}) = \{ \sigma_1 \} \\
+    	Res_0(\sigma_0, \Delta_2(\{\textsc{TakeA, TakeB} \}, \sigma_0 \})) &= Res_0(\sigma_0, \{ \textsc{TakeB} \}) = \{ \sigma_2 \} \\
+		Res_0(\sigma_0, \{\textsc{TakeA, TakeB} \}) &= \{ \sigma_1, \sigma_2 \} \\  
+        New(\{\textsc{TakeA, TakeB} \}, \sigma_0, \sigma_1) &=  \{ \textit{brushA} \} \\    
+		New(\{\textsc{TakeA, TakeB} \}, \sigma_0, \sigma_2) &=  \{ \textit{brushB} \} \\    
+        Res(\sigma_0, \{\textsc{TakeA, TakeB} \}) &= \{ \sigma_1, \sigma_2 \} \\   
+        \\ 
+        Res_0(\sigma_0, \{ \textsc{TakeA, Paint} \}) &= \{ \sigma_1\} = Res(\sigma_0, \{ \textsc{TakeA, Paint} \}) \\ 
+        \\   
+        Res_0(\sigma_0, \{ \textsc{TakeB, Paint} \}) &= \{ \sigma_2\} = Res(\sigma_0, \{ \textsc{TakeB, Paint} \}) \\     
+        \\
+        Res_0(\sigma_0, \Delta_1(\{\textsc{TakeA, TakeB, Paint} \}, \sigma_0 \})) &= Res_0(\sigma_0, \{ \textsc{TakeA, Paint} \}) = \{ \sigma_1 \} \\
+    	Res_0(\sigma_0, \Delta_2(\{\textsc{TakeA, TakeB, Paint} \}, \sigma_0 \})) &= Res_0(\sigma_0, \{ \textsc{TakeB, Paint} \}) = \{ \sigma_2 \} \\
+		Res_0(\sigma_0, \{\textsc{TakeA, TakeB, Paint} \}) &= \{ \sigma_1, \sigma_2 \} \\         
+        New(\{\textsc{TakeA, TakeB, Paint} \}, \sigma_0, \sigma_1) &=  \{ \textit{brushA} \} \\    
+		New(\{\textsc{TakeA, TakeB, Paint} \}, \sigma_0, \sigma_2) &=  \{ \textit{brushB} \} \\    
+        Res(\sigma_0, \{\textsc{TakeA, TakeB, Paint} \}) &= \{ \sigma_1, \sigma_2 \} \\ 		
+    \end{align*}
+
+	W tym stanie akcje $\textsc{TakeA i TakeB}$ są konfliktowe, fluenty \textit{brushA, brushB} są sprzeczne, dlatego dla akcji zawierających $\textsc{TakeA i TakeB}$ trzeba wyznaczyć dekompozycje.
+	\newpage
+    \item Dla~stanu $\sigma_1$ mamy
+    
+    \begin{align*}
+		Res_0(\sigma_1, \{ \textsc{TakeA} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{TakeA} \}) \\
+        \\
+    	Res_0(\sigma_1, \{ \textsc{TakeB} \}) &= \{ \sigma_2 \} = Res(\sigma_1, \{ \textsc{TakeB} \}) \\
+    	\\
+    	Res_0(\sigma_1, \{ \textsc{Paint} \}) &= \{ \sigma_0, \sigma_2 \}  \\
+    	New(\{ \textsc{Paint} \}, \sigma_1, \sigma_0) &=  \{ \textit{brushA} \} \\    
+    	New(\{ \textsc{Paint} \}, \sigma_1, \sigma_2) &=  \{ \textit{brushA}, \textit{brushB}\} \\   
+    	Res(\sigma_1, \{ \textsc{Paint} \}) &= \{ \sigma_0 \} \\ 
+    	\\
+    	Res_0(\sigma_1, \Delta_1(\{\textsc{TakeA, TakeB} \}, \sigma_1 \})) &= Res_0(\sigma_1, \{ \textsc{TakeA} \}) = \{ \sigma_1 \} \\
+    	Res_0(\sigma_1, \Delta_2(\{\textsc{TakeA, TakeB} \}, \sigma_1 \})) &= Res_0(\sigma_1, \{ \textsc{TakeB} \}) = \{ \sigma_2 \} \\
+		Res_0(\sigma_1, \{\textsc{TakeA, TakeB} \}) &= \{ \sigma_1, \sigma_2 \} \\  
+        New(\{\textsc{TakeA, TakeB} \}, \sigma_1, \sigma_1) &=  \emptyset \\    
+		New(\{\textsc{TakeA, TakeB} \}, \sigma_1, \sigma_2) &=  \{ \textit{brushA}, \textit{brushB} \} \\    
+        Res(\sigma_0, \{\textsc{TakeA, TakeB} \}) &= \{ \sigma_1 \} \\   
+        \\             
+    	Res_0(\sigma_1, \Delta_1(\{\textsc{TakeA, Paint} \}, \sigma_1 \})) &= Res_0(\sigma_1, \{ \textsc{TakeA} \}) = \{ \sigma_1 \} \\
+    	Res_0(\sigma_1, \Delta_2(\{\textsc{TakeA, Paint} \}, \sigma_1 \})) &= Res_0(\sigma_1, \{ \textsc{Paint} \}) = \{ \sigma_0, \sigma_2 \} \\
+		Res_0(\sigma_1, \{\textsc{TakeA, Paint} \}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\  
+        New(\{ \textsc{TakeA, Paint} \}, \sigma_1, \sigma_0) &= \{ \textit{brushA}\} \\    
+		New(\{ \textsc{TakeA, Paint} \}, \sigma_1, \sigma_1) &= \emptyset \\  
+ 		New(\{ \textsc{TakeA, Paint} \}, \sigma_1, \sigma_2) &= \{ \textit{brushA}, \textit{brushB} \} \\  
+        Res(\sigma_1, \{\textsc{TakeA, Paint} \}) &= \{ \sigma_1 \} \\   
+        \\     
+    	Res_0(\sigma_1, \{ \textsc{TakeB, Paint} \})) &=  \{ \sigma_2 \} = Res(\sigma_1, \{ \textsc{TakeB, Paint} \})) \\
+        \\    
+    	Res_0(\sigma_1, \Delta_1(\{\textsc{TakeA, TakeB, Paint} \}, \sigma_1 \})) &= Res_0(\sigma_1, \{ \textsc{TakeA} \}) = \{ \sigma_1 \} \\
+    	Res_0(\sigma_1, \Delta_2(\{\textsc{TakeA, TakeB, Paint} \}, \sigma_1 \})) &= Res_0(\sigma_1, \{ \textsc{TakeB, Paint} \}) = \{ \sigma_2 \} \\
+		Res_0(\sigma_1, \{\textsc{TakeA, TakeB, Paint} \}) &= \{ \sigma_1, \sigma_2 \} \\  
+        New(\{ \textsc{TakeA, TakeB, Paint} \}, \sigma_1, \sigma_1) &= \emptyset \\    
+		New(\{ \textsc{TakeA, TakeB, Paint} \}, \sigma_1, \sigma_2) &= \{ \textit{brushA}, \textit{brushB}\} \\    
+        Res(\sigma_1, \{\textsc{TakeA, TakeB, Paint} \}) &= \{ \sigma_1 \} \\   
+        \\               
+    \end{align*}
+    
+    W stanie $\sigma_1$ dodatkowo $\textsc{TakeA, Paint}$ są sprzeczne, ustawiają fluent \textit{BrushA} na przeciwne wartości.
+	\newpage
+    \item Dla~stanu $\sigma_2$ mamy
+    
+    \begin{align*}
+		Res_0(\sigma_2, \{ \textsc{TakeA} \}) &= \{ \sigma_1 \} = Res(\sigma_2, \{ \textsc{TakeA} \}) \\
+        \\    	
+    	Res_0(\sigma_2, \{ \textsc{TakeB} \}) &= \{ \sigma_2 \} = Res(\sigma_2, \{ \textsc{TakeB} \}) \\
+    	\\
+    	Res_0(\sigma_2, \{ \textsc{Paint} \}) &= \{ \sigma_0, \sigma_1 \}  \\
+    	New(\{ \textsc{Paint} \}, \sigma_2, \sigma_0) &=  \{ \textit{brushB} \} \\    
+    	New(\{ \textsc{Paint} \}, \sigma_2, \sigma_1) &=  \{ \textit{brushA}, \textit{brushB}\} \\   
+    	Res(\sigma_2, \{ \textsc{Paint} \}) &= \{ \sigma_0 \} \\ 
+    	\\     
+    	Res_0(\sigma_2, \Delta_1(\{\textsc{TakeA, TakeB} \}, \sigma_2 \})) &= Res_0(\sigma_1, \{ \textsc{TakeA} \}) = \{ \sigma_1 \} \\
+    	Res_0(\sigma_2, \Delta_2(\{\textsc{TakeA, TakeB} \}, \sigma_2 \})) &= Res_0(\sigma_1, \{ \textsc{TakeB} \}) = \{ \sigma_2 \} \\
+		Res_0(\sigma_2, \{\textsc{TakeA, TakeB} \}) &= \{ \sigma_1, \sigma_2 \} \\  
+        New(\{\textsc{TakeA, TakeB} \}, \sigma_2, \sigma_1) &=  \{ \textit{brushA}, \textit{brushB} \} \\    
+		New(\{\textsc{TakeA, TakeB} \}, \sigma_2, \sigma_2) &=  \emptyset \\    
+        Res(\sigma_2, \{\textsc{TakeA, TakeB} \}) &= \{ \sigma_2 \} \\
+        \\
+    	Res_0(\sigma_2, \{ \textsc{TakeA, Paint} \})) &=  \{ \sigma_1 \} = Res(\sigma_2, \{ \textsc{TakeA, Paint} \})) \\
+        \\ 
+    	Res_0(\sigma_2, \Delta_1(\{\textsc{TakeB, Paint} \}, \sigma_2 \})) &= Res_0(\sigma_2, \{ \textsc{TakeB} \}) = \{ \sigma_2 \} \\
+    	Res_0(\sigma_2, \Delta_2(\{\textsc{TakeB, Paint} \}, \sigma_2 \})) &= Res_0(\sigma_2, \{ \textsc{Paint} \}) = \{ \sigma_0, \sigma_1 \} \\
+		Res_0(\sigma_2, \{\textsc{TakeB, Paint} \}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\  
+        New(\{ \textsc{TakeB, Paint} \}, \sigma_2, \sigma_0) &= \{ \textit{brushB}\} \\    
+		New(\{ \textsc{TakeB, Paint} \}, \sigma_2, \sigma_1) &= \{ \textit{brushA}, \textit{brushB} \} \\  
+ 		New(\{ \textsc{TakeB, Paint} \}, \sigma_2, \sigma_2) &= \emptyset \\  
+        Res(\sigma_2, \{\textsc{TakeB, Paint} \}) &= \{ \sigma_2 \} \\   
+        \\ 
+    	Res_0(\sigma_2, \Delta_1(\{\textsc{TakeA, TakeB, Paint} \}, \sigma_2 \})) &= Res_0(\sigma_2, \{ \textsc{TakeA, Paint} \}) = \{ \sigma_1 \} \\
+    	Res_0(\sigma_2, \Delta_2(\{\textsc{TakeA, TakeB, Paint} \}, \sigma_2 \})) &= Res_0(\sigma_2, \{ \textsc{TakeB} \}) = \{ \sigma_2 \} \\
+		Res_0(\sigma_2, \{\textsc{TakeA, TakeB, Paint} \}) &= \{ \sigma_0, \sigma_1, \sigma_2 \} \\  
+        New(\{ \textsc{TakeA, TakeB, Paint} \}, \sigma_2, \sigma_0) &= \{ \textit{brushB}\} \\    
+		New(\{ \textsc{TakeA, TakeB, Paint} \}, \sigma_2, \sigma_1) &= \{ \textit{brushA}, \textit{brushB} \} \\  
+ 		New(\{ \textsc{TakeA, TakeB, Paint} \}, \sigma_2, \sigma_2) &= \emptyset \\  
+        Res(\sigma_2, \{\textsc{TakeA, TakeB, Paint} \}) &= \{ \sigma_2 \} \\   
+        \\                   
+    \end{align*}
+\end{itemize}
+
+\begin{figure}[H]
+    \hspace*{-4em}
+    \begin{tikzpicture}[->,node distance=9cm]
+        \tikzstyle{state} = [shape=rectangle,draw]
+        \tikzstyle{initial} = [fill=gray!25]
+        \node [initial,state] (s0) {$\sigma_0 = \{ \neg \textit{brushA}, \neg \textit{brushB} \}$};
+        \node [right of=s0 ,state] (s1) {$\sigma_1 = \{ \textit{brushA}, \neg \textit{brushB} \}$};
+        \node [below=of s0,state] (s2) {$\sigma_2 = \{ \neg \textit{brushA}, \textit{brushB} \}$};
+
+        \path (s0)  edge [out=90, in=180, looseness=2] node [above left, align=left] {$\{ \textsc{Paint} \}$ } (s0) 
+        edge [out=360, in=180, bend left=20] node [above, align=left] {$\{ \textsc{TakeA} \}$, \\ $\{ \textsc{TakeA, TakeB} \}$, \\ $\{ \textsc{TakeA, Paint} \}$, \\ $\{ \textsc{TakeA, TakeB, Paint} \}$ } (s1)
+        edge [out=270, in=90, bend right=15] node [above left, align=right] {$\{ \textsc{TakeB} \}$, \\ $\{ \textsc{TakeA, TakeB} \}$, \\ $\{ \textsc{TakeB, Paint} \}$, \\ $\{ \textsc{TakeA, TakeB, Paint} \}$ } (s2);  
+        
+        \path (s1)  edge [out=180, in=360] node [below right, align=left] {$\{ \textsc{Paint} \}$ } (s0)
+        edge [out=360, in=90, looseness=2] node [above, align=left] {$\{ \textsc{TakeA} \}$, \\ $\{ \textsc{TakeA, TakeB} \}$, \\ $\{ \textsc{TakeA, Paint} \}$, \\ $\{ \textsc{TakeA, TakeB, Paint} \}$ } (s1)   
+         edge node [above left, align=left] {$\{ \textsc{TakeB} \}$, \\ $\{ \textsc{TakeB, Paint} \}$ } (s2);    
+
+        \path (s2)  edge [out=90, in=270] node [right, pos=0.75, align=left] {$\{ \textsc{Paint} \}$ } (s0)
+         edge [out=360, in=270] node [below right, align=left] {$\{ \textsc{TakeA} \}$, \\ $\{ \textsc{TakeA, Paint} \}$ } (s1)
+         edge [out=180, in=270, looseness=2] node [below, align=left] {$\{ \textsc{TakeB} \}$, \\ $\{ \textsc{TakeA, TakeB} \}$, \\ $\{ \textsc{TakeB, Paint} \}$,\\ $\{ \textsc{TakeA, TakeB, Paint} \}$  } (s2);   
+    \end{tikzpicture}
+    \caption{
+        Graf funkcji przejścia dla~scenariusza \emph{Dwóch malarzy}.
+        Kolorem szarym oznaczone potencjalne stany początkowe.
+    }
+    \label{fig:malarze}
+\end{figure}
+
+
 
 \end{document}
