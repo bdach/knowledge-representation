@@ -9,11 +9,33 @@
 \usepackage{tabularx}
 \usepackage[hidelinks]{hyperref}
 \usepackage[polish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{2mm}
 
 \newtheorem{defn}{Definicja}
+\newtheorem{theorem}{Twierdzenie}
+
+% definicje operatorów w zdaniach
+
+\DeclareMathOperator{\Initially}{\textbf{\textit{initially}}}
+\DeclareMathOperator{\After}{\textbf{\textit{after}}}
+\DeclareMathOperator{\Observable}{\textbf{\textit{observable}}}
+\DeclareMathOperator{\Causes}{\textbf{\textit{causes}}}
+\DeclareMathOperator{\If}{\textbf{\textit{if}}}
+\DeclareMathOperator{\Impossible}{\textbf{\textit{impossible}}}
+\DeclareMathOperator{\Releases}{\textbf{\textit{releases}}}
+\DeclareMathOperator{\Always}{\textbf{\textit{always}}}
+\DeclareMathOperator{\Noninertial}{\textbf{\textit{noninertial}}}
+
+\DeclareMathOperator{\Executable}{\textbf{\textit{executable}}}
+\DeclareMathOperator{\Accessible}{\textbf{\textit{accessible}}}
+\DeclareMathOperator{\Possibly}{\textbf{\textit{possibly}}}
+\DeclareMathOperator{\Necessary}{\textbf{\textit{necessary}}}
+
+\def\consequence{\mathrel|\joinrel\approx}
 
 \begin{document}
 
@@ -68,20 +90,541 @@ Celem projektu jest opracowanie i~zaimplementowanie języka akcji dla~specyfikac
     \item Czy cel~$\gamma$ jest osiągalny ze~stanu początkowego?
 \end{enumerate}
 
-% TODO: definicja struktury, formuły
-
 \section{Język akcji}
+
+Scenariusze dla~zadanej klasy systemów dynamicznych będą reprezentowane za~pomocą języka akcji wzorowanego na~językach z~rodziny $\mathcal{AR}$.
+Zgodnie z~założeniami projektu, w~języku akcji będą rozważane jedynie następstwa akcji atomowych.
 
 \subsection{Składnia języka}
 
+\begin{defn}
+    \textbf{Sygnaturą} języka jest uporządkowana para zbiorów $\Upsilon = (\mathcal{F}, \mathcal{A}c)$, gdzie $\mathcal{F}$ to~zbiór fluentów, a $ \mathcal{A}c$ to~zbiór akcji.
+    Dodatkowo definiuje~się zbiór \textbf{fluentów inercjalnych} $\mathcal{F}_I \subseteq \mathcal{F}$.
+\end{defn}
+
+Sygnatura języka określa zarówno logiczne zmienne określające stan świata (fluenty), jak i~możliwe metody manipulacji tym światem (akcje).
+
+\begin{defn}
+    \textbf{Literałem} $\overline{f}$ będziemy nazywać jedno z~wyrażeń
+    $$ \overline{f} ::= f\ |\ \neg f $$
+    gdzie $f \in \mathcal{F}$.
+\end{defn}
+
+\begin{defn}
+    \textbf{Formuła} nad~zbiorem fluentów~$\mathcal{F}$ to~dowolny predykat zbudowany z~fluentów: 
+    $$ \alpha ::= f\ |\ \neg\alpha\ |\ \alpha_1 \land \alpha_2\ |\ \alpha_1 \lor \alpha_2\ |\ \alpha_1 \rightarrow \alpha_2\ |\ \alpha_1 \equiv \alpha_2 $$
+    Ponadto definiujemy dwie specjalne formuły:
+    
+    \begin{itemize}
+    \item $\top\colon$ prawda,
+    
+    \item $\bot\colon$ fałsz.
+    \end{itemize}
+    
+    Zbiór wszystkich formuł nad~zbiorem fluentów $\mathcal{F}$ oznaczamy jako $Forms(\mathcal{F})$.
+\end{defn}
+
+Proponowany język definiuje następujące siedem typów wyrażeń:
+
+\begin{defn}
+    \textbf{Zdaniem wartości początkowej} nazywamy zdanie postaci
+    $$ \Initially \alpha $$
+    gdzie $\alpha \in Forms(\mathcal{F})$.
+\end{defn}
+
+Zdanie wartości początkowej będzie służyło do~określenia początkowego stanu fluentów.
+Zgodnie z~założeniami, w~systemie nie~jest wymagane wyspecyfikowanie wartości początkowej wszystkich fluentów.
+
+\begin{defn}
+    \textbf{Zdaniem wartości} nazywamy zdanie postaci
+    $$ \alpha \After A $$
+    gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
+\end{defn}
+
+\begin{defn}
+    \textbf{Zdaniem obserwacji} nazywamy zdanie postaci
+    $$ \Observable \alpha \After A $$
+    gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
+\end{defn}
+
+Zdanie wartości służy do~opisu pewnych następstw akcji~$A$, z~kolei zdanie obserwacji określa niedeterministyczne skutki akcji.
+
+\begin{defn}
+    \textbf{Zdaniem efektu} nazywamy zdanie postaci
+    $$A \Causes \alpha \If \pi$$
+    gdzie $\alpha, \pi \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
+
+    W~szczególności:
+    \begin{itemize}
+        \item jeśli $\pi = \top$, to piszemy, że $A \Causes \alpha$,
+        \item jeśli $\alpha = \bot$, to piszemy, że $\Impossible A \If \pi$.
+    \end{itemize}
+\end{defn}
+
+Zdania efektu określają następstwa akcji pod~warunkiem spełnienia warunku~$\alpha$, zwanego również \textbf{warunkiem wstępnym} akcji.
+Szczególną wagę ma~zdanie $\Impossible$, które może uniemożliwić wykonanie danej akcji atomowej pod~warunkiem spełnienia warunku wstępnego.
+
+\begin{defn}
+    \textbf{Zdaniem uwolnienia fluentu} nazywamy zdanie postaci
+    $$ A \Releases f \If \pi $$
+    gdzie $\pi \in Forms(\mathcal{F})$, $f \in \mathcal{F}_I$ oraz $A \in \mathcal{A}c$.
+
+    W~szczególności, jeśli $\pi = \top$, to piszemy $A \Releases f$.
+\end{defn}
+
+Zdanie to~należy interpretować tak, że wykonanie akcji~$A$ w~każdym stanie może, ale nie~musi zmienić wartości fluentu inercjalnego~$f$.
+Innymi słowy, może ono służyć do~modelowania akcji losowych.
+
+\begin{defn}
+    \textbf{Zdaniem ograniczenia} nazywamy zdanie postaci
+    $$ \Always \alpha $$
+    gdzie $\alpha \in Forms(\mathcal{F})$.
+\end{defn}
+
+Ograniczenia stosowane~są do~wyeliminowania pewnych niepożądanych stanów systemu.
+Wyrażenie $\alpha$ zwane jest w~szczególności \textbf{warunkiem integralności}.
+
+\begin{defn}
+    \textbf{Zdaniem specyfikacji fluentu} nazywamy zdanie postaci
+    $$ \Noninertial f $$
+    gdzie $f \notin \mathcal{F}_I$. 
+\end{defn}
+
+Powyższe zdanie można traktować jak deklarację istnienia nieinercjalnego fluentu w~danej sygnaturze.
+
+\begin{defn}
+    Domeną akcji $\mathcal{D}$ nazywamy skończony zbiór zdań zdefiniowanych powyżej.
+\end{defn}
+
 \subsection{Semantyka języka}
+
+\begin{defn}
+    Stanem nazywamy funkcję $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$.
+
+    Dodatkowo, przez $\sigma^{*} : Forms(\mathcal{F}) \rightarrow \left\{0,1\right\}$ określamy rozszerzenie tej funkcji, zdefiniowane dla wszystkich formuł nad zbiorem fluentów:
+    gdzie
+    \begin{align*}
+        \sigma^{*}\left(f\right) &= \sigma\left(f\right) \text{ dla } f \in \mathcal{F} \\
+        \sigma^{*}\left(\neg \alpha\right) &= 1 - \sigma^{*}\left(\alpha\right) \\
+        \sigma^{*}\left(\alpha \land \beta\right) &= \min \left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right) \\
+        \sigma^{*}\left(\alpha \lor \beta\right) &= \max \left(\sigma^{*}\left(\alpha\right),\sigma^{*}\left(\beta\right)\right) \\
+        \sigma^{*}\left(\alpha \rightarrow \beta\right) &= \sigma^{*}\left(\neg \alpha \lor \beta\right) \\
+        \sigma^{*}\left(\alpha \equiv \beta\right) &= \sigma^{*}\left(\left(\alpha \rightarrow \beta\right)\land\left(\beta \rightarrow \alpha\right)\right)
+    \end{align*}
+    Dla każdej formuły $\alpha \in Forms\left(\mathcal{F}\right)$, gdy $\sigma^*\left(\alpha\right) = 1$, piszemy $\sigma \models \alpha$.
+\end{defn}
+
+Funkcja stanu definiuje w~sposób jednoznaczny wartość wszystkich fluentów.
+
+\begin{defn}
+    \textbf{Strukturą} dla języka $\mathcal{L}$ nazywamy trójkę
+    $$\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$$
+    gdzie:
+    \begin{enumerate}
+        \item $\Sigma$ to zbiór stanów,
+        \item $\sigma_0 \in \Sigma$ to stan początkowy,
+        \item $Res : 2^{\mathcal{A}c} \times \Sigma \rightarrow 2^\Sigma$ to funkcja przejścia.
+    \end{enumerate}
+\end{defn}
+
+Docelowo, dla~każdego zbioru akcji $A' \in 2^{\mathcal{A}c}$ i dla~każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A'$ w~stanie $\sigma$.
+
+Zauważmy, że~docelowo w~systemie może~być rozważane wiele struktur dla~jednej domeny akcji, z~racji niepełnej wiedzy o~stanie początkowym fluentów.
+
+Funkcję przejścia możemy rozszerzyć na~pojęcie programu w~następujący sposób:
+
+\begin{defn}
+    Niech $\mathcal{S} = (\Sigma, \sigma_0, Res)$ będzie strukturą.
+    Niech $Res^* : (2^{\mathcal{A}c})^* \times \Sigma \to 2^\Sigma$ będzie funkcją taką, że:
+    \begin{itemize}
+        \item $Res^*(\varepsilon, \sigma) = \{ \sigma \}$,
+        \item $Res^*((A_1), \sigma) = Res(A_1, \sigma)$,
+        \item $Res^*((A_1,A_2,\dots,A_n,A_{n+1}), \sigma) = \bigcup_{\sigma' \in Res^*(A_1,A_2,\dots,A_n)} Res(A_{n+1}, \sigma')$.
+    \end{itemize}
+\end{defn}
+
+Wtedy pojedynczą ścieżkę wykonania programu możemy odtworzyć za~pomocą funkcji $\Psi_{\mathcal{S}}$ zdefiniowaną następująco:
+
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji. Dla struktury $S = (\Sigma,\sigma_0,Res)$, definiujemy funkcję częściową 
+    $\Psi_{\mathcal{S}} : (2^{\mathcal{A}c})^* \times \Sigma \rightarrow \Sigma$ w następujący sposób:
+    \begin{itemize}
+    \item $\Psi_{\mathcal{S}}(\varepsilon,\sigma) = \sigma$
+    \item jeśli dla $n \geq 1, \Psi_{\mathcal{S}}((A_1,\dots,A_n),\sigma)$ jest zdefiniowane i $Res^*((A_1,\dots,A_n,A_{n+1}),\sigma) \neq \emptyset$, to~$\Psi_{\mathcal{S}}((A_1,\dots,A_n,A_{n+1}),\sigma) \in Res(A_{n+1},\Psi_{\mathcal{S}}((A_1,\dots,A_n),\sigma)).$
+    \end{itemize}
+\end{defn}
+
+\subsubsection{Akcje złożone}
+
+Zanim zdefiniujemy model dla~domen akcji rozważanego języka, należy określić, na~czym polega wykonanie akcji złożonej z~wielu akcji atomowych.
+Zauważmy, że w~domenie akcji mogą znajdować~się zdania, których efekty będą ze~sobą wzajemnie sprzeczne, tj. dla pewnego zbioru akcji atomowych i~pewnego stanu nie~będzie możliwe spełnienie ich warunków końcowych.
+Do~sformalizowania tej intuicji posłużymy~się dysjunkcyjną postacią normalną formuł rachunku zdań.
+
+\begin{defn}
+    Niech $\alpha$ będzie dowolną formułą nad zbiorem fluentów $\mathcal{F}$.
+    Mówimy, że $\alpha$ jest w~\textbf{dysjunkcyjnej postaci normalnej (DNF)} wtedy i tylko wtedy, gdy 
+    $$\alpha = \bigvee_{i=1}^{n} \bigwedge_{j=1}^{k(i)} \lambda_{ij}$$
+    gdzie $\lambda_{ij}$ jest literałem.
+\end{defn}
+    
+\begin{theorem}
+    Każdą formułę $\alpha$ można przekształcić do formuły $\alpha'$, która jest w postaci DNF.
+\end{theorem}
+
+Formułę $\alpha$ przekształconą do postaci DNF oznaczamy jako $DNF(\alpha)$.
+
+\begin{defn}
+    Niech $DNF(\alpha) = \gamma_1 \vee \dots \vee \gamma_k$.
+    Każdą formułę $\gamma_i$ nazywamy \textbf{komponentem} formuły $\alpha$.
+\end{defn}
+
+Po~zdefiniowaniu DNF przystąpmy do~określenia, jakie akcje będą~rozważane za~konfliktowe.
+
+\begin{defn}
+    \label{defn:conflict}
+    Niech $\mathcal{D}$ będzie domeną akcji, $\sigma$ będzie pewnym stanem oraz niech $A, B \in \mathcal{A}c$ będą akcjami elementarnymi. Akcje $A, B$ są~\textbf{konfliktowe} wtedy i tylko wtedy, gdy przynajmniej jeden z~następujących warunków jest prawdziwy:
+    \begin{itemize}
+        \item W~$D$ znajdują~się dwa zdania postaci:
+        \begin{align*}
+            A & \Causes \alpha \If \pi_1 \\
+            B & \Causes \beta \If \pi_2
+        \end{align*}
+        takie, że:
+        \begin{itemize}
+            \item $\sigma \models \pi_1 \land \pi_2$
+            \item Jakiś komponent z $\alpha$ jest sprzeczny z~jakimś komponentem z~$\beta$.
+        \end{itemize}
+        \item W~$D$ znajdują~się dwa zdania postaci:
+        \begin{align*}
+            A & \Causes \alpha \If \pi_1 \\
+            B & \Releases f \If \pi_2
+        \end{align*}
+        takie, że:
+        \begin{itemize}
+            \item $\sigma \models \pi_1 \land \pi_2$
+            \item w~jednym z~komponentów $\alpha$ występuje $f$.
+        \end{itemize}
+        \item W~$D$ znajdują~się dwa zdania postaci:
+        \begin{align*}
+            A & \Releases f \If \pi_1 \\
+            B & \Releases f \If \pi_2
+        \end{align*}
+        takie, że $\sigma \models \pi_1 \land \pi_2$.
+    \end{itemize}
+\end{defn}
+
+Zauważmy, że~w~pierwszym przypadku warunek o~sprzeczności komponentów z~$\alpha$ i~$\beta$ nie~jest równoważny sprzeczności formuły $\alpha \land \beta$.
+
+\begin{defn}
+    \label{defn:potentially-executable}
+    Niech $\mathcal{D}$ to domena akcji, niech $\sigma$ to pewien stan. Akcja złożona $\{ A_1, \dots A_k \}$, gdzie $A_i$ to akcje elementarne, jest \textbf{potencjalnie wykonywalna} w $\sigma$ wtedy i tylko wtedy gdy nie istnieje $B \subseteq A_1 \cup \dots \cup A_k$ takie, że~$\mathcal{D}$ zawiera zdania:
+    \begin{align*}
+        & B \Causes \alpha_1 \If \pi_1 \\
+        & \cdots \\
+        & B \Causes \alpha_k \If \pi_k
+    \end{align*}
+    takie, że:
+    \begin{itemize}
+        \item $\sigma \models \pi_1 \land \dots \land \pi_k$
+        \item $\alpha_1 \land \dots \land \alpha_k$ jest sprzeczne.
+    \end{itemize}
+\end{defn}
+
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma$ będzie stanem oraz niech $A \subseteq \mathcal{A}c$.
+    \textbf{Dekompozycją} $A$ w $\sigma$ będziemy nazywać taki zbiór $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ akcji elementarnych w $D$, że:
+    \begin{enumerate}
+        \item $\bigcup_{i = 1}^{k} E_i \subseteq A$,
+        \item $\Delta(A, \sigma)$ jest zbiorem niekonfliktujących akcji potencjalnie wykonywalnych w  $\sigma$,
+        \item Nie ma żadnego zbioru $\{ E'_1, \dots, E'_k, E'_{k+1}, \dots, E'_m \}$ akcji spełniającego powyższe warunki takiego, że $E_i \subset E_i^\prime$ dla pewnego $i = 1, \dots, k$.
+    \end{enumerate}
+\end{defn}
+
+Innymi słowy, dekompozycja akcji złożonej $A$ określa maksymalne ze~względu na~inkluzję potencjalnie wykonywane podakcje $A$.
+Zauważmy, że na~mocy definicji \ref{defn:conflict} i~\ref{defn:potentially-executable} możemy wspomóc~się dysjunkcyjną postacią normalną przy~wyznaczaniu niekonfliktujących akcji.
+    
+\begin{defn}
+    Niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ będzie dekompozycją $A$ w $\sigma$. Każdą akcję $E_i$ nazywamy \textbf{komponentem wykonania} $A$ w~stanie $\sigma$.
+\end{defn}
+    
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma, \sigma^\prime$ będą stanami, niech $A \subseteq \mathcal{A}c$ będzie akcją i niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ będzie dekompozycją $A$ w~$\sigma$.
+    Mówimy, że $\sigma^\prime$ jest \textbf{potencjalnym wynikiem wykonania} $A$ w $\sigma$ wtedy i~tylko wtedy gdy dla każdego $i = 1, \dots k$ i~dla~każdego zdania postaci: 
+    $$ (E_i \Causes \alpha \If \pi) \in D $$
+    zachodzi $\sigma \models \pi \rightarrow \sigma^\prime \models \alpha $.
+\end{defn} 
+    
+Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który spełnia wszystkie efekty każdego komponentu $E_i$ z~danej dekompozycji.
+Wybór dekompozycji jest jednym z~elementów niedeterminizmu w~rozważanym systemie.
+
+Zauważmy ponadto, że~takie zdefiniowanie potencjalnego wyniku wykonania akcji zapewnia, że~jeśli akcja złożona zawiera akcję atomową niewykonalną w~$\sigma$, to~cała akcja złożona również nie~będzie wykonalna.
+
+\subsubsection{Model domeny akcji}
+
+Niech $\mathcal{D}$ będzie domeną akcji, zaś $\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$ pewną strukturą języka.
+
+\begin{defn}
+    Fluent $f \in \mathcal{F}$ jest inercjalny w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy $\left(\Noninertial f\right) \notin \mathcal{D}$.
+\end{defn}
+
+\begin{defn}
+    $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$ jest \textbf{stanem} $\mathcal{S}$ względem~$\mathcal{D}$ wtedy i~tylko wtedy, gdy dla~każdego zdania ograniczenia $\left(\Always \alpha\right) \in \mathcal{D}$ zachodzi $\sigma \models \alpha$.
+\end{defn}
+
+% TODO: te zdania głupio wyglądają z pojedynczymi akcjami
+\begin{defn}
+    Zdanie wartości $(\alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy
+    $$\Psi_{\mathcal{S}}(\{ A \}, \sigma_0) \models \alpha$$
+    dla~każdej funkcji $\Psi_{\mathcal{S}}$.
+\end{defn}
+
+\begin{defn}
+    Zdanie obserwacji $(\Observable \alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{D}$ wtedy i~tylko wtedy, gdy
+    $$\Psi_{\mathcal{S}}(\{ A \}, \sigma_0) \models \alpha$$
+    dla~pewnej funkcji $\Psi_{\mathcal{S}}$.
+\end{defn}
+
+Aby móc zdefiniować warunki stawiane funkcji przejścia w~modelu, wprowadzimy kilka pojęć pomocniczych.
+
+\begin{defn}
+    Zdefiniujmy pomocniczą funkcję $Res_0: 2^{\mathcal{A}c} \times \Sigma \rightarrow 2^\Sigma$.
+
+    Niech dany będzie stan $\sigma \in \Sigma$ i~akcja złożona $A \subseteq \mathcal{A}c$.
+    Niech $\Delta_1(A, \sigma), \dots, \Delta_n(A, \sigma)$ będą dekompozycjami akcji~$A$ względem stanu~$\sigma$.
+    Wówczas stan $\sigma' \in Res_0(\sigma, A)$ wtedy i~tylko wtedy, gdy $\sigma'$ jest potencjalnym wynikiem wykonania $A$ dla~pewnej dekompozycji $\Delta_i(A, \sigma)$.
+\end{defn}
+
+Funkcja $Res_0$ określa możliwe zmiany w~stanie~$\sigma$ spowodowane przez~zdania $\Causes$.
+
+\begin{defn}
+    Dla~każdych stanów $\sigma, \sigma' \in \Sigma$ i~dla~każdej akcji $A \in \mathcal{A}c$, zbiorem $New(A, \sigma, \sigma')$ będziemy nazywać zbiór wszystkich literałów $\overline{f}$ takich, że $\sigma' \models f$ oraz:
+    \begin{itemize}
+        \item $f$ jest inercjalny oraz $\sigma(f) \neq \sigma'(f)$, lub
+        \item w~$\mathcal{D}$ istnieje zdanie $(A \Releases f \If \pi)$ oraz~$\sigma \models \pi$.
+    \end{itemize}
+\end{defn}
+
+Zbiory $New$ określają, które fluenty inercjalne zmieniły~się pomiędzy dwoma stanami, a~ponadto uwzględniają możliwość dowolnych fluktuacji fluentów uwolnionych.
+Jest to drugi aspekt niedeterministyczny w~rozważanym systemie dynamicznym.
+
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji w $\mathcal{A}c$. Struktura $\mathcal{S} = (\Sigma,\sigma_0,Res)$ jest \textbf{modelem $\mathcal{D}$} wtw:
+    \begin{enumerate}
+    \item $\Sigma$ jest zbiorem wszystkich stanów w $\mathcal{D}$ (tj. zbiorem wszystkich stanów satysfakcjonujących wszystkie ograniczenia z $\mathcal{D}$),
+    \item każde zdanie wartości i każde zdanie obserwacji jest prawdziwe w $\mathcal{S}$,
+    \item dla każdej akcji $A \subseteq \mathcal{A}c$ i dla każdego stanu $\sigma \in \Sigma$, $Res(A,\sigma) \subseteq Res_0(A,\sigma)$ jest zbiorem wszystkich stanów $\sigma'$, dla~których zbiory $New(A,\sigma,\sigma')$ są~minimalne ze~względu na~relację inkluzji.
+    \end{enumerate}
+\end{defn}
+
+Tak zdefiniowany model łączy niedeterminizm związany z~wyborem dekompozycji akcji złożonych (funkcja $Res_0$) i~niedeterminizm związany z~fluentami uwolnionymi (zbiór $New$).
 
 \section{Język kwerend}
 
+W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu, którego zadaniem jest podanie odpowiedzi zgodnych z~daną domeną akcji.
+
 \subsection{Składnia języka}
+    Język kwerend wyróżnia ich następujące rodzaje:
+
+    \begin{defn}
+        \textbf{Egzystencjalną kwerendą wartości} nazywamy zdanie
+        $$ \Possibly \gamma \After A_1, \dots, A_n $$
+        gdzie $\gamma \in Forms(f)$, $A_1, \dots, A_n \subseteq \mathcal{A}c$.
+    \end{defn}
+
+    \begin{defn}
+        \textbf{Ogólną kwerendą wartości} nazywamy zdanie
+        $$ \Necessary \gamma \After A_1, \dots, A_n $$
+        gdzie $\gamma \in Forms(f)$, $A_1, \dots, A_n \subseteq \mathcal{A}c$.
+    \end{defn}
+
+    Kwerenda egzystencjalna określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego prowadzi kiedykolwiek do~osiągnięcia celu~$\gamma$; z~kolei ogólna określa, czy wykonanie programu $(A_1, \dots, A_n)$ ze~stanu początkowego zawsze prowadzi do~osiągnięciu celu~$\gamma$.
+
+    \begin{defn}
+        \textbf{Egzystencjalną kwerendą wykonywalności} nazywamy zdanie
+        $$ \Executable A_1, \dots, A_n $$
+        gdzie $A_1, \dots, A_n \subseteq \mathcal{A}c$.
+    \end{defn}
+
+    \begin{defn}
+        \textbf{Ogólną kwerendą wykonywalności} nazywamy zdanie
+        $$ \Executable \Always A_1, \dots, A_n $$
+        gdzie $A_1, \dots, A_n \subseteq \mathcal{A}c$.
+    \end{defn}
+
+    Kwerendy wykonywalności mają na~celu odpowiedzieć na~pytanie, czy~dany program jest kiedykolwiek (egzystencjalna) lub~zawsze (ogólna) wykonywalny ze~stanu początkowego.
+
+    \begin{defn}
+        \textbf{Kwerendą osiągalności} nazywamy zdanie
+        $$ \Accessible \gamma $$
+        gdzie $\gamma \in Forms(f)$.
+    \end{defn}
+    
+    Celem tej kwerendy jest określenie, czy~istnieje taki program $(A_1, \dots, A_n)$, $n \geq 0$, wykonywalny ze~stanu początkowego, po~którego wykonaniu osiągnięty zostanie cel~$\gamma$.
 
 \subsection{Semantyka języka}
 
-\section{Przykładowe kwerendy}
+\begin{defn}
+    Niech $\mathcal{D}$ będzie domeną akcji, a $\mathcal{Q}$ kwerendą. 
+    Mówimy, że $\mathcal{Q}$ jest \textbf{konsekwencją} $\mathcal{D}$ (ozn. $\mathcal{D} \consequence \mathcal{Q}$), jeżeli:
+
+    \begin{enumerate}
+        \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wartości postaci:
+        \begin{itemize}
+            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ istnieje funkcja $\Psi_\mathcal{S}$ taka, że zachodzi $$\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$$
+            \item $\Necessary \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ i~dla~każdej funkcji $\Psi_\mathcal{S}$ zachodzi $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0}) \models \gamma$$
+        \end{itemize}
+        \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wykonywalności postaci:
+        \begin{itemize}
+            \item $\Executable A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ takiego, że istnieje % TODO: do uzgodnienia
+            funkcja $\Psi_\mathcal{S}$ taka, że
+            $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$$
+            jest zdefiniowane,
+            \item $\Executable \Always A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ i~dla~każdej funkcji $\Psi_\mathcal{S}$
+            $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$$
+            jest zdefiniowane,
+        \end{itemize}
+        \item w przypadku gdy $\mathcal{Q}$ jest kwerendą osiągalności postaci $\Accessible \gamma$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$, dla każdej funkcji $\Psi_\mathcal{S}$ istnieje ciąg akcji $(A_1,...,A_n), \; n \geq 0$ taki, że:
+        \begin{itemize}
+            \item $\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$ jest zdefiniowane,
+            \item $\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0}) \models \gamma$.
+        \end{itemize}
+    \end{enumerate}
+\end{defn}
+
+\section{Przykłady}
+
+\subsection{Producent i~konsument}
+
+Załóżmy, że~dany jest producent i~konsument.
+Producent może wstawić do~bufora dokładnie jeden produkt przy~pomocy akcji \textsc{Put}.
+Konsument może pobrać z~bufora produkt z~użyciem akcji \textsc{Get},
+oraz~pozbyć~się go z~użyciem akcji \textsc{Consume}.
+Konsument nie~może skonsumować produktu, jeśli wcześniej go nie~pobrał.
+Na~początku bufor jest pusty.
+
+Reprezentacja tego scenariusza w~postaci domeny akcji $\mathcal{D}$ wygląda następująco:
+\begin{align*}
+    & \textsc{Put} \Causes \neg \textit{bufferEmpty} \If \textit{bufferEmpty} \\
+    & \textsc{Get} \Causes \textit{bufferEmpty} \land \textit{hasItem} \If \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \\
+    & \textsc{Consume} \Causes \neg \textit{hasItem} \\
+    & \Impossible \textit{Consume} \If \neg \textit{hasItem} \\
+    & \Initially \textit{bufferEmpty}
+\end{align*}
+
+Rozważmy po~kolei wykonanie wszystkich możliwych akcji złożonych w~każdym stanie. Możliwe~są cztery stany:
+
+\begin{enumerate}
+    \item $\sigma_0 = \{ \textit{bufferEmpty}, \textit{hasItem} \}$,
+    \item $\sigma_1 = \{ \neg \textit{bufferEmpty}, \textit{hasItem} \}$,
+    \item $\sigma_2 = \{ \textit{bufferEmpty}, \neg \textit{hasItem} \}$,
+    \item $\sigma_3 = \{ \neg \textit{bufferEmpty}, \neg \textit{hasItem} \}$.
+\end{enumerate}
+
+Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_3$.
+
+\begin{itemize}
+    \item Dla~stanu $\sigma_0$ mamy
+    \begin{align*}
+        Res_0(\sigma_0, \{ \textsc{Put} \}) &= \{ \sigma_1 \} = Res(\sigma_0, \{ \textsc{Put} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Get} \}) &= \{ \sigma_0 \} = Res(\sigma_0, \{ \textsc{Get} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Consume} \}) &= \{ \sigma_2 \} = Res(\sigma_0, \{ \textsc{Consume} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Put, Get} \}) &= \{ \sigma_1 \} = Res(\sigma_0, \{ \textsc{Put, Get} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Put, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_0, \{ \textsc{Put, Consume} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Get, Consume} \}) &= \{ \sigma_2 \} = Res(\sigma_0, \{ \textsc{Get, Consume} \}) \\
+        Res_0(\sigma_0, \{ \textsc{Put, Get, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_0, \{ \textsc{Put, Get, Consume} \})
+    \end{align*}
+    
+    \item Dla~stanu $\sigma_1$ mamy
+    \begin{align*}
+        Res_0(\sigma_1, \{ \textsc{Put} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{Put} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Get} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{Get} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Consume} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Put, Get} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{Put, Get} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Put, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Put, Consume} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Get, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Get, Consume} \}) \\
+        Res_0(\sigma_1, \{ \textsc{Put, Get, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Put, Get, Consume} \})
+    \end{align*}
+    
+    \item Dla~stanu $\sigma_2$ mamy
+    \begin{align*}
+        Res_0(\sigma_2, \{ \textsc{Put} \}) &= \{ \sigma_3 \} = Res(\sigma_2, \{ \textsc{Put} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Get} \}) &= \{ \sigma_2 \} = Res(\sigma_2, \{ \textsc{Get} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Consume} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Put, Get} \}) &= \{ \sigma_3 \} = Res(\sigma_2, \{ \textsc{Put, Get} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Put, Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Put, Consume} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Get, Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Get, Consume} \}) \\
+        Res_0(\sigma_2, \{ \textsc{Put, Get, Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Put, Get, Consume} \})
+    \end{align*}
+    Występowanie zbiorów pustych w~akcjach złożonych zawierających akcję atomową \textsc{Consume} zapewnia definicja \ref{defn:potentially-executable} -- nie~istnieje żaden potencjalny wynik wykonania tych akcji.
+
+    \item Dla~stanu $\sigma_3$ mamy
+    \begin{align*}
+        Res_0(\sigma_3, \{ \textsc{Put} \}) &= \{ \sigma_3 \} = Res(\sigma_3, \{ \textsc{Put} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Get} \}) &= \{ \sigma_0 \} = Res(\sigma_3, \{ \textsc{Get} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Consume} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Put, Get} \}) &= \{ \sigma_0 \} = Res(\sigma_3, \{ \textsc{Put, Get} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Put, Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Put, Consume} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Get, Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Get, Consume} \}) \\
+        Res_0(\sigma_3, \{ \textsc{Put, Get, Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Put, Get, Consume} \})
+    \end{align*}
+\end{itemize}
+
+Warto zauważyć, że w~tym przypadku funkcja przejścia jest całkowicie deterministyczna, więc istnieje dokładnie jedna funkcja $\Psi_\mathcal{S}$ (choć jest ona nadal częściowo zdefiniowana).
+Graf funkcji przejścia dla~tego scenariusza znajduje~się na~rysunku~\ref{fig:producer-consumer-state}.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[->,node distance=9cm]
+        \tikzstyle{state} = [shape=rectangle,draw]
+        \tikzstyle{initial} = [fill=gray!25]
+        \node [initial,state] (s0) {$\sigma_0 = \{ \textit{BE}, \textit{HI} \}$};
+        \node [right of=s0,state] (s1) {$\sigma_1 = \{ \neg \textit{BE}, \textit{HI} \}$};
+        \node [below=of s0,initial,state] (s2) {$\sigma_2 = \{ \textit{BE}, \neg \textit{HI} \}$};
+        \node [below=of s1,state] (s3) {$\sigma_3 = \{ \neg \textit{BE}, \neg \textit{HI} \}$};
+
+        \path (s0)  edge node [above] {$\{ \textsc{Put} \}, \{ \textsc{Put, Get} \}$} (s1)
+                    edge [out=90, in=180, looseness=3] node [above left] {$\{ \textsc{Get} \}$} (s0)
+                    edge node [left, align=right] {$\{ \textsc{Consume} \}$ \\ $\{ \textsc{Get, Consume} \}$} (s2)
+                    edge node [below left, align=right] {$\{ \textsc{Put, Consume} \}$ \\ $\{ \textsc{Put, Get, Consume} \}$} (s3);
+        \path (s1)  edge [out=90, in=0, looseness=3] node [above right, align=left]             {$\{ \textsc{Put} \}$ \\ $\{ \textsc{Get} \}$ \\ $\{ \textsc{Put, Get} \}$} (s1)
+                    edge node [right, align=left] {$\{ \textsc{Consume} \}$ \\ $\{ \textsc{Put, Consume} \}$ \\ $\{ \textsc{Get, Consume} \}$ \\ $\{ \textsc{Put, Get, Consume} \}$} (s3);
+        \path (s2)  edge node [below] {$\{ \textsc{Put} \}$, $\{ \textsc{Put, Get} \}$} (s3)
+                    edge [out=270, in=180, looseness=3] node [below left] {$\{ \textsc{Get} \}$} (s2);
+
+        \path (s3)  edge [out=270, in=0, looseness=3] node [below right, align=left] {$\{ \textsc{Put} \}$} (s3)
+                    edge [bend right=20] node [above right, align=left] {$\{ \textsc{Get} \}$ \\ $\{ \textsc{Put, Get} \}$} (s0);
+    \end{tikzpicture}
+    \caption{
+        Graf funkcji przejścia dla~scenariusza \emph{producent-konsument}.
+        Kolorem szarym oznaczone potencjalne stany początkowe.
+    }
+    \label{fig:producer-consumer-state}
+\end{figure}
+
+Rozważmy teraz kilka przykładowych kwerend nad~$\mathcal{D}$.
+
+\begin{enumerate}
+    \item Niech dana będzie kwerenda
+    $$ \Possibly \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) $$
+    Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ prowadzi dla~wszystkich $\Psi_\mathcal{S}$ (tj. dla~jedynej istniejącej funkcji $\Psi_\mathcal{S}$) do~osiągnięcia zadanego celu $\textit{bufferEmpty} \land \neg \textit{hasItem}$.
+
+    \item Niech dana będzie kwerenda
+    $$ \Necessary \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) $$
+    Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_2$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ nie~jest wykonywalny, więc odpowiednia wartość $\Psi_\mathcal{S}$ w~definicji konsekwencji nie~jest zdefiniowana.
+
+    \item Analogicznie, kwerenda
+    $$\Executable (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$$
+    \textbf{jest} konsekwencją $\mathcal{D}$, podczas gdy
+    $$\Executable \Always (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$$
+    \textbf{nie jest} konsekwencją $\mathcal{D}$.
+
+    \item Niech dana będzie kwerenda
+    $$ \Accessible \textit{bufferEmpty} \lor \neg \textit{hasItem} $$
+    Kwerenda ta \textbf{jest} konsekwencją $\mathcal{D}$, ponieważ w~szczególności program pusty prowadzi do~spełnienia celu $\textit{bufferEmpty} \lor \neg \textit{hasItem}$ (tj. w~każdym modelu stan początkowy spełnia zadany cel).
+\end{enumerate}
 
 \end{document}
