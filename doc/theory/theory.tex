@@ -147,7 +147,7 @@ Zgodnie z~założeniami, w~systemie nie~jest wymagane wyspecyfikowanie wartości
     gdzie $\alpha \in Forms(\mathcal{F})$ oraz $A \in \mathcal{A}c$.
 \end{defn}
 
-Zdanie wartości służy do~opisu pewnych następstw akcji~$A$, z~kolei zdanie obserwacji określa niedeterministyczne skutki akcji.
+Zdanie wartości mówi, że warunek~$\alpha$ musi zachodzić po~wykonaniu akcji~$A$, z~kolei zdanie obserwacji określa, że~warunek ten może być spełniony, ale niekoniecznie musi.
 
 \begin{defn}
     \textbf{Zdaniem efektu} nazywamy zdanie postaci
@@ -161,7 +161,7 @@ Zdanie wartości służy do~opisu pewnych następstw akcji~$A$, z~kolei zdanie o
     \end{itemize}
 \end{defn}
 
-Zdania efektu określają następstwa akcji pod~warunkiem spełnienia warunku~$\alpha$, zwanego również \textbf{warunkiem wstępnym} akcji.
+Zdania efektu określają następstwa akcji, gdy spełniony jest warunek~$\alpha$, zwany również \textbf{warunkiem wstępnym} akcji.
 Szczególną wagę ma~zdanie $\Impossible$, które może uniemożliwić wykonanie danej akcji atomowej pod~warunkiem spełnienia warunku wstępnego.
 
 \begin{defn}
@@ -227,9 +227,9 @@ Funkcja stanu definiuje w~sposób jednoznaczny wartość wszystkich fluentów.
     \end{enumerate}
 \end{defn}
 
-Docelowo, dla~każdego zbioru akcji $A' \in 2^{\mathcal{A}c}$ i dla~każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkuje zbiór stanów możliwych do osiągnięcia przez wykonanie zbioru $A'$ w~stanie $\sigma$.
+Docelowo, dla~każdej akcji złożonej $A' \in 2^{\mathcal{A}c}$ i dla~każdego stanu $\sigma \in \Sigma$, $Res$ przyporządkuje zbiór stanów możliwych do osiągnięcia przez wykonanie akcji~$A'$ w~stanie $\sigma$.
 
-Zauważmy, że~docelowo w~systemie może~być rozważane wiele struktur dla~jednej domeny akcji, z~racji niepełnej wiedzy o~stanie początkowym fluentów.
+Zauważmy, że~docelowo w~systemie może~być rozważane wiele struktur dla~jednej domeny akcji, różniących~się stanem początkowym, z~racji niepełnej wiedzy o~początkowej wartości fluentów.
 
 Funkcję przejścia możemy rozszerzyć na~pojęcie programu w~następujący sposób:
 
@@ -332,7 +332,7 @@ Zauważmy, że~w~pierwszym przypadku warunek o~sprzeczności komponentów z~$\al
 
 \begin{defn}
     Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma$ będzie stanem oraz niech $A \subseteq \mathcal{A}c$.
-    \textbf{Dekompozycją} $A$ w $\sigma$ będziemy nazywać taki zbiór $\Delta(A, \sigma) = \{ E_1, E_2, \dots E_k \}$ akcji elementarnych w $D$, że:
+    \textbf{Dekompozycją} $A$ w $\sigma$ będziemy nazywać taki zbiór $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ akcji elementarnych w $D$, że:
     \begin{enumerate}
         \item $\bigcup_{i = 1}^{k} E_i \subseteq A$,
         \item $\Delta(A, \sigma)$ jest zbiorem niekonfliktujących akcji potencjalnie wykonywalnych w  $\sigma$,
@@ -349,9 +349,9 @@ Zauważmy, że na~mocy definicji \ref{defn:conflict} i~\ref{defn:potentially-exe
     
 \begin{defn}
     Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma, \sigma^\prime$ będą stanami, niech $A \subseteq \mathcal{A}c$ będzie akcją i niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ będzie dekompozycją $A$ w~$\sigma$.
-    Mówimy, że $\sigma^\prime$ jest \textbf{potencjalnym wynikiem wykonania} $A$ w $\sigma$ wtedy i~tylko wtedy gdy dla każdego $i = 1, \dots k$ i~dla~każdego zdania postaci: 
+    Mówimy, że $\sigma^\prime$ jest \textbf{potencjalnym wynikiem wykonania} $A$ w $\sigma$ wtedy i~tylko wtedy gdy dla każdego $i = 1, \dots, k$ i~dla~każdego zdania postaci: 
     $$ (E_i \Causes \alpha \If \pi) \in D $$
-    zachodzi $\sigma \models \pi \rightarrow \sigma^\prime \models \alpha $.
+    zachodzi $\sigma \models \pi \Rightarrow \sigma^\prime \models \alpha $.
 \end{defn} 
     
 Oznacza to, że po wykonaniu $A$ w stanie $\sigma$ stan wynikowy to taki, który spełnia wszystkie efekty każdego komponentu $E_i$ z~danej dekompozycji.
@@ -371,7 +371,8 @@ Niech $\mathcal{D}$ będzie domeną akcji, zaś $\mathcal{S} = \left(\Sigma, \si
     $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$ jest \textbf{stanem} $\mathcal{S}$ względem~$\mathcal{D}$ wtedy i~tylko wtedy, gdy dla~każdego zdania ograniczenia $\left(\Always \alpha\right) \in \mathcal{D}$ zachodzi $\sigma \models \alpha$.
 \end{defn}
 
-% TODO: te zdania głupio wyglądają z pojedynczymi akcjami
+Powyższa definicja stanu względem~$\mathcal{D}$ zapewni spełnienie warunków integralności w~każdym modelu domeny~$\mathcal{D}$.
+
 \begin{defn}
     Zdanie wartości $(\alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy
     $$\Psi_{\mathcal{S}}(\{ A \}, \sigma_0) \models \alpha$$
@@ -511,7 +512,7 @@ Reprezentacja tego scenariusza w~postaci domeny akcji $\mathcal{D}$ wygląda nas
     & \textsc{Put} \Causes \neg \textit{bufferEmpty} \If \textit{bufferEmpty} \\
     & \textsc{Get} \Causes \textit{bufferEmpty} \land \textit{hasItem} \If \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \\
     & \textsc{Consume} \Causes \neg \textit{hasItem} \\
-    & \Impossible \textit{Consume} \If \neg \textit{hasItem} \\
+    & \Impossible \textsc{Consume} \If \neg \textit{hasItem} \\
     & \Initially \textit{bufferEmpty}
 \end{align*}
 
@@ -524,7 +525,7 @@ Rozważmy po~kolei wykonanie wszystkich możliwych akcji złożonych w~każdym s
     \item $\sigma_3 = \{ \neg \textit{bufferEmpty}, \neg \textit{hasItem} \}$.
 \end{enumerate}
 
-Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_3$.
+Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_2$.
 
 \begin{itemize}
     \item Dla~stanu $\sigma_0$ mamy
@@ -609,11 +610,11 @@ Rozważmy teraz kilka przykładowych kwerend nad~$\mathcal{D}$.
 
 \begin{enumerate}
     \item Niech dana będzie kwerenda
-    $$ \Possibly \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) $$
+    $$ \Possibly \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After \{ \textsc{Put} \}, \{ \textsc{Get, Consume} \} $$
     Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ prowadzi dla~wszystkich $\Psi_\mathcal{S}$ (tj. dla~jedynej istniejącej funkcji $\Psi_\mathcal{S}$) do~osiągnięcia zadanego celu $\textit{bufferEmpty} \land \neg \textit{hasItem}$.
 
     \item Niech dana będzie kwerenda
-    $$ \Necessary \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) $$
+    $$ \Necessary \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After \{ \textsc{Put} \}, \{ \textsc{Get, Consume} \} $$
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_2$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ nie~jest wykonywalny, więc odpowiednia wartość $\Psi_\mathcal{S}$ w~definicji konsekwencji nie~jest zdefiniowana.
 
     \item Analogicznie, kwerenda
@@ -637,7 +638,7 @@ Powyższy scenariusz jest reprezentowany przez następującą domenę akcji $\ma
     & \textsc{Peek} \Releases \textit{alive} \If \textit{alive} \\
     & \textsc{Peek} \Releases \textit{purring} \If \textit{alive} \\
     & \textsc{Pet} \Causes \textit{purring} \If  \textit{alive} \\
-    & \Always \neg \textit{alive} \Rightarrow \neg \textit{purring}
+    & \Always \neg \textit{alive} \rightarrow \neg \textit{purring}
 \end{align*}
 
 Rozważmy po~kolei wykonanie wszystkich możliwych akcji złożonych w~każdym stanie. Możliwe~są trzy stany:
@@ -738,15 +739,16 @@ Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_1$.
     \label{fig:producer-consumer-state}
 \end{figure}
 
+\newpage
 Przykładowe kwerendy nad~$\mathcal{D}$:
 
 \begin{enumerate}
     \item Niech dana będzie kwerenda
-    $$ \Possibly \neg \textit{alive} \After (\{ \textsc{Pet} \}, \{ \textsc{Peek} \}) $$
+    $$ \Possibly \neg \textit{alive} \After \{ \textsc{Pet} \}, \{ \textsc{Peek} \} $$
     Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$ i dla modelu którego stanem początkowym jest $\sigma_1$, istnieje $\Psi_\mathcal{S}$, że program $(\{ \textsc{Pet} \}, \{ \textsc{Peek} \})$ prowadzi do stanu $\sigma_2$, w którym spełnione jest $\neg \textit{alive}$.
 
     \item Niech dana będzie kwerenda
-    $$ \Necessary \textit{purring} \After (\{ \textsc{Peek}, \textsc{Pet} \}) $$
+    $$ \Necessary \textit{purring} \After \{ \textsc{Peek}, \textsc{Pet} \} $$
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$ lub $\sigma_1$, dla programu $(\{ \textsc{Peek}, \textsc{Pet} \})$ istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca   do stanu $\sigma_2$.
 
     \item Kwerendy $\Executable$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~każdego modelu $\mathcal{D}$ z dowolnym stanem początkowym, ze względu na brak zdań $\Impossible$.
@@ -923,11 +925,11 @@ Przykładowe kwerendy nad~$\mathcal{D}$:
 
 \begin{enumerate}
     \item Niech dana będzie kwerenda
-    $$ \Possibly \textit{brushA} \After (\{ \textsc{TakeA} , \textsc{TakeB} \}) $$
+    $$ \Possibly \textit{brushA} \After \{ \textsc{TakeA} , \textsc{TakeB} \} $$
     Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, istnieje $\Psi_\mathcal{S}$, że program $(\{ \textsc{TakeA} , \textsc{TakeB} \})$ prowadzi do stanu $\sigma_1$, w którym spełnione jest $\textit{brushA}$.
 
     \item Niech dana będzie kwerenda
-    $$ \Necessary \neg \textit{brushA} \land \neg \textit{brushB} \After (\{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \}) $$
+    $$ \Necessary \neg \textit{brushA} \land \neg \textit{brushB} \After \{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \} $$
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, dla programu $(\{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \})$ nie istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca do stanu $\sigma_0$.
 
     \item Kwerendy $\Executable$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~modelu $\mathcal{D}$ ze stanem początkowym $\sigma_0$, ze względu na brak zdań $\Impossible$.
