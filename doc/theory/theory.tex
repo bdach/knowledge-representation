@@ -747,13 +747,9 @@ Przykładowe kwerendy nad~$\mathcal{D}$:
 
     \item Niech dana będzie kwerenda
     $$ \Necessary \textit{purring} \After (\{ \textsc{Peek}, \textsc{Pet} \}) $$
-    Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$ lub $\sigma_1$, dla progamu $(\{ \textsc{Peek}, \textsc{Pet} \})$ istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca   do stanu $\sigma_2$.
+    Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$ lub $\sigma_1$, dla programu $(\{ \textsc{Peek}, \textsc{Pet} \})$ istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca   do stanu $\sigma_2$.
 
-    \item Analogicznie, kwerenda
-    $$\Executable (\{ \textsc{Peek} \}, \{ \textsc{Pet} \})$$
-    \textbf{jest} konsekwencją $\mathcal{D}$, podczas gdy
-    $$\Executable \Always (\{ \textsc{Peek} \}, \{ \textsc{Pet} \})$$
-    \textbf{nie jest} konsekwencją $\mathcal{D}$.
+    \item Kwerendy $\Executable$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~każdego modelu $\mathcal{D}$ z dowolnym stanem początkowym, ze względu na brak zdań $\Impossible$.
 
     \item Niech dana będzie kwerenda
     $$ \Accessible \textit{purring} $$
@@ -923,6 +919,22 @@ Stanem początkowym będzie $\sigma_0$.
     \label{fig:malarze}
 \end{figure}
 
+Przykładowe kwerendy nad~$\mathcal{D}$:
 
+\begin{enumerate}
+    \item Niech dana będzie kwerenda
+    $$ \Possibly \textit{brushA} \After (\{ \textsc{TakeA} , \textsc{TakeB} \}) $$
+    Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, istnieje $\Psi_\mathcal{S}$, że program $(\{ \textsc{TakeA} , \textsc{TakeB} \})$ prowadzi do stanu $\sigma_1$, w którym spełnione jest $\textit{brushA}$.
+
+    \item Niech dana będzie kwerenda
+    $$ \Necessary \neg \textit{brushA} \land \neg \textit{brushB} \After (\{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \}) $$
+    Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, dla programu $(\{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \})$ nie istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca do stanu $\sigma_0$.
+
+    \item Kwerendy $\Executable$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~modelu $\mathcal{D}$ ze stanem początkowym $\sigma_0$, ze względu na brak zdań $\Impossible$.
+
+    \item Niech dana będzie kwerenda
+    $$ \Accessible  \textit{brushA} \land \textit{brushB} $$
+    Kwerenda ta \textbf{nie będzie} konsekwencją $\mathcal{D}$, ponieważ dla modelu $\mathcal{D}$, którego stanem początkowym jest $\sigma_0$, nie istnieje program, który prowadzi do osiągnięcia celu. Cel jest sprzeczny ze~zdefiniowaną domeną akcji $\mathcal{D}$.
+\end{enumerate}
 
 \end{document}
