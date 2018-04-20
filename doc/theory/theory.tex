@@ -97,6 +97,7 @@ Scenariusze dla~zadanej klasy systemów dynamicznych będą reprezentowane za~po
 Zgodnie z~założeniami projektu, w~języku akcji będą rozważane jedynie następstwa akcji atomowych.
 
 \subsection{Składnia języka}
+\label{subsec:action-syntax}
 
 \begin{defn}
     \textbf{Sygnaturą} języka jest uporządkowana para zbiorów $\Upsilon = (\mathcal{F}, \mathcal{A}c)$, gdzie $\mathcal{F}$ to~zbiór fluentów, a $ \mathcal{A}c$ to~zbiór akcji.
@@ -194,12 +195,14 @@ Wyrażenie $\alpha$ zwane jest w~szczególności \textbf{warunkiem integralnośc
 Powyższe zdanie można traktować jak deklarację istnienia nieinercjalnego fluentu w~danej sygnaturze.
 
 \begin{defn}
+    \label{defn:action-domain}
     Domeną akcji $\mathcal{D}$ nazywamy skończony zbiór zdań zdefiniowanych powyżej.
 \end{defn}
 
 \subsection{Semantyka języka}
 
 \begin{defn}
+    \label{defn:state}
     Stanem nazywamy funkcję $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$.
 
     Dodatkowo, przez $\sigma^{*} : Forms(\mathcal{F}) \rightarrow \left\{0,1\right\}$ określamy rozszerzenie tej funkcji, zdefiniowane dla wszystkich formuł nad zbiorem fluentów:
@@ -218,6 +221,7 @@ Powyższe zdanie można traktować jak deklarację istnienia nieinercjalnego flu
 Funkcja stanu definiuje w~sposób jednoznaczny wartość wszystkich fluentów.
 
 \begin{defn}
+    \label{defn:structure}
     \textbf{Strukturą} dla języka $\mathcal{L}$ nazywamy trójkę
     $$\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$$
     gdzie:
@@ -235,6 +239,7 @@ Zauważmy, że~docelowo w~systemie może~być rozważane wiele struktur dla~jedn
 Funkcję przejścia możemy rozszerzyć na~pojęcie programu w~następujący sposób:
 
 \begin{defn}
+    \label{defn:res-star}
     Niech $\mathcal{S} = (\Sigma, \sigma_0, Res)$ będzie strukturą.
     Niech $Res^* : (2^{\mathcal{A}c})^* \times \Sigma \to 2^\Sigma$ będzie funkcją taką, że:
     \begin{itemize}
@@ -247,6 +252,7 @@ Funkcję przejścia możemy rozszerzyć na~pojęcie programu w~następujący spo
 Wtedy pojedynczą ścieżkę wykonania programu możemy odtworzyć za~pomocą funkcji $\Psi_{\mathcal{S}}$ zdefiniowaną następująco:
 
 \begin{defn}
+    \label{defn:psi}
     Niech $\mathcal{D}$ będzie domeną akcji. Dla struktury $S = (\Sigma,\sigma_0,Res)$, definiujemy funkcję częściową 
     $\Psi_{\mathcal{S}} : (2^{\mathcal{A}c})^* \times \Sigma \rightarrow \Sigma$ w następujący sposób:
     \begin{itemize}
@@ -262,6 +268,7 @@ Zauważmy, że w~domenie akcji mogą znajdować~się zdania, których efekty bę
 Do~sformalizowania tej intuicji posłużymy~się dysjunkcyjną postacią normalną formuł rachunku zdań.
 
 \begin{defn}
+    \label{defn:dnf}
     Niech $\alpha$ będzie dowolną formułą nad zbiorem fluentów $\mathcal{F}$.
     Mówimy, że $\alpha$ jest w~\textbf{dysjunkcyjnej postaci normalnej (DNF)} wtedy i tylko wtedy, gdy 
     $$\alpha = \bigvee_{i=1}^{n} \bigwedge_{j=1}^{k(i)} \lambda_{ij}$$
@@ -269,12 +276,14 @@ Do~sformalizowania tej intuicji posłużymy~się dysjunkcyjną postacią normaln
 \end{defn}
     
 \begin{theorem}
+    \label{thm:dnf-reduction}
     Każdą formułę $\alpha$ można przekształcić do formuły $\alpha'$, która jest w postaci DNF.
 \end{theorem}
 
 Formułę $\alpha$ przekształconą do postaci DNF oznaczamy jako $DNF(\alpha)$.
 
 \begin{defn}
+    \label{defn:component}
     Niech $DNF(\alpha) = \gamma_1 \vee \dots \vee \gamma_k$.
     Każdą formułę $\gamma_i$ nazywamy \textbf{komponentem} formuły $\alpha$.
 \end{defn}
@@ -332,6 +341,7 @@ Zauważmy, że~w~pierwszym przypadku warunek o~sprzeczności komponentów z~$\al
 \end{defn}
 
 \begin{defn}
+    \label{defn:decomposition}
     Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma$ będzie stanem oraz niech $A \subseteq \mathcal{A}c$.
     \textbf{Dekompozycją} $A$ w $\sigma$ będziemy nazywać taki zbiór $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ akcji elementarnych w $D$, że:
     \begin{enumerate}
@@ -345,10 +355,12 @@ Innymi słowy, dekompozycja akcji złożonej $A$ określa maksymalne ze~względu
 Zauważmy, że na~mocy definicji \ref{defn:conflict} i~\ref{defn:potentially-executable} możemy wspomóc~się dysjunkcyjną postacią normalną przy~wyznaczaniu niekonfliktujących akcji.
     
 \begin{defn}
+    \label{defn:execution-component}
     Niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ będzie dekompozycją $A$ w $\sigma$. Każdą akcję $E_i$ nazywamy \textbf{komponentem wykonania} $A$ w~stanie $\sigma$.
 \end{defn}
     
 \begin{defn}
+    \label{defn:potential-execution-result}
     Niech $\mathcal{D}$ będzie domeną akcji, niech $\sigma, \sigma^\prime$ będą stanami, niech $A \subseteq \mathcal{A}c$ będzie akcją i niech $\Delta(A, \sigma) = \{ E_1, E_2, \dots, E_k \}$ będzie dekompozycją $A$ w~$\sigma$.
     Mówimy, że $\sigma^\prime$ jest \textbf{potencjalnym wynikiem wykonania} $A$ w $\sigma$ wtedy i~tylko wtedy gdy dla każdego $i = 1, \dots, k$ i~dla~każdego zdania postaci: 
     $$ (E_i \Causes \alpha \If \pi) \in D $$
@@ -365,22 +377,26 @@ Zauważmy ponadto, że~takie zdefiniowanie potencjalnego wyniku wykonania akcji 
 Niech $\mathcal{D}$ będzie domeną akcji, zaś $\mathcal{S} = \left(\Sigma, \sigma_0, Res\right)$ pewną strukturą języka.
 
 \begin{defn}
+    \label{defn:inertial-fluent}
     Fluent $f \in \mathcal{F}$ jest inercjalny w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy $\left(\Noninertial f\right) \notin \mathcal{D}$.
 \end{defn}
 
 \begin{defn}
+    \label{defn:state-in-domain}
     $\sigma : \mathcal{F} \rightarrow \left\{0,1\right\}$ jest \textbf{stanem} $\mathcal{S}$ względem~$\mathcal{D}$ wtedy i~tylko wtedy, gdy dla~każdego zdania ograniczenia $\left(\Always \alpha\right) \in \mathcal{D}$ zachodzi $\sigma \models \alpha$.
 \end{defn}
 
 Powyższa definicja stanu względem~$\mathcal{D}$ zapewni spełnienie warunków integralności w~każdym modelu domeny~$\mathcal{D}$.
 
 \begin{defn}
+    \label{defn:value-statement-truth}
     Zdanie wartości $(\alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{S}$ wtedy i~tylko wtedy, gdy
     $$\Psi_{\mathcal{S}}(\{ A \}, \sigma_0) \models \alpha$$
     dla~każdej funkcji $\Psi_{\mathcal{S}}$.
 \end{defn}
 
 \begin{defn}
+    \label{defn:observation-statement-truth}
     Zdanie obserwacji $(\Observable \alpha \After A)$ jest \textbf{prawdziwe} w~$\mathcal{D}$ wtedy i~tylko wtedy, gdy
     $$\Psi_{\mathcal{S}}(\{ A \}, \sigma_0) \models \alpha$$
     dla~pewnej funkcji $\Psi_{\mathcal{S}}$.
@@ -389,6 +405,7 @@ Powyższa definicja stanu względem~$\mathcal{D}$ zapewni spełnienie warunków 
 Aby móc zdefiniować warunki stawiane funkcji przejścia w~modelu, wprowadzimy kilka pojęć pomocniczych.
 
 \begin{defn}
+    \label{defn:res0}
     Zdefiniujmy pomocniczą funkcję $Res_0: 2^{\mathcal{A}c} \times \Sigma \rightarrow 2^\Sigma$.
 
     Niech dany będzie stan $\sigma \in \Sigma$ i~akcja złożona $A \subseteq \mathcal{A}c$.
@@ -399,6 +416,7 @@ Aby móc zdefiniować warunki stawiane funkcji przejścia w~modelu, wprowadzimy 
 Funkcja $Res_0$ określa możliwe zmiany w~stanie~$\sigma$ spowodowane przez~zdania $\Causes$.
 
 \begin{defn}
+    \label{defn:new}
     Dla~każdych stanów $\sigma, \sigma' \in \Sigma$ i~dla~każdej akcji $A \in \mathcal{A}c$, zbiorem $New(A, \sigma, \sigma')$ będziemy nazywać zbiór wszystkich literałów $\overline{f}$ takich, że $\sigma' \models f$ oraz:
     \begin{itemize}
         \item $f$ jest inercjalny oraz $\sigma(f) \neq \sigma'(f)$, lub
@@ -410,6 +428,7 @@ Zbiory $New$ określają, które fluenty inercjalne zmieniły~się pomiędzy dwo
 Jest to drugi aspekt niedeterministyczny w~rozważanym systemie dynamicznym.
 
 \begin{defn}
+    \label{defn:model}
     Niech $\mathcal{D}$ będzie domeną akcji w $\mathcal{A}c$. Struktura $\mathcal{S} = (\Sigma,\sigma_0,Res)$ jest \textbf{modelem $\mathcal{D}$} wtw:
     \begin{enumerate}
     \item $\Sigma$ jest zbiorem wszystkich stanów w $\mathcal{D}$ (tj. zbiorem wszystkich stanów satysfakcjonujących wszystkie ograniczenia z $\mathcal{D}$),
@@ -425,6 +444,7 @@ Tak zdefiniowany model łączy niedeterminizm związany z~wyborem dekompozycji a
 W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu, którego zadaniem jest podanie odpowiedzi zgodnych z~daną domeną akcji.
 
 \subsection{Składnia języka}
+    \label{subsec:query-syntax}
     Język kwerend wyróżnia ich następujące rodzaje:
 
     \begin{defn}
@@ -464,8 +484,10 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
     Celem tej kwerendy jest określenie, czy~istnieje taki program $(A_1, \dots, A_n)$, $n \geq 0$, wykonywalny ze~stanu początkowego, po~którego wykonaniu osiągnięty zostanie cel~$\gamma$.
 
 \subsection{Semantyka języka}
+\label{subsec:query-semantics}
 
 \begin{defn}
+    \label{defn:consequence}
     Niech $\mathcal{D}$ będzie domeną akcji, a $\mathcal{Q}$ kwerendą. 
     Mówimy, że $\mathcal{Q}$ jest \textbf{konsekwencją} $\mathcal{D}$ (ozn. $\mathcal{D} \consequence \mathcal{Q}$), jeżeli:
 
@@ -499,7 +521,8 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
 
 \section{Przykłady}
 
-\subsection{Producent i~konsument}
+\subsection{Producent i~konsument}]
+\label{subsec:producer-consumer-example}
 
 Załóżmy, że~dany jest producent i~konsument.
 Producent może wstawić do~bufora dokładnie jeden produkt przy~pomocy akcji \textsc{Put}.
@@ -630,6 +653,8 @@ Rozważmy teraz kilka przykładowych kwerend nad~$\mathcal{D}$.
 \end{enumerate}
 
 \subsection{Kot Schrödingera}
+\label{subsec:schrodingers-cat-example}
+
 Załóżmy, że dany jest pojemnik z kotem i trucizną, która w każdym momencie może zostać uwolniona. Na początku wiadomo, że kot żyje. Przy pomocy akcji \textsc{Peek} można zajrzeć do pojemnika, po czym może się okazać, że kot umarł, zaczął lub przestał mruczeć. Jeżeli kot żyje, wykonanie akcji \textsc{Pet} spowoduje, że kot zacznie mruczeć. Jeżeli kot nie żyje, niemożliwe jest żeby mruczał.
 
 Powyższy scenariusz jest reprezentowany przez następującą domenę akcji $\mathcal{D}$:
@@ -651,7 +676,6 @@ Rozważmy po~kolei wykonanie wszystkich możliwych akcji złożonych w~każdym s
 \end{enumerate}
 
 Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_1$.
-
 
 \begin{itemize}
     \item Dla~stanu $\sigma_0$ mamy
@@ -760,6 +784,8 @@ Przykładowe kwerendy nad~$\mathcal{D}$:
 \end{enumerate}
 
 \subsection{Dwóch malarzy}
+\label{subsec:two-painters-example}
+
 Załóżmy, że mamy dwóch malarzy (oznaczmy ich jako $A$ i $B$) i jeden pędzel. Malarze mogą zabrać pędzel (akcje $\textsc{TakeA},\textsc{TakeB}$), na początku żaden z malarzy nie ma pędzla. Malarze mający pędzel mogą wykonać akcję $\textsc{Paint}$, po której znów odkładają pędzel.
 
 Powyższy scenariusz jest reprezentowany przez następującą domenę akcji $\mathcal{D}$:
@@ -939,5 +965,17 @@ Przykładowe kwerendy nad~$\mathcal{D}$:
     $$ \Accessible  \textit{brushA} \land \textit{brushB} $$
     Kwerenda ta \textbf{nie będzie} konsekwencją $\mathcal{D}$, ponieważ dla modelu $\mathcal{D}$, którego stanem początkowym jest $\sigma_0$, nie istnieje program, który prowadzi do osiągnięcia celu. Cel jest sprzeczny ze~zdefiniowaną domeną akcji $\mathcal{D}$.
 \end{enumerate}
+
+\section{Podział prac}
+
+\begin{itemize}
+    \item \textbf{Bartłomiej Dach} przygotował składnię języka kwerend (podrozdział~\ref{subsec:query-syntax}), definicje \ref{defn:res-star} (funkcji pomocniczej $Res^*$), \ref{defn:value-statement-truth} i~\ref{defn:observation-statement-truth} (prawdziwości zdań wartości i~obserwacji), \ref{defn:new} (zbioru $New$), opracował przykład~\ref{subsec:producer-consumer-example} (o~producencie i~konsumencie) i~dokonał redakcji końcowej wersji dokumentu.
+    \item \textbf{Tymon Felski} opracował semantykę języka kwerend (podrozdział~\ref{subsec:query-semantics}), opracował przykłady kwerend w~przykładzie \ref{subsec:two-painters-example} i~dokonał weryfikacji przykładów kwerend w~pozostałych dwóch przykładach.
+    \item \textbf{Filip Grajek} przygotował składnię języka akcji (podrozdział~\ref{subsec:action-syntax}), definicje: \ref{defn:conflict} (konfliktu), \ref{defn:potentially-executable} (potencjalnej wykonywalności), \ref{defn:decomposition} (dekompozycji), \ref{defn:execution-component} (komponentu wykonania), \ref{defn:potential-execution-result} (potencjalnego wyniku wykonania) i~\ref{defn:res0} (funkcji~$Res_0$) oraz~opracował przykład~\ref{subsec:two-painters-example} (o~dwóch malarzach).
+    \item \textbf{Maciej Grzeszczak} przygotował definicje: \ref{defn:action-domain} (domeny akcji), \ref{defn:state} (stanu), \ref{defn:structure} (struktury), \ref{defn:inertial-fluent} (fluentu inercjalnego) i~\ref{defn:state-in-domain} (stanu względem domeny akcji) oraz~opracował przykład~\ref{subsec:schrodingers-cat-example} (o~kocie Schr\"{o}dingera).
+    \item \textbf{Jacek Dziwulski} przygotował definicje: \ref{defn:dnf} (dysjunkcyjnej postaci normalnej) i \ref{defn:component} (komponentu formuły) i~sformułował twierdzenie \ref{thm:dnf-reduction} (o~redukcji dowolnej formuły logicznej do~dysjunkcyjnej postaci normalnej).
+    \item \textbf{Michał Kołodziej} przygotował definicje: \ref{defn:psi} (funkcji~$\Psi_{\mathcal{S}}$) i~\ref{defn:model} (modelu).
+    \item \textbf{Jędrzej Fijałkowski} i~\textbf{Piotr Wolski} oraz~pozostali wyżej wymienieni członkowie zespołu byli obecni na~spotkaniach związanych z~realizacją projektu.
+\end{itemize}
 
 \end{document}
