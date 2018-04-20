@@ -28,6 +28,7 @@
 \DeclareMathOperator{\Impossible}{\textbf{\textit{impossible}}}
 \DeclareMathOperator{\Releases}{\textbf{\textit{releases}}}
 \DeclareMathOperator{\Always}{\textbf{\textit{always}}}
+\DeclareMathOperator{\Sometimes}{\textbf{\textit{sometimes}}}
 \DeclareMathOperator{\Noninertial}{\textbf{\textit{noninertial}}}
 
 \DeclareMathOperator{\Executable}{\textbf{\textit{executable}}}
@@ -442,7 +443,7 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
 
     \begin{defn}
         \textbf{Egzystencjalną kwerendą wykonywalności} nazywamy zdanie
-        $$ \Executable A_1, \dots, A_n $$
+        $$ \Executable \Sometimes A_1, \dots, A_n $$
         gdzie $A_1, \dots, A_n \subseteq \mathcal{A}c$.
     \end{defn}
 
@@ -478,7 +479,7 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
         \end{itemize}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wykonywalności postaci:
         \begin{itemize}
-            \item $\Executable A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
+            \item $\Executable \Sometimes A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ takiego, że istnieje % TODO: do uzgodnienia
             funkcja $\Psi_\mathcal{S}$ taka, że
             $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$$
@@ -618,7 +619,7 @@ Rozważmy teraz kilka przykładowych kwerend nad~$\mathcal{D}$.
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_2$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ nie~jest wykonywalny, więc odpowiednia wartość $\Psi_\mathcal{S}$ w~definicji konsekwencji nie~jest zdefiniowana.
 
     \item Analogicznie, kwerenda
-    $$\Executable (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$$
+    $$\Executable \Sometimes (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$$
     \textbf{jest} konsekwencją $\mathcal{D}$, podczas gdy
     $$\Executable \Always (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$$
     \textbf{nie jest} konsekwencją $\mathcal{D}$.
@@ -751,7 +752,7 @@ Przykładowe kwerendy nad~$\mathcal{D}$:
     $$ \Necessary \textit{purring} \After \{ \textsc{Peek}, \textsc{Pet} \} $$
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$ lub $\sigma_1$, dla programu $(\{ \textsc{Peek}, \textsc{Pet} \})$ istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca   do stanu $\sigma_2$.
 
-    \item Kwerendy $\Executable$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~każdego modelu $\mathcal{D}$ z dowolnym stanem początkowym, ze względu na brak zdań $\Impossible$.
+    \item Kwerendy $\Executable \Sometimes$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla~każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~każdego modelu $\mathcal{D}$ z dowolnym stanem początkowym, ze względu na brak zdań $\Impossible$.
 
     \item Niech dana będzie kwerenda
     $$ \Accessible \textit{purring} $$
@@ -932,7 +933,7 @@ Przykładowe kwerendy nad~$\mathcal{D}$:
     $$ \Necessary \neg \textit{brushA} \land \neg \textit{brushB} \After \{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \} $$
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, dla programu $(\{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \})$ nie istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca do stanu $\sigma_0$.
 
-    \item Kwerendy $\Executable$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~modelu $\mathcal{D}$ ze stanem początkowym $\sigma_0$, ze względu na brak zdań $\Impossible$.
+    \item Kwerendy $\Executable \Sometimes$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla~każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~modelu $\mathcal{D}$ ze stanem początkowym $\sigma_0$, ze względu na brak zdań $\Impossible$.
 
     \item Niech dana będzie kwerenda
     $$ \Accessible  \textit{brushA} \land \textit{brushB} $$
