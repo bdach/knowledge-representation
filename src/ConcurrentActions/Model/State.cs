@@ -8,7 +8,19 @@ namespace Model
     /// Represents a mapping from the set of <see cref="Fluent"/>s to logical values.
     /// A state assigns values to the elements of the language signature.
     /// </summary>
-    public class State
+    public interface IState
+    {
+        /// <summary>
+        /// Accessor property that allows to fetch and modify the values of <see cref="Fluent"/>s in the current state instance.
+        /// </summary>
+        /// <param name="fluent">The fluent whose state should be returned or modified.</param>
+        /// <returns>The value associated with the specified fluent.</returns>
+        /// <exception cref="ArgumentException">The supplied fluent is not defined in this state.</exception>
+        bool this[Fluent fluent] { get; set; }
+    }
+
+    /// <inheritdoc />
+    public class State : IState
     {
         /// <summary>
         /// Dictionary mapping the particular <see cref="Fluent"/>s to their binary values.
@@ -43,12 +55,7 @@ namespace Model
                 .ToDictionary(p => p.Key, p => p.Value);
         }
 
-        /// <summary>
-        /// Accessor property that allows to fetch and modify the values of <see cref="Fluent"/>s in the current state instance.
-        /// </summary>
-        /// <param name="fluent">The fluent whose state should be returned or modified.</param>
-        /// <returns>The value associated with the specified fluent.</returns>
-        /// <exception cref="ArgumentException">The supplied fluent is not defined in this state.</exception>
+        /// <inheritdoc />
         public bool this[Fluent fluent]
         {
             get => GetFluentState(fluent);
