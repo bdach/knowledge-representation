@@ -32,5 +32,10 @@
         {
             return !(Left.Evaluate(state) ^ Right.Evaluate(state));
         }
+
+        public override string ToString()
+        {
+            return $"({Left} \u2261 {Right})";
+        }
     }
 }

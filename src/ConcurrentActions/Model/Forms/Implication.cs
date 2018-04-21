@@ -32,5 +32,10 @@
         {
             return !Antecedent.Evaluate(state) || Consequent.Evaluate(state);
         }
+
+        public override string ToString()
+        {
+            return $"({Antecedent} \u2192 {Consequent})";
+        }
     }
 }

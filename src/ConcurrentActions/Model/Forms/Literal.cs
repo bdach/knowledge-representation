@@ -41,5 +41,10 @@
         {
             return state[Fluent] ^ Negated;
         }
+
+        public override string ToString()
+        {
+            return Negated ? $"(\u00AC{Fluent})" : Fluent.ToString();
+        }
     }
 }

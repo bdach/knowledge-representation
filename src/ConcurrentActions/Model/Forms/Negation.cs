@@ -25,5 +25,10 @@
         {
             return !Formula.Evaluate(state);
         }
+
+        public override string ToString()
+        {
+            return $"\u00AC({Formula})";
+        }
     }
 }

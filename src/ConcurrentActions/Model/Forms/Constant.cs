@@ -35,5 +35,10 @@
         /// The falsity constant formula.
         /// </summary>
         public static Constant Falsity { get; } = new Constant(false);
+
+        public override string ToString()
+        {
+            return value ? "\u22A4" : "\u22A5";
+        }
     }
 }
