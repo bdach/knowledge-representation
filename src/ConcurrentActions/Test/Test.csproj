@@ -79,6 +79,8 @@
     <Compile Include="Model\Forms\LiteralTest.cs" />
     <Compile Include="Model\Forms\NegationTest.cs" />
     <Compile Include="Model\StateTest.cs" />
+    <Compile Include="Model\StructureTest.cs" />
+    <Compile Include="Model\TransitionFunctionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

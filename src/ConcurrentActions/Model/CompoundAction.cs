@@ -16,9 +16,28 @@ namespace Model
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompoundAction"/> class.
+        /// This constructor creates an empty compound action.
+        /// </summary>
+        public CompoundAction()
+        {
+            Actions = new HashSet<Action>();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompoundAction"/> class.
+        /// The created compound action will comprise of the single atomic action supplied in the parameter.
+        /// </summary>
+        /// <param name="action">The atomic <see cref="Action"/> to add to the compound action.</param>
+        public CompoundAction(Action action)
+        {
+            Actions = new HashSet<Action> {action};
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompoundAction"/> class.
         /// The created compound action will comprise of all the actions supplied in the parameter.
         /// </summary>
-        /// <param name="actions">An enumerable of atomic actions to add to the compound action.</param>
+        /// <param name="actions">An enumerable of atomic <see cref="Action"/>s to add to the compound action.</param>
         public CompoundAction(IEnumerable<Action> actions)
         {
             Actions = new HashSet<Action>(actions);
