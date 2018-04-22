@@ -40,6 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionLanguage\ActionDomain.cs" />
+    <Compile Include="ActionLanguage\ConstraintStatement.cs" />
+    <Compile Include="ActionLanguage\EffectStatement.cs" />
+    <Compile Include="ActionLanguage\FluentReleaseStatement.cs" />
+    <Compile Include="ActionLanguage\FluentSpecificationStatement.cs" />
+    <Compile Include="ActionLanguage\InitialValueStatement.cs" />
+    <Compile Include="ActionLanguage\ObservationStatement.cs" />
+    <Compile Include="ActionLanguage\ValueStatement.cs" />
     <Compile Include="Fluent.cs" />
     <Compile Include="Forms\Alternative.cs" />
     <Compile Include="Forms\Conjunction.cs" />
@@ -53,5 +61,6 @@
     <Compile Include="Action.cs" />
     <Compile Include="State.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
