@@ -49,7 +49,7 @@ namespace Model
         {
             if (fluents.Count != values.Count)
             {
-                throw new ArgumentException("Fluent and value lists have different lengths");
+                throw new ArgumentException("Fluent and value collections have different lengths");
             }
             fluentState = fluents.Zip(values, (f, v) => new KeyValuePair<Fluent, bool>(f, v))
                 .ToDictionary(p => p.Key, p => p.Value);

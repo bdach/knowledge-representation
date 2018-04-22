@@ -70,6 +70,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\CompoundActionTest.cs" />
     <Compile Include="Model\Forms\AlternativeTest.cs" />
     <Compile Include="Model\Forms\ConjunctionTest.cs" />
     <Compile Include="Model\Forms\ConstantTest.cs" />
