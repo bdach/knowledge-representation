@@ -61,6 +61,7 @@
     <Compile Include="Forms\Implication.cs" />
     <Compile Include="Forms\Literal.cs" />
     <Compile Include="Forms\Negation.cs" />
+    <Compile Include="IFormulaVisitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Action.cs" />

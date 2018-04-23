@@ -70,6 +70,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DNF\FormulaExtensionsTest.cs" />
     <Compile Include="Model\ActionTest.cs" />
     <Compile Include="Model\CompoundActionTest.cs" />
     <Compile Include="Model\Forms\AlternativeTest.cs" />
@@ -89,6 +90,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DynamicSystem\DynamicSystem.csproj">
+      <Project>{A36BB37A-5B7E-45A5-8DB6-0644599CF9BA}</Project>
+      <Name>DynamicSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{193ec575-133a-4432-aabd-0ea59b4d64f3}</Project>
       <Name>Model</Name>

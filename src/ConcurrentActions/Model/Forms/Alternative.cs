@@ -33,6 +33,16 @@
             return Left.Evaluate(state) || Right.Evaluate(state);
         }
 
+        public IFormula Accept(IFormulaVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
+
+        public IFormula Visit(IFormulaVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
+
         public override string ToString()
         {
             return $"({Left} \u2228 {Right})";

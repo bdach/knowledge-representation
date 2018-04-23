@@ -26,6 +26,11 @@
             return !Formula.Evaluate(state);
         }
 
+        public IFormula Accept(IFormulaVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
+
         public override string ToString()
         {
             return $"\u00AC({Formula})";

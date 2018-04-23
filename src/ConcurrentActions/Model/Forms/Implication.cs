@@ -33,6 +33,11 @@
             return !Antecedent.Evaluate(state) || Consequent.Evaluate(state);
         }
 
+        public IFormula Accept(IFormulaVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
+
         public override string ToString()
         {
             return $"({Antecedent} \u2192 {Consequent})";

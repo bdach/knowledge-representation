@@ -44,6 +44,11 @@ namespace Model.Forms
             return state[Fluent] ^ Negated;
         }
 
+        public IFormula Accept(IFormulaVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
+
         public override string ToString()
         {
             return Negated ? $"(\u00AC{Fluent})" : Fluent.ToString();

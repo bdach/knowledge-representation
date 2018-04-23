@@ -26,6 +26,11 @@
             return value;
         }
 
+        public IFormula Accept(IFormulaVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
+
         /// <summary>
         /// The truth constant formula.
         /// </summary>
