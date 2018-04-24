@@ -150,16 +150,16 @@
                     Name="ClauseGroupBox"
                     Header="Edytor zdań">
 
-                    <Fluent:Button
-                        Name="AddActionClauseButton"
+                    <Fluent:DropDownButton
+                        Name="AddActionClauseDropDown"
                         Header="Wstaw zdanie domeny akcji"
                         Icon="/Client;component/Resources/Images/domain-64.png"
                         LargeIcon="/Client;component/Resources/Images/domain-128.png"
                         Size="Large"
                         Width="96" />
 
-                    <Fluent:Button
-                        Name="AddQueryClauseButton"
+                    <Fluent:DropDownButton
+                        Name="AddQueryClauseDropDown"
                         Header="Wstaw kwerendę"
                         Icon="/Client;component/Resources/Images/queries-64.png"
                         LargeIcon="/Client;component/Resources/Images/queries-128.png"
