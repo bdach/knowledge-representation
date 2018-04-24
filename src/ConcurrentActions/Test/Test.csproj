@@ -70,6 +70,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ActionTest.cs" />
     <Compile Include="Model\CompoundActionTest.cs" />
     <Compile Include="Model\Forms\AlternativeTest.cs" />
     <Compile Include="Model\Forms\ConjunctionTest.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Model\Forms\ImplicationTest.cs" />
     <Compile Include="Model\Forms\LiteralTest.cs" />
     <Compile Include="Model\Forms\NegationTest.cs" />
+    <Compile Include="Model\FluentTest.cs" />
     <Compile Include="Model\StateTest.cs" />
     <Compile Include="Model\StructureTest.cs" />
     <Compile Include="Model\TransitionFunctionTest.cs" />

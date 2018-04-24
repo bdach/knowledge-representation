@@ -1,4 +1,6 @@
-﻿namespace Model.Forms
+﻿using System.Collections.Generic;
+
+namespace Model.Forms
 {
     /// <inheritdoc />
     /// <summary>
@@ -45,6 +47,21 @@
         public override string ToString()
         {
             return Negated ? $"(\u00AC{Fluent})" : Fluent.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Literal literal &&
+                   EqualityComparer<Fluent>.Default.Equals(Fluent, literal.Fluent) &&
+                   Negated == literal.Negated;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -2091649536;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Fluent>.Default.GetHashCode(Fluent);
+            hashCode = hashCode * -1521134295 + Negated.GetHashCode();
+            return hashCode;
         }
     }
 }
