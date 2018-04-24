@@ -1,0 +1,190 @@
+﻿<Window x:Class="Client.ConcurrentActionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Fluent="urn:fluent-ribbon"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        Title="Akcje równoległe" 
+        Width="800" Height="600">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Fluent:Ribbon
+            Grid.Row="0">
+
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage>
+                    <Fluent:BackstageTabControl>
+
+                        <Fluent:Button
+                            Name="ClearButton"
+                            Header="Wyczyść" />
+
+                        <Fluent:Button
+                            Name="ImportButton"
+                            Header="Importuj z pliku" />
+
+                        <Fluent:Button
+                            Name="ExportButton"
+                            Header="Eksportuj do pliku" />
+
+                        <Fluent:Button
+                            Name="CloseButton"
+                            Header="Zakończ"
+                            Click="CloseButton_Click" />
+
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+            </Fluent:Ribbon.Menu>
+
+            <Fluent:RibbonTabItem
+                Name="EditTab"
+                Header="Edycja">
+
+                <Fluent:RibbonGroupBox
+                    Name="LanguageGroupBox"
+                    Header="Sygnatura języka">
+
+                    <Fluent:DropDownButton
+                        Name="FluentDropDown"
+                        Header="Fluenty"
+                        Icon="/Client;component/Resources/Images/fluents-64.png"
+                        LargeIcon="/Client;component/Resources/Images/fluents-128.png"
+                        Size="Large"
+                        Width="64">
+
+                        <Fluent:MenuItem
+                            Name="AddFluentButton"
+                            Header="Dodaj"
+                            Icon="/Client;component/Resources/Images/plus-64.png" />
+                        
+                        <Fluent:GroupSeparatorMenuItem 
+                            Height="1" />
+
+                        <Fluent:Gallery
+                            Name="FluentsGallery"
+                            Orientation="Vertical" />
+
+                    </Fluent:DropDownButton>
+
+                    <Fluent:DropDownButton
+                        Name="ActionDropDown"
+                        Header="Akcje"
+                        Icon="/Client;component/Resources/Images/actions-64.png"
+                        LargeIcon="/Client;component/Resources/Images/actions-128.png"
+                        Size="Large"
+                        Width="64">
+
+                        <Fluent:MenuItem
+                            Name="AddActionButton"
+                            Header="Dodaj"
+                            Icon="/Client;component/Resources/Images/plus-64.png" />
+
+                        <Fluent:GroupSeparatorMenuItem 
+                            Height="1" />
+
+                        <Fluent:Gallery
+                            Name="ActionsGallery"
+                            Orientation="Vertical" />
+
+                    </Fluent:DropDownButton>
+
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox
+                    Name="FormulaGroupBox"
+                    Header="Edytor formuł">
+
+                    <Fluent:Button
+                        Name="ConjunctionButton"
+                        Header="Koniunkcja"
+                        Icon="/Client;component/Resources/Images/conjunction-64.png"
+                        LargeIcon="/Client;component/Resources/Images/conjunction-128.png"
+                        Size="Middle"
+                        Width="96" />
+
+                    <Fluent:Button
+                        Name="ImplicationButton"
+                        Header="Implikacja"
+                        Icon="/Client;component/Resources/Images/implication-64.png"
+                        LargeIcon="/Client;component/Resources/Images/implication-128.png"
+                        Size="Middle"
+                        Width="96" />
+
+                    <Fluent:Button
+                        Name="NegationButton"
+                        Header="Negacja"
+                        Icon="/Client;component/Resources/Images/negation-64.png"
+                        LargeIcon="/Client;component/Resources/Images/negation-128.png"
+                        Size="Middle"
+                        Width="96" />
+
+                    <Fluent:Button
+                        Name="DisjunctionButton"
+                        Header="Alternatywa"
+                        Icon="/Client;component/Resources/Images/disjunction-64.png"
+                        LargeIcon="/Client;component/Resources/Images/disjunction-128.png"
+                        Size="Middle"
+                        Width="112" />
+
+                    <Fluent:Button
+                        Name="EquivalencyButton"
+                        Header="Równoważność"
+                        Icon="/Client;component/Resources/Images/equivalency-64.png"
+                        LargeIcon="/Client;component/Resources/Images/equivalency-128.png"
+                        Size="Middle"
+                        Width="112" />
+
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox
+                    Name="ClauseGroupBox"
+                    Header="Edytor zdań">
+
+                    <Fluent:Button
+                        Name="AddActionClauseButton"
+                        Header="Wstaw zdanie domeny akcji"
+                        Icon="/Client;component/Resources/Images/domain-64.png"
+                        LargeIcon="/Client;component/Resources/Images/domain-128.png"
+                        Size="Large"
+                        Width="96" />
+
+                    <Fluent:Button
+                        Name="AddQueryButton"
+                        Header="Wstaw kwerendę"
+                        Icon="/Client;component/Resources/Images/queries-64.png"
+                        LargeIcon="/Client;component/Resources/Images/queries-128.png"
+                        Size="Large"
+                        Width="96" />
+
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox
+                    Name="SystemGroupBox"
+                    Header="System dynamiczny">
+
+                    <Fluent:Button
+                        Name="CalculateButton"
+                        Header="Wykonaj obliczenia"
+                        Icon="/Client;component/Resources/Images/calculate-64.png"
+                        LargeIcon="/Client;component/Resources/Images/calculate-128.png"
+                        Size="Large"
+                        Width="112">
+                    </Fluent:Button>
+
+                </Fluent:RibbonGroupBox>
+
+            </Fluent:RibbonTabItem>
+
+        </Fluent:Ribbon>
+
+    </Grid>
+
+</Window>

@@ -34,8 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Fluent, Version=6.1.0.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fluent.Ribbon.6.1.0.233\lib\net45\Fluent.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,7 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="ConcurrentActionsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -62,8 +71,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="ConcurrentActionsWindow.xaml.cs">
+      <DependentUpon>ConcurrentActionsWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -85,6 +94,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,6 +112,42 @@
       <Project>{193ec575-133a-4432-aabd-0ea59b4d64f3}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\actions-128.png" />
+    <Resource Include="Resources\Images\actions-256.png" />
+    <Resource Include="Resources\Images\actions-64.png" />
+    <Resource Include="Resources\Images\calculate-128.png" />
+    <Resource Include="Resources\Images\calculate-256.png" />
+    <Resource Include="Resources\Images\calculate-64.png" />
+    <Resource Include="Resources\Images\conjunction-128.png" />
+    <Resource Include="Resources\Images\conjunction-256.png" />
+    <Resource Include="Resources\Images\conjunction-64.png" />
+    <Resource Include="Resources\Images\disjunction-128.png" />
+    <Resource Include="Resources\Images\disjunction-256.png" />
+    <Resource Include="Resources\Images\disjunction-64.png" />
+    <Resource Include="Resources\Images\domain-128.png" />
+    <Resource Include="Resources\Images\domain-256.png" />
+    <Resource Include="Resources\Images\domain-64.png" />
+    <Resource Include="Resources\Images\equivalency-128.png" />
+    <Resource Include="Resources\Images\equivalency-256.png" />
+    <Resource Include="Resources\Images\equivalency-64.png" />
+    <Resource Include="Resources\Images\fluents-128.png" />
+    <Resource Include="Resources\Images\fluents-256.png" />
+    <Resource Include="Resources\Images\fluents-64.png" />
+    <Resource Include="Resources\Images\implication-128.png" />
+    <Resource Include="Resources\Images\implication-256.png" />
+    <Resource Include="Resources\Images\implication-64.png" />
+    <Resource Include="Resources\Images\negation-128.png" />
+    <Resource Include="Resources\Images\negation-256.png" />
+    <Resource Include="Resources\Images\negation-64.png" />
+    <Resource Include="Resources\Images\plus-128.png" />
+    <Resource Include="Resources\Images\plus-256.png" />
+    <Resource Include="Resources\Images\plus-64.png" />
+    <Resource Include="Resources\Images\queries-128.png" />
+    <Resource Include="Resources\Images\queries-256.png" />
+    <Resource Include="Resources\Images\queries-64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
