@@ -66,6 +66,7 @@
                             Icon="/Client;component/Resources/Images/plus-64.png" />
                         
                         <Fluent:GroupSeparatorMenuItem 
+                            Name="FluentSeparator"
                             Height="1" />
 
                         <Fluent:Gallery
@@ -87,7 +88,8 @@
                             Header="Dodaj"
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
-                        <Fluent:GroupSeparatorMenuItem 
+                        <Fluent:GroupSeparatorMenuItem
+                            Name="ActionSeparator"
                             Height="1" />
 
                         <Fluent:Gallery
@@ -157,7 +159,7 @@
                         Width="96" />
 
                     <Fluent:Button
-                        Name="AddQueryButton"
+                        Name="AddQueryClauseButton"
                         Header="Wstaw kwerendę"
                         Icon="/Client;component/Resources/Images/queries-64.png"
                         LargeIcon="/Client;component/Resources/Images/queries-128.png"
