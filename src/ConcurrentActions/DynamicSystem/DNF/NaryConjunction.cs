@@ -18,7 +18,7 @@ namespace DynamicSystem.DNF
             Constants = constants;
         }
 
-        public bool IsValid()
+        public bool IsInvalid()
         {
             return Conflict(Literals, Literals);
         }
@@ -30,17 +30,7 @@ namespace DynamicSystem.DNF
 
         private static bool Conflict(List<Literal> first, List<Literal> second)
         {
-            foreach (var a in first)
-            {
-                foreach (var b in second)
-                {
-                    if (a.Fluent.Name.Equals(b.Fluent.Name) && a.Negated != b.Negated)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
+            return first.Any(a => second.Any(b => a.Fluent.Equals(b.Fluent) && a.Negated != b.Negated));
         }
 
     }

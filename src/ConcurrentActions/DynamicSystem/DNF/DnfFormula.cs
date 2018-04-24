@@ -31,17 +31,7 @@ namespace DynamicSystem.DNF
 
         public bool Conflicts(IDnfFormula other)
         {
-            foreach (var a in Conjunctions)
-            {
-                foreach (var b in other.Conjunctions)
-                {
-                    if (a.Conflicts(b))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
+            return Conjunctions.Any(a => other.Conjunctions.Any(a.Conflicts));
         }
 
         public override string ToString()

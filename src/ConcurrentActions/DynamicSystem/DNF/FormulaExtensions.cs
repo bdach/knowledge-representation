@@ -20,9 +20,15 @@ namespace DynamicSystem.DNF
                 .Accept(new AlternativeDistributionFormulaVisitor());
 
             var conjunctions = new List<NaryConjunction>();
-            dnfFormula.Accept(new NaryConjunctionGeneratoringFormulaVisitor(conjunctions.Add));
 
+            if (conjunctions.Any(c => c.IsInvalid()))
+            {
+                var conjunctionsStr = conjunctions.Select(c => c.ToString()).Aggregate((a, b) => $"{a}, {b}");
+                throw new Exception($"dnf contains conflicting conjunction: {conjunctionsStr}");
+            }
+
+            dnfFormula.Accept(new NaryConjunctionGeneratingFormulaVisitor(conjunctions.Add));
             return new DnfFormula(dnfFormula, conjunctions);
         }
-    }   
+    }
 }
