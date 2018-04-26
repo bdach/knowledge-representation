@@ -21,10 +21,7 @@ namespace Client.ViewModel
         /// </summary>
         public RibbonViewModel()
         {
-            CloseWindow = ReactiveCommand.Create(
-                () => Locator.Current.GetService<ShellView>().ShellWindow.Close() // TODO: wywala się jak siemano
-                //System.Windows.Application.Current.Shutdown();
-            );
+            CloseWindow = ReactiveCommand.Create(() => Unit.Default);
         }
     }
 }
