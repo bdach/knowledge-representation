@@ -12,26 +12,22 @@ namespace DynamicSystem.DNF
         public List<Constant> Constants { get; }
         public List<Literal> Literals { get; }
 
-        public NaryConjunction(List<Literal> literals, List<Constant>  constants)
+        public NaryConjunction(List<Literal> literals, List<Constant> constants)
         {
             Literals = literals;
             Constants = constants;
         }
 
-        public bool IsInvalid()
-        {
-            return Conflict(Literals, Literals);
-        }
-
         public bool Conflicts(NaryConjunction other)
         {
-            return Conflict(Literals, other.Literals);
+            return Constants.Any(c => c.Equals(Constant.Falsity))
+                   || other.Constants.Any(c => c.Equals(Constant.Falsity))
+                   || Conflict(Literals, other.Literals);
         }
 
         private static bool Conflict(List<Literal> first, List<Literal> second)
         {
             return first.Any(a => second.Any(b => a.Fluent.Equals(b.Fluent) && a.Negated != b.Negated));
         }
-
     }
 }
