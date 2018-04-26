@@ -93,8 +93,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Abstract\FodyReactiveObject.cs" />
-    <Compile Include="Providers\AppBootstrapper.cs" />
-    <Page Include="ConcurrentActionsWindow.xaml">
+    <Compile Include="Provider\AppBootstrapper.cs" />
+    <Page Include="View\ActionAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RibbonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -102,8 +114,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ConcurrentActionsWindow.xaml.cs">
-      <DependentUpon>ConcurrentActionsWindow.xaml</DependentUpon>
+    <Compile Include="ViewModel\ActionAreaViewModel.cs" />
+    <Compile Include="ViewModel\QueryAreaViewModel.cs" />
+    <Compile Include="ViewModel\RibbonViewModel.cs" />
+    <Compile Include="ViewModel\ShellViewModel.cs" />
+    <Compile Include="View\ActionAreaView.xaml.cs">
+      <DependentUpon>ActionAreaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryAreaView.xaml.cs">
+      <DependentUpon>QueryAreaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RibbonView.xaml.cs">
+      <DependentUpon>RibbonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -147,9 +172,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <Folder Include="Interface\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\actions-128.png" />

@@ -1,58 +1,46 @@
-﻿<Window x:Class="Client.ConcurrentActionsWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Fluent="urn:fluent-ribbon"
-        mc:Ignorable="d"
-        ResizeMode="CanMinimize"
-        Title="Akcje równoległe" 
-        Width="800" Height="600">
-
+﻿<UserControl x:Class="Client.View.RibbonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fluent="urn:fluent-ribbon"
+             mc:Ignorable="d">
     <Grid>
+        <fluent:Ribbon>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+            <fluent:Ribbon.Menu>
+                <fluent:Backstage>
+                    <fluent:BackstageTabControl>
 
-        <Fluent:Ribbon
-            Grid.Row="0">
-
-            <Fluent:Ribbon.Menu>
-                <Fluent:Backstage>
-                    <Fluent:BackstageTabControl>
-
-                        <Fluent:Button
+                        <fluent:Button
                             Name="ClearButton"
                             Header="Wyczyść" />
 
-                        <Fluent:Button
+                        <fluent:Button
                             Name="ImportButton"
                             Header="Importuj z pliku" />
 
-                        <Fluent:Button
+                        <fluent:Button
                             Name="ExportButton"
                             Header="Eksportuj do pliku" />
 
-                        <Fluent:Button
+                        <fluent:Button
                             Name="CloseButton"
-                            Header="Zakończ"
-                            Click="CloseButton_Click" />
+                            Header="Zakończ" />
 
-                    </Fluent:BackstageTabControl>
-                </Fluent:Backstage>
-            </Fluent:Ribbon.Menu>
+                    </fluent:BackstageTabControl>
+                </fluent:Backstage>
+            </fluent:Ribbon.Menu>
 
-            <Fluent:RibbonTabItem
+            <fluent:RibbonTabItem
                 Name="EditTab"
                 Header="Edycja">
 
-                <Fluent:RibbonGroupBox
+                <fluent:RibbonGroupBox
                     Name="LanguageGroupBox"
                     Header="Sygnatura języka">
 
-                    <Fluent:DropDownButton
+                    <fluent:DropDownButton
                         Name="FluentDropDown"
                         Header="Fluenty"
                         Icon="/Client;component/Resources/Images/fluents-64.png"
@@ -60,22 +48,22 @@
                         Size="Large"
                         Width="64">
 
-                        <Fluent:MenuItem
+                        <fluent:MenuItem
                             Name="AddFluentButton"
                             Header="Dodaj"
                             Icon="/Client;component/Resources/Images/plus-64.png" />
-                        
-                        <Fluent:GroupSeparatorMenuItem 
+
+                        <fluent:GroupSeparatorMenuItem 
                             Name="FluentSeparator"
                             Height="1" />
 
-                        <Fluent:Gallery
+                        <fluent:Gallery
                             Name="FluentsGallery"
                             Orientation="Vertical" />
 
-                    </Fluent:DropDownButton>
+                    </fluent:DropDownButton>
 
-                    <Fluent:DropDownButton
+                    <fluent:DropDownButton
                         Name="ActionDropDown"
                         Header="Akcje"
                         Icon="/Client;component/Resources/Images/actions-64.png"
@@ -83,28 +71,28 @@
                         Size="Large"
                         Width="64">
 
-                        <Fluent:MenuItem
+                        <fluent:MenuItem
                             Name="AddActionButton"
                             Header="Dodaj"
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
-                        <Fluent:GroupSeparatorMenuItem
+                        <fluent:GroupSeparatorMenuItem
                             Name="ActionSeparator"
                             Height="1" />
 
-                        <Fluent:Gallery
+                        <fluent:Gallery
                             Name="ActionsGallery"
                             Orientation="Vertical" />
 
-                    </Fluent:DropDownButton>
+                    </fluent:DropDownButton>
 
-                </Fluent:RibbonGroupBox>
+                </fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox
+                <fluent:RibbonGroupBox
                     Name="FormulaGroupBox"
                     Header="Edytor formuł">
 
-                    <Fluent:Button
+                    <fluent:Button
                         Name="ConjunctionButton"
                         Header="Koniunkcja"
                         Icon="/Client;component/Resources/Images/conjunction-64.png"
@@ -112,7 +100,7 @@
                         Size="Middle"
                         Width="96" />
 
-                    <Fluent:Button
+                    <fluent:Button
                         Name="ImplicationButton"
                         Header="Implikacja"
                         Icon="/Client;component/Resources/Images/implication-64.png"
@@ -120,7 +108,7 @@
                         Size="Middle"
                         Width="96" />
 
-                    <Fluent:Button
+                    <fluent:Button
                         Name="NegationButton"
                         Header="Negacja"
                         Icon="/Client;component/Resources/Images/negation-64.png"
@@ -128,7 +116,7 @@
                         Size="Middle"
                         Width="96" />
 
-                    <Fluent:Button
+                    <fluent:Button
                         Name="DisjunctionButton"
                         Header="Alternatywa"
                         Icon="/Client;component/Resources/Images/disjunction-64.png"
@@ -136,7 +124,7 @@
                         Size="Middle"
                         Width="112" />
 
-                    <Fluent:Button
+                    <fluent:Button
                         Name="EquivalencyButton"
                         Header="Równoważność"
                         Icon="/Client;component/Resources/Images/equivalency-64.png"
@@ -144,13 +132,13 @@
                         Size="Middle"
                         Width="112" />
 
-                </Fluent:RibbonGroupBox>
+                </fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox
+                <fluent:RibbonGroupBox
                     Name="ClauseGroupBox"
                     Header="Edytor zdań">
 
-                    <Fluent:DropDownButton
+                    <fluent:DropDownButton
                         Name="AddActionClauseDropDown"
                         Header="Wstaw zdanie domeny akcji"
                         Icon="/Client;component/Resources/Images/domain-64.png"
@@ -158,7 +146,7 @@
                         Size="Large"
                         Width="96" />
 
-                    <Fluent:DropDownButton
+                    <fluent:DropDownButton
                         Name="AddQueryClauseDropDown"
                         Header="Wstaw kwerendę"
                         Icon="/Client;component/Resources/Images/queries-64.png"
@@ -166,27 +154,281 @@
                         Size="Large"
                         Width="96" />
 
-                </Fluent:RibbonGroupBox>
+                </fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox
+                <fluent:RibbonGroupBox
                     Name="SystemGroupBox"
                     Header="System dynamiczny">
 
-                    <Fluent:Button
+                    <fluent:Button
                         Name="CalculateButton"
                         Header="Wykonaj obliczenia"
                         Icon="/Client;component/Resources/Images/calculate-64.png"
                         LargeIcon="/Client;component/Resources/Images/calculate-128.png"
                         Size="Large"
                         Width="112">
-                    </Fluent:Button>
+                    </fluent:Button>
 
-                </Fluent:RibbonGroupBox>
+                </fluent:RibbonGroupBox>
 
-            </Fluent:RibbonTabItem>
+            </fluent:RibbonTabItem>
 
-        </Fluent:Ribbon>
+        </fluent:Ribbon>
 
     </Grid>
+</UserControl>
 
-</Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,37 @@
+﻿<Window x:Class="Client.View.ShellView" x:Name="ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rui="clr-namespace:ReactiveUI;assembly=ReactiveUI"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        Title="Akcje równoległe" 
+        Width="800" Height="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <rui:ViewModelViewHost Name="Ribbon"
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            HorizontalContentAlignment="Stretch"/>
+
+        <rui:ViewModelViewHost Name="ActionArea"
+            Grid.Row="1" Grid.Column="0"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Margin="4,4,2,4"/>
+
+        <rui:ViewModelViewHost Name="QueryArea"
+            Grid.Row="1" Grid.Column="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            Margin="2,4,4,4"/>
+    </Grid>
+</Window>
