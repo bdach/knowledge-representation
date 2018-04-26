@@ -9,11 +9,11 @@ using Action = System.Action;
 
 namespace DynamicSystem.DNF.Visitors
 {
-    internal class NaryConjunctionGeneratoringFormulaVisitor : IFormulaVisitor
+    internal class NaryConjunctionGeneratingFormulaVisitor : IFormulaVisitor
     {
         private readonly Action<NaryConjunction> _conjunctionAcceptor;
 
-        public NaryConjunctionGeneratoringFormulaVisitor(Action<NaryConjunction> conjunctionAcceptor)
+        public NaryConjunctionGeneratingFormulaVisitor(Action<NaryConjunction> conjunctionAcceptor)
         {
             _conjunctionAcceptor = conjunctionAcceptor;
         }
