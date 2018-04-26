@@ -42,5 +42,26 @@
         {
             return $"({Left} \u2227 {Right})";
         }
+
+        protected bool Equals(Conjunction other)
+        {
+            return Equals(Left, other.Left) && Equals(Right, other.Right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Conjunction) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Left != null ? Left.GetHashCode() : 0) * 397) ^ (Right != null ? Right.GetHashCode() : 0);
+            }
+        }
     }
 }

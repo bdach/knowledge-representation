@@ -46,12 +46,14 @@ namespace DynamicSystem.DNF.Visitors
 
         public IFormula Visit(Constant constant)
         {
-            throw new InvalidOperationException("constant not expected");
+            _conjunctionAcceptor(new NaryConjunction(new List<Literal>() { }, new List<Constant>() {constant}));
+            return constant;
         }
 
         public IFormula Visit(Literal literal)
         {
-            throw new InvalidOperationException("literal not expected");
+            _conjunctionAcceptor(new NaryConjunction(new List<Literal>() {literal}, new List<Constant>()));
+            return literal;
         }
 
         public IFormula Visit(Negation negation)

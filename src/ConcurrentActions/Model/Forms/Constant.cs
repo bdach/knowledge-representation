@@ -45,5 +45,23 @@
         {
             return value ? "\u22A4" : "\u22A5";
         }
+
+        protected bool Equals(Constant other)
+        {
+            return value == other.value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Constant) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return value.GetHashCode();
+        }
     }
 }

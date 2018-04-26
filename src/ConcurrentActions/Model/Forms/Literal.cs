@@ -54,19 +54,25 @@ namespace Model.Forms
             return Negated ? $"(\u00AC{Fluent})" : Fluent.ToString();
         }
 
+        protected bool Equals(Literal other)
+        {
+            return Equals(Fluent, other.Fluent) && Negated == other.Negated;
+        }
+
         public override bool Equals(object obj)
         {
-            return obj is Literal literal &&
-                   EqualityComparer<Fluent>.Default.Equals(Fluent, literal.Fluent) &&
-                   Negated == literal.Negated;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Literal) obj);
         }
 
         public override int GetHashCode()
         {
-            var hashCode = -2091649536;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Fluent>.Default.GetHashCode(Fluent);
-            hashCode = hashCode * -1521134295 + Negated.GetHashCode();
-            return hashCode;
+            unchecked
+            {
+                return ((Fluent != null ? Fluent.GetHashCode() : 0) * 397) ^ Negated.GetHashCode();
+            }
         }
     }
 }
