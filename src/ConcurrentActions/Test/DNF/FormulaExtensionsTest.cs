@@ -13,7 +13,7 @@ namespace Test.DNF
     [TestFixture]
     public class FormulaExtensionsTest
     {
-        [Ignore("equals bug?")]
+        [Test]
         public void TestToDnf()
         {
             // given

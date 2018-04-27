@@ -23,14 +23,14 @@ namespace Test.DNF
             var formulaA = new DnfFormula(null,
                 new List<NaryConjunction>()
                 {
-                    new NaryConjunction(new List<Literal>(), new List<Constant>() {Constant.Falsity})
+                    new NaryConjunction(new List<Literal>(), new List<Constant>() {Constant.Truth})
                 });
             var formulaB = new DnfFormula(null,
                 new List<NaryConjunction>() {new NaryConjunction(new List<Literal>(), new List<Constant>())});
             // when
             var value = formulaA.Conflicts(formulaB);
             // then
-            value.Should().Be(true);
+            value.Should().Be(false);
         }
 
         [Test()]
@@ -40,7 +40,7 @@ namespace Test.DNF
             var formulaA = new DnfFormula(null,
                 new List<NaryConjunction>()
                 {
-                    new NaryConjunction(new List<Literal>(), new List<Constant>() {Constant.Truth})
+                    new NaryConjunction(new List<Literal>(), new List<Constant>() {Constant.Falsity})
                 });
             var formulaB = new DnfFormula(null,
                 new List<NaryConjunction>() {new NaryConjunction(new List<Literal>(), new List<Constant>())});

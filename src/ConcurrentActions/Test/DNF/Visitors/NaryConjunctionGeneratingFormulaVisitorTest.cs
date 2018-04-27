@@ -16,7 +16,7 @@ namespace Test.DNF.Visitors
     [TestFixture]
     public class NaryConjunctionGeneratingFormulaVisitorTest
     {
-        [Ignore("equality bug?")]
+        [Test()]
         public void TestGeneration()
         {
             // given
@@ -31,36 +31,16 @@ namespace Test.DNF.Visitors
             var visitor = new NaryConjunctionGeneratingFormulaVisitor(generated.Add);
             // when
             formula.Accept(visitor);
-
-
-            var listA = new List<Literal> {a, b};
-            var listB = new List<Literal> {a, b};
-
-            var constA = new List<Constant> {Constant.Truth};
-            var constB = new List<Constant> {Constant.Truth};
-
-            Assert.AreEqual(constA, constB);
-            Assert.AreEqual(listA, listB);
-            Assert.AreEqual(new NaryConjunction(listA, constA), new NaryConjunction(listB, constB));
-//
-//
-//            // then
-//            Assert.AreEqual(2, generated.Count);
-//            Assert.AreEqual(generated[0], new NaryConjunction(
-//                new List<Literal>() { a, b }, new List<Constant>()
-//            ));
-//            Assert.AreEqual(generated[1], new NaryConjunction(
-//                new List<Literal>() { c }, new List<Constant>() { Constant.Truth }
-//            ));
-            //            CollectionAssert.AreEquivalent(new List<NaryConjunction>()
-            //            {
-            //                new NaryConjunction(
-            //                    new List<Literal>() {a, b}, new List<Constant>()
-            //                ),
-            //                new NaryConjunction(
-            //                    new List<Literal>() {c}, new List<Constant>() {Constant.Truth}
-            //                )
-            //            }, generated);
+            // then
+            CollectionAssert.AreEquivalent(new List<NaryConjunction>()
+            {
+                new NaryConjunction(
+                    new List<Literal>() {a, b}, new List<Constant>()
+                ),
+                new NaryConjunction(
+                    new List<Literal>() {c}, new List<Constant>() {Constant.Truth}
+                )
+            }, generated);
         }
     }
 }

@@ -33,7 +33,8 @@ namespace DynamicSystem.DNF
 
         protected bool Equals(NaryConjunction other)
         {
-            return Equals(Constants, other.Constants) && Equals(Literals, other.Literals);
+            return Enumerable.SequenceEqual(Constants, other.Constants) &&
+                   Enumerable.SequenceEqual(Literals, other.Literals);
         }
 
         public override bool Equals(object obj)
@@ -48,15 +49,19 @@ namespace DynamicSystem.DNF
         {
             unchecked
             {
-                return ((Constants != null ? Constants.GetHashCode() : 0) * 397) ^ (Literals != null ? Literals.GetHashCode() : 0);
+                return ((Constants != null ? Constants.GetHashCode() : 0) * 397) ^
+                       (Literals != null ? Literals.GetHashCode() : 0);
             }
         }
 
-
         public override string ToString()
         {
-            var constants = Constants.Count > 0 ? Constants.Select(c => c.ToString()).Aggregate((a, b) => $"{a}, {b}") : "";
-            var literals = Literals.Count > 0 ? Literals.Select(c => c.ToString()).Aggregate((a, b) => $"{a}, {b}") : "";
+            var constants = Constants.Count > 0
+                ? Constants.Select(c => c.ToString()).Aggregate((a, b) => $"{a}, {b}")
+                : "";
+            var literals = Literals.Count > 0
+                ? Literals.Select(c => c.ToString()).Aggregate((a, b) => $"{a}, {b}")
+                : "";
             return $"[{constants}], [{literals}]";
         }
     }

@@ -8,6 +8,7 @@ using Model;
 using Model.Forms;
 
 [assembly: InternalsVisibleTo("Test")]
+
 namespace DynamicSystem.DNF
 {
     internal class DnfFormula : IDnfFormula
@@ -15,7 +16,7 @@ namespace DynamicSystem.DNF
         private IFormula Formula { get; }
         public List<NaryConjunction> Conjunctions { get; }
 
-        public DnfFormula(IFormula formula, List<NaryConjunction> conjunctions)
+        public DnfFormula(IFormula formula,List<NaryConjunction> conjunctions)
         {
             Formula = formula;
             Conjunctions = conjunctions;
@@ -39,6 +40,28 @@ namespace DynamicSystem.DNF
         public override string ToString()
         {
             return Formula.ToString();
+        }
+
+        protected bool Equals(DnfFormula other)
+        {
+            return Equals(Formula, other.Formula) && Enumerable.SequenceEqual(Conjunctions, other.Conjunctions);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((DnfFormula) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Formula != null ? Formula.GetHashCode() : 0) * 397) ^
+                       (Conjunctions != null ? Conjunctions.GetHashCode() : 0);
+            }
         }
     }
 }
