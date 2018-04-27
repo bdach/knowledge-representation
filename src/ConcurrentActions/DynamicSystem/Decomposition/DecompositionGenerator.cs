@@ -7,11 +7,11 @@ namespace DynamicSystem.Decomposition
 {
     public class DecompositionGenerator : IDecompositionGenerator
     {
-        public IEnumerable<HashSet<Action>> GetDecompositions(ActionDomain domain, CompoundAction compoundAction, State state)
+        public IEnumerable<HashSet<Action>> GetDecompositions(ActionDomain domain, HashSet<Action> actions, State state)
         {
             var result = new List<HashSet<Action>>();
             var listQueue = new Queue<HashSet<Action>>();
-            listQueue.Enqueue(compoundAction.Actions);
+            listQueue.Enqueue(actions);
             //BFS
             while (listQueue.Count > 0)
             {

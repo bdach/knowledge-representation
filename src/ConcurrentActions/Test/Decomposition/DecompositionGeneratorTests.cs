@@ -23,9 +23,9 @@ namespace Test.Decomposition
             actionDomain.EffectStatements.Add(new EffectStatement(new Action("B"), new Literal(new Fluent("q"))));
             actionDomain.EffectStatements.Add(new EffectStatement(new Action("C"), new Literal(new Fluent("q"))));
             var state = new State(new List<Fluent> { new Fluent("q"), new Fluent("r") }, new List<bool> { true, true });
-            var actions = new List<Action> {new Action("A"), new Action("B"), new Action("C")};
+            var actions = new HashSet<Action> {new Action("A"), new Action("B"), new Action("C")};
             //when
-            var decomposition = generator.GetDecompositions(actionDomain, new CompoundAction(actions), state).ToList();
+            var decomposition = generator.GetDecompositions(actionDomain, actions, state).ToList();
             //then
             decomposition.Count.Should().Be(1);
             decomposition.First().Should().Contain(actions);
@@ -40,9 +40,9 @@ namespace Test.Decomposition
             actionDomain.EffectStatements.Add(new EffectStatement(new Action("B"), DecompositionTestUtils.CreateBinaryConjunction("q", "r", false, true)));
             actionDomain.EffectStatements.Add(new EffectStatement(new Action("C"), new Literal(new Fluent("q"))));
             var state = new State(new List<Fluent> { new Fluent("q"), new Fluent("r") }, new List<bool> { true, true });
-            var actions = new List<Action> { new Action("A"), new Action("B"), new Action("C") };
+            var actions = new HashSet<Action> { new Action("A"), new Action("B"), new Action("C") };
             //when
-            var decomposition = generator.GetDecompositions(actionDomain, new CompoundAction(actions), state).ToList();
+            var decomposition = generator.GetDecompositions(actionDomain, actions, state).ToList();
             //then
             decomposition.Count.Should().Be(2);
             decomposition.Should().Contain(e => e.Count == 2 && e.Contains(new Action("A")) && e.Contains(new Action("C")));
