@@ -70,8 +70,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Decomposition\DecompositionTestUtils.cs" />
     <Compile Include="Decomposition\LinqExtensionsTests.cs" />
     <Compile Include="Decomposition\ActionExtensionsTests.cs" />
+    <Compile Include="Decomposition\DecompositionGeneratorTests.cs" />
     <Compile Include="DNF\DnfFormulaTest.cs" />
     <Compile Include="DNF\FormulaExtensionsTest.cs" />
     <Compile Include="DNF\NaryConjunctionTest.cs" />
