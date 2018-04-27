@@ -42,5 +42,26 @@
         {
             return $"({Antecedent} \u2192 {Consequent})";
         }
+
+        protected bool Equals(Implication other)
+        {
+            return Equals(Antecedent, other.Antecedent) && Equals(Consequent, other.Consequent);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Implication) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Antecedent != null ? Antecedent.GetHashCode() : 0) * 397) ^ (Consequent != null ? Consequent.GetHashCode() : 0);
+            }
+        }
     }
 }
