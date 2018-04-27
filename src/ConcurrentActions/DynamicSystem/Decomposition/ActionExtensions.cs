@@ -7,8 +7,19 @@ using Model.ActionLanguage;
 
 namespace DynamicSystem.Decomposition
 {
+    /// <summary>
+    /// Static class for extension functions of the <see cref="Action"/> class
+    /// </summary>
     public static class ActionExtensions
     {
+        /// <summary>
+        /// Returns wheter the given actions conflicts with another one in the given state and action domain.
+        /// </summary>
+        /// <param name="action">First action to check</param>
+        /// <param name="other">Second action to check</param>
+        /// <param name="state">State in which the actions are meant to be executed</param>
+        /// <param name="actionDomain">Action domian where the actions are defined</param>
+        /// <returns>True if the actions are conflicting, false otherwise</returns>
         public static bool IsConflicting(this Action action, Action other, State state, ActionDomain actionDomain)
         {
             //Case 1: Two conflicting causes statements

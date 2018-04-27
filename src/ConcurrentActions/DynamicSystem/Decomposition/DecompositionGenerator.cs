@@ -5,8 +5,13 @@ using Model.ActionLanguage;
 
 namespace DynamicSystem.Decomposition
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Currently the only implementation of the <see cref="IDecompositionGenerator"/> interface.
+    /// </summary>
     public class DecompositionGenerator : IDecompositionGenerator
     {
+        /// <inheritdoc />
         public IEnumerable<HashSet<Action>> GetDecompositions(ActionDomain domain, HashSet<Action> actions, State state)
         {
             var result = new List<HashSet<Action>>();
