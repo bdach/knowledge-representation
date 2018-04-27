@@ -10,6 +10,6 @@ namespace DynamicSystem.Decomposition
 {
     public interface IDecompositionGenerator
     {
-        IEnumerable<List<Model.Action>> GetDecompositions(ActionDomain domain, CompoundAction compoundAction, State state);
+        IEnumerable<HashSet<Model.Action>> GetDecompositions(ActionDomain domain, CompoundAction compoundAction, State state);
     }
 }

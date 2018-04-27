@@ -5,19 +5,19 @@ using Model.ActionLanguage;
 
 namespace DynamicSystem.Decomposition
 {
-    class DecompositionGenerator : IDecompositionGenerator
+    public class DecompositionGenerator : IDecompositionGenerator
     {
-        public IEnumerable<List<Action>> GetDecompositions(ActionDomain domain, CompoundAction compoundAction, State state)
+        public IEnumerable<HashSet<Action>> GetDecompositions(ActionDomain domain, CompoundAction compoundAction, State state)
         {
-            var result = new List<List<Action>>();
-            var listQueue = new Queue<List<Action>>();
-            listQueue.Enqueue(compoundAction.Actions.ToList());
+            var result = new List<HashSet<Action>>();
+            var listQueue = new Queue<HashSet<Action>>();
+            listQueue.Enqueue(compoundAction.Actions);
             //BFS
             while (listQueue.Count > 0)
             {
                 var list = listQueue.Dequeue();
                 //New solution is not maximal, it is a subset of an existing solution
-                if(result.Any(r => list.All(r.Contains)))
+                if(result.Any(r => r.IsSupersetOf(list)))
                     continue;
                 //Add lists of actions wihtout confilcting pairs of actions
                 if (!list.AllPairs().Any(pair => pair.a.IsConflicting(pair.b, state, domain)))
@@ -26,7 +26,7 @@ namespace DynamicSystem.Decomposition
                 //TODO: Maybe don't generate duplicates?
                 foreach (var action in list)
                 {
-                    listQueue.Enqueue(list.Where(l => !l.Equals(action)).ToList());
+                    listQueue.Enqueue(new HashSet<Action>(list.Where(l => !l.Equals(action))));
                 }
             }
             return result;
