@@ -7,17 +7,32 @@ using Model.Forms;
 
 namespace DynamicSystem.DNF
 {
+    /// <summary>
+    /// Represents a n-ary logical conjunction of <see cref="Literal"/> and <see cref="Constant"/>
+    /// </summary>
     public class NaryConjunction
     {
         public List<Constant> Constants { get; }
         public List<Literal> Literals { get; }
 
+        /// <summary>
+        /// Initializes a new <see cref="NaryConjunction"/> instance
+        /// </summary>
+        /// <param name="literals">List of operands that are literals</param>
+        /// <param name="constants">List of constant operands</param>
         public NaryConjunction(List<Literal> literals, List<Constant> constants)
         {
             Literals = literals;
             Constants = constants;
         }
 
+        /// <summary>
+        /// Checks whether this instance conflicts with another. Two instances conflcit with each other if at least one of the following conditions is true:
+        /// 1. Any of the instances contain Falsity constant
+        /// 2. Instances contain conflicting literals - with same fluent but one negated and the other not.
+        /// </summary>
+        /// <param name="other">Instance of <see cref="NaryConjunction"/> with which the conflict is checked</param>
+        /// <returns>True if conjunctions are conflicting, else False</returns>
         public bool Conflicts(NaryConjunction other)
         {
             return Constants.Any(c => c.Equals(Constant.Falsity))

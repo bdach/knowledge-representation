@@ -11,27 +11,38 @@ using Model.Forms;
 
 namespace DynamicSystem.DNF
 {
+    /// <summary>
+    /// Default implementation of <see cref="IDnfFormula"/>
+    /// </summary>
     internal class DnfFormula : IDnfFormula
     {
         private IFormula Formula { get; }
         public List<NaryConjunction> Conjunctions { get; }
 
-        public DnfFormula(IFormula formula,List<NaryConjunction> conjunctions)
+        /// <summary>
+        /// Creates new instance of <see cref="DnfFormula"/>
+        /// </summary>
+        /// <param name="formula">Instance of <see cref="IFormula"/> in DNF</param>
+        /// <param name="conjunctions">List of n-ary conjunctions contained in the formula</param>
+        public DnfFormula(IFormula formula, List<NaryConjunction> conjunctions)
         {
             Formula = formula;
             Conjunctions = conjunctions;
         }
 
+        /// <inheritdoc />
         public bool Evaluate(IState state)
         {
             return Formula.Evaluate(state);
         }
 
+        /// <inheritdoc />
         public IFormula Accept(IFormulaVisitor visitor)
         {
             return Formula.Accept(visitor);
         }
 
+        /// <inheritdoc />
         public bool Conflicts(IDnfFormula other)
         {
             return Conjunctions.Any(a => other.Conjunctions.Any(a.Conflicts));

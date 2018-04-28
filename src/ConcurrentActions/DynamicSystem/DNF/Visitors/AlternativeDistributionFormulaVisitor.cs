@@ -8,6 +8,10 @@ using Model.Forms;
 
 namespace DynamicSystem.DNF.Visitors
 {
+    /// <summary>
+    /// Implementation of <see cref="IFormulaVisitor"/> that converts conjunctions of alternatives into alternatives of conjunctions
+    /// using the Distributive Law.
+    /// </summary>
     internal class AlternativeDistributionFormulaVisitor : IFormulaVisitor
     {
         public IFormula Visit(Conjunction conjunction)

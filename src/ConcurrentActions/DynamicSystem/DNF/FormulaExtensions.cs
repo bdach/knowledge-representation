@@ -10,8 +10,16 @@ using Model.Forms;
 
 namespace DynamicSystem.DNF
 {
+    /// <summary>
+    /// Extension class for <see cref="IFormula"/>
+    /// </summary>
     public static class FormulaExtensions
     {
+        /// <summary>
+        /// Converts a given <see cref="IFormula"/> into <see cref="IDnfFormula"/>
+        /// </summary>
+        /// <param name="formula">Formula to be converted to DNF</param>
+        /// <returns>Instance of <see cref="IDnfFormula"/></returns>
         public static IDnfFormula ToDnf(this IFormula formula)
         {
             var dnfFormula = formula

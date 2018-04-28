@@ -8,16 +8,26 @@ using Model.Forms;
 
 namespace DynamicSystem.DNF.Visitors
 {
+    /// <summary>
+    /// Implementation of <see cref="IFormulaVisitor"/> that removes instances of <see cref="Negation"/> by
+    /// propagating them down the formula tree
+    /// </summary>
     internal class NegationPropagatingFormulaVisitor : IFormulaVisitor
     {
         private bool Negate { get; set; } = false;
 
+        /// <summary>
+        /// Visits a given formula with Negate set to true
+        /// </summary>
+        /// <param name="formula">Formula to visit</param>
+        /// <returns>Result of the visit operation</returns>
         private IFormula NegateAccept(IFormula formula)
         {
             Negate = true;
             return formula.Accept(this);
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Conjunction conjunction)
         {
             if (Negate)
@@ -31,6 +41,7 @@ namespace DynamicSystem.DNF.Visitors
             }
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Alternative alternative)
         {
             if (Negate)
@@ -44,6 +55,7 @@ namespace DynamicSystem.DNF.Visitors
             }
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Equivalence equivalence)
         {
             if (Negate)
@@ -60,6 +72,7 @@ namespace DynamicSystem.DNF.Visitors
             }
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Implication implication)
         {
             if (Negate)
@@ -72,6 +85,7 @@ namespace DynamicSystem.DNF.Visitors
             }
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Constant constant)
         {
             if (Negate)
@@ -85,6 +99,7 @@ namespace DynamicSystem.DNF.Visitors
             }
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Literal literal)
         {
             if (Negate)
@@ -96,9 +111,9 @@ namespace DynamicSystem.DNF.Visitors
             {
                 return literal;
             }
-
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Negation negation)
         {
             if (Negate)
