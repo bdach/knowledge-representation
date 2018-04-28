@@ -96,6 +96,9 @@
     <Compile Include="Model\StructureTest.cs" />
     <Compile Include="Model\TransitionFunctionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetGeneration\CompoundActionTest.cs" />
+    <Compile Include="SetGeneration\InitialStatesTest.cs" />
+    <Compile Include="SetGeneration\AdmissibleStatesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

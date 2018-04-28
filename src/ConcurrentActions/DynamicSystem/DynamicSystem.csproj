@@ -56,6 +56,7 @@
     <Compile Include="DNF\Visitors\NegationPropagatingFormulaVisitor.cs" />
     <Compile Include="DNF\Visitors\SimplifyingFormulaVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetGeneration\SetGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
