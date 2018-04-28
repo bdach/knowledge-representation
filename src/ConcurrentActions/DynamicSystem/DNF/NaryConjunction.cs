@@ -68,13 +68,18 @@ namespace DynamicSystem.DNF
             unchecked
             {
                 var constantHash = 0;
-                foreach (var c in Constants) constantHash ^= c.GetHashCode();
+                if (Constants != null)
+                {
+                    foreach (var c in Constants) constantHash ^= c.GetHashCode();
+                }
 
                 var literalHash = 0;
-                foreach (var l in Literals) literalHash ^= l.GetHashCode();
+                if (Literals != null)
+                {
+                    foreach (var l in Literals) literalHash ^= l.GetHashCode();
+                }
 
-                return ((Constants != null ? constantHash : 0) * 397) ^
-                       (Literals != null ? literalHash : 0);
+                return (constantHash * 397) ^ literalHash;
             }
         }
 
