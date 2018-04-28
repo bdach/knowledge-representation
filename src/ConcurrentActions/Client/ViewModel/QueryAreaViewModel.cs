@@ -20,7 +20,7 @@ namespace Client.ViewModel
         public ObservableCollection<IQueryClauseViewModel> QuerySet { get; protected set; }
 
         /// <summary>
-        /// Constructor.
+        /// Initializes a new <see cref="QueryAreaViewModel"/> instance.
         /// </summary>
         public QueryAreaViewModel()
         {

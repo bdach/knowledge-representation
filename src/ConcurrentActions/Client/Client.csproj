@@ -93,7 +93,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Abstract\FodyReactiveObject.cs" />
-    <Compile Include="Exception\MissingMemberException.cs" />
+    <Compile Include="Exception\MemberNotDefinedException.cs" />
     <Compile Include="Exception\NotApplicableException.cs" />
     <Compile Include="Interface\IActionClauseViewModel.cs" />
     <Compile Include="Interface\IFormulaViewModel.cs" />
@@ -101,6 +101,10 @@
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
     <Compile Include="Interface\IViewModelFor.cs" />
     <Compile Include="Provider\AppBootstrapper.cs" />
+    <Compile Include="ViewModel\ActionLanguage\UnconditionalImpossibilityStatementViewModel.cs" />
+    <Compile Include="View\ActionLanguage\UnconditionalImpossibilityStatementView.xaml.cs">
+      <DependentUpon>UnconditionalImpossibilityStatementView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Terminal\ActionView.xaml.cs">
       <DependentUpon>ActionView.xaml</DependentUpon>
     </Compile>
@@ -130,7 +134,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ActionLanguage\ImpossibilityStatementView.xaml">
+    <Page Include="View\ActionLanguage\ConditionalImpossibilityStatementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ActionLanguage\UnconditionalFluentReleaseStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\UnconditionalImpossibilityStatementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,7 +231,7 @@
     <Compile Include="ViewModel\ActionLanguage\ConditionalFluentReleaseStatementViewModel.cs" />
     <Compile Include="ViewModel\ActionLanguage\ConstraintStatementViewModel.cs" />
     <Compile Include="ViewModel\ActionLanguage\FluentSpecificationStatementViewModel.cs" />
-    <Compile Include="ViewModel\ActionLanguage\ImpossibilityStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ConditionalImpossibilityStatementViewModel.cs" />
     <Compile Include="ViewModel\ActionLanguage\InitialValueStatementViewModel.cs" />
     <Compile Include="ViewModel\ActionLanguage\ObservationStatementViewModel.cs" />
     <Compile Include="ViewModel\ActionLanguage\ConditionalEffectStatementViewModel.cs" />
@@ -263,8 +271,8 @@
     <Compile Include="View\ActionLanguage\FluentSpecificationStatementView.xaml.cs">
       <DependentUpon>FluentSpecificationStatementView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ActionLanguage\ImpossibilityStatementView.xaml.cs">
-      <DependentUpon>ImpossibilityStatementView.xaml</DependentUpon>
+    <Compile Include="View\ActionLanguage\ConditionalImpossibilityStatementView.xaml.cs">
+      <DependentUpon>ConditionalImpossibilityStatementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ActionLanguage\InitialValueStatementView.xaml.cs">
       <DependentUpon>InitialValueStatementView.xaml</DependentUpon>

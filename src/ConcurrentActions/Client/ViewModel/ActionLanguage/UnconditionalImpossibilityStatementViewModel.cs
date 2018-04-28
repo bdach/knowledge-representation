@@ -4,7 +4,6 @@ using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.ActionLanguage;
-using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
 using Model.Forms;
@@ -13,29 +12,24 @@ using ReactiveUI;
 namespace Client.ViewModel.ActionLanguage
 {
     /// <summary>
-    /// View model for <see cref="UnconditionalFluentReleaseStatementView"/> which represents an unconditional fluent release statement in the scenario.
+    /// View model for <see cref="UnconditionalImpossibilityStatementView"/> which represents an unconditional impossibility statement in the scenario.
     /// </summary>
-    public class UnconditionalFluentReleaseStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<FluentReleaseStatement>, IGalleryItem
+    public class UnconditionalImpossibilityStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<EffectStatement>, IGalleryItem
     {
         /// <summary>
         /// Keyword describing the clause.
         /// </summary>
-        public static string Label => "releases";
+        public static string Label => "imppossible";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.
         /// </summary>
-        public string DisplayName => $"[ ] {Label} [ ]";
+        public string DisplayName => $"{Label} [ ]";
 
         /// <summary>
         /// The <see cref="ActionViewModel"/> instance.
         /// </summary>
         public ActionViewModel Action { get; set; }
-
-        /// <summary>
-        /// The <see cref="LiteralViewModel"/> instance holding the fluent.
-        /// </summary>
-        public LiteralViewModel Literal { get; set; }
 
         /// <summary>
         /// Command adding a new action.
@@ -48,9 +42,9 @@ namespace Client.ViewModel.ActionLanguage
         public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
 
         /// <summary>
-        /// Initializes a new <see cref="UnconditionalFluentReleaseStatementViewModel"/> instance.
+        /// Initializes a new <see cref="UnconditionalImpossibilityStatementViewModel"/> instance.
         /// </summary>
-        public UnconditionalFluentReleaseStatementViewModel()
+        public UnconditionalImpossibilityStatementViewModel()
         {
             AddAction = ReactiveCommand
                 .Create<ActionViewModel>(actionViewModel =>
@@ -58,21 +52,19 @@ namespace Client.ViewModel.ActionLanguage
 
             AddFormula = ReactiveCommand
                 .Create<IFormulaViewModel>(formulaViewModel =>
-                    throw new NotImplementedException());
+                    throw new NotApplicableException("Uncondtitional impossibility statement does not support adding formulae"));
         }
 
         /// <summary>
         /// Gets the underlying action clause model out of the view model.
         /// </summary>
-        /// <returns><see cref="FluentReleaseStatement"/> model represented by given view model.</returns>
-        public FluentReleaseStatement ToModel()
+        /// <returns><see cref="EffectStatement"/> model represented by given view model.</returns>
+        public EffectStatement ToModel()
         {
             if (Action == null)
-                throw new MemberNotDefinedException("Action in a conditional fluent release statement is not defined");
-            if (Literal?.Fluent == null)
-                throw new MemberNotDefinedException("Fluent in a conditional fluent release statement is not defined");
+                throw new MemberNotDefinedException("Action in an unconditional impossibility statement is not defined");
 
-            return new FluentReleaseStatement(Action.ToModel(), Literal.Fluent, Constant.Truth);
+            return new EffectStatement(Action.ToModel(), Constant.Truth, Constant.Falsity);
         }
     }
 }

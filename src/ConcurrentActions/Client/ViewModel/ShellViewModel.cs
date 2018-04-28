@@ -59,7 +59,7 @@ namespace Client.ViewModel
         #endregion
 
         /// <summary>
-        /// Constructor.
+        /// Initializes a new <see cref="ShellViewModel"/> instance.
         /// </summary>
         public ShellViewModel()
         {

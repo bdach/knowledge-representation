@@ -15,7 +15,7 @@ namespace Client.Provider
     public class AppBootstrapper : FodyReactiveObject
     {
         /// <summary>
-        /// Constructor.
+        /// Initializes a new <see cref="AppBootstrapper"/> instance.
         /// </summary>
         public AppBootstrapper()
         {

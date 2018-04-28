@@ -2,7 +2,6 @@
 using Client.Abstract;
 using Client.View;
 using ReactiveUI;
-using Splat;
 
 namespace Client.ViewModel
 {
@@ -13,12 +12,12 @@ namespace Client.ViewModel
     public class RibbonViewModel : FodyReactiveObject
     {
         /// <summary>
-        /// Command to close the application window.
+        /// Command closing the application window.
         /// </summary>
         public ReactiveCommand<Unit, Unit> CloseWindow { get; protected set; }
 
         /// <summary>
-        /// Constructor.
+        /// Initializes a new <see cref="RibbonViewModel"/> instance.
         /// </summary>
         public RibbonViewModel()
         {

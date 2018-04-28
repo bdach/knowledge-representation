@@ -9,23 +9,25 @@
     {
         /// <inheritdoc />
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new <see cref="NotApplicableException"/> instance.
         /// </summary>
         public NotApplicableException() { }
 
         /// <inheritdoc />
         /// <summary>
-        /// Constructor with exception message.
+        /// Initializes a new <see cref="NotApplicableException"/> instance
+        /// with the supplied exception <see cref="message"/>.
         /// </summary>
-        /// <param name="message">exception message</param>
+        /// <param name="message">Exception message.</param>
         public NotApplicableException(string message) : base(message) { }
 
         /// <inheritdoc />
         /// <summary>
-        /// Constructor with exception message and inner exception.
+        /// Initializes a new <see cref="NotApplicableException"/> instance
+        /// with the supplied exception <see cref="message"/> and <see cref="inner"/> exception.
         /// </summary>
-        /// <param name="message">exception message</param>
-        /// <param name="inner">enner exception</param>
+        /// <param name="message">Exception message.</param>
+        /// <param name="inner">Inner exception.</param>
         public NotApplicableException(string message, System.Exception inner) : base(message, inner) { }
     }
 }

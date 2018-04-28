@@ -9,7 +9,7 @@
         /// <summary>
         /// The inner constant value of the formula.
         /// </summary>
-        private readonly bool value;
+        private readonly bool _value;
 
         /// <summary>
         /// Initializes a new <see cref="Constant"/> instance with the supplied <see cref="value"/>.
@@ -17,13 +17,13 @@
         /// <param name="value">The inner constant value of the formula.</param>
         private Constant(bool value)
         {
-            this.value = value;
+            _value = value;
         }
 
         /// <inheritdoc />
         public bool Evaluate(IState state)
         {
-            return value;
+            return _value;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@
 
         public override string ToString()
         {
-            return value ? "\u22A4" : "\u22A5";
+            return _value ? "\u22A4" : "\u22A5";
         }
     }
 }

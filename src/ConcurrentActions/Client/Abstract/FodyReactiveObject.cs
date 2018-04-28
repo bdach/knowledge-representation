@@ -10,7 +10,7 @@ namespace Client.Abstract
         /// <summary>
         /// Custom event invoker required to make Fody work due to ReactiveUI hiding its own calls.
         /// </summary>
-        /// <param name="propertyName">name of changed property</param>
+        /// <param name="propertyName">Name of changed property.</param>
         protected void OnPropertyChanged(string propertyName)
         {
             this.RaisePropertyChanged(propertyName);
@@ -19,7 +19,7 @@ namespace Client.Abstract
         /// <summary>
         /// Custom event invoker required to make Fody work due to ReactiveUI hiding its own calls.
         /// </summary>
-        /// <param name="propertyName">name of property being changed</param>
+        /// <param name="propertyName">Name of property being changed.</param>
         protected void OnPropertyChanging(string propertyName)
         {
             this.RaisePropertyChanging(propertyName);

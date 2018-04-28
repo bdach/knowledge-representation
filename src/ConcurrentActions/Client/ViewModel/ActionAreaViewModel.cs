@@ -17,7 +17,7 @@ namespace Client.ViewModel
         public ObservableCollection<IActionClauseViewModel> ActionDomain { get; protected set; }
 
         /// <summary>
-        /// Constructor.
+        /// Initializes a new <see cref="ActionAreaViewModel"/> instance.
         /// </summary>
         public ActionAreaViewModel()
         {
