@@ -12,7 +12,7 @@ namespace Test.Model
             // given
             var action1 = new Action("Peek");
             var action2 = new Action("Peek");
-            // when
+            // whenRa
             var equal = action1.Equals(action2);
             // then
             equal.Should().BeTrue();
