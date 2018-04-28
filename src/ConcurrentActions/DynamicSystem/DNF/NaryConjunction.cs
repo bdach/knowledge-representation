@@ -48,8 +48,11 @@ namespace DynamicSystem.DNF
 
         protected bool Equals(NaryConjunction other)
         {
-            return Enumerable.SequenceEqual(Constants, other.Constants) &&
-                   Enumerable.SequenceEqual(Literals, other.Literals);
+            var thisConstantSet = new HashSet<Constant>(Constants);
+            var thisLiteralSet = new HashSet<Literal>(Literals);
+            var otherConstantSet = new HashSet<Constant>(other.Constants);
+            var otherLiteralSet = new HashSet<Literal>(other.Literals);
+            return thisConstantSet.SetEquals(otherConstantSet) && thisLiteralSet.SetEquals(otherLiteralSet);
         }
 
         public override bool Equals(object obj)
@@ -64,8 +67,14 @@ namespace DynamicSystem.DNF
         {
             unchecked
             {
-                return ((Constants != null ? Constants.GetHashCode() : 0) * 397) ^
-                       (Literals != null ? Literals.GetHashCode() : 0);
+                var constantHash = 0;
+                foreach (var c in Constants) constantHash ^= c.GetHashCode();
+
+                var literalHash = 0;
+                foreach (var l in Literals) literalHash ^= l.GetHashCode();
+
+                return ((Constants != null ? constantHash : 0) * 397) ^
+                       (Literals != null ? literalHash : 0);
             }
         }
 

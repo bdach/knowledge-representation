@@ -14,116 +14,118 @@ namespace DynamicSystem.DNF.Visitors
     /// </summary>
     internal class NegationPropagatingFormulaVisitor : IFormulaVisitor
     {
-        private bool Negate { get; set; } = false;
+        private IFormulaVisitor ChildVisitor { get; }
 
         /// <summary>
-        /// Visits a given formula with Negate set to true
+        /// Creates new instance of <see cref="NegationPropagatingFormulaVisitor"/>
         /// </summary>
-        /// <param name="formula">Formula to visit</param>
-        /// <returns>Result of the visit operation</returns>
-        private IFormula NegateAccept(IFormula formula)
+        public NegationPropagatingFormulaVisitor()
         {
-            Negate = true;
-            return formula.Accept(this);
+            ChildVisitor = new NegatingFormulaVisitor(this);
         }
 
         /// <inheritdoc />
         public IFormula Visit(Conjunction conjunction)
         {
-            if (Negate)
-            {
-                Negate = false;
-                return new Alternative(NegateAccept(conjunction.Left), NegateAccept(conjunction.Right));
-            }
-            else
-            {
-                return new Conjunction(conjunction.Left.Accept(this), conjunction.Right.Accept(this));
-            }
+            return new Conjunction(conjunction.Left.Accept(this), conjunction.Right.Accept(this));
         }
 
         /// <inheritdoc />
         public IFormula Visit(Alternative alternative)
         {
-            if (Negate)
-            {
-                Negate = false;
-                return new Conjunction(NegateAccept(alternative.Left), NegateAccept(alternative.Right));
-            }
-            else
-            {
-                return new Alternative(alternative.Left.Accept(this), alternative.Right.Accept(this));
-            }
+            return new Alternative(alternative.Left.Accept(this), alternative.Right.Accept(this));
         }
 
         /// <inheritdoc />
         public IFormula Visit(Equivalence equivalence)
         {
-            if (Negate)
-            {
-                Negate = false;
-                return new Alternative(
-                    NegateAccept(new Implication(equivalence.Left, equivalence.Right)),
-                    NegateAccept(new Implication(equivalence.Right, equivalence.Left))
-                );
-            }
-            else
-            {
-                return new Equivalence(equivalence.Left.Accept(this), equivalence.Right.Accept(this));
-            }
+            return new Equivalence(equivalence.Left.Accept(this), equivalence.Right.Accept(this));
         }
 
         /// <inheritdoc />
         public IFormula Visit(Implication implication)
         {
-            if (Negate)
-            {
-                return new Conjunction(implication.Antecedent, NegateAccept(implication.Consequent));
-            }
-            else
-            {
-                return new Implication(implication.Antecedent.Accept(this), implication.Consequent.Accept(this));
-            }
+            return new Implication(implication.Antecedent.Accept(this), implication.Consequent.Accept(this));
         }
 
         /// <inheritdoc />
         public IFormula Visit(Constant constant)
         {
-            if (Negate)
-            {
-                Negate = false;
-                return constant.Equals(Constant.Falsity) ? Constant.Truth : Constant.Falsity;
-            }
-            else
-            {
-                return constant;
-            }
+            return constant;
         }
 
         /// <inheritdoc />
         public IFormula Visit(Literal literal)
         {
-            if (Negate)
-            {
-                Negate = false;
-                return new Literal(literal.Fluent, !literal.Negated);
-            }
-            else
-            {
-                return literal;
-            }
+            return literal;
         }
 
         /// <inheritdoc />
         public IFormula Visit(Negation negation)
         {
-            if (Negate)
+            return negation.Formula.Accept(ChildVisitor);
+        }
+
+        /// <summary>
+        /// Private implementation of <see cref="IFormulaVisitor"/> that negates visited formula
+        /// </summary>
+        private class NegatingFormulaVisitor : IFormulaVisitor
+        {
+            private IFormulaVisitor ParentVisitor { get; }
+
+            /// <summary>
+            /// Creates new instance of <see cref="NegatingFormulaVisitor"/>
+            /// </summary>
+            /// <param name="parentVisitor"></param>
+            public NegatingFormulaVisitor(IFormulaVisitor parentVisitor)
             {
-                Negate = false;
-                return negation.Formula.Accept(this);
+                ParentVisitor = parentVisitor;
             }
-            else
+
+            /// <inheritdoc />
+            public IFormula Visit(Conjunction conjunction)
             {
-                return NegateAccept(negation.Formula);
+                return new Alternative(conjunction.Left.Accept(this), conjunction.Right.Accept(this));
+            }
+
+            /// <inheritdoc />
+            public IFormula Visit(Alternative alternative)
+            {
+                return new Conjunction(alternative.Left.Accept(this), alternative.Right.Accept(this));
+            }
+
+            /// <inheritdoc />
+            public IFormula Visit(Equivalence equivalence)
+            {
+                return new Alternative(
+                    new Implication(equivalence.Left, equivalence.Right).Accept(this),
+                    new Implication(equivalence.Right, equivalence.Left).Accept(this)
+                );
+            }
+
+            /// <inheritdoc />
+            public IFormula Visit(Implication implication)
+            {
+                return new Conjunction(implication.Antecedent.Accept(ParentVisitor),
+                    implication.Consequent.Accept(this));
+            }
+
+            /// <inheritdoc />
+            public IFormula Visit(Constant constant)
+            {
+                return constant.Equals(Constant.Falsity) ? Constant.Truth : Constant.Falsity;
+            }
+
+            /// <inheritdoc />
+            public IFormula Visit(Literal literal)
+            {
+                return new Literal(literal.Fluent, !literal.Negated);
+            }
+
+            /// <inheritdoc />
+            public IFormula Visit(Negation negation)
+            {
+                return negation.Formula.Accept(ParentVisitor);
             }
         }
     }

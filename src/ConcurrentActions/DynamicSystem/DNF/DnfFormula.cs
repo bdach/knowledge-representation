@@ -55,7 +55,9 @@ namespace DynamicSystem.DNF
 
         protected bool Equals(DnfFormula other)
         {
-            return Equals(Formula, other.Formula) && Enumerable.SequenceEqual(Conjunctions, other.Conjunctions);
+            var thisConjunctions = new HashSet<NaryConjunction>(Conjunctions);
+            var otherConjunctions = new HashSet<NaryConjunction>(other.Conjunctions);
+            return Equals(Formula, other.Formula) && thisConjunctions.SetEquals(otherConjunctions);
         }
 
         public override bool Equals(object obj)
