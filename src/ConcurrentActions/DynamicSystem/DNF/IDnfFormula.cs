@@ -16,6 +16,7 @@ namespace DynamicSystem.DNF
         /// The conjunctions that the formula consists of
         /// </summary>
         List<NaryConjunction> Conjunctions { get; }
+
         /// <summary>
         /// Checks whether this formula conflicts with an other one.
         /// </summary>

@@ -14,6 +14,7 @@ namespace DynamicSystem.DNF.Visitors
     /// </summary>
     internal class AlternativeDistributionFormulaVisitor : IFormulaVisitor
     {
+        /// <inheritdoc />
         public IFormula Visit(Conjunction conjunction)
         {
             var rotatedL = conjunction.Left.Accept(this);
@@ -33,31 +34,37 @@ namespace DynamicSystem.DNF.Visitors
             }
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Alternative alternative)
         {
             return new Alternative(alternative.Left.Accept(this), alternative.Right.Accept(this));
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Equivalence equivalence)
         {
             throw new InvalidOperationException("equivalence not expected");
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Implication implication)
         {
             throw new InvalidOperationException("implication not expected");
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Constant constant)
         {
             return constant;
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Literal literal)
         {
             return literal;
         }
 
+        /// <inheritdoc />
         public IFormula Visit(Negation negation)
         {
             throw new InvalidOperationException("negation not expected");
