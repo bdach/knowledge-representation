@@ -84,11 +84,18 @@
     <Compile Include="Model\StructureTest.cs" />
     <Compile Include="Model\TransitionFunctionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetGeneration\CompoundActionTest.cs" />
+    <Compile Include="SetGeneration\InitialStatesTest.cs" />
+    <Compile Include="SetGeneration\AdmissibleStatesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DynamicSystem\DynamicSystem.csproj">
+      <Project>{A36BB37A-5B7E-45A5-8DB6-0644599CF9BA}</Project>
+      <Name>DynamicSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{193ec575-133a-4432-aabd-0ea59b4d64f3}</Project>
       <Name>Model</Name>
