@@ -93,6 +93,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Abstract\FodyReactiveObject.cs" />
+    <Compile Include="Exception\MissingMemberException.cs" />
+    <Compile Include="Exception\NotApplicableException.cs" />
+    <Compile Include="Interface\IActionClauseViewModel.cs" />
+    <Compile Include="Interface\IFormulaViewModel.cs" />
+    <Compile Include="Interface\IGalleryItem.cs" />
+    <Compile Include="Interface\IQueryClauseViewModel.cs" />
+    <Compile Include="Interface\IViewModelFor.cs" />
     <Compile Include="Provider\AppBootstrapper.cs" />
     <Page Include="View\ActionAreaView.xaml">
       <SubType>Designer</SubType>
@@ -115,9 +122,35 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModel\ActionAreaViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\UnconditionalEffectStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ConditionalFluentReleaseStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ConstraintStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\FluentSpecificationStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ImpossibilityStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\InitialValueStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ObservationStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ConditionalEffectStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\UnconditionalFluentReleaseStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ValueStatementViewModel.cs" />
+    <Compile Include="ViewModel\Formula\AlternativeViewModel.cs" />
+    <Compile Include="ViewModel\Formula\ConjunctionViewModel.cs" />
+    <Compile Include="ViewModel\Formula\ConstantViewModel.cs" />
+    <Compile Include="ViewModel\Formula\EquivalenceViewModel.cs" />
+    <Compile Include="ViewModel\Formula\ImplicationViewModel.cs" />
+    <Compile Include="ViewModel\Formula\LiteralViewModel.cs" />
+    <Compile Include="ViewModel\Formula\NegationViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\AccessibilityQueryViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\ExistentialExecutabilityQueryViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\ExistentialValueQueryViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\GeneralExecutabilityQueryViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\GeneralValueQueryViewModel.cs" />
+    <Compile Include="ViewModel\Terminal\ActionViewModel.cs" />
     <Compile Include="ViewModel\QueryAreaViewModel.cs" />
     <Compile Include="ViewModel\RibbonViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
+    <Compile Include="ViewModel\Terminal\CompoundActionViewModel.cs" />
+    <Compile Include="ViewModel\Terminal\FluentViewModel.cs" />
+    <Compile Include="ViewModel\Terminal\ProgramViewModel.cs" />
     <Compile Include="View\ActionAreaView.xaml.cs">
       <DependentUpon>ActionAreaView.xaml</DependentUpon>
     </Compile>
@@ -171,9 +204,7 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Images\actions-128.png" />
     <Resource Include="Resources\Images\actions-256.png" />
