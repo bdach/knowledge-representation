@@ -8,8 +8,9 @@ using Model.Forms;
 
 namespace Client.ViewModel
 {
+    /// <inheritdoc />
     /// <summary>
-    /// View model for <see cref="ShellView"/> which is the root view of the application.
+    /// View model for <see cref="T:Client.View.ShellView" /> which is the root view of the application.
     /// </summary>
     public class ShellViewModel : FodyReactiveObject
     {

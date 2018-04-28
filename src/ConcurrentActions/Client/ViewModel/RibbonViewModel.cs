@@ -6,6 +6,7 @@ using Splat;
 
 namespace Client.ViewModel
 {
+    /// <inheritdoc />
     /// <summary>
     /// ViewModel for <see cref="RibbonView"/> which coordinates all actions within the application.
     /// </summary>

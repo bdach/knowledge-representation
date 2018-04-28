@@ -101,11 +101,108 @@
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
     <Compile Include="Interface\IViewModelFor.cs" />
     <Compile Include="Provider\AppBootstrapper.cs" />
+    <Compile Include="View\Terminal\ActionView.xaml.cs">
+      <DependentUpon>ActionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Terminal\CompoundActionView.xaml.cs">
+      <DependentUpon>CompoundActionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Terminal\ProgramView.xaml.cs">
+      <DependentUpon>ProgramView.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\ActionAreaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ActionLanguage\ConditionalEffectStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ConditionalFluentReleaseStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ConstraintStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\FluentSpecificationStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ImpossibilityStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\InitialValueStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ObservationStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\UnconditionalEffectStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\UnconditionalFluentReleaseStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ValueStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\AlternativeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\ConjunctionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\ConstantView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\EquivalenceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\ImplicationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\LiteralView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\NegationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\QueryAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\AccessibilityQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\ExistentialExecutabilityQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\ExistentialValueQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\GeneralExecutabilityQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\GeneralValueQueryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,8 +251,74 @@
     <Compile Include="View\ActionAreaView.xaml.cs">
       <DependentUpon>ActionAreaView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ActionLanguage\ConditionalEffectStatementView.xaml.cs">
+      <DependentUpon>ConditionalEffectStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ConditionalFluentReleaseStatementView.xaml.cs">
+      <DependentUpon>ConditionalFluentReleaseStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ConstraintStatementView.xaml.cs">
+      <DependentUpon>ConstraintStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\FluentSpecificationStatementView.xaml.cs">
+      <DependentUpon>FluentSpecificationStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ImpossibilityStatementView.xaml.cs">
+      <DependentUpon>ImpossibilityStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\InitialValueStatementView.xaml.cs">
+      <DependentUpon>InitialValueStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ObservationStatementView.xaml.cs">
+      <DependentUpon>ObservationStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\UnconditionalEffectStatementView.xaml.cs">
+      <DependentUpon>UnconditionalEffectStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\UnconditionalFluentReleaseStatementView.xaml.cs">
+      <DependentUpon>UnconditionalFluentReleaseStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ValueStatementView.xaml.cs">
+      <DependentUpon>ValueStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\AlternativeView.xaml.cs">
+      <DependentUpon>AlternativeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\ConjunctionView.xaml.cs">
+      <DependentUpon>ConjunctionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\ConstantView.xaml.cs">
+      <DependentUpon>ConstantView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\EquivalenceView.xaml.cs">
+      <DependentUpon>EquivalenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\ImplicationView.xaml.cs">
+      <DependentUpon>ImplicationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\LiteralView.xaml.cs">
+      <DependentUpon>LiteralView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\NegationView.xaml.cs">
+      <DependentUpon>NegationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\QueryAreaView.xaml.cs">
       <DependentUpon>QueryAreaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\AccessibilityQueryView.xaml.cs">
+      <DependentUpon>AccessibilityQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\ExistentialExecutabilityQueryView.xaml.cs">
+      <DependentUpon>ExistentialExecutabilityQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\ExistentialValueQueryView.xaml.cs">
+      <DependentUpon>ExistentialValueQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\GeneralExecutabilityQueryView.xaml.cs">
+      <DependentUpon>GeneralExecutabilityQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\GeneralValueQueryView.xaml.cs">
+      <DependentUpon>GeneralValueQueryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RibbonView.xaml.cs">
       <DependentUpon>RibbonView.xaml</DependentUpon>
@@ -164,6 +327,18 @@
       <DependentUpon>ShellView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Terminal\ActionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Terminal\CompoundActionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Terminal\ProgramView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

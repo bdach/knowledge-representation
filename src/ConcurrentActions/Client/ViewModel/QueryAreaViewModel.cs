@@ -5,6 +5,7 @@ using Client.View;
 
 namespace Client.ViewModel
 {
+    /// <inheritdoc />
     /// <summary>
     /// View model for <see cref="QueryAreaView"/> which manages the list of queries.
     /// </summary>

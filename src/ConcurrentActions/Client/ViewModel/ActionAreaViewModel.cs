@@ -5,6 +5,7 @@ using Client.View;
 
 namespace Client.ViewModel
 {
+    /// <inheritdoc />
     /// <summary>
     /// View model for <see cref="ActionAreaView"/> which manages the list of actions.
     /// </summary>
