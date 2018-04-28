@@ -33,9 +33,35 @@
             return !(Left.Evaluate(state) ^ Right.Evaluate(state));
         }
 
+        public IFormula Accept(IFormulaVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
+
         public override string ToString()
         {
             return $"({Left} \u2261 {Right})";
+        }
+
+        protected bool Equals(Equivalence other)
+        {
+            return Equals(Left, other.Left) && Equals(Right, other.Right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Equivalence) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Left != null ? Left.GetHashCode() : 0) * 397) ^ (Right != null ? Right.GetHashCode() : 0);
+            }
         }
     }
 }

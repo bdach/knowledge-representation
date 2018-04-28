@@ -26,9 +26,32 @@
             return !Formula.Evaluate(state);
         }
 
+        public IFormula Accept(IFormulaVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
+
         public override string ToString()
         {
             return $"\u00AC({Formula})";
+        }
+
+        protected bool Equals(Negation other)
+        {
+            return Equals(Formula, other.Formula);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Negation) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Formula != null ? Formula.GetHashCode() : 0);
         }
     }
 }

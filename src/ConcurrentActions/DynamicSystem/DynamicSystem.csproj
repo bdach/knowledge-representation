@@ -40,6 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DNF\DnfFormula.cs" />
+    <Compile Include="DNF\FormulaExtensions.cs" />
+    <Compile Include="DNF\IDnfFormula.cs" />
+    <Compile Include="DNF\NaryConjunction.cs" />
+    <Compile Include="DNF\Visitors\AlternativeDistributionFormulaVisitor.cs" />
+    <Compile Include="DNF\Visitors\NaryConjunctionGeneratingFormulaVisitor.cs" />
+    <Compile Include="DNF\Visitors\NegationPropagatingFormulaVisitor.cs" />
+    <Compile Include="DNF\Visitors\SimplifyingFormulaVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -48,5 +56,6 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
