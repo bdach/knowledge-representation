@@ -61,7 +61,7 @@ namespace Client.ViewModel.ActionLanguage
         public ConstraintStatement ToModel()
         {
             if (Constraint == null)
-                throw new MemberNotDefinedException("COnstraint condition in a constraint statement is not defined");
+                throw new MemberNotDefinedException("Constraint condition in a constraint statement is not defined");
 
             return new ConstraintStatement(Constraint.ToModel());
         }
