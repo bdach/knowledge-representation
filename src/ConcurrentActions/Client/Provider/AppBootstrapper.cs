@@ -56,8 +56,8 @@ namespace Client.Provider
         /// </summary>
         private void RegisterViews()
         {
-            // TODO: for some reason LINQ doesn't work with these collection (won't execute, assigns null straight away)
-            // TODO: maybe someone else can get it to work
+            // TODO: for some reason LINQ doesn't work with these collections (won't execute, assigns null straight away)
+            // TODO: maybe someone else can get it to work without foreach loops
             var classTypes = Assembly.GetExecutingAssembly().GetTypes();
             foreach (var classType in classTypes)
             {
