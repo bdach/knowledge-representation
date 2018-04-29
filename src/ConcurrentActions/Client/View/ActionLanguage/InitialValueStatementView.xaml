@@ -1,12 +1,14 @@
-﻿<UserControl x:Class="Client.View.ActionLanguage.InitialValueStatementView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:reactiveUi="http://reactiveui.net"
-             mc:Ignorable="d">
+﻿<view:ExpressionButton x:Class="Client.View.ActionLanguage.InitialValueStatementView"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:reactiveUi="http://reactiveui.net"
+                       xmlns:view="clr-namespace:Client.View"
+                       mc:Ignorable="d"
+                       Style="{DynamicResource {x:Type view:ExpressionButton}}">
     <WrapPanel>
         <TextBlock x:Name="Label" Style="{DynamicResource StatementLabel}" />
         <reactiveUi:ViewModelViewHost x:Name="InitialCondition" />
     </WrapPanel>
-</UserControl>
+</view:ExpressionButton>

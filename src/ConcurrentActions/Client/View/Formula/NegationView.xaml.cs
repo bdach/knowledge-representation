@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reactive.Linq;
+using System.Windows;
 using Client.ViewModel.Formula;
 using ReactiveUI;
 
@@ -23,6 +25,10 @@ namespace Client.View.Formula
             this.OneWayBind(ViewModel, vm => vm.Prefix, v => v.Prefix.Text);
             this.OneWayBind(ViewModel, vm => vm.Formula, v => v.Formula.ViewModel);
             this.OneWayBind(ViewModel, vm => vm.Suffix, v => v.Suffix.Text);
+
+            this.WhenAnyValue(v => v.IsMouseOver, v => v.Formula.IsMouseOver)
+                .Select(t => t.Item1 && !t.Item2)
+                .Subscribe(v => Highlight = v);
         }
 
         public NegationViewModel ViewModel
