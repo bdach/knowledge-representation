@@ -24,7 +24,7 @@ namespace Client.View.ActionLanguage
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.Action, v => v.Action.ViewModel);
             this.OneWayBind(ViewModel, vm => vm.LabelLeft, v => v.LabelLeft.Text);
-            this.OneWayBind(ViewModel, vm => vm.Literal, v => v.Literal.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Fluent, v => v.Literal.ViewModel);
             this.OneWayBind(ViewModel, vm => vm.LabelRight, v => v.LabelRight.Text);
             this.OneWayBind(ViewModel, vm => vm.Precondition, v => v.Precondition.ViewModel);
 

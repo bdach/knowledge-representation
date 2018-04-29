@@ -7,6 +7,7 @@ using Client.View.ActionLanguage;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
+using Model.Forms;
 using ReactiveUI;
 
 namespace Client.ViewModel.ActionLanguage
@@ -27,9 +28,9 @@ namespace Client.ViewModel.ActionLanguage
         public string DisplayName => $"{Label} [ ]";
 
         /// <summary>
-        /// The <see cref="LiteralViewModel"/> instance holding the fluent.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a fluent.
         /// </summary>
-        public LiteralViewModel Literal { get; set; }
+        public IViewModelFor<Model.Fluent> Fluent { get; set; }
 
         /// <summary>
         /// Command adding a new action.
@@ -61,10 +62,12 @@ namespace Client.ViewModel.ActionLanguage
         /// <returns><see cref="FluentSpecificationStatement"/> model represented by given view model.</returns>
         public FluentSpecificationStatement ToModel()
         {
-            if (Literal?.Fluent == null)
+            var fluent = Fluent?.ToModel();
+
+            if (fluent == null)
                 throw new MemberNotDefinedException("Fluent in a fluent specification statement is not defined");
 
-            return new FluentSpecificationStatement(Literal.Fluent);
+            return new FluentSpecificationStatement(fluent);
         }
     }
 }

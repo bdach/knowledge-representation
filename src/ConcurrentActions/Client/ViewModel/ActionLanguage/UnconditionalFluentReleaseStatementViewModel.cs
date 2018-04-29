@@ -28,14 +28,14 @@ namespace Client.ViewModel.ActionLanguage
         public string DisplayName => $"[ ] {Label} [ ]";
 
         /// <summary>
-        /// The <see cref="ActionViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning an action.
         /// </summary>
-        public ActionViewModel Action { get; set; }
+        public IViewModelFor<Model.Action> Action { get; set; }
 
         /// <summary>
-        /// The <see cref="LiteralViewModel"/> instance holding the fluent.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a literal.
         /// </summary>
-        public LiteralViewModel Literal { get; set; }
+        public IViewModelFor<Model.Fluent> Fluent { get; set; }
 
         /// <summary>
         /// Command adding a new action.
@@ -67,12 +67,15 @@ namespace Client.ViewModel.ActionLanguage
         /// <returns><see cref="FluentReleaseStatement"/> model represented by given view model.</returns>
         public FluentReleaseStatement ToModel()
         {
-            if (Action == null)
+            var action = Action?.ToModel();
+            var fluent = Fluent?.ToModel();
+
+            if (action == null)
                 throw new MemberNotDefinedException("Action in a conditional fluent release statement is not defined");
-            if (Literal?.Fluent == null)
+            if (fluent == null)
                 throw new MemberNotDefinedException("Fluent in a conditional fluent release statement is not defined");
 
-            return new FluentReleaseStatement(Action.ToModel(), Literal.Fluent, Constant.Truth);
+            return new FluentReleaseStatement(action, fluent);
         }
     }
 }

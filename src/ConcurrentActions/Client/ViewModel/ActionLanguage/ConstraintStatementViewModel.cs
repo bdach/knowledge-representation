@@ -6,6 +6,7 @@ using Client.Interface;
 using Client.View.ActionLanguage;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
+using Model.Forms;
 using ReactiveUI;
 
 namespace Client.ViewModel.ActionLanguage
@@ -26,9 +27,9 @@ namespace Client.ViewModel.ActionLanguage
         public string DisplayName => $"{Label} [ ]";
 
         /// <summary>
-        /// The constraint <see cref="IFormulaViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a constraint.
         /// </summary>
-        public IFormulaViewModel Constraint { get; set; }
+        public IViewModelFor<IFormula> Constraint { get; set; }
 
         /// <summary>
         /// Command adding a new action.
@@ -60,10 +61,12 @@ namespace Client.ViewModel.ActionLanguage
         /// <returns><see cref="ConstraintStatement"/> model represented by given view model.</returns>
         public ConstraintStatement ToModel()
         {
-            if (Constraint == null)
+            var constraint = Constraint?.ToModel();
+
+            if (constraint == null)
                 throw new MemberNotDefinedException("Constraint condition in a constraint statement is not defined");
 
-            return new ConstraintStatement(Constraint.ToModel());
+            return new ConstraintStatement(constraint);
         }
     }
 }

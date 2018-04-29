@@ -6,6 +6,7 @@ using Client.Interface;
 using Client.View.ActionLanguage;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
+using Model.Forms;
 using ReactiveUI;
 
 namespace Client.ViewModel.ActionLanguage
@@ -26,14 +27,14 @@ namespace Client.ViewModel.ActionLanguage
         public string DisplayName => $"[ ] {Label} [ ]";
 
         /// <summary>
-        /// The condition <see cref="IFormulaViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a condition.
         /// </summary>
-        public IFormulaViewModel Condition { get; set; }
+        public IViewModelFor<IFormula> Condition { get; set; }
 
         /// <summary>
-        /// The <see cref="ActionViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning an action.
         /// </summary>
-        public ActionViewModel Action { get; set; }
+        public IViewModelFor<Model.Action> Action { get; set; }
 
         /// <summary>
         /// Command adding a new action.
@@ -65,12 +66,15 @@ namespace Client.ViewModel.ActionLanguage
         /// <returns><see cref="ValueStatement"/> model represented by given view model.</returns>
         public ValueStatement ToModel()
         {
-            if (Condition == null)
+            var condition = Condition?.ToModel();
+            var action = Action?.ToModel();
+
+            if (condition == null)
                 throw new MemberNotDefinedException("Condition in a value statement is not defined");
-            if (Action == null)
+            if (action == null)
                 throw new MemberNotDefinedException("Action in a value statement is not defined");
 
-            return new ValueStatement(Condition.ToModel(), Action.ToModel());
+            return new ValueStatement(condition, action);
         }
     }
 }

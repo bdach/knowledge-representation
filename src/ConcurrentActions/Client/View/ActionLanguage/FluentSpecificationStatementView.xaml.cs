@@ -23,7 +23,7 @@ namespace Client.View.ActionLanguage
         {
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
-            this.OneWayBind(ViewModel, vm => vm.Literal, v => v.Literal.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Fluent, v => v.Literal.ViewModel);
 
             this.WhenAnyValue(v => v.IsMouseOver, v => v.Literal.IsMouseOver)
                 .Select(t => t.Item1 && !t.Item2)

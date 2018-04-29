@@ -32,14 +32,14 @@ namespace Client.ViewModel.ActionLanguage
         public string DisplayName => $"{LabelLeft} [ ] {LabelRight} [ ]";
 
         /// <summary>
-        /// The <see cref="ActionViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning an action.
         /// </summary>
-        public ActionViewModel Action { get; set; }
+        public IViewModelFor<Model.Action> Action { get; set; }
 
         /// <summary>
-        /// The precondition <see cref="IFormulaViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a precondition.
         /// </summary>
-        public IFormulaViewModel Precondition { get; set; }
+        public IViewModelFor<IFormula> Precondition { get; set; }
 
         /// <summary>
         /// Command adding a new action.
@@ -71,12 +71,15 @@ namespace Client.ViewModel.ActionLanguage
         /// <returns><see cref="EffectStatement"/> model represented by given view model.</returns>
         public EffectStatement ToModel()
         {
+            var action = Action?.ToModel();
+            var precondition = Precondition?.ToModel();
+
             if (Action == null)
                 throw new MemberNotDefinedException("Action in a conditional impossibility statement is not defined");
             if (Precondition == null)
                 throw new MemberNotDefinedException("Precondtition in a conditional impossibility statement is not defined");
 
-            return new EffectStatement(Action.ToModel(), Precondition.ToModel(), Constant.Falsity);
+            return EffectStatement.Impossible(action, precondition);
         }
     }
 }

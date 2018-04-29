@@ -6,6 +6,7 @@ using Client.Interface;
 using Client.View.ActionLanguage;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
+using Model.Forms;
 using ReactiveUI;
 
 namespace Client.ViewModel.ActionLanguage
@@ -26,9 +27,9 @@ namespace Client.ViewModel.ActionLanguage
         public string DisplayName => $"{Label} [ ]";
 
         /// <summary>
-        /// The initial condition <see cref="IFormulaViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning an initial condition.
         /// </summary>
-        public IFormulaViewModel InitialCondition { get; set; }
+        public IViewModelFor<IFormula> InitialCondition { get; set; }
 
         /// <summary>
         /// Command adding a new action.
@@ -60,10 +61,12 @@ namespace Client.ViewModel.ActionLanguage
         /// <returns><see cref="InitialValueStatement"/> model represented by given view model.</returns>
         public InitialValueStatement ToModel()
         {
-            if (InitialCondition == null)
+            var initialCondition = InitialCondition?.ToModel();
+
+            if (initialCondition == null)
                 throw new MemberNotDefinedException("Initial condition in an initial value statement is not defined");
 
-            return new InitialValueStatement(InitialCondition.ToModel());
+            return new InitialValueStatement(initialCondition);
         }
     }
 }

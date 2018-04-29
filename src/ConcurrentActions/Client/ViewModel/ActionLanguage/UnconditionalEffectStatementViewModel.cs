@@ -27,14 +27,14 @@ namespace Client.ViewModel.ActionLanguage
         public string DisplayName => $"[ ] {Label} [ ]";
 
         /// <summary>
-        /// The <see cref="ActionViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning an action.
         /// </summary>
-        public ActionViewModel Action { get; set; }
+        public IViewModelFor<Model.Action> Action { get; set; }
 
         /// <summary>
-        /// The postcondition <see cref="IFormulaViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a postcondition.
         /// </summary>
-        public IFormulaViewModel Postcondition { get; set; }
+        public IViewModelFor<IFormula> Postcondition { get; set; }
 
         /// <summary>
         /// Command adding a new action.
@@ -66,12 +66,15 @@ namespace Client.ViewModel.ActionLanguage
         /// <returns><see cref="EffectStatement"/> model represented by given view model.</returns>
         public EffectStatement ToModel()
         {
-            if (Action == null)
+            var action = Action?.ToModel();
+            var postcondition = Postcondition?.ToModel();
+
+            if (action == null)
                 throw new MemberNotDefinedException("Action in an unconditional effect statement is not defined");
-            if (Postcondition == null)
+            if (postcondition == null)
                 throw new MemberNotDefinedException("Postcondition in an unconditional effect statement is not defined");
 
-            return new EffectStatement(Action.ToModel(), Constant.Truth, Postcondition.ToModel());
+            return new EffectStatement(action, postcondition);
         }
     }
 }

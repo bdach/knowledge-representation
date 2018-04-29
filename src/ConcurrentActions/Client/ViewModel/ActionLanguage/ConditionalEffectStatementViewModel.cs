@@ -6,6 +6,7 @@ using Client.Interface;
 using Client.View.ActionLanguage;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
+using Model.Forms;
 using ReactiveUI;
 
 namespace Client.ViewModel.ActionLanguage
@@ -31,19 +32,19 @@ namespace Client.ViewModel.ActionLanguage
         public string DisplayName => $"[ ] {LabelLeft} [ ] {LabelRight} [ ]";
 
         /// <summary>
-        /// The <see cref="ActionViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning an action.
         /// </summary>
-        public ActionViewModel Action { get; set; }
+        public IViewModelFor<Model.Action> Action { get; set; }
 
         /// <summary>
-        /// The precondition <see cref="IFormulaViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a precondition.
         /// </summary>
-        public IFormulaViewModel Precondition { get; set; }
+        public IViewModelFor<IFormula> Precondition { get; set; }
 
         /// <summary>
-        /// The postcondition <see cref="IFormulaViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a postcondition.
         /// </summary>
-        public IFormulaViewModel Postcondition { get; set; }
+        public IViewModelFor<IFormula> Postcondition { get; set; }
 
         /// <summary>
         /// Command adding a new action.
@@ -75,14 +76,18 @@ namespace Client.ViewModel.ActionLanguage
         /// <returns><see cref="EffectStatement"/> model represented by given view model.</returns>
         public EffectStatement ToModel()
         {
-            if (Action == null)
+            var action = Action?.ToModel();
+            var precondition = Precondition?.ToModel();
+            var postcondition = Postcondition?.ToModel();
+
+            if (action == null)
                 throw new MemberNotDefinedException("Action in a conditional effect statement is not defined");
-            if (Precondition == null)
+            if (precondition == null)
                 throw new MemberNotDefinedException("Precondtition in a conditional effect statement is not defined");
-            if (Postcondition == null)
+            if (postcondition == null)
                 throw new MemberNotDefinedException("Postcondition in a conditional effect statement is not defined");
 
-            return new EffectStatement(Action.ToModel(), Precondition.ToModel(), Postcondition.ToModel());
+            return new EffectStatement(action, precondition, postcondition);
         }
     }
 }
