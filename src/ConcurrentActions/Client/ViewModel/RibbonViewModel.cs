@@ -33,8 +33,8 @@ namespace Client.ViewModel
         public RibbonViewModel()
         {
             CloseWindow = ReactiveCommand.Create(() => Unit.Default);
-            SetEnglishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale("en-US"));
-            SetPolishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale("pl-PL"));
+            SetEnglishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.AmericanEnglish));
+            SetPolishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.Polish));
         }
     }
 }

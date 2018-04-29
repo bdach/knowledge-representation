@@ -12,6 +12,16 @@ namespace Client.Provider
     public class LocalizationProvider : INotifyPropertyChanged
     {
         /// <summary>
+        /// String representing American English culture information.
+        /// </summary>
+        public static string AmericanEnglish = "en-US";
+
+        /// <summary>
+        /// String representing Polish culture information.
+        /// </summary>
+        public static string Polish = "pl-PL";
+
+        /// <summary>
         /// Private instance of currently used culture encapsulated by <see cref="CurrentCulture"/>.
         /// </summary>
         private CultureInfo _currentCulture;
