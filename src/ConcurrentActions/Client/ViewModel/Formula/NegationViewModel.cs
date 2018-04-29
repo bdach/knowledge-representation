@@ -15,6 +15,16 @@ namespace Client.ViewModel.Formula
     public class NegationViewModel : FodyReactiveObject, IFormulaViewModel
     {
         /// <summary>
+        /// Prefix used for rendering the view.
+        /// </summary>
+        public string Prefix => "\u00AC(";
+
+        /// <summary>
+        /// Suffix used for rendering the view.
+        /// </summary>
+        public string Suffix => ")";
+
+        /// <summary>
         /// The <see cref="IFormulaViewModel"/> instance to negate.
         /// </summary>
         public IFormulaViewModel Formula { get; set; }

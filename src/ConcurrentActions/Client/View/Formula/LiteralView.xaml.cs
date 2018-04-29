@@ -20,6 +20,7 @@ namespace Client.View.Formula
         public LiteralView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Fluent.Name, v => v.Name.Text);
         }
 
         public LiteralViewModel ViewModel

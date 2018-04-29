@@ -15,6 +15,11 @@ namespace Client.ViewModel.Formula
     public class AlternativeViewModel : FodyReactiveObject, IFormulaViewModel
     {
         /// <summary>
+        /// The logical operator character used for rendering the view.
+        /// </summary>
+        public string Operator => "\u2228";
+
+        /// <summary>
         /// The left <see cref="IFormulaViewModel"/> instance.
         /// </summary>
         public IFormulaViewModel Left { get; set; }

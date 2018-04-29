@@ -20,6 +20,9 @@ namespace Client.View.Formula
         public EquivalenceView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Left, v => v.LeftOperand.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Operator, v => v.Operator.Text);
+            this.OneWayBind(ViewModel, vm => vm.Right, v => v.RightOperand.ViewModel);
         }
 
         public EquivalenceViewModel ViewModel

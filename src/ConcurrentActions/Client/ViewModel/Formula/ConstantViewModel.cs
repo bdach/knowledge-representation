@@ -19,6 +19,11 @@ namespace Client.ViewModel.Formula
         public Constant Constant { get; set; }
 
         /// <summary>
+        /// Symbol used to represent the constant.
+        /// </summary>
+        public string Symbol => Constant.ToString();
+
+        /// <summary>
         /// Command adding a new formula.
         /// </summary>
         public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }

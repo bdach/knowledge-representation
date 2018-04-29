@@ -15,6 +15,11 @@ namespace Client.ViewModel.Formula
     public class ImplicationViewModel : FodyReactiveObject, IFormulaViewModel
     {
         /// <summary>
+        /// The logical operator character used for rendering the view.
+        /// </summary>
+        public string Operator => "\u2192";
+
+        /// <summary>
         /// The antecedent (premise) of the implication.
         /// </summary>
         public IFormulaViewModel Antecedent { get; set; }

@@ -20,6 +20,7 @@ namespace Client.View.Formula
         public ConstantView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Constant, v => v.Constant.Text);
         }
 
         public ConstantViewModel ViewModel

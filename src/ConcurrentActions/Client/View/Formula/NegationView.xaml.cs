@@ -20,6 +20,9 @@ namespace Client.View.Formula
         public NegationView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Prefix, v => v.Prefix.Text);
+            this.OneWayBind(ViewModel, vm => vm.Formula, v => v.Formula.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Suffix, v => v.Suffix.Text);
         }
 
         public NegationViewModel ViewModel

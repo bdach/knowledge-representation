@@ -20,6 +20,9 @@ namespace Client.View.Formula
         public ImplicationView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Antecedent, v => v.Antecedent.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Operator, v => v.Operator.Text);
+            this.OneWayBind(ViewModel, vm => vm.Consequent, v => v.Consequent.ViewModel);
         }
 
         public ImplicationViewModel ViewModel

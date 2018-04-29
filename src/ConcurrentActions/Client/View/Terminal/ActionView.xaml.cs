@@ -20,6 +20,7 @@ namespace Client.View.Terminal
         public ActionView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Action.Name, v => v.Name.Text);
         }
 
         public ActionViewModel ViewModel

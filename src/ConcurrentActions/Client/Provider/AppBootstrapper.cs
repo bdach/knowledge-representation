@@ -69,10 +69,9 @@ namespace Client.Provider
                         var genericType = interfaceType.GetGenericArguments()[0];
                         if (genericType != typeof(ShellViewModel))
                         {
-                            var viewInstance = Activator.CreateInstance(classType);
                             var registerViewModelType = typeof(IViewFor<>);
                             Type[] typeArgs = { genericType };
-                            Locator.CurrentMutable.Register(() => viewInstance, registerViewModelType.MakeGenericType(typeArgs));
+                            Locator.CurrentMutable.Register(() => Activator.CreateInstance(classType), registerViewModelType.MakeGenericType(typeArgs));
                         }
                     }
                 }
