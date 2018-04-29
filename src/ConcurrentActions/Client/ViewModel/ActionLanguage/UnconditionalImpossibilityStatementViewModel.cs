@@ -29,7 +29,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning an action.
         /// </summary>
-        public IViewModelFor<Model.Action> Action { get; set; }
+        public IViewModelFor<Model.Action> Action { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new action.

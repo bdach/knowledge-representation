@@ -34,12 +34,12 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning an action.
         /// </summary>
-        public IViewModelFor<Model.Action> Action { get; set; }
+        public IViewModelFor<Model.Action> Action { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a precondition.
         /// </summary>
-        public IViewModelFor<IFormula> Precondition { get; set; }
+        public IViewModelFor<IFormula> Precondition { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new action.

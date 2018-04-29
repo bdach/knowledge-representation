@@ -30,7 +30,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a fluent.
         /// </summary>
-        public IViewModelFor<Model.Fluent> Fluent { get; set; }
+        public IViewModelFor<Model.Fluent> Fluent { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new action.

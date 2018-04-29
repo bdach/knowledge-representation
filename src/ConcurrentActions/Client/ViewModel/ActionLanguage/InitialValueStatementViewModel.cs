@@ -29,7 +29,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning an initial condition.
         /// </summary>
-        public IViewModelFor<IFormula> InitialCondition { get; set; }
+        public IViewModelFor<IFormula> InitialCondition { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new action.
