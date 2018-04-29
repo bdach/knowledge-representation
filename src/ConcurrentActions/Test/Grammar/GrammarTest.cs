@@ -7,7 +7,7 @@ namespace Test.Grammar
     public class GrammarTest
     {
         [Test]
-        public void TestGrammar()
+        public void TestActionDomainParser()
         {
             // T - truth
             // F - falsity
@@ -25,8 +25,20 @@ namespace Test.Grammar
                 PaintB causes ~brushB if brushB
                 always ~brushA | ~brushB
             ");
+        }
 
-            actionDomain.ToString();
+        [Test]
+        public void TestQuerySetParser()
+        {
+            var querySet = DynamicSystemParserUtils.ParseQuerySet(@"
+                possibly brushA after ({TakeA, TakeB})
+                possibly brushA after ()
+                possibly brushA after ({})
+                necessary ~brushA & ~brushB after ({TakeA, TakeB},{TakeA, TakeB, Paint})
+                accessible brushA & brushB
+                executable sometimes ({})
+                executable always ({})
+            ");
         }
 
 //

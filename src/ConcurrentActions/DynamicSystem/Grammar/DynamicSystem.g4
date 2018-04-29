@@ -17,6 +17,17 @@ RELEASES: 'releases';
 ALWAYS: 'always';
 NONINERTIAL: 'noninertial';
 IF: 'if';
+POSSIBLY: 'possibly';
+NECESSARY: 'necessary';
+EXECUTABLE: 'executable';
+SOMETIMES: 'sometimes';
+ACCESSIBLE: 'accessible';
+COMMA: ',';
+
+OPEN_PAREN: '(';
+CLOSE_PAREN: ')';
+OPEN_BRACE: '{';
+CLOSE_BRACE: '}';
 
 TEXT: [a-zA-Z]+;
 
@@ -32,7 +43,7 @@ formula: formula EQUIVALENCE implication | implication;
 implication: implication IMPLICATION alternative | alternative;
 alternative: alternative ALTERNATIVE conjunction | conjunction;
 conjunction: conjunction CONJUNCTION negation | negation;
-negation: constant | literal | '(' formula ')' | NEGATION '(' formula ')';
+negation: constant | literal | OPEN_BRACE formula CLOSE_PAREN | NEGATION OPEN_PAREN formula CLOSE_PAREN;
 condition: formula;
 
 initialValueStatement: INITIALLY formula;
@@ -60,3 +71,21 @@ statement: constraintStatement
     | initialValueStatement
     | observationStatement
     | valueStatement;
+
+
+querySet: query*;
+query: accessibilityQuery
+	| existentialExecutabilityQuery
+	| existentialValueQuery
+	| generalExecutabilityQuery
+	| generalValueQuery;
+
+accessibilityQuery: ACCESSIBLE formula;
+generalExecutabilityQuery: EXECUTABLE ALWAYS compoundActions;
+existentialExecutabilityQuery: EXECUTABLE SOMETIMES compoundActions;
+generalValueQuery: NECESSARY formula AFTER compoundActions;
+existentialValueQuery: POSSIBLY formula AFTER compoundActions;
+
+compoundAction: OPEN_BRACE actions CLOSE_BRACE;
+actions: (action (COMMA action)*)?;
+compoundActions: OPEN_PAREN (compoundAction (COMMA compoundAction)* )? CLOSE_PAREN;

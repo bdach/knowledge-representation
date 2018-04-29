@@ -64,6 +64,7 @@
     <Compile Include="Grammar\DynamicSystemParserUtils.cs" />
     <Compile Include="Grammar\ActionDomainParsingVisitor.cs" />
     <Compile Include="Grammar\FormulaParsingVisitor.cs" />
+    <Compile Include="Grammar\QuerySetParsingVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetGeneration\SetGenerator.cs" />
   </ItemGroup>
