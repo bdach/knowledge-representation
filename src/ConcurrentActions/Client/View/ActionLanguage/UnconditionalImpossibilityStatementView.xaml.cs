@@ -20,6 +20,8 @@ namespace Client.View.ActionLanguage
         public UnconditionalImpossibilityStatementView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
+            this.OneWayBind(ViewModel, vm => vm.Action, v => v.Action.ViewModel);
         }
 
         public UnconditionalImpossibilityStatementViewModel ViewModel

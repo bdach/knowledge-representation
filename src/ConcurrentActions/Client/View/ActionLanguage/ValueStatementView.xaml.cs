@@ -20,6 +20,9 @@ namespace Client.View.ActionLanguage
         public ValueStatementView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Condition, v => v.Condition.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
+            this.OneWayBind(ViewModel, vm => vm.Action, v => v.Action.ViewModel);
         }
 
         public ValueStatementViewModel ViewModel

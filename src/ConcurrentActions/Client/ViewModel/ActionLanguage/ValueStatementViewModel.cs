@@ -18,7 +18,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Keyword describing the clause.
         /// </summary>
-        public static string Label => "after";
+        public string Label => "after";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.

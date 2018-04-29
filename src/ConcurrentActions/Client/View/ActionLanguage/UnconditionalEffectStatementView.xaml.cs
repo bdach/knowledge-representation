@@ -20,6 +20,9 @@ namespace Client.View.ActionLanguage
         public UnconditionalEffectStatementView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Action, v => v.Action.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
+            this.OneWayBind(ViewModel, vm => vm.Postcondition, v => v.Postcondition.ViewModel);
         }
 
         public UnconditionalEffectStatementViewModel ViewModel

@@ -20,6 +20,7 @@ namespace Client.View
         public ActionAreaView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.ActionDomain, v => v.ActionListView.ItemsSource);
         }
 
         public ActionAreaViewModel ViewModel

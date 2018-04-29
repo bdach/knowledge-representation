@@ -20,7 +20,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Keyword describing the clause.
         /// </summary>
-        public static string Label => "releases";
+        public string Label => "releases";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.

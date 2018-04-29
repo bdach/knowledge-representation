@@ -20,6 +20,9 @@ namespace Client.View.ActionLanguage
         public UnconditionalFluentReleaseStatementView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Action, v => v.Action.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
+            this.OneWayBind(ViewModel, vm => vm.Literal, v => v.Literal.ViewModel);
         }
 
         public UnconditionalFluentReleaseStatementViewModel ViewModel

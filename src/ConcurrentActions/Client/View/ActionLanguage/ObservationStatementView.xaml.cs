@@ -20,6 +20,10 @@ namespace Client.View.ActionLanguage
         public ObservationStatementView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.LabelLeft, v => v.LabelLeft.Text);
+            this.OneWayBind(ViewModel, vm => vm.Condition, v => v.Condition.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.LabelRight, v => v.LabelRight.Text);
+            this.OneWayBind(ViewModel, vm => vm.Action, v => v.Action.ViewModel);
         }
 
         public ObservationStatementViewModel ViewModel

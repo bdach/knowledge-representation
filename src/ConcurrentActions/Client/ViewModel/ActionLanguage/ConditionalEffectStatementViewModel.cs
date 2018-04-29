@@ -18,12 +18,12 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// First keyword describing the clause.
         /// </summary>
-        public static string LabelLeft => "causes";
+        public string LabelLeft => "causes";
 
         /// <summary>
         /// Second keyword describing the query.
         /// </summary>
-        public static string LabelRight => "if";
+        public string LabelRight => "if";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.

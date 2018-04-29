@@ -19,7 +19,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Keyword describing the clause.
         /// </summary>
-        public static string Label => "imppossible";
+        public string Label => "impossible";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.

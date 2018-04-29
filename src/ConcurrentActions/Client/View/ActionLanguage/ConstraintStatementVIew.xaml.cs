@@ -20,6 +20,8 @@ namespace Client.View.ActionLanguage
         public ConstraintStatementView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
+            this.OneWayBind(ViewModel, vm => vm.Constraint, v => v.Constraint.ViewModel);
         }
 
         public ConstraintStatementViewModel ViewModel

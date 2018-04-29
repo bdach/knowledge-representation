@@ -18,12 +18,12 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// First keyword describing the clause.
         /// </summary>
-        public static string LabelLeft => "observable";
+        public string LabelLeft => "observable";
 
         /// <summary>
         /// Second keyword describing the query.
         /// </summary>
-        public static string LabelRight => "after";
+        public string LabelRight => "after";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.

@@ -20,6 +20,8 @@ namespace Client.View.ActionLanguage
         public InitialValueStatementView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
+            this.OneWayBind(ViewModel, vm => vm.InitialCondition, v => v.InitialCondition.ViewModel);
         }
 
         public InitialValueStatementViewModel ViewModel

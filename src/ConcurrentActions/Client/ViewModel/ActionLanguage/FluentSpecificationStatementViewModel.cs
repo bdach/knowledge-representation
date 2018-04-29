@@ -19,7 +19,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Keyword describing the clause.
         /// </summary>
-        public static string Label => "noninertial";
+        public string Label => "noninertial";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.
