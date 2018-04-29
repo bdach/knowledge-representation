@@ -33,24 +33,30 @@ implication: implication IMPLICATION alternative | alternative;
 alternative: alternative ALTERNATIVE conjunction | conjunction;
 conjunction: conjunction CONJUNCTION negation | negation;
 negation: constant | literal | '(' formula ')' | NEGATION '(' formula ')';
+condition: formula;
 
+initialValueStatement: INITIALLY formula;
 
-initially_stmt: INITIALLY formula;
-after_stmt: formula AFTER action;
-observation_stmt: OBSERVABLE formula AFTER action;
-effect_stmt: action CAUSES formula IF formula
-        | IMPOSSIBLE action IF formula
+valueStatement: formula AFTER action;
+
+observationStatement: OBSERVABLE formula AFTER action;
+
+effectStatement: action CAUSES formula IF condition
+        | IMPOSSIBLE action IF condition
         | action CAUSES formula;
-release_stmt: action RELEASES fluent IF formula
-        | action RELEASES fluent;
-constraint_stmt: ALWAYS formula;
-noninertial_stmt: NONINERTIAL fluent;
 
-action_domain: statement*;
-statement: initially_stmt
-    | after_stmt
-    | observation_stmt
-    | effect_stmt
-    | release_stmt
-    | conjunction
-    | noninertial_stmt;
+fluentReleaseStatement: action RELEASES fluent IF condition
+        | action RELEASES fluent;
+
+constraintStatement: ALWAYS formula;
+
+fluentSpecificationStatement: NONINERTIAL fluent;
+
+actionDomain: statement*;
+statement: constraintStatement
+    | effectStatement
+    | fluentReleaseStatement
+    | fluentSpecificationStatement
+    | initialValueStatement
+    | observationStatement
+    | valueStatement;
