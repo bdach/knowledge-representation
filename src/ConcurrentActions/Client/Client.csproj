@@ -100,7 +100,24 @@
     <Compile Include="Interface\IGalleryItem.cs" />
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
     <Compile Include="Interface\IViewModelFor.cs" />
+    <Compile Include="Localization\Locale.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Locale.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\Locale.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Locale.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\Locale.pl-PL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Locale.pl-PL.resx</DependentUpon>
+    </Compile>
     <Compile Include="Provider\AppBootstrapper.cs" />
+    <Compile Include="Provider\LocExtention.cs" />
+    <Compile Include="Provider\LocalizationProvider.cs" />
     <Compile Include="ViewModel\ActionLanguage\UnconditionalImpossibilityStatementViewModel.cs" />
     <Compile Include="View\ActionLanguage\UnconditionalImpossibilityStatementView.xaml.cs">
       <DependentUpon>UnconditionalImpossibilityStatementView.xaml</DependentUpon>
@@ -362,6 +379,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Localization\Locale.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Locale.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Locale.pl-PL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Locale.pl-PL.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Locale.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Locale.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

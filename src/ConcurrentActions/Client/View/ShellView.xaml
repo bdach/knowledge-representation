@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:rui="clr-namespace:ReactiveUI;assembly=ReactiveUI"
+        xmlns:local="clr-namespace:Client.Provider"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="Akcje równoległe" 
+        Title="{local:Loc WindowTitle}" 
         Width="800" Height="600">
     <Grid>
         <Grid.ColumnDefinitions>

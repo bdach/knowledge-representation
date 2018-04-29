@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Globalization;
 using System.Reflection;
 using Client.Abstract;
 using Client.View;
 using Client.ViewModel;
-using Fluent;
-using Fluent.Localization.Languages;
 using ReactiveUI;
 using Splat;
 
@@ -21,20 +18,9 @@ namespace Client.Provider
         /// </summary>
         public AppBootstrapper()
         {
-            SetLocale();
+            LocalizationProvider.SetLocale("en-US");
             RegisterMainWindow();
             RegisterViews();
-        }
-
-        /// <summary>
-        /// Changes locale settings of Fluent Ribbon.
-        /// </summary>
-        private void SetLocale()
-        {
-            // TODO: change this if something becomes annoying AF (e.g. commas in doubles/decimals)
-            // TODO: also consider translating the whole UI to english (?)
-            RibbonLocalization.Current.Culture = new CultureInfo("pl-PL", false);
-            RibbonLocalization.Current.Localization = new Polish();
         }
 
         /// <summary>
@@ -43,9 +29,6 @@ namespace Client.Provider
         /// </summary>
         private void RegisterMainWindow()
         {
-            // TODO: we might not need this since there's no routing in the application
-            //Locator.CurrentMutable.RegisterLazySingleton(() => this, typeof(IScreen)); 
-
             Locator.CurrentMutable.RegisterLazySingleton(() => new ShellViewModel(), typeof(ShellViewModel));
             Locator.CurrentMutable.RegisterLazySingleton(() => new ShellView(Locator.Current.GetService<ShellViewModel>()), typeof(IViewFor<ShellViewModel>));
         }
@@ -56,22 +39,17 @@ namespace Client.Provider
         /// </summary>
         private void RegisterViews()
         {
-            // TODO: for some reason LINQ doesn't work with these collections (won't execute, assigns null straight away)
-            // TODO: maybe someone else can get it to work without foreach loops
-            var classTypes = Assembly.GetExecutingAssembly().GetTypes();
-            foreach (var classType in classTypes)
+            var registerType = typeof(IViewFor<>);
+            foreach (var classType in Assembly.GetExecutingAssembly().GetTypes())
             {
-                var interfaceTypes = classType.GetInterfaces();
-                foreach (var interfaceType in interfaceTypes)
+                foreach (var interfaceType in classType.GetInterfaces())
                 {
-                    if (interfaceType.IsGenericType && interfaceType.GetGenericTypeDefinition() == typeof(IViewFor<>))
+                    if (interfaceType.IsGenericType && interfaceType.GetGenericTypeDefinition() == registerType)
                     {
                         var genericType = interfaceType.GetGenericArguments()[0];
                         if (genericType != typeof(ShellViewModel))
                         {
-                            var registerViewModelType = typeof(IViewFor<>);
-                            Type[] typeArgs = { genericType };
-                            Locator.CurrentMutable.Register(() => Activator.CreateInstance(classType), registerViewModelType.MakeGenericType(typeArgs));
+                            Locator.CurrentMutable.Register(() => Activator.CreateInstance(classType), registerType.MakeGenericType(genericType));
                         }
                     }
                 }

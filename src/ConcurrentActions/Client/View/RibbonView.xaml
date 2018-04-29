@@ -6,7 +6,11 @@
              xmlns:fluent="urn:fluent-ribbon"
              mc:Ignorable="d">
     <Grid>
-        <fluent:Ribbon>
+        <fluent:Ribbon
+            CanCustomizeQuickAccessToolBarItems="False"
+            CanQuickAccessLocationChanging="False"
+            CanCustomizeRibbon="False"
+            CanMinimize="False">
 
             <fluent:Ribbon.Menu>
                 <fluent:Backstage>
@@ -23,6 +27,54 @@
                         <fluent:Button
                             Name="ExportButton"
                             Header="Eksportuj do pliku" />
+
+                        <fluent:BackstageTabItem
+                            Name="OptionsTab"
+                            Header="Opcje">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Margin="15">
+
+                                    <TextBlock
+                                        Style="{DynamicResource BackstageTitle}"
+                                        Text="Ustaw język" />
+
+                                    <Rectangle
+                                        Style="{DynamicResource BackstageSeparator}"/>
+
+                                    <!-- TODO: for some reason gives different results than when set manually -->
+                                    <!--<fluent:Button
+                                        Style="{DynamicResource BackstageButton}"
+                                        Name="EnglishButton"
+                                        Header="English (US)" />
+
+                                    <fluent:Button
+                                        Style="{DynamicResource BackstageButton}"
+                                        Name="PolishButton"
+                                        Header="Polski" />-->
+
+                                    <fluent:Button
+                                        Name="EnglishButton"
+                                        Header="[en] English (US)"
+                                        Foreground="Black"
+                                        Size="Middle" />
+
+                                    <fluent:Button
+                                        Name="PolishButton"
+                                        Header="[pl] polski"
+                                        Foreground="Black"
+                                        Size="Middle" />
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </fluent:BackstageTabItem>
 
                         <fluent:Button
                             Name="CloseButton"
@@ -41,12 +93,11 @@
                     Header="Sygnatura języka">
 
                     <fluent:DropDownButton
+                        Style="{DynamicResource RibbonLargeNarrowDropDown}"
                         Name="FluentDropDown"
                         Header="Fluenty"
                         Icon="/Client;component/Resources/Images/fluents-64.png"
-                        LargeIcon="/Client;component/Resources/Images/fluents-128.png"
-                        Size="Large"
-                        Width="64">
+                        LargeIcon="/Client;component/Resources/Images/fluents-128.png">
 
                         <fluent:MenuItem
                             Name="AddFluentButton"
@@ -54,8 +105,8 @@
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
                         <fluent:GroupSeparatorMenuItem 
-                            Name="FluentSeparator"
-                            Height="1" />
+                            Style="{DynamicResource RibbonMenuItemSeparator}"
+                            Name="FluentSeparator" />
 
                         <fluent:Gallery
                             Name="FluentsGallery"
@@ -64,12 +115,11 @@
                     </fluent:DropDownButton>
 
                     <fluent:DropDownButton
+                        Style="{DynamicResource RibbonLargeNarrowDropDown}"
                         Name="ActionDropDown"
                         Header="Akcje"
                         Icon="/Client;component/Resources/Images/actions-64.png"
-                        LargeIcon="/Client;component/Resources/Images/actions-128.png"
-                        Size="Large"
-                        Width="64">
+                        LargeIcon="/Client;component/Resources/Images/actions-128.png">
 
                         <fluent:MenuItem
                             Name="AddActionButton"
@@ -77,8 +127,8 @@
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
                         <fluent:GroupSeparatorMenuItem
-                            Name="ActionSeparator"
-                            Height="1" />
+                            Style="{DynamicResource RibbonMenuItemSeparator}"
+                            Name="ActionSeparator" />
 
                         <fluent:Gallery
                             Name="ActionsGallery"
@@ -93,44 +143,39 @@
                     Header="Edytor formuł">
 
                     <fluent:Button
+                        Style="{DynamicResource RibbonMiddleMediumButton}"
                         Name="ConjunctionButton"
                         Header="Koniunkcja"
                         Icon="/Client;component/Resources/Images/conjunction-64.png"
-                        LargeIcon="/Client;component/Resources/Images/conjunction-128.png"
-                        Size="Middle"
-                        Width="96" />
+                        LargeIcon="/Client;component/Resources/Images/conjunction-128.png" />
 
                     <fluent:Button
+                        Style="{DynamicResource RibbonMiddleMediumButton}"
                         Name="ImplicationButton"
                         Header="Implikacja"
                         Icon="/Client;component/Resources/Images/implication-64.png"
-                        LargeIcon="/Client;component/Resources/Images/implication-128.png"
-                        Size="Middle"
-                        Width="96" />
+                        LargeIcon="/Client;component/Resources/Images/implication-128.png" />
 
                     <fluent:Button
+                        Style="{DynamicResource RibbonMiddleMediumButton}"
                         Name="NegationButton"
                         Header="Negacja"
                         Icon="/Client;component/Resources/Images/negation-64.png"
-                        LargeIcon="/Client;component/Resources/Images/negation-128.png"
-                        Size="Middle"
-                        Width="96" />
+                        LargeIcon="/Client;component/Resources/Images/negation-128.png" />
 
                     <fluent:Button
+                        Style="{DynamicResource RibbonMiddleWideButton}"
                         Name="DisjunctionButton"
                         Header="Alternatywa"
                         Icon="/Client;component/Resources/Images/disjunction-64.png"
-                        LargeIcon="/Client;component/Resources/Images/disjunction-128.png"
-                        Size="Middle"
-                        Width="112" />
+                        LargeIcon="/Client;component/Resources/Images/disjunction-128.png" />
 
                     <fluent:Button
+                        Style="{DynamicResource RibbonMiddleWideButton}"
                         Name="EquivalencyButton"
                         Header="Równoważność"
                         Icon="/Client;component/Resources/Images/equivalency-64.png"
-                        LargeIcon="/Client;component/Resources/Images/equivalency-128.png"
-                        Size="Middle"
-                        Width="112" />
+                        LargeIcon="/Client;component/Resources/Images/equivalency-128.png" />
 
                 </fluent:RibbonGroupBox>
 
@@ -139,20 +184,18 @@
                     Header="Edytor zdań">
 
                     <fluent:DropDownButton
+                        Style="{DynamicResource RibbonLargeMediumDropDown}"
                         Name="AddActionClauseDropDown"
                         Header="Wstaw zdanie domeny akcji"
                         Icon="/Client;component/Resources/Images/domain-64.png"
-                        LargeIcon="/Client;component/Resources/Images/domain-128.png"
-                        Size="Large"
-                        Width="96" />
+                        LargeIcon="/Client;component/Resources/Images/domain-128.png" />
 
                     <fluent:DropDownButton
+                        Style="{DynamicResource RibbonLargeMediumDropDown}"
                         Name="AddQueryClauseDropDown"
                         Header="Wstaw kwerendę"
                         Icon="/Client;component/Resources/Images/queries-64.png"
-                        LargeIcon="/Client;component/Resources/Images/queries-128.png"
-                        Size="Large"
-                        Width="96" />
+                        LargeIcon="/Client;component/Resources/Images/queries-128.png" />
 
                 </fluent:RibbonGroupBox>
 
@@ -161,13 +204,11 @@
                     Header="System dynamiczny">
 
                     <fluent:Button
+                        Style="{DynamicResource RibbonLargeWideButton}"
                         Name="CalculateButton"
                         Header="Wykonaj obliczenia"
                         Icon="/Client;component/Resources/Images/calculate-64.png"
-                        LargeIcon="/Client;component/Resources/Images/calculate-128.png"
-                        Size="Large"
-                        Width="112">
-                    </fluent:Button>
+                        LargeIcon="/Client;component/Resources/Images/calculate-128.png" />
 
                 </fluent:RibbonGroupBox>
 
@@ -177,258 +218,4 @@
 
     </Grid>
 </UserControl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    

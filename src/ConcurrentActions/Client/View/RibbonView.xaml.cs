@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Client.ViewModel;
 using ReactiveUI;
 
@@ -21,9 +22,10 @@ namespace Client.View
         {
             InitializeComponent();
             this.BindCommand(ViewModel, vm => vm.CloseWindow, v => v.CloseButton);
+            this.BindCommand(ViewModel, vm => vm.SetEnglishLocale, v => v.EnglishButton);
+            this.BindCommand(ViewModel, vm => vm.SetPolishLocale, v => v.PolishButton);
 
             // TODO: hide separators in fluent and action dropdowns if there are no items in galeries
-            // TODO: remove context menu when right-clicking fluent ribbon and the possiblity to collapse it (if it's even possible)
         }
 
         public RibbonViewModel ViewModel
