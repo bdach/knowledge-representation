@@ -141,6 +141,9 @@
   <data name="ChooseLanguage" xml:space="preserve">
     <value>Ustaw język</value>
   </data>
+  <data name="ClauseGroupBox" xml:space="preserve">
+    <value>Edytor zdań</value>
+  </data>
   <data name="ClearButton" xml:space="preserve">
     <value>Wyczyść</value>
   </data>
@@ -162,17 +165,26 @@
   <data name="FluentDropDown" xml:space="preserve">
     <value>Fluenty</value>
   </data>
+  <data name="FormulaGroupBox" xml:space="preserve">
+    <value>Edytor formuł</value>
+  </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>Implikacja</value>
   </data>
   <data name="ImportButton" xml:space="preserve">
     <value>Importuj z pliku</value>
   </data>
+  <data name="LanguageGroupBox" xml:space="preserve">
+    <value>Sygnatura języka</value>
+  </data>
   <data name="NegationButton" xml:space="preserve">
     <value>Negacja</value>
   </data>
   <data name="OptionsTab" xml:space="preserve">
     <value>Opcje</value>
+  </data>
+  <data name="SystemGroupBox" xml:space="preserve">
+    <value>System dynamiczny</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value> Akcje równoległe</value>

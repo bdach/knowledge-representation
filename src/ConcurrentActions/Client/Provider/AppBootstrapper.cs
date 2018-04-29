@@ -18,7 +18,7 @@ namespace Client.Provider
         /// </summary>
         public AppBootstrapper()
         {
-            LocalizationProvider.SetLocale("en-US");
+            LocalizationProvider.SetLocale("pl-PL");
             RegisterMainWindow();
             RegisterViews();
         }

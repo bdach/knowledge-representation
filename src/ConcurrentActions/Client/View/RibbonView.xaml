@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Provider"
              xmlns:fluent="urn:fluent-ribbon"
              mc:Ignorable="d">
     <Grid>
@@ -18,19 +19,19 @@
 
                         <fluent:Button
                             Name="ClearButton"
-                            Header="Wyczyść" />
+                            Header="{local:Loc ClearButton}" />
 
                         <fluent:Button
                             Name="ImportButton"
-                            Header="Importuj z pliku" />
+                            Header="{local:Loc ImportButton}" />
 
                         <fluent:Button
                             Name="ExportButton"
-                            Header="Eksportuj do pliku" />
+                            Header="{local:Loc ExportButton}" />
 
                         <fluent:BackstageTabItem
                             Name="OptionsTab"
-                            Header="Opcje">
+                            Header="{local:Loc OptionsTab}">
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -42,7 +43,7 @@
 
                                     <TextBlock
                                         Style="{DynamicResource BackstageTitle}"
-                                        Text="Ustaw język" />
+                                        Text="{local:Loc ChooseLanguage}" />
 
                                     <Rectangle
                                         Style="{DynamicResource BackstageSeparator}"/>
@@ -51,12 +52,12 @@
                                     <!--<fluent:Button
                                         Style="{DynamicResource BackstageButton}"
                                         Name="EnglishButton"
-                                        Header="English (US)" />
+                                        Header="[en] English (US)" />
 
                                     <fluent:Button
                                         Style="{DynamicResource BackstageButton}"
                                         Name="PolishButton"
-                                        Header="Polski" />-->
+                                        Header="[pl] polski" />-->
 
                                     <fluent:Button
                                         Name="EnglishButton"
@@ -78,7 +79,7 @@
 
                         <fluent:Button
                             Name="CloseButton"
-                            Header="Zakończ" />
+                            Header="{local:Loc CloseButton}" />
 
                     </fluent:BackstageTabControl>
                 </fluent:Backstage>
@@ -86,22 +87,22 @@
 
             <fluent:RibbonTabItem
                 Name="EditTab"
-                Header="Edycja">
+                Header="{local:Loc EditTab}">
 
                 <fluent:RibbonGroupBox
                     Name="LanguageGroupBox"
-                    Header="Sygnatura języka">
+                    Header="{local:Loc LanguageGroupBox}">
 
                     <fluent:DropDownButton
                         Style="{DynamicResource RibbonLargeNarrowDropDown}"
                         Name="FluentDropDown"
-                        Header="Fluenty"
+                        Header="{local:Loc FluentDropDown}"
                         Icon="/Client;component/Resources/Images/fluents-64.png"
                         LargeIcon="/Client;component/Resources/Images/fluents-128.png">
 
                         <fluent:MenuItem
                             Name="AddFluentButton"
-                            Header="Dodaj"
+                            Header="{local:Loc AddFluentButton}"
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
                         <fluent:GroupSeparatorMenuItem 
@@ -117,13 +118,13 @@
                     <fluent:DropDownButton
                         Style="{DynamicResource RibbonLargeNarrowDropDown}"
                         Name="ActionDropDown"
-                        Header="Akcje"
+                        Header="{local:Loc ActionDropDown}"
                         Icon="/Client;component/Resources/Images/actions-64.png"
                         LargeIcon="/Client;component/Resources/Images/actions-128.png">
 
                         <fluent:MenuItem
                             Name="AddActionButton"
-                            Header="Dodaj"
+                            Header="{local:Loc AddActionButton}"
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
                         <fluent:GroupSeparatorMenuItem
@@ -140,40 +141,40 @@
 
                 <fluent:RibbonGroupBox
                     Name="FormulaGroupBox"
-                    Header="Edytor formuł">
+                    Header="{local:Loc FormulaGroupBox}">
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleMediumButton}"
                         Name="ConjunctionButton"
-                        Header="Koniunkcja"
+                        Header="{local:Loc ConjunctionButton}"
                         Icon="/Client;component/Resources/Images/conjunction-64.png"
                         LargeIcon="/Client;component/Resources/Images/conjunction-128.png" />
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleMediumButton}"
                         Name="ImplicationButton"
-                        Header="Implikacja"
+                        Header="{local:Loc ImplicationButton}"
                         Icon="/Client;component/Resources/Images/implication-64.png"
                         LargeIcon="/Client;component/Resources/Images/implication-128.png" />
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleMediumButton}"
                         Name="NegationButton"
-                        Header="Negacja"
+                        Header="{local:Loc NegationButton}"
                         Icon="/Client;component/Resources/Images/negation-64.png"
                         LargeIcon="/Client;component/Resources/Images/negation-128.png" />
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleWideButton}"
-                        Name="DisjunctionButton"
-                        Header="Alternatywa"
+                        Name="AlternativeButton"
+                        Header="{local:Loc AlternativeButton}"
                         Icon="/Client;component/Resources/Images/disjunction-64.png"
                         LargeIcon="/Client;component/Resources/Images/disjunction-128.png" />
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleWideButton}"
-                        Name="EquivalencyButton"
-                        Header="Równoważność"
+                        Name="EquivalenceButton"
+                        Header="{local:Loc EquivalenceButton}"
                         Icon="/Client;component/Resources/Images/equivalency-64.png"
                         LargeIcon="/Client;component/Resources/Images/equivalency-128.png" />
 
@@ -181,19 +182,19 @@
 
                 <fluent:RibbonGroupBox
                     Name="ClauseGroupBox"
-                    Header="Edytor zdań">
+                    Header="{local:Loc ClauseGroupBox}">
 
                     <fluent:DropDownButton
                         Style="{DynamicResource RibbonLargeMediumDropDown}"
                         Name="AddActionClauseDropDown"
-                        Header="Wstaw zdanie domeny akcji"
+                        Header="{local:Loc AddActionClauseDropDown}"
                         Icon="/Client;component/Resources/Images/domain-64.png"
                         LargeIcon="/Client;component/Resources/Images/domain-128.png" />
 
                     <fluent:DropDownButton
                         Style="{DynamicResource RibbonLargeMediumDropDown}"
                         Name="AddQueryClauseDropDown"
-                        Header="Wstaw kwerendę"
+                        Header="{local:Loc AddQueryClauseDropDown}"
                         Icon="/Client;component/Resources/Images/queries-64.png"
                         LargeIcon="/Client;component/Resources/Images/queries-128.png" />
 
@@ -201,12 +202,12 @@
 
                 <fluent:RibbonGroupBox
                     Name="SystemGroupBox"
-                    Header="System dynamiczny">
+                    Header="{local:Loc SystemGroupBox}">
 
                     <fluent:Button
                         Style="{DynamicResource RibbonLargeWideButton}"
                         Name="CalculateButton"
-                        Header="Wykonaj obliczenia"
+                        Header="{local:Loc CalculateButton}"
                         Icon="/Client;component/Resources/Images/calculate-64.png"
                         LargeIcon="/Client;component/Resources/Images/calculate-128.png" />
 

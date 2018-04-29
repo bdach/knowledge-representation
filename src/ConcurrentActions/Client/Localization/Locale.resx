@@ -133,13 +133,16 @@
     <value>AddQueryClauseDropDown</value>
   </data>
   <data name="AlternativeButton" xml:space="preserve">
-    <value>DisjunctionButton</value>
+    <value>AlternativeButton</value>
   </data>
   <data name="CalculateButton" xml:space="preserve">
     <value>CalculateButton</value>
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>ChooseLanguage</value>
+  </data>
+  <data name="ClauseGroupBox" xml:space="preserve">
+    <value>ClauseGroupBox</value>
   </data>
   <data name="ClearButton" xml:space="preserve">
     <value>ClearButton</value>
@@ -162,17 +165,26 @@
   <data name="FluentDropDown" xml:space="preserve">
     <value>FluentDropDown</value>
   </data>
+  <data name="FormulaGroupBox" xml:space="preserve">
+    <value>FormulaGroupBox</value>
+  </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>ImplicationButton</value>
   </data>
   <data name="ImportButton" xml:space="preserve">
     <value>ImportButton</value>
   </data>
+  <data name="LanguageGroupBox" xml:space="preserve">
+    <value>LanguageGroupBox</value>
+  </data>
   <data name="NegationButton" xml:space="preserve">
     <value>NegationButton</value>
   </data>
   <data name="OptionsTab" xml:space="preserve">
     <value>OptionsTab</value>
+  </data>
+  <data name="SystemGroupBox" xml:space="preserve">
+    <value>SystemGroupBox</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>WindowTitle</value>

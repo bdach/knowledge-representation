@@ -136,10 +136,13 @@
     <value>Alternative</value>
   </data>
   <data name="CalculateButton" xml:space="preserve">
-    <value>Calculate</value>
+    <value>Perform Calculations</value>
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>Choose Language</value>
+  </data>
+  <data name="ClauseGroupBox" xml:space="preserve">
+    <value>Clause Editor</value>
   </data>
   <data name="ClearButton" xml:space="preserve">
     <value>Clear</value>
@@ -162,17 +165,26 @@
   <data name="FluentDropDown" xml:space="preserve">
     <value>Fluents</value>
   </data>
+  <data name="FormulaGroupBox" xml:space="preserve">
+    <value>Formulae Editor</value>
+  </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>Implication</value>
   </data>
   <data name="ImportButton" xml:space="preserve">
     <value>Import from file</value>
   </data>
+  <data name="LanguageGroupBox" xml:space="preserve">
+    <value>Language Signature</value>
+  </data>
   <data name="NegationButton" xml:space="preserve">
     <value>Negation</value>
   </data>
   <data name="OptionsTab" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="SystemGroupBox" xml:space="preserve">
+    <value>Dynamic System</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value> Concurrent Actions</value>

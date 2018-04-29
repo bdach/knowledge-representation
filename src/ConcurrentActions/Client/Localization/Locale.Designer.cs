@@ -106,7 +106,7 @@ namespace Client.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DisjunctionButton.
+        ///   Looks up a localized string similar to AlternativeButton.
         /// </summary>
         public static string AlternativeButton {
             get {
@@ -129,6 +129,15 @@ namespace Client.Localization {
         public static string ChooseLanguage {
             get {
                 return ResourceManager.GetString("ChooseLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClauseGroupBox.
+        /// </summary>
+        public static string ClauseGroupBox {
+            get {
+                return ResourceManager.GetString("ClauseGroupBox", resourceCulture);
             }
         }
         
@@ -196,6 +205,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FormulaGroupBox.
+        /// </summary>
+        public static string FormulaGroupBox {
+            get {
+                return ResourceManager.GetString("FormulaGroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ImplicationButton.
         /// </summary>
         public static string ImplicationButton {
@@ -214,6 +232,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LanguageGroupBox.
+        /// </summary>
+        public static string LanguageGroupBox {
+            get {
+                return ResourceManager.GetString("LanguageGroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NegationButton.
         /// </summary>
         public static string NegationButton {
@@ -228,6 +255,15 @@ namespace Client.Localization {
         public static string OptionsTab {
             get {
                 return ResourceManager.GetString("OptionsTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SystemGroupBox.
+        /// </summary>
+        public static string SystemGroupBox {
+            get {
+                return ResourceManager.GetString("SystemGroupBox", resourceCulture);
             }
         }
         
