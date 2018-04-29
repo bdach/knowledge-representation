@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reactive.Linq;
+using System.Windows;
 using Client.ViewModel.Formula;
 using ReactiveUI;
 
@@ -23,6 +25,10 @@ namespace Client.View.Formula
             this.OneWayBind(ViewModel, vm => vm.Antecedent, v => v.Antecedent.ViewModel);
             this.OneWayBind(ViewModel, vm => vm.Operator, v => v.Operator.Text);
             this.OneWayBind(ViewModel, vm => vm.Consequent, v => v.Consequent.ViewModel);
+
+            this.WhenAnyValue(v => v.IsMouseOver, v => v.Antecedent.IsMouseOver, v => v.Consequent.IsMouseOver)
+                .Select(v => v.Item1 && !v.Item2 && !v.Item3)
+                .Subscribe(v => Highlight = v);
         }
 
         public ImplicationViewModel ViewModel

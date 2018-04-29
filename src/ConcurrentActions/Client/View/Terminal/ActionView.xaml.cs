@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Client.ViewModel.Terminal;
 using ReactiveUI;
 
@@ -21,6 +22,9 @@ namespace Client.View.Terminal
         {
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.Action.Name, v => v.Name.Text);
+
+            this.WhenAnyValue(v => v.IsMouseOver)
+                .Subscribe(v => Highlight = v);
         }
 
         public ActionViewModel ViewModel

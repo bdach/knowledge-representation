@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Client.ViewModel.Formula;
 using ReactiveUI;
 
@@ -21,6 +22,9 @@ namespace Client.View.Formula
         {
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.Constant, v => v.Constant.Text);
+
+            this.WhenAnyValue(v => v.IsMouseOver)
+                .Subscribe(v => Highlight = v);
         }
 
         public ConstantViewModel ViewModel

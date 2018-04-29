@@ -102,6 +102,7 @@
     <Compile Include="Interface\IViewModelFor.cs" />
     <Compile Include="Provider\AppBootstrapper.cs" />
     <Compile Include="ViewModel\ActionLanguage\UnconditionalImpossibilityStatementViewModel.cs" />
+    <Compile Include="View\ExpressionButton.cs" />
     <Compile Include="View\ActionLanguage\UnconditionalImpossibilityStatementView.xaml.cs">
       <DependentUpon>UnconditionalImpossibilityStatementView.xaml</DependentUpon>
     </Compile>

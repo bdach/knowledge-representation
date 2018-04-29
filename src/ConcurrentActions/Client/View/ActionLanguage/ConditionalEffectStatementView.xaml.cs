@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reactive.Linq;
+using System.Windows;
 using Client.ViewModel.ActionLanguage;
 using ReactiveUI;
 
@@ -25,6 +27,11 @@ namespace Client.View.ActionLanguage
             this.OneWayBind(ViewModel, vm => vm.Postcondition, v => v.Postcondition.ViewModel);
             this.OneWayBind(ViewModel, vm => vm.LabelRight, v => v.LabelRight.Text);
             this.OneWayBind(ViewModel, vm => vm.Precondition, v => v.Precondition.ViewModel);
+
+            this.WhenAnyValue(vm => vm.IsMouseOver, vm => vm.Action.IsMouseOver, vm => vm.Postcondition.IsMouseOver,
+                    vm => vm.Precondition.IsMouseOver)
+                .Select(t => t.Item1 && !t.Item2 && !t.Item3 && !t.Item4)
+                .Subscribe(v => Highlight = v);
         }
 
         public ConditionalEffectStatementViewModel ViewModel

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reactive.Linq;
+using System.Windows;
 using Client.ViewModel.ActionLanguage;
 using ReactiveUI;
 
@@ -22,6 +24,10 @@ namespace Client.View.ActionLanguage
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
             this.OneWayBind(ViewModel, vm => vm.Literal, v => v.Literal.ViewModel);
+
+            this.WhenAnyValue(v => v.IsMouseOver, v => v.Literal.IsMouseOver)
+                .Select(t => t.Item1 && !t.Item2)
+                .Subscribe(v => Highlight = v);
         }
 
         public FluentSpecificationStatementViewModel ViewModel
