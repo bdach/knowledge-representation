@@ -106,6 +106,7 @@
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
                         <fluent:GroupSeparatorMenuItem 
+                            Visibility="Collapsed"
                             Style="{DynamicResource RibbonMenuItemSeparator}"
                             Name="FluentSeparator" />
 
@@ -128,6 +129,7 @@
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
                         <fluent:GroupSeparatorMenuItem
+                            Visibility="Collapsed"
                             Style="{DynamicResource RibbonMenuItemSeparator}"
                             Name="ActionSeparator" />
 
@@ -136,7 +138,7 @@
                             Orientation="Vertical" />
 
                     </fluent:DropDownButton>
-
+                    
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox

@@ -143,6 +143,18 @@
             <Style x:Key="RibbonMenuItemSeparator" TargetType="fluent:GroupSeparatorMenuItem">
                 <Setter Property="Height" Value="1" />
             </Style>
+            <Style TargetType="fluent:Gallery">
+                <Setter Property="Selectable" Value="False"></Setter>
+                <Style.Resources>
+                    <Style TargetType="view:ExpressionButton">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </Style>
+                    <Style TargetType="reactiveUi:ViewModelViewHost">
+                        <!-- Nasty fix to combat stupid control fade-in -->
+                        <Setter Property="MinHeight" Value="25" />
+                    </Style>
+                </Style.Resources>
+            </Style>
 
             <Style x:Key="FluentMargin" TargetType="Grid">
                 <Setter Property="Margin" Value="15" />
@@ -163,3 +175,4 @@
         </ResourceDictionary>
     </Application.Resources>
 </Application>
+ 

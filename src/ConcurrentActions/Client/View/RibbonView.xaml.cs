@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.Reactive.Linq;
+using System.Windows;
 using Client.ViewModel;
 using ReactiveUI;
 
@@ -25,10 +28,21 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.SetPolishLocale, v => v.PolishButton);
             this.BindCommand(ViewModel, vm => vm.ShowAddFluentModal, v => v.AddFluentButton);
             this.BindCommand(ViewModel, vm => vm.ShowAddActionModal, v => v.AddActionButton);
-
-            // TODO: hide separators in fluent and action dropdowns if there are no items in galeries
+            
             this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.LiteralViewModels, v => v.FluentsGallery.ItemsSource);
             this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.ActionViewModels, v => v.ActionsGallery.ItemsSource);
+
+            this.WhenAnyObservable(v => v.ViewModel.ScenarioContainer.LiteralViewModels.CountChanged)
+                .Select(GetVisibilityForCount)
+                .Subscribe(visibility => FluentSeparator.Visibility = visibility);
+            this.WhenAnyObservable(v => v.ViewModel.ScenarioContainer.ActionViewModels.CountChanged)
+                .Select(GetVisibilityForCount)
+                .Subscribe(visibility => ActionSeparator.Visibility = visibility);
+        }
+
+        private Visibility GetVisibilityForCount(int count)
+        {
+            return count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public RibbonViewModel ViewModel
