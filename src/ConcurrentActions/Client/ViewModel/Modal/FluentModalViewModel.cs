@@ -3,6 +3,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Global;
+using Client.View.Modal;
 using Client.ViewModel.Formula;
 using ReactiveUI;
 using Splat;
@@ -10,19 +11,19 @@ using Splat;
 namespace Client.ViewModel.Modal
 {
     /// <summary>
-    /// View model for the fluent addition modal.
+    /// View model for <see cref="FluentModalView"/> which handles modal adding.
     /// </summary>
     public class FluentModalViewModel : FodyReactiveObject
     {
         /// <summary>
         /// A global container instance holding the fluents currently in the scenario.
         /// </summary>
-        private ScenarioContainer ScenarioContainer { get; }
+        private readonly ScenarioContainer _scenarioContainer;
 
         /// <summary>
         /// Backing <see cref="Model.Fluent"/> instance.
         /// </summary>
-        private readonly Model.Fluent fluent;
+        private readonly Model.Fluent _fluent;
 
         /// <summary>
         /// The name of the fluent being added.
@@ -33,8 +34,8 @@ namespace Client.ViewModel.Modal
         /// </remarks>
         public string FluentName
         {
-            get => fluent.Name;
-            set => fluent.Name = value;
+            get => _fluent.Name;
+            set => _fluent.Name = value;
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Client.ViewModel.Modal
         /// Command responsible for closing the modal.
         /// </summary>
         /// <remarks>
-        /// This command does nothing in the viewmodel.
+        /// This command does nothing in the view model.
         /// The view will subscribe to invocations of the command and close the window.
         /// </remarks>
         public ReactiveCommand<Unit, Unit> CloseModal { get; }
@@ -54,24 +55,25 @@ namespace Client.ViewModel.Modal
         /// <summary>
         /// Initializes a new instance of <see cref="FluentModalViewModel"/>.
         /// </summary>
-        /// <param name="scenarioContainer">Scenario container with the current list of fluents.</param>
+        /// <param name="scenarioContainer">Scenario container with the current language signature.</param>
         /// <remarks>
         /// Omitting the <see cref="scenarioContainer"/> parameter causes the method to fetch the instance registered in the <see cref="Locator"/>.
         /// </remarks>
         public FluentModalViewModel(ScenarioContainer scenarioContainer = null)
         {
-            ScenarioContainer = scenarioContainer ?? Locator.Current.GetService<ScenarioContainer>();
-            fluent = new Model.Fluent("");
-            
-            var canAddFluent = this.WhenAnyValue(vm => vm.FluentName, vm => vm.ScenarioContainer.LiteralViewModels)
+            _scenarioContainer = scenarioContainer ?? Locator.Current.GetService<ScenarioContainer>();
+            _fluent = new Model.Fluent("");
+
+            var canAddFluent = this.WhenAnyValue(vm => vm.FluentName, vm => vm._scenarioContainer.LiteralViewModels)
                 .Select(t => !string.IsNullOrEmpty(t.Item1) && !t.Item2.Any(literal => literal.Fluent.Name.Equals(t.Item1)));
 
             CloseModal = ReactiveCommand.Create(() => Unit.Default);
 
             AddFluent = ReactiveCommand.Create(
-                () => ScenarioContainer.LiteralViewModels.Add(new LiteralViewModel(fluent)),
+                () => _scenarioContainer.LiteralViewModels.Add(new LiteralViewModel(_fluent)),
                 canAddFluent
             );
+
             // chain adding fluents with closing the modal
             AddFluent.InvokeCommand(CloseModal);
         }

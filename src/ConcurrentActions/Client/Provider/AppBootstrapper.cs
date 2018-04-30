@@ -43,6 +43,7 @@ namespace Client.Provider
         private void RegisterModalViewModels()
         {
             Locator.CurrentMutable.Register(() => new FluentModalViewModel(), typeof(FluentModalViewModel));
+            Locator.CurrentMutable.Register(() => new ActionModalViewModel(), typeof(ActionModalViewModel));
         }
 
         /// <summary>
