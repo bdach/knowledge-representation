@@ -119,6 +119,7 @@
     <Compile Include="Provider\LocExtention.cs" />
     <Compile Include="Provider\LocalizationProvider.cs" />
     <Compile Include="ViewModel\ActionLanguage\UnconditionalImpossibilityStatementViewModel.cs" />
+    <Compile Include="ViewModel\Terminal\PlaceholderViewModel.cs" />
     <Compile Include="View\ExpressionButton.cs" />
     <Compile Include="View\ActionLanguage\UnconditionalImpossibilityStatementView.xaml.cs">
       <DependentUpon>UnconditionalImpossibilityStatementView.xaml</DependentUpon>
@@ -128,6 +129,9 @@
     </Compile>
     <Compile Include="View\Terminal\CompoundActionView.xaml.cs">
       <DependentUpon>CompoundActionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Terminal\PlaceholderView.xaml.cs">
+      <DependentUpon>PlaceholderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Terminal\ProgramView.xaml.cs">
       <DependentUpon>ProgramView.xaml</DependentUpon>
@@ -358,6 +362,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Terminal\CompoundActionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Terminal\PlaceholderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
