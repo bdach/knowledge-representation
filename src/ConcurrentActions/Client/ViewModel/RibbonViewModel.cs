@@ -8,6 +8,7 @@ using Client.Provider;
 using Client.View;
 using Client.View.Modal;
 using Client.ViewModel.Modal;
+using Client.ViewModel.Terminal;
 using ReactiveUI;
 using Splat;
 
@@ -57,6 +58,15 @@ namespace Client.ViewModel
 
         #endregion
 
+        #region Fluent, action and logical connective choices
+
+        /// <summary>
+        /// Contains the last selected action.
+        /// </summary>
+        public ActionViewModel SelectedAction { get; set; }
+
+        #endregion
+
         #region Clause dropdown display properties
 
         /// <summary>
@@ -88,7 +98,14 @@ namespace Client.ViewModel
 
         #region Clause dropdown choices
 
+        /// <summary>
+        /// Contains the last selected action clause type.
+        /// </summary>
         public IActionClauseViewModel SelectedActionClauseType { get; set; }
+
+        /// <summary>
+        /// Contains the last selected query clause type.
+        /// </summary>
         public IQueryClauseViewModel SelectedQueryClauseType { get; set; }
 
         #endregion

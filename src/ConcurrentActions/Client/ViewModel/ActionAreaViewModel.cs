@@ -1,7 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Interface;
 using Client.View;
+using Client.ViewModel.Terminal;
+using ReactiveUI;
 
 namespace Client.ViewModel
 {
@@ -16,12 +23,22 @@ namespace Client.ViewModel
         /// </summary>
         public ObservableCollection<IActionClauseViewModel> ActionDomain { get; protected set; }
 
+        public ReactiveCommand<ActionViewModel, Unit> AddAction;
+
         /// <summary>
         /// Initializes a new <see cref="ActionAreaViewModel"/> instance.
         /// </summary>
         public ActionAreaViewModel()
         {
             ActionDomain = new ObservableCollection<IActionClauseViewModel>();
+
+            AddAction = ReactiveCommand.Create((ActionViewModel ac) =>
+            {
+                foreach (var viewModel in ActionDomain)
+                {
+                    Observable.Start(() => ac).InvokeCommand(viewModel.AddAction);
+                }
+            });
         }
     }
 }

@@ -22,7 +22,8 @@
 
         <rui:ViewModelViewHost Name="Ribbon"
             Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-            HorizontalContentAlignment="Stretch"/>
+            HorizontalContentAlignment="Stretch"
+            FocusManager.IsFocusScope="True"/>
 
         <rui:ViewModelViewHost Name="ActionArea"
             Grid.Row="1" Grid.Column="0"

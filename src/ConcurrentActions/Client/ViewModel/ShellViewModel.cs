@@ -47,6 +47,9 @@ namespace Client.ViewModel
             this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedActionClauseType)
                 .Where(vm => vm != null)
                 .Subscribe(t => ActionAreaViewModel.ActionDomain.Add(t.NewInstance()));
+            this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedAction)
+                .Where(vm => vm != null)
+                .InvokeCommand(ActionAreaViewModel, vm => vm.AddAction);
         }
     }
 }

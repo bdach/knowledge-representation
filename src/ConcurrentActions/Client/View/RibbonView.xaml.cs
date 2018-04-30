@@ -35,6 +35,7 @@ namespace Client.View
             this.Bind(ViewModel, vm => vm.LocalizeGroupName, v => v.ActionClauseGallery.GroupByAdvanced);
             this.Bind(ViewModel, vm => vm.LocalizeGroupName, v => v.QueryClauseGallery.GroupByAdvanced);
 
+            this.Bind(ViewModel, vm => vm.SelectedAction, v => v.ActionsGallery.SelectedValue);
             this.Bind(ViewModel, vm => vm.SelectedActionClauseType, v => v.ActionClauseGallery.SelectedValue);
             this.Bind(ViewModel, vm => vm.SelectedQueryClauseType, v => v.QueryClauseGallery.SelectedValue);
 
