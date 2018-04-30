@@ -123,11 +123,35 @@
   <data name="AddActionButton" xml:space="preserve">
     <value>AddActionButton</value>
   </data>
+  <data name="AddActionCancelButton" xml:space="preserve">
+    <value>AddActionCancelButton</value>
+  </data>
   <data name="AddActionClauseDropDown" xml:space="preserve">
     <value>AddActionClauseDropDown</value>
   </data>
+  <data name="AddActionConfirmButton" xml:space="preserve">
+    <value>AddActionConfirmButton</value>
+  </data>
+  <data name="AddActionPrompt" xml:space="preserve">
+    <value>AddActionPrompt</value>
+  </data>
+  <data name="AddActionTitle" xml:space="preserve">
+    <value>AddActionTitle</value>
+  </data>
   <data name="AddFluentButton" xml:space="preserve">
     <value>AddFluentButton</value>
+  </data>
+  <data name="AddFluentCancelButton" xml:space="preserve">
+    <value>AddFluentCancelButton</value>
+  </data>
+  <data name="AddFluentConfirmButton" xml:space="preserve">
+    <value>AddFluentConfirmButton</value>
+  </data>
+  <data name="AddFluentPrompt" xml:space="preserve">
+    <value>AddFluentPrompt</value>
+  </data>
+  <data name="AddFluentTitle" xml:space="preserve">
+    <value>AddFluentTitle</value>
   </data>
   <data name="AddQueryClauseDropDown" xml:space="preserve">
     <value>AddQueryClauseDropDown</value>

@@ -123,11 +123,35 @@
   <data name="AddActionButton" xml:space="preserve">
     <value>Dodaj nową</value>
   </data>
+  <data name="AddActionCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
   <data name="AddActionClauseDropDown" xml:space="preserve">
     <value>Dodaj zdanie domeny akcji</value>
   </data>
+  <data name="AddActionConfirmButton" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddActionPrompt" xml:space="preserve">
+    <value>Wpisz unikalną nazwę akcji</value>
+  </data>
+  <data name="AddActionTitle" xml:space="preserve">
+    <value> Dodaj nową akcję</value>
+  </data>
   <data name="AddFluentButton" xml:space="preserve">
     <value>Dodaj nowy</value>
+  </data>
+  <data name="AddFluentCancelButton" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="AddFluentConfirmButton" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddFluentPrompt" xml:space="preserve">
+    <value>Wpisz unikalną nazwę fluenta</value>
+  </data>
+  <data name="AddFluentTitle" xml:space="preserve">
+    <value> Dodaj nowy fluent</value>
   </data>
   <data name="AddQueryClauseDropDown" xml:space="preserve">
     <value>Dodaj kwerendę</value>

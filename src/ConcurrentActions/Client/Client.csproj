@@ -98,6 +98,7 @@
     <Compile Include="Global\ScenarioContainer.cs" />
     <Compile Include="Interface\IActionClauseViewModel.cs" />
     <Compile Include="Interface\IGalleryItem.cs" />
+    <Compile Include="Interface\IModalFor.cs" />
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
     <Compile Include="Interface\IViewModelFor.cs" />
     <Compile Include="Localization\Locale.Designer.cs">
@@ -119,10 +120,14 @@
     <Compile Include="Provider\LocExtention.cs" />
     <Compile Include="Provider\LocalizationProvider.cs" />
     <Compile Include="ViewModel\ActionLanguage\UnconditionalImpossibilityStatementViewModel.cs" />
+    <Compile Include="ViewModel\Modal\FluentModalViewModel.cs" />
     <Compile Include="ViewModel\Terminal\PlaceholderViewModel.cs" />
     <Compile Include="View\ExpressionButton.cs" />
     <Compile Include="View\ActionLanguage\UnconditionalImpossibilityStatementView.xaml.cs">
       <DependentUpon>UnconditionalImpossibilityStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Modal\FluentModalView.xaml.cs">
+      <DependentUpon>FluentModalView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Terminal\ActionView.xaml.cs">
       <DependentUpon>ActionView.xaml</DependentUpon>
@@ -209,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Formula\NegationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Modal\FluentModalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -425,10 +434,7 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\Modal\" />
-    <Folder Include="View\Modal\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Images\actions-128.png" />
     <Resource Include="Resources\Images\actions-256.png" />

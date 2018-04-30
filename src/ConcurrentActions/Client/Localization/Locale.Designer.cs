@@ -79,6 +79,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AddActionCancelButton.
+        /// </summary>
+        public static string AddActionCancelButton {
+            get {
+                return ResourceManager.GetString("AddActionCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddActionClauseDropDown.
         /// </summary>
         public static string AddActionClauseDropDown {
@@ -88,11 +97,74 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AddActionConfirmButton.
+        /// </summary>
+        public static string AddActionConfirmButton {
+            get {
+                return ResourceManager.GetString("AddActionConfirmButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddActionPrompt.
+        /// </summary>
+        public static string AddActionPrompt {
+            get {
+                return ResourceManager.GetString("AddActionPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddActionTitle.
+        /// </summary>
+        public static string AddActionTitle {
+            get {
+                return ResourceManager.GetString("AddActionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddFluentButton.
         /// </summary>
         public static string AddFluentButton {
             get {
                 return ResourceManager.GetString("AddFluentButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddFluentCancelButton.
+        /// </summary>
+        public static string AddFluentCancelButton {
+            get {
+                return ResourceManager.GetString("AddFluentCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddFluentConfirmButton.
+        /// </summary>
+        public static string AddFluentConfirmButton {
+            get {
+                return ResourceManager.GetString("AddFluentConfirmButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddFluentPrompt.
+        /// </summary>
+        public static string AddFluentPrompt {
+            get {
+                return ResourceManager.GetString("AddFluentPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddFluentTitle.
+        /// </summary>
+        public static string AddFluentTitle {
+            get {
+                return ResourceManager.GetString("AddFluentTitle", resourceCulture);
             }
         }
         

@@ -1,0 +1,43 @@
+﻿<Window x:Class="Client.View.Modal.FluentModalView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Client.Provider"
+        mc:Ignorable="d"
+        Title="{local:Loc AddFluentTitle}"
+        Width="300" Height="150" >
+    <Grid Style="{DynamicResource FluentMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Text="{local:Loc AddFluentPrompt}" />
+        
+        <TextBox
+            Style="{DynamicResource ModalTextBox}"
+            Grid.Row="1"
+            Name="FluentNameBox" />
+        
+        <StackPanel
+            Style="{DynamicResource ModalButtonStackPanel}"
+            Grid.Row="2">
+
+            <Button
+                Style="{DynamicResource ModalButton}"
+                Name="AddFluentCancelButton"
+                Content="{local:Loc AddFluentCancelButton}"/>
+
+            <Button
+                Style="{DynamicResource ModalButton}"
+                Name="AddFluentConfirmButton"
+                Content="{local:Loc AddFluentConfirmButton}"/>
+
+        </StackPanel>
+        
+    </Grid>
+</Window>

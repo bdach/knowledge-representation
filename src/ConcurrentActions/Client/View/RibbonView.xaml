@@ -33,13 +33,13 @@
                             Name="OptionsTab"
                             Header="{local:Loc OptionsTab}">
 
-                            <Grid>
+                            <Grid Style="{DynamicResource FluentMargin}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Margin="15">
+                                <StackPanel>
 
                                     <TextBlock
                                         Style="{DynamicResource BackstageTitle}"
