@@ -16,6 +16,9 @@ namespace Client.ViewModel.Terminal
         /// </summary>
         public Action Action { get; set; }
 
+        /// <inheritdoc />
+        public bool IsFocused { get; set; }
+
         /// <summary>
         /// Initializes a new <see cref="ActionViewModel"/> instance.
         /// </summary>

@@ -34,6 +34,9 @@ namespace Client.ViewModel.Formula
         /// </summary>
         public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
+        /// <inheritdoc />
+        public bool IsFocused { get; set; }
+
         /// <summary>
         /// Initializes a new <see cref="ImplicationViewModel"/> instance.
         /// </summary>

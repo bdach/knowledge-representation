@@ -59,6 +59,9 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
+        /// <inheritdoc />
+        public bool IsFocused { get; set; }
+
         /// <summary>
         /// Initializes a new <see cref="ConditionalEffectStatementViewModel"/> instance.
         /// </summary>

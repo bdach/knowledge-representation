@@ -43,7 +43,10 @@ namespace Client.ViewModel.QueryLanguage
         /// Command adding a new program.
         /// </summary>
         public ReactiveCommand<ProgramViewModel, Unit> AddProgram { get; protected set; }
-        
+
+        /// <inheritdoc />
+        public bool IsFocused { get; set; }
+
         /// <summary>
         /// Initializes a new <see cref="ExistentialExecutabilityQueryViewModel"/> instance.
         /// </summary>

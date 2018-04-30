@@ -11,5 +11,10 @@
         /// </summary>
         /// <returns>Model represented by given view model.</returns>
         T ToModel();
+
+        /// <summary>
+        /// Property determining whether the current node in the view model tree is focused.
+        /// </summary>
+        bool IsFocused { get; set; }
     }
 }

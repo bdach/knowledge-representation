@@ -13,7 +13,14 @@ namespace Client.ViewModel.Terminal
     /// </summary>
     public class ProgramViewModel : FodyReactiveObject, IViewModelFor<Program>
     {
+        /// <summary>
+        /// List of compound actions which are part of the program.
+        /// </summary>
         public ReactiveList<CompoundActionViewModel> CompoundActions;
+
+
+        /// <inheritdoc />
+        public bool IsFocused { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="ProgramViewModel"/> instance.

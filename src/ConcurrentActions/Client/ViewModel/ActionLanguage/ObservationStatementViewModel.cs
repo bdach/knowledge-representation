@@ -54,6 +54,9 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
+        /// <inheritdoc />
+        public bool IsFocused { get; set; }
+
         public ObservationStatementViewModel()
         {
             AddAction = ReactiveCommand

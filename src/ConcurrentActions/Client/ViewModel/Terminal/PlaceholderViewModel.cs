@@ -11,6 +11,10 @@ namespace Client.ViewModel.Terminal
     /// </summary>
     public class PlaceholderViewModel : FodyReactiveObject, IViewModelFor<Action>, IViewModelFor<Model.Fluent>, IViewModelFor<IFormula>
     {
+
+        /// <inheritdoc />
+        public bool IsFocused { get; set; }
+
         /// <inheritdoc />
         Action IViewModelFor<Action>.ToModel()
         {
