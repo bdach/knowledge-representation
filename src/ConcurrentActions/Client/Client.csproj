@@ -98,7 +98,6 @@
     <Compile Include="Global\ScenarioContainer.cs" />
     <Compile Include="Interface\IActionClauseViewModel.cs" />
     <Compile Include="Interface\IGalleryItem.cs" />
-    <Compile Include="Interface\IModalFor.cs" />
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
     <Compile Include="Interface\IViewModelFor.cs" />
     <Compile Include="Localization\Locale.Designer.cs">
@@ -120,11 +119,15 @@
     <Compile Include="Provider\LocExtention.cs" />
     <Compile Include="Provider\LocalizationProvider.cs" />
     <Compile Include="ViewModel\ActionLanguage\UnconditionalImpossibilityStatementViewModel.cs" />
+    <Compile Include="ViewModel\Modal\ActionModalViewModel.cs" />
     <Compile Include="ViewModel\Modal\FluentModalViewModel.cs" />
     <Compile Include="ViewModel\Terminal\PlaceholderViewModel.cs" />
     <Compile Include="View\ExpressionButton.cs" />
     <Compile Include="View\ActionLanguage\UnconditionalImpossibilityStatementView.xaml.cs">
       <DependentUpon>UnconditionalImpossibilityStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Modal\ActionModalView.xaml.cs">
+      <DependentUpon>ActionModalView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Modal\FluentModalView.xaml.cs">
       <DependentUpon>FluentModalView.xaml</DependentUpon>
@@ -217,6 +220,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Modal\ActionModalView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Modal\FluentModalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -285,7 +292,6 @@
     <Compile Include="ViewModel\RibbonViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="ViewModel\Terminal\CompoundActionViewModel.cs" />
-    <Compile Include="ViewModel\Terminal\FluentViewModel.cs" />
     <Compile Include="ViewModel\Terminal\ProgramViewModel.cs" />
     <Compile Include="View\ActionAreaView.xaml.cs">
       <DependentUpon>ActionAreaView.xaml</DependentUpon>

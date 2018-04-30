@@ -6,6 +6,7 @@
         xmlns:rui="clr-namespace:ReactiveUI;assembly=ReactiveUI"
         xmlns:local="clr-namespace:Client.Provider"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         Title="{local:Loc WindowTitle}" 
         Width="800" Height="600">

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Client.ViewModel;
 using ReactiveUI;
 
@@ -25,8 +24,11 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.SetEnglishLocale, v => v.EnglishButton);
             this.BindCommand(ViewModel, vm => vm.SetPolishLocale, v => v.PolishButton);
             this.BindCommand(ViewModel, vm => vm.ShowAddFluentModal, v => v.AddFluentButton);
+            this.BindCommand(ViewModel, vm => vm.ShowAddActionModal, v => v.AddActionButton);
 
             // TODO: hide separators in fluent and action dropdowns if there are no items in galeries
+            this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.LiteralViewModels, v => v.FluentsGallery.ItemsSource);
+            this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.ActionViewModels, v => v.ActionsGallery.ItemsSource);
         }
 
         public RibbonViewModel ViewModel
