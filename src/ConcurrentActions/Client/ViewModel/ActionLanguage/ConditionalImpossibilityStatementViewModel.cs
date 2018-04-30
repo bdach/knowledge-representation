@@ -68,6 +68,12 @@ namespace Client.ViewModel.ActionLanguage
                     throw new NotImplementedException());
         }
 
+        /// <inheritdoc />
+        public IActionClauseViewModel NewInstance()
+        {
+            return new ConditionalImpossibilityStatementViewModel();
+        }
+
         /// <summary>
         /// Gets the underlying action clause model out of the view model.
         /// </summary>

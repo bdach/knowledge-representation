@@ -58,6 +58,12 @@ namespace Client.ViewModel.ActionLanguage
                     throw new NotApplicableException("Uncondtitional impossibility statement does not support adding formulae"));
         }
 
+        /// <inheritdoc />
+        public IActionClauseViewModel NewInstance()
+        {
+            return new UnconditionalImpossibilityStatementViewModel();
+        }
+
         /// <summary>
         /// Gets the underlying action clause model out of the view model.
         /// </summary>

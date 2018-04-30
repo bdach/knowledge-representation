@@ -1,10 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.View;
-using Client.ViewModel.Formula;
-using Client.ViewModel.Terminal;
-using Model;
-using Model.Forms;
+using ReactiveUI;
 
 namespace Client.ViewModel
 {
@@ -42,6 +40,13 @@ namespace Client.ViewModel
             RibbonViewModel = new RibbonViewModel();
             ActionAreaViewModel = new ActionAreaViewModel();
             QueryAreaViewModel = new QueryAreaViewModel();
+
+            this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedQueryClauseType)
+                .Where(vm => vm != null)
+                .Subscribe(t => QueryAreaViewModel.QuerySet.Add(t.NewInstance()));
+            this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedActionClauseType)
+                .Where(vm => vm != null)
+                .Subscribe(t => ActionAreaViewModel.ActionDomain.Add(t.NewInstance()));
         }
     }
 }

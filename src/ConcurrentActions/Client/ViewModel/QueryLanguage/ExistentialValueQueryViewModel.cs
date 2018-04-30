@@ -68,6 +68,12 @@ namespace Client.ViewModel.QueryLanguage
                     throw new NotImplementedException());
         }
 
+        /// <inheritdoc />
+        public IQueryClauseViewModel NewInstance()
+        {
+            return new ExistentialExecutabilityQueryViewModel();
+        }
+
         /// <summary>
         /// Gets the underlying query model out of the view model.
         /// </summary>

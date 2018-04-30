@@ -19,5 +19,12 @@ namespace Client.Interface
         /// Adds a new <see cref="ProgramViewModel"/> to edited clause.
         /// </summary>
         ReactiveCommand<ProgramViewModel, Unit> AddProgram { get; }
+
+        /// <summary>
+        /// Creates a new empty instance of a given type of query.
+        /// Implementation of the prototype pattern.
+        /// </summary>
+        /// <returns>New empty instance of a <see cref="IQueryClauseViewModel"/>.</returns>
+        IQueryClauseViewModel NewInstance();
     }
 }

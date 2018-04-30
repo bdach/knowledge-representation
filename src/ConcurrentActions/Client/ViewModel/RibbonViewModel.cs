@@ -24,6 +24,8 @@ namespace Client.ViewModel
         /// </summary>
         public ScenarioContainer ScenarioContainer { get; }
 
+        #region General commands
+
         /// <summary>
         /// Command closing the application window.
         /// </summary>
@@ -39,6 +41,10 @@ namespace Client.ViewModel
         /// </summary>
         public ReactiveCommand<Unit, Unit> SetPolishLocale { get; protected set; }
 
+        #endregion
+
+        #region Modal-related commands
+
         /// <summary>
         /// Command displaying the modal allowing the user to add a fluent to the current scenario.
         /// </summary>
@@ -48,6 +54,10 @@ namespace Client.ViewModel
         /// Command displaying the modal allowing the user to add an action to the current scenario.
         /// </summary>
         public ReactiveCommand<Unit, Unit> ShowAddActionModal { get; protected set; }
+
+        #endregion
+
+        #region Clause dropdown display properties
 
         /// <summary>
         /// Read-only collection of all available action clause types.
@@ -69,7 +79,19 @@ namespace Client.ViewModel
         /// </remarks>
         public ReadOnlyCollection<IQueryClauseViewModel> QueryClauseTypes { get; } = ClauseTypes.GetAllImplementors<IQueryClauseViewModel>();
 
+        /// <summary>
+        /// Function used to convert clause type names to their localized versions.
+        /// </summary>
         public Func<object, string> LocalizeGroupName { get; private set; }
+
+        #endregion
+
+        #region Clause dropdown choices
+
+        public IActionClauseViewModel SelectedActionClauseType { get; set; }
+        public IQueryClauseViewModel SelectedQueryClauseType { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Initializes a new <see cref="RibbonViewModel"/> instance.

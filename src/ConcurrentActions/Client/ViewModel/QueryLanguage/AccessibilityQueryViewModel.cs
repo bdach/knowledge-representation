@@ -58,6 +58,12 @@ namespace Client.ViewModel.QueryLanguage
                     throw new NotApplicableException("Accessibility query does not support adding programs"));
         }
 
+        /// <inheritdoc />
+        public IQueryClauseViewModel NewInstance()
+        {
+            return new AccessibilityQueryViewModel();
+        }
+
         /// <summary>
         /// Gets the underlying query model out of the view model.
         /// </summary>

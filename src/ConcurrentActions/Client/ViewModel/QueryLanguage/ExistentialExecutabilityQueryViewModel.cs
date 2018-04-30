@@ -43,7 +43,7 @@ namespace Client.ViewModel.QueryLanguage
         /// Command adding a new program.
         /// </summary>
         public ReactiveCommand<ProgramViewModel, Unit> AddProgram { get; protected set; }
-
+        
         /// <summary>
         /// Initializes a new <see cref="ExistentialExecutabilityQueryViewModel"/> instance.
         /// </summary>
@@ -56,6 +56,12 @@ namespace Client.ViewModel.QueryLanguage
             AddProgram = ReactiveCommand
                 .Create<ProgramViewModel>(programViewModel =>
                     throw new System.NotImplementedException());
+        }
+
+        /// <inheritdoc />
+        public IQueryClauseViewModel NewInstance()
+        {
+            return new ExistentialExecutabilityQueryViewModel();
         }
 
         /// <summary>
