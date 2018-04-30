@@ -12,7 +12,9 @@
                    TextAlignment="Center"
                    Text="?"
                    FontWeight="Bold"
-                   Background="#44ff3300"
-                   Style="{DynamicResource BaseLabel}" />
+                   Background="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}"
+                   Foreground="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}"
+                   Style="{DynamicResource BaseLabel}">
+        </TextBlock>
     </Grid>
 </view:ExpressionButton>
