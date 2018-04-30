@@ -95,6 +95,7 @@
     <Compile Include="Abstract\FodyReactiveObject.cs" />
     <Compile Include="Exception\MemberNotDefinedException.cs" />
     <Compile Include="Exception\NotApplicableException.cs" />
+    <Compile Include="Global\ScenarioContainer.cs" />
     <Compile Include="Interface\IActionClauseViewModel.cs" />
     <Compile Include="Interface\IGalleryItem.cs" />
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
@@ -416,7 +417,10 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModel\Modal\" />
+    <Folder Include="View\Modal\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\actions-128.png" />
     <Resource Include="Resources\Images\actions-256.png" />

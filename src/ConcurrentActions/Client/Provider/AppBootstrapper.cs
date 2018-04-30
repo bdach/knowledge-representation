@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Client.Abstract;
+using Client.Global;
 using Client.View;
 using Client.ViewModel;
 using ReactiveUI;
@@ -20,6 +21,7 @@ namespace Client.Provider
         {
             LocalizationProvider.SetLocale(LocalizationProvider.Polish);
             RegisterMainWindow();
+            RegisterScenarioContainer();
             RegisterViews();
         }
 
@@ -31,6 +33,14 @@ namespace Client.Provider
         {
             Locator.CurrentMutable.RegisterLazySingleton(() => new ShellViewModel(), typeof(ShellViewModel));
             Locator.CurrentMutable.RegisterLazySingleton(() => new ShellView(Locator.Current.GetService<ShellViewModel>()), typeof(IViewFor<ShellViewModel>));
+        }
+
+        /// <summary>
+        /// Initializes the application scenario container.
+        /// </summary>
+        private void RegisterScenarioContainer()
+        {
+            Locator.CurrentMutable.RegisterLazySingleton(() => new ScenarioContainer(), typeof(ScenarioContainer));
         }
 
         /// <summary>
