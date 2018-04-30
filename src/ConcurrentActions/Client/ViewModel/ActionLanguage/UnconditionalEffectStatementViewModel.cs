@@ -44,7 +44,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="UnconditionalEffectStatementViewModel"/> instance.
@@ -56,7 +56,7 @@ namespace Client.ViewModel.ActionLanguage
                     throw new NotImplementedException());
 
             AddFormula = ReactiveCommand
-                .Create<IFormulaViewModel>(formulaViewModel =>
+                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotImplementedException());
         }
 

@@ -5,6 +5,7 @@ using Client.Exception;
 using Client.Interface;
 using Client.View.QueryLanguage;
 using Client.ViewModel.Terminal;
+using Model.Forms;
 using Model.QueryLanguage;
 using ReactiveUI;
 
@@ -33,7 +34,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
         /// <summary>
         /// Command adding a new program.
@@ -46,7 +47,7 @@ namespace Client.ViewModel.QueryLanguage
         public GeneralExecutabilityQueryViewModel()
         {
             AddFormula = ReactiveCommand
-                .Create<IFormulaViewModel>(formulaViewModel =>
+                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotApplicableException("General executability query does not support adding formulae"));
 
             AddProgram = ReactiveCommand
@@ -60,10 +61,12 @@ namespace Client.ViewModel.QueryLanguage
         /// <returns><see cref="GeneralExecutabilityQuery"/> model represented by given view model.</returns>
         public GeneralExecutabilityQuery ToModel()
         {
-            if (Program == null)
+            var program = Program?.ToModel();
+
+            if (program == null)
                 throw new MemberNotDefinedException("Program in a general executability query is not defined");
 
-            return new GeneralExecutabilityQuery(Program.ToModel());
+            return new GeneralExecutabilityQuery(program);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="NegationView"/> which represents a logical negation.
     /// </summary>
-    public class NegationViewModel : FodyReactiveObject, IFormulaViewModel
+    public class NegationViewModel : FodyReactiveObject, IViewModelFor<IFormula>
     {
         /// <summary>
         /// Prefix used for rendering the view.
@@ -25,14 +25,14 @@ namespace Client.ViewModel.Formula
         public string Suffix => ")";
 
         /// <summary>
-        /// The <see cref="IFormulaViewModel"/> instance to negate.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a formula to negate.
         /// </summary>
-        public IFormulaViewModel Formula { get; set; }
+        public IViewModelFor<IFormula> Formula { get; set; }
 
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="NegationViewModel"/> instance.
@@ -47,7 +47,7 @@ namespace Client.ViewModel.Formula
         /// with the supplied <see cref="formula"/>.
         /// </summary>
         /// <param name="formula">Formula to negate.</param>
-        public NegationViewModel(IFormulaViewModel formula)
+        public NegationViewModel(IViewModelFor<IFormula> formula)
         {
             Formula = formula;
 
@@ -60,20 +60,22 @@ namespace Client.ViewModel.Formula
         private void InitializeComponent()
         {
             AddFormula = ReactiveCommand
-                .Create<IFormulaViewModel>(formulaViewModel =>
+                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotImplementedException());
         }
 
         /// <summary>
         /// Gets the underlying formula model out of the view model.
         /// </summary>
-        /// <returns><see cref="Negation"/> model represented by given view model.</returns>
+        /// <returns><see cref="Negation"/> model represented by given view model as <see cref="IFormula"/>.</returns>
         public IFormula ToModel()
         {
-            if (Formula == null)
+            var formula = Formula?.ToModel();
+
+            if (formula == null)
                 throw new MemberNotDefinedException("Formula inside a negation is not defined");
 
-            return new Negation(Formula.ToModel());
+            return new Negation(formula);
         }
     }
 }

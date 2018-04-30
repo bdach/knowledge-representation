@@ -12,7 +12,7 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="LiteralView"/> which represents a fluent.
     /// </summary>
-    public class LiteralViewModel : FodyReactiveObject, IFormulaViewModel, IViewModelFor<Model.Fluent>
+    public class LiteralViewModel : FodyReactiveObject, IViewModelFor<IFormula>, IViewModelFor<Model.Fluent>
     {
         /// <summary>
         /// The <see cref="Model.Fluent"/> with which the literal instance is associated.
@@ -22,7 +22,7 @@ namespace Client.ViewModel.Formula
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="LiteralViewModel"/> instance.
@@ -50,14 +50,14 @@ namespace Client.ViewModel.Formula
         private void InitializeComponent()
         {
             AddFormula = ReactiveCommand
-                .Create<IFormulaViewModel>(formulaViewModel =>
+                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotImplementedException());
         }
 
         /// <summary>
         /// Gets the underlying literal model out of the view model.
         /// </summary>
-        /// <returns><see cref="Literal"/> model represented by given view model.</returns>
+        /// <returns><see cref="Literal"/> model represented by given view model as <see cref="IFormula"/>.</returns>
         public IFormula ToModel()
         {
             if (Fluent == null)
@@ -66,6 +66,10 @@ namespace Client.ViewModel.Formula
             return new Literal(Fluent, false);
         }
 
+        /// <summary>
+        /// Gets the underlying fluent model out of the view model.
+        /// </summary>
+        /// <returns><see cref="Model.Fluent"/> model represented by given view model.</returns>
         Model.Fluent IViewModelFor<Model.Fluent>.ToModel()
         {
             if (Fluent == null)

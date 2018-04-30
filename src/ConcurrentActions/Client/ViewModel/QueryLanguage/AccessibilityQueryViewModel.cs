@@ -5,6 +5,7 @@ using Client.Exception;
 using Client.Interface;
 using Client.View.QueryLanguage;
 using Client.ViewModel.Terminal;
+using Model.Forms;
 using Model.QueryLanguage;
 using ReactiveUI;
 
@@ -26,14 +27,14 @@ namespace Client.ViewModel.QueryLanguage
         public string DisplayName => $"{Label} [ ]";
 
         /// <summary>
-        /// The target <see cref="IFormulaViewModel"/> instance.
+        /// The <see cref="IViewModelFor{T}"/> instance returning a target formula.
         /// </summary>
-        public IFormulaViewModel Target { get; set; }
+        public IViewModelFor<IFormula> Target { get; set; }
 
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
         /// <summary>
         /// Command adding a new program.
@@ -46,7 +47,7 @@ namespace Client.ViewModel.QueryLanguage
         public AccessibilityQueryViewModel()
         {
             AddFormula = ReactiveCommand
-                .Create<IFormulaViewModel>(formulaViewModel =>
+                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotImplementedException());
 
             AddProgram = ReactiveCommand
@@ -60,10 +61,12 @@ namespace Client.ViewModel.QueryLanguage
         /// <returns><see cref="AccessibilityQuery"/> model represented by given view model.</returns>
         public AccessibilityQuery ToModel()
         {
-            if (Target == null)
+            var target = Target?.ToModel();
+
+            if (target == null)
                 throw new MemberNotDefinedException("Target in an accessibility query is not defined");
 
-            return new AccessibilityQuery(Target.ToModel());
+            return new AccessibilityQuery(target);
         }
     }
 }

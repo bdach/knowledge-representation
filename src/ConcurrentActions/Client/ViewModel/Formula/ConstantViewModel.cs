@@ -11,22 +11,22 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="ConstantView"/> which represents a boolean constant.
     /// </summary>
-    public class ConstantViewModel : FodyReactiveObject, IFormulaViewModel
+    public class ConstantViewModel : FodyReactiveObject, IViewModelFor<IFormula>
     {
-        /// <summary>
-        /// Underlying constant instance.
-        /// </summary>
-        public Constant Constant { get; set; }
-
         /// <summary>
         /// Symbol used to represent the constant.
         /// </summary>
         public string Symbol => Constant.ToString();
 
         /// <summary>
+        /// Underlying constant instance.
+        /// </summary>
+        public Constant Constant { get; set; }
+
+        /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="ConstantViewModel"/> instance.
@@ -54,14 +54,14 @@ namespace Client.ViewModel.Formula
         private void InitializeComponent()
         {
             AddFormula = ReactiveCommand
-                .Create<IFormulaViewModel>(formulaViewModel =>
+                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotApplicableException("Constant does not support adding formulae"));
         }
 
         /// <summary>
         /// Gets the underlying constant model out of the view model.
         /// </summary>
-        /// <returns><see cref="Model.Forms.Constant"/> model represented by given view model.</returns>
+        /// <returns><see cref="Model.Forms.Constant"/> model represented by given view model as <see cref="IFormula"/>.</returns>
         public IFormula ToModel()
         {
             if (Constant != null)

@@ -12,7 +12,7 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="ImplicationView"/> which represents a logical implication.
     /// </summary>
-    public class ImplicationViewModel : FodyReactiveObject, IFormulaViewModel
+    public class ImplicationViewModel : FodyReactiveObject, IViewModelFor<IFormula>
     {
         /// <summary>
         /// The logical operator character used for rendering the view.
@@ -20,19 +20,19 @@ namespace Client.ViewModel.Formula
         public string Operator => "\u2192";
 
         /// <summary>
-        /// The antecedent (premise) of the implication.
+        /// The <see cref="IViewModelFor{T}"/> instance returning the antecedent (premise) formula of the implication.
         /// </summary>
-        public IFormulaViewModel Antecedent { get; set; }
+        public IViewModelFor<IFormula> Antecedent { get; set; }
 
         /// <summary>
-        /// The consequent of the implication.
+        /// The <see cref="IViewModelFor{T}"/> instance returning the consequent formula of the implication.
         /// </summary>
-        public IFormulaViewModel Consequent { get; set; }
+        public IViewModelFor<IFormula> Consequent { get; set; }
 
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="ImplicationViewModel"/> instance.
@@ -47,7 +47,7 @@ namespace Client.ViewModel.Formula
         /// with the supplied <see cref="antecedent"/> formula.
         /// </summary>
         /// <param name="antecedent">Implication's left formula.</param>
-        public ImplicationViewModel(IFormulaViewModel antecedent)
+        public ImplicationViewModel(IViewModelFor<IFormula> antecedent)
         {
             Antecedent = antecedent;
 
@@ -60,7 +60,7 @@ namespace Client.ViewModel.Formula
         /// </summary>
         /// <param name="antecedent">Implication's left formula.</param>
         /// <param name="consequent">Implication's right formula.</param>
-        public ImplicationViewModel(IFormulaViewModel antecedent, IFormulaViewModel consequent)
+        public ImplicationViewModel(IViewModelFor<IFormula> antecedent, IViewModelFor<IFormula> consequent)
         {
             Antecedent = antecedent;
             Consequent = consequent;
@@ -74,22 +74,25 @@ namespace Client.ViewModel.Formula
         private void InitializeComponent()
         {
             AddFormula = ReactiveCommand
-                .Create<IFormulaViewModel>(formulaViewModel =>
+                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotImplementedException());
         }
 
         /// <summary>
         /// Gets the underlying formula model out of the view model.
         /// </summary>
-        /// <returns><see cref="Implication"/> model represented by given view model.</returns>
+        /// <returns><see cref="Implication"/> model represented by given view model as <see cref="IFormula"/>.</returns>
         public IFormula ToModel()
         {
-            if (Antecedent == null)
+            var antecedent = Antecedent?.ToModel();
+            var consequent = Consequent?.ToModel();
+
+            if (antecedent == null)
                 throw new MemberNotDefinedException("Antecedent of an implication is not defined");
-            if (Consequent == null)
+            if (consequent == null)
                 throw new MemberNotDefinedException("Consequent of an implication is not defined");
 
-            return new Implication(Antecedent.ToModel(), Consequent.ToModel());
+            return new Implication(antecedent, consequent);
         }
     }
 }
