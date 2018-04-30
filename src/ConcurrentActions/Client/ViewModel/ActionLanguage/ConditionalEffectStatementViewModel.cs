@@ -26,6 +26,9 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public string LabelRight => "if";
 
+        /// <inheritdoc />
+        public string ClauseTypeNameKey => "EffectStatement";
+
         /// <summary>
         /// Name of the query displayed in dropdown menu.
         /// </summary>

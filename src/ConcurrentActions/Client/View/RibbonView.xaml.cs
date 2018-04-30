@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Windows;
 using Client.ViewModel;
@@ -31,6 +30,10 @@ namespace Client.View
             
             this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.LiteralViewModels, v => v.FluentsGallery.ItemsSource);
             this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.ActionViewModels, v => v.ActionsGallery.ItemsSource);
+            this.OneWayBind(ViewModel, vm => vm.ActionClauseTypes, v => v.ActionClauseGallery.ItemsSource);
+            this.OneWayBind(ViewModel, vm => vm.QueryClauseTypes, v => v.QueryClauseGallery.ItemsSource);
+            this.Bind(ViewModel, vm => vm.LocalizeGroupName, v => v.ActionClauseGallery.GroupByAdvanced);
+            this.Bind(ViewModel, vm => vm.LocalizeGroupName, v => v.QueryClauseGallery.GroupByAdvanced);
 
             this.WhenAnyObservable(v => v.ViewModel.ScenarioContainer.LiteralViewModels.CountChanged)
                 .Select(GetVisibilityForCount)

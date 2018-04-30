@@ -21,6 +21,9 @@ namespace Client.ViewModel.QueryLanguage
         /// </summary>
         public string Label => "accessible";
 
+        /// <inheritdoc />
+        public string ClauseTypeNameKey => "AccessibilityQuery";
+
         /// <summary>
         /// Name of the query displayed in dropdown menu.
         /// </summary>

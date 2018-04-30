@@ -8,7 +8,7 @@ namespace Client.Interface
     /// <summary>
     /// Base interface for every Query Language clause.
     /// </summary>
-    public interface IQueryClauseViewModel
+    public interface IQueryClauseViewModel : IClauseViewModel
     {
         /// <summary>
         /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.

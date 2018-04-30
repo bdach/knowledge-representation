@@ -21,6 +21,9 @@ namespace Client.ViewModel.QueryLanguage
         /// </summary>
         public string LabelLeft => "possibly";
 
+        /// <inheritdoc />
+        public string ClauseTypeNameKey => "ValueQuery";
+
         /// <summary>
         /// Second keyword describing the query.
         /// </summary>

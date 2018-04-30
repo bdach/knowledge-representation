@@ -21,6 +21,9 @@ namespace Client.ViewModel.QueryLanguage
         /// </summary>
         public string Label => "executable sometimes";
 
+        /// <inheritdoc />
+        public string ClauseTypeNameKey => "ExecutabilityQuery";
+
         /// <summary>
         /// Name of the query displayed in dropdown menu.
         /// </summary>

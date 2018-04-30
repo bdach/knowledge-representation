@@ -26,6 +26,9 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public string DisplayName => $"[ ] {Label} [ ]";
 
+        /// <inheritdoc />
+        public string ClauseTypeNameKey => "ValueStatement";
+
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a condition.
         /// </summary>

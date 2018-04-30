@@ -26,6 +26,9 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public string LabelRight => "after";
 
+        /// <inheritdoc />
+        public string ClauseTypeNameKey => "ObservationStatement";
+
         /// <summary>
         /// Name of the query displayed in dropdown menu.
         /// </summary>

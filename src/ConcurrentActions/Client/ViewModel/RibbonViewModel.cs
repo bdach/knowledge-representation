@@ -1,6 +1,9 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Reactive;
 using Client.Abstract;
 using Client.Global;
+using Client.Interface;
 using Client.Provider;
 using Client.View;
 using Client.View.Modal;
@@ -47,6 +50,28 @@ namespace Client.ViewModel
         public ReactiveCommand<Unit, Unit> ShowAddActionModal { get; protected set; }
 
         /// <summary>
+        /// Read-only collection of all available action clause types.
+        /// </summary>
+        /// <remarks>
+        /// Fun fact: I tried to leave this out and bind onto a static property in the view.
+        /// Unfortunately ReactiveUI shat itself when I tried to do that, but this works, so here you go.
+        /// Potential TODO: get this outta here
+        /// </remarks>
+        public ReadOnlyCollection<IActionClauseViewModel> ActionClauseTypes { get; } = ClauseTypes.GetAllImplementors<IActionClauseViewModel>();
+
+        /// <summary>
+        /// Read-only collection of all available query clause types.
+        /// </summary>
+        /// <remarks>
+        /// Fun fact: I tried to leave this out and bind onto a static property in the view.
+        /// Unfortunately ReactiveUI shat itself when I tried to do that, but this works, so here you go.
+        /// Potential TODO: get this outta here
+        /// </remarks>
+        public ReadOnlyCollection<IQueryClauseViewModel> QueryClauseTypes { get; } = ClauseTypes.GetAllImplementors<IQueryClauseViewModel>();
+
+        public Func<object, string> LocalizeGroupName { get; private set; }
+
+        /// <summary>
         /// Initializes a new <see cref="RibbonViewModel"/> instance.
         /// </summary>
         /// <param name="scenarioContainer">Scenario container with the current language signature.</param>
@@ -71,6 +96,15 @@ namespace Client.ViewModel
                 var modalView = (ActionModalView)Locator.Current.GetService<IViewFor<ActionModalViewModel>>();
                 modalView.ShowDialog();
             });
+
+            LocalizeGroupName = o => LocalizationProvider.Instance[((IClauseViewModel)o).ClauseTypeNameKey];
+            // Force switch to new language
+            // I know, this is way too ugly to live, but I don't really want to spend more time on this
+            // TODO fix maybe?
+            LocalizationProvider.Instance.PropertyChanged += (sender, args) =>
+            {
+                LocalizeGroupName = o => LocalizationProvider.Instance[((IClauseViewModel)o).ClauseTypeNameKey];
+            };
         }
     }
 }

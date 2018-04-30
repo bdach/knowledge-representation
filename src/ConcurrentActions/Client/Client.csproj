@@ -95,8 +95,10 @@
     <Compile Include="Abstract\FodyReactiveObject.cs" />
     <Compile Include="Exception\MemberNotDefinedException.cs" />
     <Compile Include="Exception\NotApplicableException.cs" />
+    <Compile Include="Global\ClauseTypes.cs" />
     <Compile Include="Global\ScenarioContainer.cs" />
     <Compile Include="Interface\IActionClauseViewModel.cs" />
+    <Compile Include="Interface\IClauseViewModel.cs" />
     <Compile Include="Interface\IGalleryItem.cs" />
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
     <Compile Include="Interface\IViewModelFor.cs" />

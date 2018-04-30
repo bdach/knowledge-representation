@@ -25,6 +25,8 @@ namespace Client.ViewModel.ActionLanguage
         /// Second keyword describing the query.
         /// </summary>
         public string LabelRight => "if";
+        /// <inheritdoc />
+        public string ClauseTypeNameKey => "FluentReleaseStatement";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.

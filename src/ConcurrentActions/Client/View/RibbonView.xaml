@@ -191,14 +191,28 @@
                         Name="AddActionClauseDropDown"
                         Header="{local:Loc AddActionClauseDropDown}"
                         Icon="/Client;component/Resources/Images/domain-64.png"
-                        LargeIcon="/Client;component/Resources/Images/domain-128.png" />
+                        LargeIcon="/Client;component/Resources/Images/domain-128.png">
+
+                        <fluent:Gallery
+                            Name="ActionClauseGallery"
+                            Width="200"
+                            Orientation="Vertical" />
+
+                    </fluent:DropDownButton>
 
                     <fluent:DropDownButton
                         Style="{DynamicResource RibbonLargeMediumDropDown}"
                         Name="AddQueryClauseDropDown"
                         Header="{local:Loc AddQueryClauseDropDown}"
                         Icon="/Client;component/Resources/Images/queries-64.png"
-                        LargeIcon="/Client;component/Resources/Images/queries-128.png" />
+                        LargeIcon="/Client;component/Resources/Images/queries-128.png">
+                        
+                        <fluent:Gallery
+                            Name="QueryClauseGallery"
+                            Width="200"
+                            Orientation="Vertical" />
+
+                    </fluent:DropDownButton>
 
                 </fluent:RibbonGroupBox>
 

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessibilityQuery" xml:space="preserve">
+    <value>Kwerenda osiągalności</value>
+  </data>
   <data name="ActionDropDown" xml:space="preserve">
     <value>Akcje</value>
   </data>
@@ -177,17 +180,32 @@
   <data name="ConjunctionButton" xml:space="preserve">
     <value>Koniunkcja</value>
   </data>
+  <data name="ConstraintStatement" xml:space="preserve">
+    <value>Zdanie ograniczenia</value>
+  </data>
   <data name="EditTab" xml:space="preserve">
     <value>Edycja</value>
   </data>
+  <data name="EffectStatement" xml:space="preserve">
+    <value>Zdania efektu</value>
+  </data>
   <data name="EquivalenceButton" xml:space="preserve">
     <value>Równoważność</value>
+  </data>
+  <data name="ExecutabilityQuery" xml:space="preserve">
+    <value>Kwerendy wykonywalności</value>
   </data>
   <data name="ExportButton" xml:space="preserve">
     <value>Eksportuj do pliku</value>
   </data>
   <data name="FluentDropDown" xml:space="preserve">
     <value>Fluenty</value>
+  </data>
+  <data name="FluentReleaseStatement" xml:space="preserve">
+    <value>Zdania uwolnienia fluentu</value>
+  </data>
+  <data name="FluentSpecificationStatement" xml:space="preserve">
+    <value>Zdanie specyfikacji fluentu</value>
   </data>
   <data name="FormulaGroupBox" xml:space="preserve">
     <value>Edytor formuł</value>
@@ -198,17 +216,29 @@
   <data name="ImportButton" xml:space="preserve">
     <value>Importuj z pliku</value>
   </data>
+  <data name="InitialValueStatement" xml:space="preserve">
+    <value>Zdanie wartości początkowej</value>
+  </data>
   <data name="LanguageGroupBox" xml:space="preserve">
     <value>Sygnatura języka</value>
   </data>
   <data name="NegationButton" xml:space="preserve">
     <value>Negacja</value>
   </data>
+  <data name="ObservationStatement" xml:space="preserve">
+    <value>Zdanie obserwacji</value>
+  </data>
   <data name="OptionsTab" xml:space="preserve">
     <value>Opcje</value>
   </data>
   <data name="SystemGroupBox" xml:space="preserve">
     <value>System dynamiczny</value>
+  </data>
+  <data name="ValueQuery" xml:space="preserve">
+    <value>Kwerendy wartości</value>
+  </data>
+  <data name="ValueStatement" xml:space="preserve">
+    <value>Zdanie wartości</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value> Akcje równoległe</value>

@@ -8,7 +8,7 @@ namespace Client.Interface
     /// <summary>
     /// Base interface for every Action Language clause.
     /// </summary>
-    public interface IActionClauseViewModel
+    public interface IActionClauseViewModel : IClauseViewModel
     {
         /// <summary>
         /// Adds a new <see cref="ActionViewModel"/> to edited clause.
