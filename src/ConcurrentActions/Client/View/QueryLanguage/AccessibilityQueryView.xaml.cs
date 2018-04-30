@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reactive.Linq;
+using System.Windows;
 using Client.ViewModel.QueryLanguage;
 using ReactiveUI;
 
@@ -20,6 +22,12 @@ namespace Client.View.QueryLanguage
         public AccessibilityQueryView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
+            this.OneWayBind(ViewModel, vm => vm.Target, v => v.Target.ViewModel);
+
+            this.WhenAnyValue(v => v.IsMouseOver, v => v.Target.IsMouseOver)
+                .Select(t => t.Item1 && !t.Item2)
+                .Subscribe(v => Highlight = v);
         }
 
         public AccessibilityQueryViewModel ViewModel

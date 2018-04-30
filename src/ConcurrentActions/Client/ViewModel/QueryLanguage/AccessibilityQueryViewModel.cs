@@ -19,7 +19,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// Keyword describing the query.
         /// </summary>
-        public static string Label => "accessible";
+        public string Label => "accessible";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.
@@ -29,7 +29,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a target formula.
         /// </summary>
-        public IViewModelFor<IFormula> Target { get; set; }
+        public IViewModelFor<IFormula> Target { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new formula.

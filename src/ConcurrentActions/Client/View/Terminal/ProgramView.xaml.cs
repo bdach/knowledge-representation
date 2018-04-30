@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reactive.Linq;
+using System.Windows;
 using Client.ViewModel.Terminal;
 using ReactiveUI;
 
@@ -20,6 +22,11 @@ namespace Client.View.Terminal
         public ProgramView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.CompoundActions, v => v.CompoundActions.ItemsSource);
+
+            this.WhenAnyValue(v => v.IsMouseOver, v => v.CompoundActions.IsMouseOver)
+                .Select(t => t.Item1 && !t.Item2)
+                .Subscribe(v => Highlight = v);
         }
 
         public ProgramViewModel ViewModel

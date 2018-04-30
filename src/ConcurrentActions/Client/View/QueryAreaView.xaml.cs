@@ -20,6 +20,7 @@ namespace Client.View
         public QueryAreaView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.QuerySet, v => v.QueryListView.ItemsSource);
         }
 
         public QueryAreaViewModel ViewModel

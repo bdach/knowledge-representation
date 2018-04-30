@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Model;
+using ReactiveUI;
 
 namespace Client.ViewModel.Terminal
 {
@@ -11,39 +13,14 @@ namespace Client.ViewModel.Terminal
     /// </summary>
     public class ProgramViewModel : FodyReactiveObject, IViewModelFor<Program>
     {
-        /// <summary>
-        /// Underlying <see cref="Model.Program"/> instance.
-        /// </summary>
-        public Program Program { get; set; }
+        public ReactiveList<CompoundActionViewModel> CompoundActions;
 
         /// <summary>
         /// Initializes a new <see cref="ProgramViewModel"/> instance.
         /// </summary>
         public ProgramViewModel()
         {
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="ProgramViewModel"/> instance
-        /// with the supplied <see cref="program"/>.
-        /// </summary>
-        /// <param name="program">Program instance.</param>
-        public ProgramViewModel(Program program)
-        {
-            Program = program;
-
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="ProgramViewModel"/> instance
-        /// with the supplied list of <see cref="actions"/>.
-        /// </summary>
-        /// <param name="actions">List of actions.</param>
-        public ProgramViewModel(IEnumerable<CompoundAction> actions)
-        {
-            Program = new Program(actions);
+            CompoundActions = new ReactiveList<CompoundActionViewModel>();
 
             InitializeComponent();
         }
@@ -58,11 +35,12 @@ namespace Client.ViewModel.Terminal
 
         public Program ToModel()
         {
-            if (Program == null)
-                throw new MemberNotDefinedException("One of the programs is not defined");
-            // TODO: check if exists but is empty? or make sure that empty cannot be added in the program creation modal
-
-            return Program;
+            var compoundActions = CompoundActions.Select(cavm => cavm.ToModel()).ToList();
+            if (compoundActions.Any(ca => ca == null))
+            {
+                throw new MemberNotDefinedException("One of the compound actions in the program has not been defined");
+            }
+            return new Program(compoundActions);
         }
     }
 }

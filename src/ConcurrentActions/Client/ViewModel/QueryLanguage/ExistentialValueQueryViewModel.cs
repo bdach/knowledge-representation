@@ -19,12 +19,12 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// First keyword describing the query.
         /// </summary>
-        public static string LabelLeft => "possibly";
+        public string LabelLeft => "possibly";
 
         /// <summary>
         /// Second keyword describing the query.
         /// </summary>
-        public static string LabelRight => "after";
+        public string LabelRight => "after";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.
@@ -34,12 +34,12 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a target formula.
         /// </summary>
-        public IViewModelFor<IFormula> Target { get; set; }
+        public IViewModelFor<IFormula> Target { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// The <see cref="ProgramViewModel"/> instance.
         /// </summary>
-        public ProgramViewModel Program { get; set; }
+        public ProgramViewModel Program { get; set; } = new ProgramViewModel();
 
         /// <summary>
         /// Command adding a new formula.

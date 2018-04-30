@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.Terminal;
 using Model;
+using ReactiveUI;
 
 namespace Client.ViewModel.Terminal
 {
@@ -12,64 +13,14 @@ namespace Client.ViewModel.Terminal
     /// </summary>
     public class CompoundActionViewModel : FodyReactiveObject, IViewModelFor<CompoundAction>
     {
-        /// <summary>
-        /// Underlying <see cref="Model.CompoundAction"/> instance.
-        /// </summary>
-        public CompoundAction CompoundAction { get; set; }
+        public ReactiveList<ActionViewModel> Actions { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="CompoundActionViewModel"/> instance.
         /// </summary>
         public CompoundActionViewModel()
         {
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="CompoundActionViewModel"/> instance
-        /// with the supplied <see cref="action"/>.
-        /// </summary>
-        /// <param name="action">Action instance.</param>
-        public CompoundActionViewModel(Action action)
-        {
-            CompoundAction = new CompoundAction(action);
-
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="CompoundActionViewModel"/> instance
-        /// with the supplied <see cref="compoundAction"/>.
-        /// </summary>
-        /// <param name="compoundAction">Compound action instance.</param>
-        public CompoundActionViewModel(CompoundAction compoundAction)
-        {
-            CompoundAction = compoundAction;
-
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="CompoundActionViewModel"/> instance
-        /// with the supplied list of <see cref="actions"/>.
-        /// </summary>
-        /// <param name="actions">Collection of actions.</param>
-        public CompoundActionViewModel(IEnumerable<Action> actions)
-        {
-            CompoundAction = new CompoundAction(actions);
-
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="CompoundActionViewModel"/> instance
-        /// with the supplied list of <see cref="actions"/> filtered by <see cref="selection"/>.
-        /// </summary>
-        /// <param name="actions">Collection of actions.</param>
-        /// <param name="selection">List of booleans to select actions.</param>
-        public CompoundActionViewModel(ICollection<Action> actions, ICollection<bool> selection)
-        {
-            CompoundAction = new CompoundAction(actions, selection);
+            Actions = new ReactiveList<ActionViewModel>();
 
             InitializeComponent();
         }
@@ -88,11 +39,12 @@ namespace Client.ViewModel.Terminal
         /// <returns><see cref="Model.CompoundAction"/> model represented by given view model.</returns>
         public CompoundAction ToModel()
         {
-            if (CompoundAction == null)
-                throw new MemberNotDefinedException("One of the compound actions is not defined");
-            // TODO: check if exists but is empty? or make sure that empty cannot be added in the action creation modal
-
-            return CompoundAction;
+            var actions = Actions.Select(avm => avm.ToModel()).ToList();
+            if (actions.Any(a => a == null))
+            {
+                throw new MemberNotDefinedException("One of the actions in this compound action has not been defined");
+            }
+            return new CompoundAction(actions);
         }
     }
 }

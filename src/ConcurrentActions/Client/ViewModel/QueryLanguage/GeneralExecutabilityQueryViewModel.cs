@@ -19,7 +19,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// Keyword describing the query.
         /// </summary>
-        public static string Label => "executable always";
+        public string Label => "executable always";
 
         /// <summary>
         /// Name of the query displayed in dropdown menu.
@@ -29,7 +29,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// The <see cref="Model.Program"/> instance.
         /// </summary>
-        public ProgramViewModel Program { get; set; }
+        public ProgramViewModel Program { get; set; } = new ProgramViewModel();
 
         /// <summary>
         /// Command adding a new formula.
