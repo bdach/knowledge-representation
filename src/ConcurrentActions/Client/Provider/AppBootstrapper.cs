@@ -4,6 +4,7 @@ using Client.Abstract;
 using Client.Global;
 using Client.View;
 using Client.ViewModel;
+using Client.ViewModel.Modal;
 using ReactiveUI;
 using Splat;
 
@@ -21,6 +22,7 @@ namespace Client.Provider
         {
             LocalizationProvider.SetLocale(LocalizationProvider.Polish);
             RegisterMainWindow();
+            RegisterModalViewModels();
             RegisterScenarioContainer();
             RegisterViews();
         }
@@ -33,6 +35,14 @@ namespace Client.Provider
         {
             Locator.CurrentMutable.RegisterLazySingleton(() => new ShellViewModel(), typeof(ShellViewModel));
             Locator.CurrentMutable.RegisterLazySingleton(() => new ShellView(Locator.Current.GetService<ShellViewModel>()), typeof(IViewFor<ShellViewModel>));
+        }
+
+        /// <summary>
+        /// Registers view models associated with modal windows in the <see cref="Locator"/>.
+        /// </summary>
+        private void RegisterModalViewModels()
+        {
+            Locator.CurrentMutable.Register(() => new FluentModalViewModel(), typeof(FluentModalViewModel));
         }
 
         /// <summary>

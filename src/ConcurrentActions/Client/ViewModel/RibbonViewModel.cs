@@ -2,7 +2,10 @@
 using Client.Abstract;
 using Client.Provider;
 using Client.View;
+using Client.View.Modal;
+using Client.ViewModel.Modal;
 using ReactiveUI;
+using Splat;
 
 namespace Client.ViewModel
 {
@@ -28,6 +31,11 @@ namespace Client.ViewModel
         public ReactiveCommand<Unit, Unit> SetPolishLocale { get; protected set; }
 
         /// <summary>
+        /// Command displaying the modal allowing the user to add a fluent to the current scenario.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ShowAddFluentModal { get; protected set; }
+
+        /// <summary>
         /// Initializes a new <see cref="RibbonViewModel"/> instance.
         /// </summary>
         public RibbonViewModel()
@@ -35,6 +43,11 @@ namespace Client.ViewModel
             CloseWindow = ReactiveCommand.Create(() => Unit.Default);
             SetEnglishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.AmericanEnglish));
             SetPolishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.Polish));
+            ShowAddFluentModal = ReactiveCommand.Create(() =>
+            {
+                var modalView = (FluentModalView)Locator.Current.GetService<IViewFor<FluentModalViewModel>>();
+                modalView.ShowDialog();
+            });
         }
     }
 }

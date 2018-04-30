@@ -24,6 +24,7 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.CloseWindow, v => v.CloseButton);
             this.BindCommand(ViewModel, vm => vm.SetEnglishLocale, v => v.EnglishButton);
             this.BindCommand(ViewModel, vm => vm.SetPolishLocale, v => v.PolishButton);
+            this.BindCommand(ViewModel, vm => vm.ShowAddFluentModal, v => v.AddFluentButton);
 
             // TODO: hide separators in fluent and action dropdowns if there are no items in galeries
         }

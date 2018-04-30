@@ -1,6 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reactive.Linq;
+using System.Windows;
+using System.Windows.Media;
 using Client.ViewModel.Modal;
 using ReactiveUI;
+using Splat;
 
 namespace Client.View.Modal
 {
@@ -20,6 +24,15 @@ namespace Client.View.Modal
         public FluentModalView()
         {
             InitializeComponent();
+            ViewModel = Locator.Current.GetService<FluentModalViewModel>();
+            this.BindCommand(ViewModel, vm => vm.AddFluent, v => v.AddFluentConfirmButton);
+            this.BindCommand(ViewModel, vm => vm.CloseModal, v => v.AddFluentCancelButton);
+            this.Bind(ViewModel, vm => vm.FluentName, v => v.FluentNameBox.Text);
+
+            ViewModel.AddFluent.CanExecute
+                .Select(canExecute => canExecute ? Brushes.Gray : Brushes.Red)
+                .Subscribe(brush => FluentNameBox.BorderBrush = brush);
+            ViewModel.CloseModal.Subscribe(_ => Close());
         }
 
         public FluentModalViewModel ViewModel
