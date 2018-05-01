@@ -28,6 +28,9 @@ namespace Client.View.ActionLanguage
             this.OneWayBind(ViewModel, vm => vm.LabelRight, v => v.LabelRight.Text);
             this.OneWayBind(ViewModel, vm => vm.Precondition, v => v.Precondition.ViewModel);
 
+            this.WhenAnyValue(v => v.IsFocused)
+                .BindTo(this, v => v.ViewModel.IsFocused);
+
             this.WhenAnyValue(vm => vm.IsMouseOver, vm => vm.Action.IsMouseOver, vm => vm.Literal.IsMouseOver,
                     vm => vm.Precondition.IsMouseOver)
                 .Select(t => t.Item1 && !t.Item2 && !t.Item3 && !t.Item4)

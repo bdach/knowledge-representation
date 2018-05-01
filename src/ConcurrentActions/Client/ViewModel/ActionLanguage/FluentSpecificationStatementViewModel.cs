@@ -1,4 +1,7 @@
-﻿using Client.Abstract;
+﻿using System;
+using System.Reactive;
+using System.Reactive.Linq;
+using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.ActionLanguage;
@@ -45,6 +48,9 @@ namespace Client.ViewModel.ActionLanguage
         /// <inheritdoc />
         public bool IsFocused { get; set; }
 
+        /// <inheritdoc />
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
         /// <summary>
         /// Initializes a new <see cref="FluentSpecificationStatementViewModel"/> instance.
         /// </summary>
@@ -60,6 +66,10 @@ namespace Client.ViewModel.ActionLanguage
             AddFluent.BindTo(this, vm => vm.Fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            DeleteFocused.Where(_ => Fluent.IsFocused).Subscribe(_ => Fluent = new PlaceholderViewModel());
+            DeleteFocused.Where(_ => !Fluent.IsFocused).InvokeCommand(this, vm => vm.Fluent.DeleteFocused);
         }
 
         /// <inheritdoc />

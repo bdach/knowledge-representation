@@ -1,4 +1,7 @@
-﻿using Client.Abstract;
+﻿using System;
+using System.Reactive;
+using System.Reactive.Linq;
+using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.ActionLanguage;
@@ -46,6 +49,9 @@ namespace Client.ViewModel.ActionLanguage
         /// <inheritdoc />
         public bool IsFocused { get; set; }
 
+        /// <inheritdoc />
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
         /// <summary>
         /// Initializes a new <see cref="UnconditionalImpossibilityStatementViewModel"/> instance.
         /// </summary>
@@ -60,6 +66,10 @@ namespace Client.ViewModel.ActionLanguage
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            DeleteFocused.Where(_ => Action.IsFocused).Subscribe(_ => Action = new PlaceholderViewModel());
+            DeleteFocused.Where(_ => !Action.IsFocused).InvokeCommand(this, vm => vm.Action.DeleteFocused);
         }
 
         /// <inheritdoc />

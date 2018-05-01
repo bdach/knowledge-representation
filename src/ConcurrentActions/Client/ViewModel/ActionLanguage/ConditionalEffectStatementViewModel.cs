@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
@@ -62,6 +63,9 @@ namespace Client.ViewModel.ActionLanguage
         /// <inheritdoc />
         public bool IsFocused { get; set; }
 
+        /// <inheritdoc />
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
         /// <summary>
         /// Initializes a new <see cref="ConditionalEffectStatementViewModel"/> instance.
         /// </summary>
@@ -84,6 +88,18 @@ namespace Client.ViewModel.ActionLanguage
             this.WhenAnyObservable(vm => vm.AddFormula)
                 .Where(_ => !IsFocused)
                 .InvokeCommand(this, vm => vm.Postcondition.AddFormula);
+
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            DeleteFocused.Where(_ => Action.IsFocused).Subscribe(_ => Action = new PlaceholderViewModel());
+            DeleteFocused.Where(_ => Precondition.IsFocused).Subscribe(_ => Precondition = new PlaceholderViewModel());
+            DeleteFocused.Where(_ => Postcondition.IsFocused).Subscribe(_ => Postcondition = new PlaceholderViewModel());
+
+            DeleteFocused.Where(_ => !(Action.IsFocused || Precondition.IsFocused || Postcondition.IsFocused))
+                .InvokeCommand(this, vm => vm.Action.DeleteFocused);
+            DeleteFocused.Where(_ => !(Action.IsFocused || Precondition.IsFocused || Postcondition.IsFocused))
+                .InvokeCommand(this, vm => vm.Precondition.DeleteFocused);
+            DeleteFocused.Where(_ => !(Action.IsFocused || Precondition.IsFocused || Postcondition.IsFocused))
+                .InvokeCommand(this, vm => vm.Postcondition.DeleteFocused);
         }
 
         private void InsertFormula(IFormulaViewModel formula)

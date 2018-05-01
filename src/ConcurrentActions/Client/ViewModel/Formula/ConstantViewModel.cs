@@ -1,7 +1,11 @@
-﻿using Client.Abstract;
+﻿using System;
+using System.Reactive;
+using System.Reactive.Linq;
+using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.Formula;
+using Client.ViewModel.Terminal;
 using Model.Forms;
 using ReactiveUI;
 
@@ -30,6 +34,9 @@ namespace Client.ViewModel.Formula
         /// <inheritdoc />
         public bool IsFocused { get; set; }
 
+        /// <inheritdoc />
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
         /// <summary>
         /// Initializes a new <see cref="ConstantViewModel"/> instance.
         /// </summary>
@@ -56,6 +63,7 @@ namespace Client.ViewModel.Formula
         private void InitializeComponent()
         {
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
         }
 
         /// <inheritdoc />

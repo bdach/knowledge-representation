@@ -43,6 +43,7 @@ namespace Client.ViewModel
         /// </summary>
         public ReactiveCommand<Unit, Unit> SetEnglishLocale { get; protected set; }
 
+        // TODO: consider changing locale commands to one parameter-based
         /// <summary>
         /// Command changing the application language to Polish.
         /// </summary>
@@ -161,13 +162,13 @@ namespace Client.ViewModel
 
             SelectFormula = ReactiveCommand.Create((IFormulaViewModel vm) => vm);
 
-            LocalizeGroupName = o => LocalizationProvider.Instance[((IClauseViewModel)o).ClauseTypeNameKey];
+            LocalizeGroupName = obj => LocalizationProvider.Instance[((IClauseViewModel)obj).ClauseTypeNameKey];
             // Force switch to new language
             // I know, this is way too ugly to live, but I don't really want to spend more time on this
             // TODO: fix maybe?
             LocalizationProvider.Instance.PropertyChanged += (sender, args) =>
             {
-                LocalizeGroupName = o => LocalizationProvider.Instance[((IClauseViewModel)o).ClauseTypeNameKey];
+                LocalizeGroupName = obj => LocalizationProvider.Instance[((IClauseViewModel)obj).ClauseTypeNameKey];
             };
         }
     }

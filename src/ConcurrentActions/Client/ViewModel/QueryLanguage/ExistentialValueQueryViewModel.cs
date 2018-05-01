@@ -52,6 +52,9 @@ namespace Client.ViewModel.QueryLanguage
         /// <inheritdoc />
         public bool IsFocused { get; set; }
 
+        /// <inheritdoc />
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
         /// <summary>
         /// Initializes a new <see cref="ExistentialValueQueryViewModel"/> instance.
         /// </summary>
@@ -64,6 +67,8 @@ namespace Client.ViewModel.QueryLanguage
             AddProgram = ReactiveCommand
                 .Create<ProgramViewModel>(programViewModel =>
                     throw new NotImplementedException());
+
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
         }
 
         /// <inheritdoc />

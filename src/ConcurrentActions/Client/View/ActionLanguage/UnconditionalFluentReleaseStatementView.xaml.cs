@@ -26,6 +26,9 @@ namespace Client.View.ActionLanguage
             this.OneWayBind(ViewModel, vm => vm.Label, v => v.Label.Text);
             this.OneWayBind(ViewModel, vm => vm.Fluent, v => v.Literal.ViewModel);
 
+            this.WhenAnyValue(v => v.IsFocused)
+                .BindTo(this, v => v.ViewModel.IsFocused);
+
             this.WhenAnyValue(v => v.IsMouseOver, v => v.Action.IsMouseOver, v => v.Literal.IsMouseOver)
                 .Select(t => t.Item1 && !t.Item2 && !t.Item3)
                 .Subscribe(v => Highlight = v);

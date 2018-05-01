@@ -20,5 +20,6 @@ namespace Client.Interface
         /// Adds a new nested <see cref="IViewModelFor{IFormula}"/> to the formula.
         /// </summary>
         ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
+        
     }
 }

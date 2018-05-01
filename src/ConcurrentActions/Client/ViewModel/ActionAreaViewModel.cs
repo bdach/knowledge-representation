@@ -38,6 +38,11 @@ namespace Client.ViewModel
         public ReactiveCommand<IFormulaViewModel, Unit> AddFormula;
 
         /// <summary>
+        /// Command triggered by delete key used to delete currently selected clause element.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
+        /// <summary>
         /// Initializes a new <see cref="ActionAreaViewModel"/> instance.
         /// </summary>
         public ActionAreaViewModel()
@@ -65,6 +70,24 @@ namespace Client.ViewModel
                 foreach (var viewModel in ActionDomain)
                 {
                     Observable.Start(() => form).InvokeCommand(viewModel.AddFormula);
+                }
+            }, null, RxApp.MainThreadScheduler);
+
+            DeleteFocused = ReactiveCommand.Create(() =>
+            {
+                foreach (var viewModel in ActionDomain)
+                {
+                    if (viewModel.IsFocused)
+                    {
+                        ActionDomain.Remove(viewModel);
+                        return;
+                    }
+                }
+
+                // these foreach loops are separated to make sure that we propagate deletion only if no clauses are selected
+                foreach (var viewModel in ActionDomain)
+                {
+                    Observable.Start(() => Unit.Default).InvokeCommand(viewModel.DeleteFocused);
                 }
             }, null, RxApp.MainThreadScheduler);
         }

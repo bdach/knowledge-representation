@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
@@ -37,6 +38,9 @@ namespace Client.ViewModel.Formula
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
+
+        /// <inheritdoc />
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="EquivalenceViewModel"/> instance.
@@ -86,6 +90,15 @@ namespace Client.ViewModel.Formula
             this.WhenAnyObservable(vm => vm.AddFormula)
                 .Where(_ => !IsFocused)
                 .InvokeCommand(this, vm => vm.Right.AddFormula);
+
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            DeleteFocused.Where(_ => Left.IsFocused).Subscribe(_ => Left = new PlaceholderViewModel());
+            DeleteFocused.Where(_ => Right.IsFocused).Subscribe(_ => Right = new PlaceholderViewModel());
+
+            DeleteFocused.Where(_ => !(Left.IsFocused || Right.IsFocused))
+                .InvokeCommand(this, vm => vm.Left.DeleteFocused);
+            DeleteFocused.Where(_ => !(Left.IsFocused || Right.IsFocused))
+                .InvokeCommand(this, vm => vm.Right.DeleteFocused);
         }
 
         private void InsertFormula(IFormulaViewModel formula)

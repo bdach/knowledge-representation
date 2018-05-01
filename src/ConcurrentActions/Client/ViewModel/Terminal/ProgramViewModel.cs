@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Reactive;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -17,9 +18,11 @@ namespace Client.ViewModel.Terminal
         /// </summary>
         public ReactiveList<CompoundActionViewModel> CompoundActions;
 
-
         /// <inheritdoc />
         public bool IsFocused { get; set; }
+
+        /// <inheritdoc />
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="ProgramViewModel"/> instance.
@@ -36,7 +39,7 @@ namespace Client.ViewModel.Terminal
         /// </summary>
         private void InitializeComponent()
         {
-
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
         }
 
         public Program ToModel()

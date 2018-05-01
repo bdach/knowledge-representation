@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using Client.Abstract;
 using Client.Global;
 using Client.View;
@@ -30,6 +32,11 @@ namespace Client.ViewModel
         /// View model of nested <see cref="QueryAreaView"/>.
         /// </summary>
         public QueryAreaViewModel QueryAreaViewModel { get; set; }
+
+        /// <summary>
+        /// Command triggered by delete key used to delete currently selected clause element.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="ShellViewModel"/> instance.
@@ -74,6 +81,9 @@ namespace Client.ViewModel
                 var actionDomain = ActionAreaViewModel.GetActionDomainModel();
                 var querySet = QueryAreaViewModel.GetQuerySetModel();
             });
+
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            DeleteFocused.Where(_ => Keyboard.IsKeyDown(Key.Delete)).InvokeCommand(ActionAreaViewModel, vm => vm.DeleteFocused);
         }
     }
 }

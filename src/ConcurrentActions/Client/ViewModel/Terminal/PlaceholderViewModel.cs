@@ -1,4 +1,5 @@
-﻿using Client.Abstract;
+﻿using System.Reactive;
+using Client.Abstract;
 using Client.Interface;
 using Model;
 using Model.Forms;
@@ -12,12 +13,18 @@ namespace Client.ViewModel.Terminal
     /// </summary>
     public class PlaceholderViewModel : FodyReactiveObject, IViewModelFor<Action>, IViewModelFor<Model.Fluent>, IFormulaViewModel
     {
+        /// <inheritdoc />
         public bool IsFocused { get; set; }
+
+        /// <inheritdoc />
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
         public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
 
         public PlaceholderViewModel()
         {
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
         }
 
         /// <inheritdoc />
