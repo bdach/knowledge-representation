@@ -76,8 +76,7 @@ namespace Client.ViewModel.ActionLanguage
             AddFormula.Subscribe(InsertFormula);
 
             this.WhenAnyObservable(vm => vm.AddFormula)
-                .CombineLatest(this.WhenAnyValue(vm => vm.Postcondition.IsFocused), (vm, focused) => focused ? null : vm)
-                .Where(vm => vm != null)
+                .Where(_ => !IsFocused)
                 .InvokeCommand(this, vm => vm.Postcondition.AddFormula);
         }
 
