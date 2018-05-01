@@ -1,4 +1,5 @@
 ﻿using System.Reactive;
+using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using Model.Forms;
 using ReactiveUI;
@@ -14,6 +15,12 @@ namespace Client.Interface
         /// Adds a new <see cref="ActionViewModel"/> to edited clause.
         /// </summary>
         ReactiveCommand<ActionViewModel, Unit> AddAction { get; }
+
+        /// <summary>
+        /// Adds a new <see cref="Model.Fluent"/> to edited clause.
+        /// This is intended for statements which take a single fluent.
+        /// </summary>
+        ReactiveCommand<LiteralViewModel, Unit> AddFluent { get; }
         
         /// <summary>
         /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.

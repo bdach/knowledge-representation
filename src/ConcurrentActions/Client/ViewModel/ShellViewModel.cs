@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.View;
+using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using ReactiveUI;
 
@@ -48,6 +49,10 @@ namespace Client.ViewModel
             this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedActionClauseType)
                 .Where(vm => vm != null)
                 .Subscribe(t => ActionAreaViewModel.ActionDomain.Add(t.NewInstance()));
+            this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedFluent)
+                .Where(vm => vm != null)
+                .Select(fl => new LiteralViewModel(fl.Fluent))
+                .InvokeCommand(ActionAreaViewModel, vm => vm.AddFluent);
             this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedAction)
                 .Where(vm => vm != null)
                 .Select(ac => new ActionViewModel(ac.Action))

@@ -36,9 +36,13 @@ namespace Client.View
             this.Bind(ViewModel, vm => vm.LocalizeGroupName, v => v.QueryClauseGallery.GroupByAdvanced);
 
             this.Bind(ViewModel, vm => vm.SelectedAction, v => v.ActionsGallery.SelectedValue);
+            this.Bind(ViewModel, vm => vm.SelectedFluent, v => v.FluentsGallery.SelectedValue);
             this.Bind(ViewModel, vm => vm.SelectedActionClauseType, v => v.ActionClauseGallery.SelectedValue);
             this.Bind(ViewModel, vm => vm.SelectedQueryClauseType, v => v.QueryClauseGallery.SelectedValue);
 
+            this.WhenAnyValue(v => v.FluentDropDown.IsDropDownOpen)
+                .Where(open => open)
+                .Subscribe(_ => FluentsGallery.SelectedValue = null);
             this.WhenAnyValue(v => v.ActionDropDown.IsDropDownOpen)
                 .Where(open => open)
                 .Subscribe(_ => ActionsGallery.SelectedValue = null);

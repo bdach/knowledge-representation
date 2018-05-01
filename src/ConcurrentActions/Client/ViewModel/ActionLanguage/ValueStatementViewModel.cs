@@ -4,6 +4,7 @@ using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.ActionLanguage;
+using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
 using Model.Forms;
@@ -40,6 +41,11 @@ namespace Client.ViewModel.ActionLanguage
         public IViewModelFor<Model.Action> Action { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
+        /// Command adding a new fluent.
+        /// </summary>
+        public ReactiveCommand<LiteralViewModel, Unit> AddFluent { get; protected set; }
+
+        /// <summary>
         /// Command adding a new action.
         /// </summary>
         public ReactiveCommand<ActionViewModel, Unit> AddAction { get; protected set; }
@@ -62,6 +68,8 @@ namespace Client.ViewModel.ActionLanguage
                 this.WhenAnyValue(v => v.Action.IsFocused),
                 RxApp.MainThreadScheduler // WARNING: Do not remove this, lest you get threading errors.
             );
+
+            AddFluent = ReactiveCommand.Create<LiteralViewModel>(fluent => { });
 
             AddFormula = ReactiveCommand
                 .Create<IViewModelFor<IFormula>>(formulaViewModel =>

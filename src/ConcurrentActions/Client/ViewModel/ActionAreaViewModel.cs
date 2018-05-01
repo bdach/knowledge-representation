@@ -7,6 +7,7 @@ using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Interface;
 using Client.View;
+using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using ReactiveUI;
 
@@ -29,6 +30,11 @@ namespace Client.ViewModel
         public ReactiveCommand<ActionViewModel, Unit> AddAction;
 
         /// <summary>
+        /// Command used for adding a fluent to an item of this collection.
+        /// </summary>
+        public ReactiveCommand<LiteralViewModel, Unit> AddFluent;
+
+        /// <summary>
         /// Initializes a new <see cref="ActionAreaViewModel"/> instance.
         /// </summary>
         public ActionAreaViewModel()
@@ -42,6 +48,14 @@ namespace Client.ViewModel
                     Observable.Start(() => ac).InvokeCommand(viewModel.AddAction);
                 }
             }, null, RxApp.MainThreadScheduler);  // WARNING: Do not remove this, lest you get threading errors.
+
+            AddFluent = ReactiveCommand.Create((LiteralViewModel fl) =>
+            {
+                foreach (var viewModel in ActionDomain)
+                {
+                    Observable.Start(() => fl).InvokeCommand(viewModel.AddFluent);
+                }
+            }, null, RxApp.MainThreadScheduler);
         }
     }
 }

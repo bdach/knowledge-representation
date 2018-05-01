@@ -7,6 +7,7 @@ using Client.Interface;
 using Client.Provider;
 using Client.View;
 using Client.View.Modal;
+using Client.ViewModel.Formula;
 using Client.ViewModel.Modal;
 using Client.ViewModel.Terminal;
 using ReactiveUI;
@@ -64,6 +65,11 @@ namespace Client.ViewModel
         /// Contains the last selected action.
         /// </summary>
         public ActionViewModel SelectedAction { get; set; }
+
+        /// <summary>
+        /// Contains the last selected fluent.
+        /// </summary>
+        public LiteralViewModel SelectedFluent { get; set; }
 
         #endregion
 

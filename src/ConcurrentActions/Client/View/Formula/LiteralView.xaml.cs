@@ -23,6 +23,9 @@ namespace Client.View.Formula
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.Fluent.Name, v => v.Name.Text);
 
+            this.WhenAnyValue(v => v.IsFocused)
+                .BindTo(this, v => v.ViewModel.IsFocused);
+
             this.WhenAnyValue(v => v.IsMouseOver)
                 .Subscribe(v => Highlight = v);
         }
