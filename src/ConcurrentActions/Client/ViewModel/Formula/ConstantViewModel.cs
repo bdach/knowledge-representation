@@ -11,7 +11,7 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="ConstantView"/> which represents a boolean constant.
     /// </summary>
-    public class ConstantViewModel : FodyReactiveObject, IViewModelFor<IFormula>
+    public class ConstantViewModel : FodyReactiveObject, IFormulaViewModel
     {
         /// <summary>
         /// Symbol used to represent the constant.
@@ -59,6 +59,12 @@ namespace Client.ViewModel.Formula
             AddFormula = ReactiveCommand
                 .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotApplicableException("Constant does not support adding formulae"));
+        }
+
+        /// <inheritdoc />
+        public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
+        {
+            return this;
         }
 
         /// <summary>

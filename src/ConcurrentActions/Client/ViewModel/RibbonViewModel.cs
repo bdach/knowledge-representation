@@ -75,7 +75,7 @@ namespace Client.ViewModel
         /// <summary>
         /// Command invoked when a formula has been selected for adding by the user.
         /// </summary>
-        public ReactiveCommand<IViewModelFor<IFormula>, IViewModelFor<IFormula>> SelectFormula { get; set; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> SelectFormula { get; set; }
 
         #endregion
 
@@ -148,7 +148,7 @@ namespace Client.ViewModel
                 modalView.ShowDialog();
             });
 
-            SelectFormula = ReactiveCommand.Create((IViewModelFor<IFormula> vm) => vm);
+            SelectFormula = ReactiveCommand.Create((IFormulaViewModel vm) => vm);
 
             LocalizeGroupName = o => LocalizationProvider.Instance[((IClauseViewModel)o).ClauseTypeNameKey];
             // Force switch to new language

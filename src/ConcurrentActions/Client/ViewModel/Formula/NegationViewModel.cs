@@ -12,7 +12,7 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="NegationView"/> which represents a logical negation.
     /// </summary>
-    public class NegationViewModel : FodyReactiveObject, IViewModelFor<IFormula>
+    public class NegationViewModel : FodyReactiveObject, IFormulaViewModel
     {
         /// <summary>
         /// Prefix used for rendering the view.
@@ -65,6 +65,13 @@ namespace Client.ViewModel.Formula
             AddFormula = ReactiveCommand
                 .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotImplementedException());
+        }
+
+        /// <inheritdoc />
+        public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
+        {
+            Formula = existingFormula;
+            return this;
         }
 
         /// <summary>

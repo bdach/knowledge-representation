@@ -12,7 +12,7 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="AlternativeView"/> which represents a logical alternative.
     /// </summary>
-    public class AlternativeViewModel : FodyReactiveObject, IViewModelFor<IFormula>
+    public class AlternativeViewModel : FodyReactiveObject, IFormulaViewModel
     {
         /// <summary>
         /// The logical operator character used for rendering the view.
@@ -79,6 +79,13 @@ namespace Client.ViewModel.Formula
             AddFormula = ReactiveCommand
                 .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotImplementedException());
+        }
+
+        /// <inheritdoc />
+        public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
+        {
+            Left = existingFormula;
+            return this;
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Windows;
+using Client.Interface;
 using Client.ViewModel;
 using Client.ViewModel.Formula;
 using ReactiveUI;
@@ -46,9 +47,10 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.ImplicationButton, Observable.Start(() => new ImplicationViewModel()));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.EquivalenceButton, Observable.Start(() => new EquivalenceViewModel()));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.NegationButton, Observable.Start(() => new NegationViewModel()));
-            this.WhenAnyValue(v => v.FluentsGallery.SelectedValue)
+            this.WhenAnyValue(v => v.ViewModel.SelectedFluent)
                 .Where(v => v != null)
-                .InvokeCommand(this, v => v.ViewModel.SelectFormula);
+                .Select(v => new LiteralViewModel(v.Fluent))
+                .InvokeCommand<IFormulaViewModel, RibbonView>(this, v => v.ViewModel.SelectFormula);
 
             this.WhenAnyValue(v => v.FluentDropDown.IsDropDownOpen)
                 .Where(open => open)

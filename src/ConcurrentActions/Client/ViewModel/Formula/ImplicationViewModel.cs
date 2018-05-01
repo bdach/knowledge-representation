@@ -12,7 +12,7 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="ImplicationView"/> which represents a logical implication.
     /// </summary>
-    public class ImplicationViewModel : FodyReactiveObject, IViewModelFor<IFormula>
+    public class ImplicationViewModel : FodyReactiveObject, IFormulaViewModel
     {
         /// <summary>
         /// The logical operator character used for rendering the view.
@@ -79,6 +79,13 @@ namespace Client.ViewModel.Formula
             AddFormula = ReactiveCommand
                 .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotImplementedException());
+        }
+        
+        /// <inheritdoc />
+        public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
+        {
+            Antecedent = existingFormula;
+            return this;
         }
 
         /// <summary>

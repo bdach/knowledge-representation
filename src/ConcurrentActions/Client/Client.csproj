@@ -99,6 +99,7 @@
     <Compile Include="Global\ScenarioContainer.cs" />
     <Compile Include="Interface\IActionClauseViewModel.cs" />
     <Compile Include="Interface\IClauseViewModel.cs" />
+    <Compile Include="Interface\IFormulaViewModel.cs" />
     <Compile Include="Interface\IGalleryItem.cs" />
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
     <Compile Include="Interface\IViewModelFor.cs" />

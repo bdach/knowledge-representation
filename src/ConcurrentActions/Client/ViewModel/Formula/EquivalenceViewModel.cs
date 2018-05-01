@@ -12,7 +12,7 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="EquivalenceView"/> which represents a logical equivalence.
     /// </summary>
-    public class EquivalenceViewModel : FodyReactiveObject, IViewModelFor<IFormula>
+    public class EquivalenceViewModel : FodyReactiveObject, IFormulaViewModel
     {
         /// <summary>
         /// The logical operator character used for rendering the view.
@@ -79,6 +79,13 @@ namespace Client.ViewModel.Formula
             AddFormula = ReactiveCommand
                 .Create<IViewModelFor<IFormula>>(formulaViewModel =>
                     throw new NotImplementedException());
+        }
+
+        /// <inheritdoc />
+        public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
+        {
+            Left = existingFormula;
+            return this;
         }
 
         /// <summary>

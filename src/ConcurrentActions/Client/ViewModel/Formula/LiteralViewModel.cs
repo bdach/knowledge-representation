@@ -12,7 +12,7 @@ namespace Client.ViewModel.Formula
     /// <summary>
     /// View model for <see cref="LiteralView"/> which represents a fluent.
     /// </summary>
-    public class LiteralViewModel : FodyReactiveObject, IViewModelFor<IFormula>, IViewModelFor<Model.Fluent>
+    public class LiteralViewModel : FodyReactiveObject, IFormulaViewModel, IViewModelFor<Model.Fluent>
     {
         /// <summary>
         /// The <see cref="Model.Fluent"/> with which the literal instance is associated.
@@ -67,6 +67,12 @@ namespace Client.ViewModel.Formula
                 throw new MemberNotDefinedException("Literal does not have any fluent assigned");
 
             return new Literal(Fluent, false);
+        }
+        
+        /// <inheritdoc />
+        public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
+        {
+            return this;
         }
 
         /// <summary>
