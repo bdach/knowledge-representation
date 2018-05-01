@@ -26,7 +26,7 @@ namespace Client.ViewModel.Formula
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -56,9 +56,7 @@ namespace Client.ViewModel.Formula
         /// </summary>
         private void InitializeComponent()
         {
-            AddFormula = ReactiveCommand
-                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
-                    throw new NotApplicableException("Constant does not support adding formulae"));
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
         }
 
         /// <inheritdoc />

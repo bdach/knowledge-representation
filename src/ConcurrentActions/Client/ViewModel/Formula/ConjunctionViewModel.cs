@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -23,17 +24,17 @@ namespace Client.ViewModel.Formula
         /// <summary>
         /// The left <see cref="IViewModelFor{T}"/> instance returning a formula.
         /// </summary>
-        public IViewModelFor<IFormula> Left { get; set; } = new PlaceholderViewModel();
+        public IFormulaViewModel Left { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// The right <see cref="IViewModelFor{T}"/> instance returning a formula.
         /// </summary>
-        public IViewModelFor<IFormula> Right { get; set; } = new PlaceholderViewModel();
+        public IFormulaViewModel Right { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -51,7 +52,7 @@ namespace Client.ViewModel.Formula
         /// with the supplied <see cref="left"/> formula.
         /// </summary>
         /// <param name="left">Conjunction's left formula.</param>
-        public ConjunctionViewModel(IViewModelFor<IFormula> left)
+        public ConjunctionViewModel(IFormulaViewModel left)
         {
             Left = left;
 
@@ -64,7 +65,7 @@ namespace Client.ViewModel.Formula
         /// </summary>
         /// <param name="left">Conjunction's left formula.</param>
         /// <param name="right">Conjunction's right formula.</param>
-        public ConjunctionViewModel(IViewModelFor<IFormula> left, IViewModelFor<IFormula> right)
+        public ConjunctionViewModel(IFormulaViewModel left, IFormulaViewModel right)
         {
             Left = left;
             Right = right;
@@ -77,9 +78,32 @@ namespace Client.ViewModel.Formula
         /// </summary>
         private void InitializeComponent()
         {
-            AddFormula = ReactiveCommand
-                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
-                    throw new NotImplementedException());
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(
+                InsertFormula,
+                null,
+                RxApp.MainThreadScheduler
+            );
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(form => form != null)
+                .InvokeCommand(this, vm => vm.Left.AddFormula);
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(form => form != null)
+                .InvokeCommand(this, vm => vm.Right.AddFormula);
+        }
+
+        private IFormulaViewModel InsertFormula(IFormulaViewModel formula)
+        {
+            if (Left.IsFocused)
+            {
+                Left = formula.Accept(Left);
+                return null;
+            }
+            if (Right.IsFocused)
+            {
+                Right = formula.Accept(Right);
+                return null;
+            }
+            return formula;
         }
 
         /// <inheritdoc />

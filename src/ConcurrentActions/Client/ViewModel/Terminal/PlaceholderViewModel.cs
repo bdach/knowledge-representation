@@ -2,6 +2,7 @@
 using Client.Interface;
 using Model;
 using Model.Forms;
+using ReactiveUI;
 
 namespace Client.ViewModel.Terminal
 {
@@ -12,12 +13,19 @@ namespace Client.ViewModel.Terminal
     public class PlaceholderViewModel : FodyReactiveObject, IViewModelFor<Action>, IViewModelFor<Model.Fluent>, IFormulaViewModel
     {
         public bool IsFocused { get; set; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
+
+        public PlaceholderViewModel()
+        {
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+        }
 
         /// <inheritdoc />
         public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
         {
             return this;
         }
+
 
         /// <inheritdoc />
         Action IViewModelFor<Action>.ToModel()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -23,17 +24,17 @@ namespace Client.ViewModel.Formula
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning the antecedent (premise) formula of the implication.
         /// </summary>
-        public IViewModelFor<IFormula> Antecedent { get; set; } = new PlaceholderViewModel();
+        public IFormulaViewModel Antecedent { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning the consequent formula of the implication.
         /// </summary>
-        public IViewModelFor<IFormula> Consequent { get; set; } = new PlaceholderViewModel();
+        public IFormulaViewModel Consequent { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -51,7 +52,7 @@ namespace Client.ViewModel.Formula
         /// with the supplied <see cref="antecedent"/> formula.
         /// </summary>
         /// <param name="antecedent">Implication's left formula.</param>
-        public ImplicationViewModel(IViewModelFor<IFormula> antecedent)
+        public ImplicationViewModel(IFormulaViewModel antecedent)
         {
             Antecedent = antecedent;
 
@@ -64,7 +65,7 @@ namespace Client.ViewModel.Formula
         /// </summary>
         /// <param name="antecedent">Implication's left formula.</param>
         /// <param name="consequent">Implication's right formula.</param>
-        public ImplicationViewModel(IViewModelFor<IFormula> antecedent, IViewModelFor<IFormula> consequent)
+        public ImplicationViewModel(IFormulaViewModel antecedent, IFormulaViewModel consequent)
         {
             Antecedent = antecedent;
             Consequent = consequent;
@@ -77,11 +78,34 @@ namespace Client.ViewModel.Formula
         /// </summary>
         private void InitializeComponent()
         {
-            AddFormula = ReactiveCommand
-                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
-                    throw new NotImplementedException());
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(
+                InsertFormula,
+                null,
+                RxApp.MainThreadScheduler
+            );
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(form => form != null)
+                .InvokeCommand(this, vm => vm.Antecedent.AddFormula);
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(form => form != null)
+                .InvokeCommand(this, vm => vm.Consequent.AddFormula);
         }
-        
+
+        private IFormulaViewModel InsertFormula(IFormulaViewModel formula)
+        {
+            if (Antecedent.IsFocused)
+            {
+                Antecedent = formula.Accept(Antecedent);
+                return null;
+            }
+            if (Consequent.IsFocused)
+            {
+                Consequent = formula.Accept(Consequent);
+                return null;
+            }
+            return formula;
+        }
+
         /// <inheritdoc />
         public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
         {

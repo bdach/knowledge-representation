@@ -64,7 +64,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -82,26 +82,32 @@ namespace Client.ViewModel.ActionLanguage
 
             AddFluent = ReactiveCommand.Create<LiteralViewModel>(fluent => { });
 
-            var canAddFormula = this.WhenAnyValue(vm => vm.Precondition.IsFocused, vm => vm.Postcondition.IsFocused)
-                .Select(t => t.Item1 || t.Item2);
-
-            AddFormula = ReactiveCommand.Create<IFormulaViewModel>(
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(
                 InsertFormula,
-                canAddFormula,
+                null,
                 RxApp.MainThreadScheduler
             );
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(form => form != null)
+                .InvokeCommand(this, vm => vm.Precondition.AddFormula);
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(form => form != null)
+                .InvokeCommand(this, vm => vm.Postcondition.AddFormula);
         }
 
-        private void InsertFormula(IFormulaViewModel formula)
+        private IFormulaViewModel InsertFormula(IFormulaViewModel formula)
         {
             if (Precondition.IsFocused)
             {
                 Precondition = formula.Accept(Precondition);
+                return null;
             }
             if (Postcondition.IsFocused)
             {
                 Postcondition = formula.Accept(Postcondition);
+                return null;
             }
+            return formula;
         }
 
         /// <inheritdoc />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -28,12 +29,12 @@ namespace Client.ViewModel.Formula
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a formula to negate.
         /// </summary>
-        public IViewModelFor<IFormula> Formula { get; set; } = new PlaceholderViewModel();
+        public IFormulaViewModel Formula { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -51,7 +52,7 @@ namespace Client.ViewModel.Formula
         /// with the supplied <see cref="formula"/>.
         /// </summary>
         /// <param name="formula">Formula to negate.</param>
-        public NegationViewModel(IViewModelFor<IFormula> formula)
+        public NegationViewModel(IFormulaViewModel formula)
         {
             Formula = formula;
 
@@ -63,9 +64,24 @@ namespace Client.ViewModel.Formula
         /// </summary>
         private void InitializeComponent()
         {
-            AddFormula = ReactiveCommand
-                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
-                    throw new NotImplementedException());
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(
+                InsertFormula,
+                null,
+                RxApp.MainThreadScheduler
+            );
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(form => form != null)
+                .InvokeCommand(this, vm => vm.Formula.AddFormula);
+        }
+
+        private IFormulaViewModel InsertFormula(IFormulaViewModel formula)
+        {
+            if (!Formula.IsFocused)
+            {
+                return formula;
+            }
+            Formula = formula.Accept(Formula);
+            return null;
         }
 
         /// <inheritdoc />

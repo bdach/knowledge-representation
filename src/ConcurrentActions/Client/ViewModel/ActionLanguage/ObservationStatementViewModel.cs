@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -58,7 +59,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -73,16 +74,24 @@ namespace Client.ViewModel.ActionLanguage
 
             AddFluent = ReactiveCommand.Create<LiteralViewModel>(fluent => { });
 
-            AddFormula = ReactiveCommand.Create<IFormulaViewModel>(
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(
                 InsertFormula,
-                this.WhenAnyValue(v => v.Condition.IsFocused),
+                null,
                 RxApp.MainThreadScheduler
             );
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(form => form != null)
+                .InvokeCommand(this, vm => vm.Condition.AddFormula);
         }
 
-        private void InsertFormula(IFormulaViewModel formula)
+        private IFormulaViewModel InsertFormula(IFormulaViewModel formula)
         {
+            if (!Condition.IsFocused)
+            {
+                return formula;
+            }
             Condition = formula.Accept(Condition);
+            return null;
         }
 
         /// <inheritdoc />
