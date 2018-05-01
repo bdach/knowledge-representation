@@ -26,6 +26,9 @@ namespace Client.View.Formula
             this.OneWayBind(ViewModel, vm => vm.Operator, v => v.Operator.Text);
             this.OneWayBind(ViewModel, vm => vm.Right, v => v.RightOperand.ViewModel);
 
+            this.WhenAnyValue(v => v.IsFocused)
+                .BindTo(this, v => v.ViewModel.IsFocused);
+
             this.WhenAnyValue(v => v.IsMouseOver, v => v.LeftOperand.IsMouseOver, v => v.RightOperand.IsMouseOver)
                 .Select(v => v.Item1 && !v.Item2 && !v.Item3)
                 .Subscribe(v => Highlight = v);

@@ -4,6 +4,7 @@ using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.Formula;
+using Client.ViewModel.Terminal;
 using Model.Forms;
 using ReactiveUI;
 
@@ -22,12 +23,12 @@ namespace Client.ViewModel.Formula
         /// <summary>
         /// The left <see cref="IViewModelFor{T}"/> instance returning a formula.
         /// </summary>
-        public IViewModelFor<IFormula> Left { get; set; }
+        public IViewModelFor<IFormula> Left { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// The right <see cref="IViewModelFor{T}"/> instance returning a formula.
         /// </summary>
-        public IViewModelFor<IFormula> Right { get; set; }
+        public IViewModelFor<IFormula> Right { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new formula.
@@ -84,8 +85,7 @@ namespace Client.ViewModel.Formula
         /// <inheritdoc />
         public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
         {
-            Left = existingFormula;
-            return this;
+            return new EquivalenceViewModel(existingFormula);
         }
 
         /// <summary>

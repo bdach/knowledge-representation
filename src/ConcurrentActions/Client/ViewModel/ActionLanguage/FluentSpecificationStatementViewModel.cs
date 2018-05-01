@@ -48,7 +48,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -67,9 +67,7 @@ namespace Client.ViewModel.ActionLanguage
                 RxApp.MainThreadScheduler // WARNING: Do not remove this, lest you get threading errors.
             );
 
-            AddFormula = ReactiveCommand
-                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
-                    throw new NotImplementedException());
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel>(formulaViewModel => {});
         }
 
         /// <inheritdoc />

@@ -25,7 +25,7 @@ namespace Client.Interface
         /// <summary>
         /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.
         /// </summary>
-        ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; }
+        ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; }
 
         /// <summary>
         /// Creates a new empty instance of a given type of action statement.

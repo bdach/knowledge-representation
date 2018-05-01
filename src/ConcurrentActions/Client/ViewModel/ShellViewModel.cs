@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using Client.Abstract;
+using Client.Interface;
 using Client.View;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
@@ -57,6 +58,7 @@ namespace Client.ViewModel
                 .Where(vm => vm != null)
                 .Select(ac => new ActionViewModel(ac.Action))
                 .InvokeCommand(ActionAreaViewModel, vm => vm.AddAction);
+            RibbonViewModel.SelectFormula.InvokeCommand(ActionAreaViewModel, vm => vm.AddFormula);
         }
     }
 }

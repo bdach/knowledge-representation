@@ -9,11 +9,15 @@ namespace Client.ViewModel.Terminal
     /// Placeholder view model, used as a blank in unfilled statements.
     /// Always returns nulls when calling <see cref="IViewModelFor{T}.ToModel"/>.
     /// </summary>
-    public class PlaceholderViewModel : FodyReactiveObject, IViewModelFor<Action>, IViewModelFor<Model.Fluent>, IViewModelFor<IFormula>
+    public class PlaceholderViewModel : FodyReactiveObject, IViewModelFor<Action>, IViewModelFor<Model.Fluent>, IFormulaViewModel
     {
+        public bool IsFocused { get; set; }
 
         /// <inheritdoc />
-        public bool IsFocused { get; set; }
+        public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
+        {
+            return this;
+        }
 
         /// <inheritdoc />
         Action IViewModelFor<Action>.ToModel()

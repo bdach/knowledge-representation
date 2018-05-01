@@ -35,6 +35,11 @@ namespace Client.ViewModel
         public ReactiveCommand<LiteralViewModel, Unit> AddFluent;
 
         /// <summary>
+        /// Command used for adding a formula to an item of this collection.
+        /// </summary>
+        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula;
+
+        /// <summary>
         /// Initializes a new <see cref="ActionAreaViewModel"/> instance.
         /// </summary>
         public ActionAreaViewModel()
@@ -54,6 +59,14 @@ namespace Client.ViewModel
                 foreach (var viewModel in ActionDomain)
                 {
                     Observable.Start(() => fl).InvokeCommand(viewModel.AddFluent);
+                }
+            }, null, RxApp.MainThreadScheduler);
+
+            AddFormula = ReactiveCommand.Create((IFormulaViewModel form) =>
+            {
+                foreach (var viewModel in ActionDomain)
+                {
+                    Observable.Start(() => form).InvokeCommand(viewModel.AddFormula);
                 }
             }, null, RxApp.MainThreadScheduler);
         }

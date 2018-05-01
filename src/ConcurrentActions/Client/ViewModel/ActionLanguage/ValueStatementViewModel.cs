@@ -33,7 +33,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a condition.
         /// </summary>
-        public IViewModelFor<IFormula> Condition { get; set; } = new PlaceholderViewModel();
+        public IFormulaViewModel Condition { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning an action.
@@ -53,7 +53,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -71,9 +71,16 @@ namespace Client.ViewModel.ActionLanguage
 
             AddFluent = ReactiveCommand.Create<LiteralViewModel>(fluent => { });
 
-            AddFormula = ReactiveCommand
-                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
-                    throw new NotImplementedException());
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel>(
+                InsertFormula,
+                this.WhenAnyValue(v => v.Condition.IsFocused),
+                RxApp.MainThreadScheduler
+            );
+        }
+
+        private void InsertFormula(IFormulaViewModel formula)
+        {
+            Condition = formula.Accept(Condition);
         }
 
         /// <inheritdoc />

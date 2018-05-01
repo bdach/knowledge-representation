@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -43,12 +44,12 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a precondition.
         /// </summary>
-        public IViewModelFor<IFormula> Precondition { get; set; } = new PlaceholderViewModel();
+        public IFormulaViewModel Precondition { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a postcondition.
         /// </summary>
-        public IViewModelFor<IFormula> Postcondition { get; set; } = new PlaceholderViewModel();
+        public IFormulaViewModel Postcondition { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new fluent.
@@ -63,7 +64,7 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -81,9 +82,26 @@ namespace Client.ViewModel.ActionLanguage
 
             AddFluent = ReactiveCommand.Create<LiteralViewModel>(fluent => { });
 
-            AddFormula = ReactiveCommand
-                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
-                    throw new NotImplementedException());
+            var canAddFormula = this.WhenAnyValue(vm => vm.Precondition.IsFocused, vm => vm.Postcondition.IsFocused)
+                .Select(t => t.Item1 || t.Item2);
+
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel>(
+                InsertFormula,
+                canAddFormula,
+                RxApp.MainThreadScheduler
+            );
+        }
+
+        private void InsertFormula(IFormulaViewModel formula)
+        {
+            if (Precondition.IsFocused)
+            {
+                Precondition = formula.Accept(Precondition);
+            }
+            if (Postcondition.IsFocused)
+            {
+                Postcondition = formula.Accept(Postcondition);
+            }
         }
 
         /// <inheritdoc />

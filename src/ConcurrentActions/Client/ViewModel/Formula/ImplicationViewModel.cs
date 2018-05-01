@@ -4,6 +4,7 @@ using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.Formula;
+using Client.ViewModel.Terminal;
 using Model.Forms;
 using ReactiveUI;
 
@@ -22,12 +23,12 @@ namespace Client.ViewModel.Formula
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning the antecedent (premise) formula of the implication.
         /// </summary>
-        public IViewModelFor<IFormula> Antecedent { get; set; }
+        public IViewModelFor<IFormula> Antecedent { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning the consequent formula of the implication.
         /// </summary>
-        public IViewModelFor<IFormula> Consequent { get; set; }
+        public IViewModelFor<IFormula> Consequent { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
         /// Command adding a new formula.
@@ -84,8 +85,7 @@ namespace Client.ViewModel.Formula
         /// <inheritdoc />
         public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
         {
-            Antecedent = existingFormula;
-            return this;
+            return new ImplicationViewModel(existingFormula);
         }
 
         /// <summary>

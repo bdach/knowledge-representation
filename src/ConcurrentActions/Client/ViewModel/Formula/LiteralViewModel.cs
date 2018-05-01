@@ -72,7 +72,7 @@ namespace Client.ViewModel.Formula
         /// <inheritdoc />
         public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
         {
-            return this;
+            return new LiteralViewModel(Fluent);
         }
 
         /// <summary>
