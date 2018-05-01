@@ -2,7 +2,6 @@
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Navigation;
 using Client.ViewModel.Modal;
 using ReactiveUI;
 using Splat;

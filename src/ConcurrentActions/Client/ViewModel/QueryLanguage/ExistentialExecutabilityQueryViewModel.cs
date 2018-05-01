@@ -4,7 +4,6 @@ using Client.Exception;
 using Client.Interface;
 using Client.View.QueryLanguage;
 using Client.ViewModel.Terminal;
-using Model;
 using Model.Forms;
 using Model.QueryLanguage;
 using ReactiveUI;
@@ -14,7 +13,7 @@ namespace Client.ViewModel.QueryLanguage
     /// <summary>
     /// View model for <see cref="ExistentialExecutabilityQueryView"/> which represents an existential exectubaility query in the scenario.
     /// </summary>
-    public class ExistentialExecutabilityQueryViewModel : FodyReactiveObject, IQueryClauseViewModel, IViewModelFor<ExistentialExecutabilityQuery>, IGalleryItem
+    public class ExistentialExecutabilityQueryViewModel : FodyReactiveObject, IQueryClauseViewModel, IViewModelFor<ExistentialExecutabilityQuery>
     {
         /// <summary>
         /// Keyword describing the query.
@@ -23,11 +22,6 @@ namespace Client.ViewModel.QueryLanguage
 
         /// <inheritdoc />
         public string ClauseTypeNameKey => "ExecutabilityQuery";
-
-        /// <summary>
-        /// Name of the query displayed in dropdown menu.
-        /// </summary>
-        public string DisplayName => $"{Label} [ ]";
 
         /// <summary>
         /// The <see cref="Model.Program"/> instance.

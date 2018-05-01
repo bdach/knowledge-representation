@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reactive;
-using Client.Abstract;
+﻿using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.ActionLanguage;
@@ -15,17 +13,12 @@ namespace Client.ViewModel.ActionLanguage
     /// <summary>
     /// View model for <see cref="UnconditionalImpossibilityStatementView"/> which represents an unconditional impossibility statement in the scenario.
     /// </summary>
-    public class UnconditionalImpossibilityStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<EffectStatement>, IGalleryItem
+    public class UnconditionalImpossibilityStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<EffectStatement>
     {
         /// <summary>
         /// Keyword describing the clause.
         /// </summary>
         public string Label => "impossible";
-
-        /// <summary>
-        /// Name of the query displayed in dropdown menu.
-        /// </summary>
-        public string DisplayName => $"{Label} [ ]";
 
         /// <inheritdoc />
         public string ClauseTypeNameKey => "EffectStatement";

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
@@ -8,7 +7,6 @@ using Client.View.ActionLanguage;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
-using Model.Forms;
 using ReactiveUI;
 
 namespace Client.ViewModel.ActionLanguage
@@ -16,7 +14,7 @@ namespace Client.ViewModel.ActionLanguage
     /// <summary>
     /// View model for <see cref="ConditionalFluentReleaseStatementView"/> which represents a conditional fluent release statement in the scenario.
     /// </summary>
-    public class ConditionalFluentReleaseStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<FluentReleaseStatement>, IGalleryItem
+    public class ConditionalFluentReleaseStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<FluentReleaseStatement>
     {
         /// <summary>
         /// First keyword describing the clause.
@@ -27,13 +25,9 @@ namespace Client.ViewModel.ActionLanguage
         /// Second keyword describing the query.
         /// </summary>
         public string LabelRight => "if";
+
         /// <inheritdoc />
         public string ClauseTypeNameKey => "FluentReleaseStatement";
-
-        /// <summary>
-        /// Name of the query displayed in dropdown menu.
-        /// </summary>
-        public string DisplayName => $"[ ] {LabelLeft} [ ] {LabelRight} [ ]";
 
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning an action.

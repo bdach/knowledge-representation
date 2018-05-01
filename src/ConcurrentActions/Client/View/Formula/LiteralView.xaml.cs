@@ -21,7 +21,7 @@ namespace Client.View.Formula
         public LiteralView()
         {
             InitializeComponent();
-            this.OneWayBind(ViewModel, vm => vm.Fluent.Name, v => v.Name.Text);
+            this.OneWayBind(ViewModel, vm => vm.Fluent.Name, v => v.FluentName.Text);
 
             this.WhenAnyValue(v => v.IsFocused)
                 .BindTo(this, v => v.ViewModel.IsFocused);

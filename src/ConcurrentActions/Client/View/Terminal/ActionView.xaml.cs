@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using Client.ViewModel.Terminal;
 using ReactiveUI;
@@ -22,7 +21,7 @@ namespace Client.View.Terminal
         public ActionView()
         {
             InitializeComponent();
-            this.OneWayBind(ViewModel, vm => vm.Action.Name, v => v.Name.Text);
+            this.OneWayBind(ViewModel, vm => vm.Action.Name, v => v.ActionName.Text);
 
             this.WhenAnyValue(v => v.IsFocused)
                 .BindTo(this, v => v.ViewModel.IsFocused);

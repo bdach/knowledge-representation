@@ -7,6 +7,8 @@
                        mc:Ignorable="d"
                        Style="{DynamicResource {x:Type view:ExpressionButton}}">
     <WrapPanel>
-        <TextBlock Name="Name" Style="{DynamicResource ActionLabel}" />
+        <TextBlock
+            Style="{DynamicResource ActionLabel}"
+            Name="ActionName" />
     </WrapPanel>
 </view:ExpressionButton>

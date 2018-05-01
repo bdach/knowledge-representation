@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reactive;
-using Client.Abstract;
+﻿using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.Formula;

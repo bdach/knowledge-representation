@@ -14,7 +14,7 @@ namespace Client.ViewModel.QueryLanguage
     /// <summary>
     /// View model for <see cref="GeneralExecutabilityQueryView"/> which represents a general exectubaility query in the scenario.
     /// </summary>
-    public class GeneralExecutabilityQueryViewModel : FodyReactiveObject, IQueryClauseViewModel, IViewModelFor<GeneralExecutabilityQuery>, IGalleryItem
+    public class GeneralExecutabilityQueryViewModel : FodyReactiveObject, IQueryClauseViewModel, IViewModelFor<GeneralExecutabilityQuery>
     {
         /// <summary>
         /// Keyword describing the query.
@@ -23,11 +23,6 @@ namespace Client.ViewModel.QueryLanguage
 
         /// <inheritdoc />
         public string ClauseTypeNameKey => "ExecutabilityQuery";
-
-        /// <summary>
-        /// Name of the query displayed in dropdown menu.
-        /// </summary>
-        public string DisplayName => $"{Label} [ ]";
 
         /// <summary>
         /// The <see cref="Model.Program"/> instance.

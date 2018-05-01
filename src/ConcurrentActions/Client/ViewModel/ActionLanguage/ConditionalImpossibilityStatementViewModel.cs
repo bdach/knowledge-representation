@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
@@ -8,7 +7,6 @@ using Client.View.ActionLanguage;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
-using Model.Forms;
 using ReactiveUI;
 
 namespace Client.ViewModel.ActionLanguage
@@ -16,7 +14,7 @@ namespace Client.ViewModel.ActionLanguage
     /// <summary>
     /// View model for <see cref="ConditionalImpossibilityStatementView"/> which represents a conditional impossibility statement in the scenario.
     /// </summary>
-    public class ConditionalImpossibilityStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<EffectStatement>, IGalleryItem
+    public class ConditionalImpossibilityStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<EffectStatement>
     {
         /// <summary>
         /// First keyword describing the clause.
@@ -30,11 +28,6 @@ namespace Client.ViewModel.ActionLanguage
 
         /// <inheritdoc />
         public string ClauseTypeNameKey => "EffectStatement";
-
-        /// <summary>
-        /// Name of the query displayed in dropdown menu.
-        /// </summary>
-        public string DisplayName => $"{LabelLeft} [ ] {LabelRight} [ ]";
 
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning an action.

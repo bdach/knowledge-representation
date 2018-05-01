@@ -14,7 +14,7 @@ namespace Client.ViewModel.QueryLanguage
     /// <summary>
     /// View model for <see cref="GeneralValueQueryView"/> which represents a general value query in the scenario.
     /// </summary>
-    public class GeneralValueQueryViewModel : FodyReactiveObject, IQueryClauseViewModel, IViewModelFor<GeneralValueQuery>, IGalleryItem
+    public class GeneralValueQueryViewModel : FodyReactiveObject, IQueryClauseViewModel, IViewModelFor<GeneralValueQuery>
     {
         /// <summary>
         /// First keyword describing the query.
@@ -28,11 +28,6 @@ namespace Client.ViewModel.QueryLanguage
         /// Second keyword describing the query.
         /// </summary>
         public string LabelRight => "after";
-
-        /// <summary>
-        /// Name of the query displayed in dropdown menu.
-        /// </summary>
-        public string DisplayName => $"[ ] {LabelLeft} [ ] {LabelRight}";
 
         /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a target formula.

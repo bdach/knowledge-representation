@@ -10,7 +10,6 @@ using Client.View.Modal;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Modal;
 using Client.ViewModel.Terminal;
-using Model.Forms;
 using ReactiveUI;
 using Splat;
 

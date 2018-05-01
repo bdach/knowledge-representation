@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
 using Client.Abstract;
-using Client.Interface;
 using Client.View;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;

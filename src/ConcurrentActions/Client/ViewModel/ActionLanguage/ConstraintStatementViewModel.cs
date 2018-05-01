@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
@@ -8,7 +7,6 @@ using Client.View.ActionLanguage;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
-using Model.Forms;
 using ReactiveUI;
 
 namespace Client.ViewModel.ActionLanguage
@@ -16,17 +14,12 @@ namespace Client.ViewModel.ActionLanguage
     /// <summary>
     /// View model for <see cref="ConditionalEffectStatementView"/> which represents a constraint statement in the scenario.
     /// </summary>
-    public class ConstraintStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<ConstraintStatement>, IGalleryItem
+    public class ConstraintStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<ConstraintStatement>
     {
         /// <summary>
         /// Keyword describing the clause.
         /// </summary>
         public string Label => "always";
-
-        /// <summary>
-        /// Name of the query displayed in dropdown menu.
-        /// </summary>
-        public string DisplayName => $"{Label} [ ]";
 
         /// <inheritdoc />
         public string ClauseTypeNameKey => "ConstraintStatement";

@@ -1,7 +1,5 @@
-﻿using System.Reactive;
-using Client.ViewModel.Formula;
+﻿using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
-using Model.Forms;
 using ReactiveUI;
 
 namespace Client.Interface

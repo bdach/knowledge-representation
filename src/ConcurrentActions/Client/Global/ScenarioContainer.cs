@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Client.Abstract;
+﻿using Client.Abstract;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using Model;

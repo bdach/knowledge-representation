@@ -1,13 +1,10 @@
-﻿using System;
-using System.Reactive;
-using Client.Abstract;
+﻿using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.ActionLanguage;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using Model.ActionLanguage;
-using Model.Forms;
 using ReactiveUI;
 
 namespace Client.ViewModel.ActionLanguage
@@ -15,17 +12,12 @@ namespace Client.ViewModel.ActionLanguage
     /// <summary>
     /// View model for <see cref="FluentSpecificationStatementView"/> which represents a fluent specification statement in the scenario.
     /// </summary>
-    public class FluentSpecificationStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<FluentSpecificationStatement>, IGalleryItem
+    public class FluentSpecificationStatementViewModel : FodyReactiveObject, IActionClauseViewModel, IViewModelFor<FluentSpecificationStatement>
     {
         /// <summary>
         /// Keyword describing the clause.
         /// </summary>
         public string Label => "noninertial";
-
-        /// <summary>
-        /// Name of the query displayed in dropdown menu.
-        /// </summary>
-        public string DisplayName => $"{Label} [ ]";
 
         /// <inheritdoc />
         public string ClauseTypeNameKey => "FluentSpecificationStatement";
