@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using Client.ViewModel.Terminal;
 using ReactiveUI;
@@ -22,6 +23,9 @@ namespace Client.View.Terminal
         {
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.Action.Name, v => v.Name.Text);
+
+            this.WhenAnyValue(v => v.IsFocused)
+                .BindTo(this, v => v.ViewModel.IsFocused);
 
             this.WhenAnyValue(v => v.IsMouseOver)
                 .Subscribe(v => Highlight = v);

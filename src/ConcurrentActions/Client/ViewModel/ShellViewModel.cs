@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.View;
+using Client.ViewModel.Terminal;
 using ReactiveUI;
 
 namespace Client.ViewModel
@@ -49,6 +50,7 @@ namespace Client.ViewModel
                 .Subscribe(t => ActionAreaViewModel.ActionDomain.Add(t.NewInstance()));
             this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedAction)
                 .Where(vm => vm != null)
+                .Select(ac => new ActionViewModel(ac.Action))
                 .InvokeCommand(ActionAreaViewModel, vm => vm.AddAction);
         }
     }

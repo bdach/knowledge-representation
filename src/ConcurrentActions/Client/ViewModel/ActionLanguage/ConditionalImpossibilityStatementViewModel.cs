@@ -62,9 +62,11 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public ConditionalImpossibilityStatementViewModel()
         {
-            AddAction = ReactiveCommand
-                .Create<ActionViewModel>(actionViewModel =>
-                    throw new NotImplementedException());
+            AddAction = ReactiveCommand.Create<ActionViewModel>(
+                action => Action = action,
+                this.WhenAnyValue(vm => vm.Action.IsFocused),
+                RxApp.MainThreadScheduler // WARNING: Do not remove this, lest you get threading errors.
+            );
 
             AddFormula = ReactiveCommand
                 .Create<IViewModelFor<IFormula>>(formulaViewModel =>

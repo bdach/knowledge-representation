@@ -39,6 +39,16 @@ namespace Client.View
             this.Bind(ViewModel, vm => vm.SelectedActionClauseType, v => v.ActionClauseGallery.SelectedValue);
             this.Bind(ViewModel, vm => vm.SelectedQueryClauseType, v => v.QueryClauseGallery.SelectedValue);
 
+            this.WhenAnyValue(v => v.ActionDropDown.IsDropDownOpen)
+                .Where(open => open)
+                .Subscribe(_ => ActionsGallery.SelectedValue = null);
+            this.WhenAnyValue(v => v.AddActionClauseDropDown.IsDropDownOpen)
+                .Where(open => open)
+                .Subscribe(_ => ActionClauseGallery.SelectedValue = null);
+            this.WhenAnyValue(v => v.AddQueryClauseDropDown.IsDropDownOpen)
+                .Where(open => open)
+                .Subscribe(_ => QueryClauseGallery.SelectedValue = null);
+
             this.WhenAnyObservable(v => v.ViewModel.ScenarioContainer.LiteralViewModels.CountChanged)
                 .Select(GetVisibilityForCount)
                 .Subscribe(visibility => FluentSeparator.Visibility = visibility);

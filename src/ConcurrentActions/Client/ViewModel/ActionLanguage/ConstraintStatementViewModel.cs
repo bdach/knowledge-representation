@@ -52,9 +52,8 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public ConstraintStatementViewModel()
         {
-            AddAction = ReactiveCommand
-                .Create<ActionViewModel>(actionViewModel =>
-                    throw new NotApplicableException("Constraint statement does not support adding actions"));
+            // TODO: display error?
+            AddAction = ReactiveCommand.Create<ActionViewModel>(action => {});
 
             AddFormula = ReactiveCommand
                 .Create<IViewModelFor<IFormula>>(formulaViewModel =>

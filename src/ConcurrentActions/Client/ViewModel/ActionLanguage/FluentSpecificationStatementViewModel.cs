@@ -52,9 +52,8 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public FluentSpecificationStatementViewModel()
         {
-            AddAction = ReactiveCommand
-                .Create<ActionViewModel>(actionViewModel =>
-                    throw new NotApplicableException("Fluent specification statement does not support adding actions"));
+            // TODO: display error?
+            AddAction = ReactiveCommand.Create<ActionViewModel>(action => {});
 
             AddFormula = ReactiveCommand
                 .Create<IViewModelFor<IFormula>>(formulaViewModel =>

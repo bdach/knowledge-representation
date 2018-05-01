@@ -11,30 +11,36 @@
         Title="{local:Loc WindowTitle}" 
         Width="800" Height="600">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <rui:ViewModelViewHost Name="Ribbon"
-            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-            HorizontalContentAlignment="Stretch"
-            FocusManager.IsFocusScope="True"/>
+            Grid.Row="0" Grid.Column="0"
+            HorizontalContentAlignment="Stretch" />
 
-        <rui:ViewModelViewHost Name="ActionArea"
-            Grid.Row="1" Grid.Column="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Margin="4,4,2,4"/>
+        <Grid 
+            Grid.Row="1"
+            FocusManager.IsFocusScope="True">
 
-        <rui:ViewModelViewHost Name="QueryArea"
-            Grid.Row="1" Grid.Column="1"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            Margin="2,4,4,4"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <rui:ViewModelViewHost Name="ActionArea"
+                                   Grid.Column="0"
+                                   HorizontalContentAlignment="Stretch"
+                                   VerticalContentAlignment="Stretch"
+                                   Margin="4,4,2,4"/>
+
+            <rui:ViewModelViewHost Name="QueryArea"
+                                   Grid.Column="1"
+                                   HorizontalContentAlignment="Stretch"
+                                   VerticalContentAlignment="Stretch"
+                                   Margin="2,4,4,4"/>
+
+        </Grid>
     </Grid>
 </Window>

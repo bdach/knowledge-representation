@@ -23,6 +23,9 @@ namespace Client.ViewModel
         /// </summary>
         public ObservableCollection<IActionClauseViewModel> ActionDomain { get; protected set; }
 
+        /// <summary>
+        /// Command used for adding an action to an item of this collection.
+        /// </summary>
         public ReactiveCommand<ActionViewModel, Unit> AddAction;
 
         /// <summary>
@@ -38,7 +41,7 @@ namespace Client.ViewModel
                 {
                     Observable.Start(() => ac).InvokeCommand(viewModel.AddAction);
                 }
-            });
+            }, null, RxApp.MainThreadScheduler);  // WARNING: Do not remove this, lest you get threading errors.
         }
     }
 }
