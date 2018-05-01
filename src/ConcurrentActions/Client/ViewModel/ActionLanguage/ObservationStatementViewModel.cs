@@ -37,11 +37,6 @@ namespace Client.ViewModel.ActionLanguage
         public string DisplayName => $"{LabelLeft} [ ] {LabelRight} [ ]";
 
         /// <summary>
-        /// Command adding a new fluent.
-        /// </summary>
-        public ReactiveCommand<LiteralViewModel, Unit> AddFluent { get; protected set; }
-
-        /// <summary>
         /// The <see cref="IViewModelFor{T}"/> instance returning a condition.
         /// </summary>
         public IFormulaViewModel Condition { get; set; } = new PlaceholderViewModel();
@@ -52,9 +47,14 @@ namespace Client.ViewModel.ActionLanguage
         public IViewModelFor<Model.Action> Action { get; set; } = new PlaceholderViewModel();
 
         /// <summary>
+        /// Command adding a new fluent.
+        /// </summary>
+        public ReactiveCommand<LiteralViewModel, LiteralViewModel> AddFluent { get; protected set; }
+
+        /// <summary>
         /// Command adding a new action.
         /// </summary>
-        public ReactiveCommand<ActionViewModel, Unit> AddAction { get; protected set; }
+        public ReactiveCommand<ActionViewModel, ActionViewModel> AddAction { get; protected set; }
 
         /// <summary>
         /// Command adding a new formula.
@@ -66,13 +66,13 @@ namespace Client.ViewModel.ActionLanguage
 
         public ObservationStatementViewModel()
         {
-            AddAction = ReactiveCommand.Create<ActionViewModel>(
-                action => Action = action,
-                this.WhenAnyValue(v => v.Action.IsFocused),
-                RxApp.MainThreadScheduler // WARNING: Do not remove this, lest you get threading errors.
+            AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(
+                action => action,
+                this.WhenAnyValue(v => v.Action.IsFocused)
             );
+            AddAction.BindTo(this, vm => vm.Action);
 
-            AddFluent = ReactiveCommand.Create<LiteralViewModel>(fluent => { });
+            AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
             AddFormula.Subscribe(InsertFormula);

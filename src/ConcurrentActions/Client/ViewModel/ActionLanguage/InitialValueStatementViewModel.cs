@@ -39,12 +39,12 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Command adding a new fluent.
         /// </summary>
-        public ReactiveCommand<LiteralViewModel, Unit> AddFluent { get; protected set; }
+        public ReactiveCommand<LiteralViewModel, LiteralViewModel> AddFluent { get; protected set; }
 
         /// <summary>
         /// Command adding a new action.
         /// </summary>
-        public ReactiveCommand<ActionViewModel, Unit> AddAction { get; protected set; }
+        public ReactiveCommand<ActionViewModel, ActionViewModel> AddAction { get; protected set; }
 
         /// <summary>
         /// Command adding a new formula.
@@ -60,9 +60,9 @@ namespace Client.ViewModel.ActionLanguage
         public InitialValueStatementViewModel()
         {
             // TODO: display error?
-            AddAction = ReactiveCommand.Create<ActionViewModel>(action => { });
+            AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel> (action => action);
 
-            AddFluent = ReactiveCommand.Create<LiteralViewModel>(fluent => { });
+            AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
             AddFormula.Subscribe(InsertFormula);

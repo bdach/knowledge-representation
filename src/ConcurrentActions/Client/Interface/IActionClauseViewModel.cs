@@ -14,13 +14,13 @@ namespace Client.Interface
         /// <summary>
         /// Adds a new <see cref="ActionViewModel"/> to edited clause.
         /// </summary>
-        ReactiveCommand<ActionViewModel, Unit> AddAction { get; }
+        ReactiveCommand<ActionViewModel, ActionViewModel> AddAction { get; }
 
         /// <summary>
         /// Adds a new <see cref="Model.Fluent"/> to edited clause.
         /// This is intended for statements which take a single fluent.
         /// </summary>
-        ReactiveCommand<LiteralViewModel, Unit> AddFluent { get; }
+        ReactiveCommand<LiteralViewModel, LiteralViewModel> AddFluent { get; }
         
         /// <summary>
         /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.

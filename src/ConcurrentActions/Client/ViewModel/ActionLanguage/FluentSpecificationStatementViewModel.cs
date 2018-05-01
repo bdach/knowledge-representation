@@ -38,12 +38,12 @@ namespace Client.ViewModel.ActionLanguage
         /// <summary>
         /// Command adding a new fluent.
         /// </summary>
-        public ReactiveCommand<LiteralViewModel, Unit> AddFluent { get; protected set; }
+        public ReactiveCommand<LiteralViewModel, LiteralViewModel> AddFluent { get; protected set; }
 
         /// <summary>
         /// Command adding a new action.
         /// </summary>
-        public ReactiveCommand<ActionViewModel, Unit> AddAction { get; protected set; }
+        public ReactiveCommand<ActionViewModel, ActionViewModel> AddAction { get; protected set; }
 
         /// <summary>
         /// Command adding a new formula.
@@ -59,13 +59,13 @@ namespace Client.ViewModel.ActionLanguage
         public FluentSpecificationStatementViewModel()
         {
             // TODO: display error?
-            AddAction = ReactiveCommand.Create<ActionViewModel>(action => {});
+            AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
 
-            AddFluent = ReactiveCommand.Create<LiteralViewModel>(
-                fluent => Fluent = fluent,
-                this.WhenAnyValue(v => v.Fluent.IsFocused),
-                RxApp.MainThreadScheduler // WARNING: Do not remove this, lest you get threading errors.
+            AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(
+                fluent => fluent,
+                this.WhenAnyValue(v => v.Fluent.IsFocused)
             );
+            AddFluent.BindTo(this, vm => vm.Fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
         }
