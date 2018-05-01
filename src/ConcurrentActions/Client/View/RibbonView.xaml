@@ -180,6 +180,24 @@
                         Icon="/Client;component/Resources/Images/equivalency-64.png"
                         LargeIcon="/Client;component/Resources/Images/equivalency-128.png" />
 
+                    <StackPanel>
+
+                        <fluent:Button
+                            Style="{DynamicResource RibbonMiddleNarrowButton}"
+                            Name="TruthButton"
+                            Header="{local:Loc TruthButton}"
+                            Icon="/Client;component/Resources/Images/truth-64.png"
+                            LargeIcon="/Client;component/Resources/Images/truth-128.png" />
+
+                        <fluent:Button
+                            Style="{DynamicResource RibbonMiddleNarrowButton}"
+                            Name="FalsityButton"
+                            Header="{local:Loc FalsityButton}"
+                            Icon="/Client;component/Resources/Images/falsity-64.png"
+                            LargeIcon="/Client;component/Resources/Images/falsity-128.png" />
+
+                    </StackPanel>
+
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox

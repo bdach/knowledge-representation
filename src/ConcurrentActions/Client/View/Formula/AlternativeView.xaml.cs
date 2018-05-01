@@ -22,9 +22,11 @@ namespace Client.View.Formula
         public AlternativeView()
         {
             InitializeComponent();
+            this.OneWayBind(ViewModel, vm => vm.Prefix, v => v.Prefix.Text);
             this.OneWayBind(ViewModel, vm => vm.Left, v => v.LeftOperand.ViewModel);
             this.OneWayBind(ViewModel, vm => vm.Operator, v => v.Operator.Text);
             this.OneWayBind(ViewModel, vm => vm.Right, v => v.RightOperand.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Suffix, v => v.Suffix.Text);
 
             this.WhenAnyValue(v => v.IsFocused)
                 .BindTo(this, v => v.ViewModel.IsFocused);

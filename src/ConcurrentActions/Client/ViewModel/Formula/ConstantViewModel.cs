@@ -27,6 +27,11 @@ namespace Client.ViewModel.Formula
         public Constant Constant { get; set; }
 
         /// <summary>
+        /// Constant label to be displayed in the application;
+        /// </summary>
+        public string Label => Constant.ToString();
+
+        /// <summary>
         /// Command adding a new formula.
         /// </summary>
         public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
@@ -69,7 +74,7 @@ namespace Client.ViewModel.Formula
         /// <inheritdoc />
         public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
         {
-            return this;
+            return new ConstantViewModel(Constant);
         }
 
         /// <summary>

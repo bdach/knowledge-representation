@@ -4,6 +4,7 @@ using System.Windows;
 using Client.Interface;
 using Client.ViewModel;
 using Client.ViewModel.Formula;
+using Model.Forms;
 using ReactiveUI;
 
 namespace Client.View
@@ -49,6 +50,9 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.ImplicationButton, Observable.Start(() => new ImplicationViewModel()));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.EquivalenceButton, Observable.Start(() => new EquivalenceViewModel()));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.NegationButton, Observable.Start(() => new NegationViewModel()));
+            this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.TruthButton, Observable.Start(() => new ConstantViewModel(Constant.Truth)));
+            this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.FalsityButton, Observable.Start(() => new ConstantViewModel(Constant.Falsity)));
+
             this.WhenAnyValue(v => v.ViewModel.SelectedFluent)
                 .Where(v => v != null)
                 .Select(v => new LiteralViewModel(v.Fluent))

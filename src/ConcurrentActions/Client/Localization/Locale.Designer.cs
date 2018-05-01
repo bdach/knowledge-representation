@@ -268,6 +268,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FalsityButton.
+        /// </summary>
+        public static string FalsityButton {
+            get {
+                return ResourceManager.GetString("FalsityButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FluentDropDown.
         /// </summary>
         public static string FluentDropDown {
@@ -336,6 +345,15 @@ namespace Client.Localization {
         public static string SystemGroupBox {
             get {
                 return ResourceManager.GetString("SystemGroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TruthButton.
+        /// </summary>
+        public static string TruthButton {
+            get {
+                return ResourceManager.GetString("TruthButton", resourceCulture);
             }
         }
         

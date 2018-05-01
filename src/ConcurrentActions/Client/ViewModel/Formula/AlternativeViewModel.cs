@@ -22,6 +22,16 @@ namespace Client.ViewModel.Formula
         public string Operator => "\u2228";
 
         /// <summary>
+        /// Prefix used for rendering the view.
+        /// </summary>
+        public string Prefix => "(";
+
+        /// <summary>
+        /// Suffix used for rendering the view.
+        /// </summary>
+        public string Suffix => ")";
+
+        /// <summary>
         /// The left <see cref="IViewModelFor{T}"/> instance returning a formula.
         /// </summary>
         public IFormulaViewModel Left { get; set; } = new PlaceholderViewModel();

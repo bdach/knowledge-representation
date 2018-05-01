@@ -198,6 +198,9 @@
   <data name="ExportButton" xml:space="preserve">
     <value>Eksportuj do pliku</value>
   </data>
+  <data name="FalsityButton" xml:space="preserve">
+    <value>Fałsz</value>
+  </data>
   <data name="FluentDropDown" xml:space="preserve">
     <value>Fluenty</value>
   </data>
@@ -233,6 +236,9 @@
   </data>
   <data name="SystemGroupBox" xml:space="preserve">
     <value>System dynamiczny</value>
+  </data>
+  <data name="TruthButton" xml:space="preserve">
+    <value>Prawda</value>
   </data>
   <data name="ValueQuery" xml:space="preserve">
     <value>Kwerendy wartości</value>

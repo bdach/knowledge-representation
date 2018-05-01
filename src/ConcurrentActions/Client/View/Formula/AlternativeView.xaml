@@ -8,8 +8,10 @@
                        mc:Ignorable="d"
                        Style="{DynamicResource {x:Type view:ExpressionButton}}">
     <WrapPanel>
+        <TextBlock Name="Prefix" Style="{DynamicResource BaseLabel}" />
         <reactiveUi:ViewModelViewHost x:Name="LeftOperand" />
         <TextBlock Name="Operator" Style="{DynamicResource BaseLabel}" />
         <reactiveUi:ViewModelViewHost x:Name="RightOperand" />
+        <TextBlock Name="Suffix" Style="{DynamicResource BaseLabel}" />
     </WrapPanel>
 </view:ExpressionButton>

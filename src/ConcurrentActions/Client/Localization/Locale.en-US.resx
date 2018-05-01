@@ -198,6 +198,9 @@
   <data name="ExportButton" xml:space="preserve">
     <value>Export to file</value>
   </data>
+  <data name="FalsityButton" xml:space="preserve">
+    <value>Falsity</value>
+  </data>
   <data name="FluentDropDown" xml:space="preserve">
     <value>Fluents</value>
   </data>
@@ -233,6 +236,9 @@
   </data>
   <data name="SystemGroupBox" xml:space="preserve">
     <value>Dynamic System</value>
+  </data>
+  <data name="TruthButton" xml:space="preserve">
+    <value>Truth</value>
   </data>
   <data name="ValueQuery" xml:space="preserve">
     <value>Value Queries</value>

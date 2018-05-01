@@ -21,7 +21,7 @@ namespace Client.View.Formula
         public ConstantView()
         {
             InitializeComponent();
-            this.OneWayBind(ViewModel, vm => vm.Constant, v => v.Constant.Text);
+            this.OneWayBind(ViewModel, vm => vm.Label, v => v.Constant.Text);
 
             this.WhenAnyValue(v => v.IsFocused)
                 .BindTo(this, v => v.ViewModel.IsFocused);
