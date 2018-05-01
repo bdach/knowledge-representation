@@ -1,9 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml.Serialization;
 using Client.Abstract;
 using Client.Global;
 using Client.View;
@@ -59,6 +55,18 @@ namespace Client.ViewModel
                 .Select(ac => new ActionViewModel(ac.Action))
                 .InvokeCommand(ActionAreaViewModel, vm => vm.AddAction);
             RibbonViewModel.SelectFormula.InvokeCommand(ActionAreaViewModel, vm => vm.AddFormula);
+
+            RibbonViewModel.Clear.Subscribe(_ =>
+            {
+                ActionAreaViewModel.ActionDomain.Clear();
+                QueryAreaViewModel.QuerySet.Clear();
+
+                var currentScenario = Locator.Current.GetService<ScenarioContainer>();
+                currentScenario.ActionViewModels.Clear();
+                currentScenario.CompoundActionViewModels.Clear();
+                currentScenario.LiteralViewModels.Clear();
+                currentScenario.ProgramViewModels.Clear();
+            });
 
             RibbonViewModel.PerformCalculations.Subscribe(_ =>
             {

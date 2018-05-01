@@ -24,6 +24,7 @@ namespace Client.View
         public RibbonView()
         {
             InitializeComponent();
+            this.BindCommand(ViewModel, vm => vm.Clear, v => v.ClearButton);
             this.BindCommand(ViewModel, vm => vm.CloseWindow, v => v.CloseButton);
             this.BindCommand(ViewModel, vm => vm.SetEnglishLocale, v => v.EnglishButton);
             this.BindCommand(ViewModel, vm => vm.SetPolishLocale, v => v.PolishButton);

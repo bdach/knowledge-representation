@@ -29,6 +29,11 @@ namespace Client.ViewModel
         #region General commands
 
         /// <summary>
+        /// Command used to clear current scenario.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> Clear { get; protected set; }
+
+        /// <summary>
         /// Command closing the application window.
         /// </summary>
         public ReactiveCommand<Unit, Unit> CloseWindow { get; protected set; }
@@ -137,6 +142,7 @@ namespace Client.ViewModel
         {
             ScenarioContainer = scenarioContainer ?? Locator.Current.GetService<ScenarioContainer>();
 
+            Clear = ReactiveCommand.Create(() => Unit.Default);
             CloseWindow = ReactiveCommand.Create(() => Unit.Default);
             SetEnglishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.AmericanEnglish));
             SetPolishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.Polish));
