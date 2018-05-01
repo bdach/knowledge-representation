@@ -1,11 +1,8 @@
-﻿using System;
-using System.Reactive;
-using System.Reactive.Linq;
+﻿using System.Reactive;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View.Formula;
-using Client.ViewModel.Terminal;
 using Model.Forms;
 using ReactiveUI;
 

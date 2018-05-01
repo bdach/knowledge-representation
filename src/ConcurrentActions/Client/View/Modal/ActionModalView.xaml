@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         Title="{local:Loc AddActionTitle}"
         Width="300" Height="150" >
-    <Grid Style="{DynamicResource FluentMargin}">
+    <Grid Style="{DynamicResource FluentMargin}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="2*" />
@@ -19,27 +19,28 @@
         <TextBlock
             Grid.Row="0"
             Text="{local:Loc AddActionPrompt}" />
-        
+
         <TextBox
             Style="{DynamicResource ModalTextBox}"
             Grid.Row="1"
             Name="ActionNameBox" />
-        
+
         <StackPanel
             Style="{DynamicResource ModalButtonStackPanel}"
-            Grid.Row="2">
+            Grid.Row="2" >
 
             <Button
                 Style="{DynamicResource ModalButton}"
                 Name="AddActionConfirmButton"
-                Content="{local:Loc AddActionConfirmButton}"/>
+                Content="{local:Loc AddActionConfirmButton}"
+                IsDefault="True" />
 
             <Button
                 Style="{DynamicResource ModalButton}"
                 Name="AddActionCancelButton"
-                Content="{local:Loc AddActionCancelButton}"/>
+                Content="{local:Loc AddActionCancelButton}" />
 
         </StackPanel>
-        
+
     </Grid>
 </Window>

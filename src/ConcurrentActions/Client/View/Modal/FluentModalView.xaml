@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         Title="{local:Loc AddFluentTitle}"
         Width="300" Height="150" >
-    <Grid Style="{DynamicResource FluentMargin}">
+    <Grid Style="{DynamicResource FluentMargin}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="2*" />
@@ -19,27 +19,28 @@
         <TextBlock
             Grid.Row="0"
             Text="{local:Loc AddFluentPrompt}" />
-        
+
         <TextBox
             Style="{DynamicResource ModalTextBox}"
             Grid.Row="1"
             Name="FluentNameBox" />
-        
+
         <StackPanel
             Style="{DynamicResource ModalButtonStackPanel}"
-            Grid.Row="2">
+            Grid.Row="2" >
 
             <Button
                 Style="{DynamicResource ModalButton}"
                 Name="AddFluentConfirmButton"
-                Content="{local:Loc AddFluentConfirmButton}"/>
+                Content="{local:Loc AddFluentConfirmButton}"
+                IsDefault="True" />
 
             <Button
                 Style="{DynamicResource ModalButton}"
                 Name="AddFluentCancelButton"
-                Content="{local:Loc AddFluentCancelButton}"/>
+                Content="{local:Loc AddFluentCancelButton}" />
 
         </StackPanel>
-        
+
     </Grid>
 </Window>
