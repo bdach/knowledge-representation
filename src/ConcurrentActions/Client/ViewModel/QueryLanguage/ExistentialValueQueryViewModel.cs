@@ -74,7 +74,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <inheritdoc />
         public IQueryClauseViewModel NewInstance()
         {
-            return new ExistentialExecutabilityQueryViewModel();
+            return new ExistentialValueQueryViewModel();
         }
 
         /// <summary>
