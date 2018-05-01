@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Model;
 using Model.ActionLanguage;
@@ -13,12 +11,12 @@ namespace Test.ResZero
 {
     internal class ProducentConsumerTest
     {
-        private readonly Fluent bufferEmpty = new Fluent("bufferEmpty");
-        private readonly Fluent hasItem = new Fluent("hasItem");
+        private readonly Fluent _bufferEmpty = new Fluent("bufferEmpty");
+        private readonly Fluent _hasItem = new Fluent("hasItem");
 
-        private readonly Action put = new Action("put");
-        private readonly Action get = new Action("get");
-        private readonly Action consume = new Action("consume");
+        private readonly Action _put = new Action("put");
+        private readonly Action _get = new Action("get");
+        private readonly Action _consume = new Action("consume");
 
         private static State _stateZero;
         private State _stateOne;
@@ -28,21 +26,21 @@ namespace Test.ResZero
         private ActionDomain ProducerConsumerActionDomain()
         {
             var actionDomain = new ActionDomain();
-            actionDomain.EffectStatements.Add(new EffectStatement(put, new Literal(bufferEmpty),
-                new Negation(new Literal(bufferEmpty))));
-            actionDomain.EffectStatements.Add(new EffectStatement(get,
-                new Conjunction(new Negation(new Literal(bufferEmpty)), new Negation(new Literal(hasItem))),
-                new Conjunction(new Literal(bufferEmpty), new Literal(hasItem))));
-            actionDomain.EffectStatements.Add(new EffectStatement(consume, new Negation(new Literal(hasItem))));
+            actionDomain.EffectStatements.Add(new EffectStatement(_put, new Literal(_bufferEmpty),
+                new Negation(new Literal(_bufferEmpty))));
+            actionDomain.EffectStatements.Add(new EffectStatement(_get,
+                new Conjunction(new Negation(new Literal(_bufferEmpty)), new Negation(new Literal(_hasItem))),
+                new Conjunction(new Literal(_bufferEmpty), new Literal(_hasItem))));
+            actionDomain.EffectStatements.Add(new EffectStatement(_consume, new Negation(new Literal(_hasItem))));
             return actionDomain;
         }
 
         private Structure ProducerConsumerStructure()
         {
-            var fluentInitZero = new Dictionary<Fluent, bool>() {{bufferEmpty, true}, {hasItem, true}};
-            var fluentStateOne = new Dictionary<Fluent, bool>() {{bufferEmpty, false}, {hasItem, true}};
-            var fluentStatesTwo = new Dictionary<Fluent, bool>() {{bufferEmpty, true}, {hasItem, false}};
-            var fluentStatesThree = new Dictionary<Fluent, bool>() {{bufferEmpty, false}, {hasItem, false}};
+            var fluentInitZero = new Dictionary<Fluent, bool>() {{_bufferEmpty, true}, {_hasItem, true}};
+            var fluentStateOne = new Dictionary<Fluent, bool>() {{_bufferEmpty, false}, {_hasItem, true}};
+            var fluentStatesTwo = new Dictionary<Fluent, bool>() {{_bufferEmpty, true}, {_hasItem, false}};
+            var fluentStatesThree = new Dictionary<Fluent, bool>() {{_bufferEmpty, false}, {_hasItem, false}};
 
             _stateZero = new State(fluentInitZero);
             _stateOne = new State(fluentStateOne);
@@ -59,17 +57,22 @@ namespace Test.ResZero
             return new Structure(allStates, _stateZero, null);
         }
 
+        private DynamicSystem.ResZero.ResZero CreateResZeroObjInstance()
+        {
+            var domain = ProducerConsumerActionDomain();
+            var structure = ProducerConsumerStructure();
+            return new DynamicSystem.ResZero.ResZero(domain.EffectStatements, structure.States);
+        }
+
         [Test]
         public void ResZero_PUT_Test()
         {
             //given
-            var actionDomain = ProducerConsumerActionDomain();
-            var structure = ProducerConsumerStructure();
-            var compoundAction = new CompoundAction(new List<Action>() {put});
-            var resultStates = new List<State>() {_stateOne};
+            var resTestObjInstance = CreateResZeroObjInstance();
+            var compoundAction = new CompoundAction(new List<Action>() {_put});
+            var resultStates = new List<State>() {_stateOne, _stateThree};
             //when
-            var resZeroStates = DynamicSystem.ResZero.ResZero.GetStates(structure.States, structure.InitialState,
-                actionDomain, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -79,13 +82,11 @@ namespace Test.ResZero
         public void ResZero_GET_Test()
         {
             //given
-            var actionDomain = ProducerConsumerActionDomain();
-            var structure = ProducerConsumerStructure();
-            var compoundAction = new CompoundAction(new List<Action>() {get});
+            var resTestObjInstance = CreateResZeroObjInstance();
+            var compoundAction = new CompoundAction(new List<Action>() {_get});
             var resultStates = new List<State>() {_stateZero};
             //when
-            var resZeroStates = DynamicSystem.ResZero.ResZero.GetStates(structure.States, structure.InitialState,
-                actionDomain, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -95,13 +96,11 @@ namespace Test.ResZero
         public void ResZero_CONSUME_Test()
         {
             //given
-            var actionDomain = ProducerConsumerActionDomain();
-            var structure = ProducerConsumerStructure();
-            var compoundAction = new CompoundAction(new List<Action>() { consume });
-            var resultStates = new List<State>() { _stateTwo };
+            var resTestObjInstance = CreateResZeroObjInstance();
+            var compoundAction = new CompoundAction(new List<Action>() { _consume });
+            var resultStates = new List<State>() { _stateTwo,_stateThree };
             //when
-            var resZeroStates = DynamicSystem.ResZero.ResZero.GetStates(structure.States, structure.InitialState,
-                actionDomain, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -114,13 +113,11 @@ namespace Test.ResZero
         public void ResZero_PUT_GET_Test()
         {
             //given
-            var actionDomain = ProducerConsumerActionDomain();
-            var structure = ProducerConsumerStructure();
-            var compoundAction = new CompoundAction(new List<Action>() {put, get});
-            var resultStates = new List<State>() {_stateOne};
+            var resTestObjInstance = CreateResZeroObjInstance();
+            var compoundAction = new CompoundAction(new List<Action>() {_put, _get});
+            var resultStates = new List<State>() {_stateOne, _stateThree};
             //when
-            var resZeroStates = DynamicSystem.ResZero.ResZero.GetStates(structure.States, structure.InitialState,
-                actionDomain, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();

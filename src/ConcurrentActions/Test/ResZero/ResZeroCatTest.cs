@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Model;
 using Model.ActionLanguage;
@@ -50,16 +48,22 @@ namespace Test.ResZero
             return new Structure(allStates, _stateZero, null);
         }
 
+        private DynamicSystem.ResZero.ResZero CreateResZeroObjInstance()
+        {
+            var domain = CatActionDomain();
+            var structure = CatStructure();
+            return new DynamicSystem.ResZero.ResZero(domain.EffectStatements, structure.States);
+        }
+
         [Test]
         public void ResZeroCatPeekTest()
         {
             //given
-            var actionDomain = CatActionDomain();
-            var structure = CatStructure();
+            var resTestObjInstance = CreateResZeroObjInstance();
             var compoundAction = new CompoundAction(new List<Action>() { _peek });
-            var resultStates = new List<State>() {_stateTwo};
+            var resultStates = new List<State>() {_stateZero, _stateOne, _stateTwo};
             //when
-            var resZeroStates = DynamicSystem.ResZero.ResZero.GetStates(structure.States, _stateTwo, actionDomain, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -69,12 +73,11 @@ namespace Test.ResZero
         public void ResZeroCatPetTest()
         {
             //given
-            var actionDomain = CatActionDomain();
-            var structure = CatStructure();
+            var resTestObjInstance = CreateResZeroObjInstance();
             var compoundAction = new CompoundAction(new List<Action>() { _pet });
             var resultStates = new List<State>() {_stateZero };
             //when
-            var resZeroStates = DynamicSystem.ResZero.ResZero.GetStates(structure.States, structure.InitialState, actionDomain, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
