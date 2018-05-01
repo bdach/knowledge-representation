@@ -150,7 +150,7 @@
                         <Setter Property="IsEnabled" Value="False" />
                     </Style>
                     <Style TargetType="reactiveUi:ViewModelViewHost">
-                        <!-- Nasty fix to combat stupid control fade-in -->
+                        <!-- nasty fix to combat stupid control fade-in -->
                         <Setter Property="MinHeight" Value="25" />
                     </Style>
                 </Style.Resources>

@@ -6,6 +6,7 @@ using Client.Interface;
 using Client.View;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
+using Model.ActionLanguage;
 using ReactiveUI;
 
 namespace Client.ViewModel
@@ -66,6 +67,46 @@ namespace Client.ViewModel
                     Observable.Start(() => form).InvokeCommand(viewModel.AddFormula);
                 }
             }, null, RxApp.MainThreadScheduler);
+        }
+
+        /// <summary>
+        /// Converts all action clauses to corresponding models and combines
+        /// them into <see cref="ActionDomain"/> instance.
+        /// </summary>
+        /// <returns><see cref="ActionDomain"/> instance with all action clauses from the current scenario.</returns>
+        public ActionDomain GetActionDomainModel()
+        {
+            var actionDomain = new ActionDomain();
+
+            foreach (var actionClause in ActionDomain)
+            {
+                switch (actionClause)
+                {
+                    case IViewModelFor<ConstraintStatement> constraintStatement:
+                        actionDomain.ConstraintStatements.Add(constraintStatement.ToModel());
+                        break;
+                    case IViewModelFor<EffectStatement> effectStatement:
+                        actionDomain.EffectStatements.Add(effectStatement.ToModel());
+                        break;
+                    case IViewModelFor<FluentReleaseStatement> fluentReleaseStatement:
+                        actionDomain.FluentReleaseStatements.Add(fluentReleaseStatement.ToModel());
+                        break;
+                    case IViewModelFor<FluentSpecificationStatement> fluentSpecificationStatement:
+                        actionDomain.FluentSpecificationStatements.Add(fluentSpecificationStatement.ToModel());
+                        break;
+                    case IViewModelFor<InitialValueStatement> initialValueStatement:
+                        actionDomain.InitialValueStatements.Add(initialValueStatement.ToModel());
+                        break;
+                    case IViewModelFor<ObservationStatement> observationStatement:
+                        actionDomain.ObservationStatements.Add(observationStatement.ToModel());
+                        break;
+                    case IViewModelFor<ValueStatement> valueStatement:
+                        actionDomain.ValueStatements.Add(valueStatement.ToModel());
+                        break;
+                }
+            }
+
+            return actionDomain;
         }
     }
 }

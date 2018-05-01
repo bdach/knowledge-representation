@@ -43,6 +43,11 @@ namespace Client.ViewModel
         /// </summary>
         public ReactiveCommand<Unit, Unit> SetPolishLocale { get; protected set; }
 
+        /// <summary>
+        /// Command used to trigger scenario evaluation.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> PerformCalculations { get; protected set; }
+
         #endregion
 
         #region Modal-related commands
@@ -135,6 +140,7 @@ namespace Client.ViewModel
             CloseWindow = ReactiveCommand.Create(() => Unit.Default);
             SetEnglishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.AmericanEnglish));
             SetPolishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.Polish));
+            PerformCalculations = ReactiveCommand.Create(() => Unit.Default);
 
             ShowAddFluentModal = ReactiveCommand.Create(() =>
             {
@@ -152,7 +158,7 @@ namespace Client.ViewModel
             LocalizeGroupName = o => LocalizationProvider.Instance[((IClauseViewModel)o).ClauseTypeNameKey];
             // Force switch to new language
             // I know, this is way too ugly to live, but I don't really want to spend more time on this
-            // TODO fix maybe?
+            // TODO: fix maybe?
             LocalizationProvider.Instance.PropertyChanged += (sender, args) =>
             {
                 LocalizeGroupName = o => LocalizationProvider.Instance[((IClauseViewModel)o).ClauseTypeNameKey];

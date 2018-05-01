@@ -29,7 +29,8 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.SetPolishLocale, v => v.PolishButton);
             this.BindCommand(ViewModel, vm => vm.ShowAddFluentModal, v => v.AddFluentButton);
             this.BindCommand(ViewModel, vm => vm.ShowAddActionModal, v => v.AddActionButton);
-            
+            this.BindCommand(ViewModel, vm => vm.PerformCalculations, v => v.CalculateButton);
+
             this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.LiteralViewModels, v => v.FluentsGallery.ItemsSource);
             this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.ActionViewModels, v => v.ActionsGallery.ItemsSource);
             this.OneWayBind(ViewModel, vm => vm.ActionClauseTypes, v => v.ActionClauseGallery.ItemsSource);

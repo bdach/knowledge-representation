@@ -1,10 +1,16 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Reactive.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 using Client.Abstract;
+using Client.Global;
 using Client.View;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using ReactiveUI;
+using Splat;
 
 namespace Client.ViewModel
 {
@@ -28,11 +34,6 @@ namespace Client.ViewModel
         /// View model of nested <see cref="QueryAreaView"/>.
         /// </summary>
         public QueryAreaViewModel QueryAreaViewModel { get; set; }
-
-        // TODO: move the following four observables into a VM wrapping *AreaViewModels
-        #region TODO: Scheduled for eviction
-
-        #endregion
 
         /// <summary>
         /// Initializes a new <see cref="ShellViewModel"/> instance.
@@ -58,6 +59,13 @@ namespace Client.ViewModel
                 .Select(ac => new ActionViewModel(ac.Action))
                 .InvokeCommand(ActionAreaViewModel, vm => vm.AddAction);
             RibbonViewModel.SelectFormula.InvokeCommand(ActionAreaViewModel, vm => vm.AddFormula);
+
+            RibbonViewModel.PerformCalculations.Subscribe(_ =>
+            {
+                // TODO: pass these further to DynamicSystem for evaluation
+                var actionDomain = ActionAreaViewModel.GetActionDomainModel();
+                var querySet = QueryAreaViewModel.GetQuerySetModel();
+            });
         }
     }
 }
