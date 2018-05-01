@@ -10,6 +10,7 @@ using Client.View.Modal;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Modal;
 using Client.ViewModel.Terminal;
+using Model.Forms;
 using ReactiveUI;
 using Splat;
 
@@ -70,6 +71,11 @@ namespace Client.ViewModel
         /// Contains the last selected fluent.
         /// </summary>
         public LiteralViewModel SelectedFluent { get; set; }
+
+        /// <summary>
+        /// Command invoked when a formula has been selected for adding by the user.
+        /// </summary>
+        public ReactiveCommand<IViewModelFor<IFormula>, IViewModelFor<IFormula>> SelectFormula { get; set; }
 
         #endregion
 
@@ -141,6 +147,8 @@ namespace Client.ViewModel
                 var modalView = (ActionModalView)Locator.Current.GetService<IViewFor<ActionModalViewModel>>();
                 modalView.ShowDialog();
             });
+
+            SelectFormula = ReactiveCommand.Create((IViewModelFor<IFormula> vm) => vm);
 
             LocalizeGroupName = o => LocalizationProvider.Instance[((IClauseViewModel)o).ClauseTypeNameKey];
             // Force switch to new language

@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using System.Windows;
 using Client.ViewModel;
+using Client.ViewModel.Formula;
 using ReactiveUI;
 
 namespace Client.View
@@ -39,6 +40,15 @@ namespace Client.View
             this.Bind(ViewModel, vm => vm.SelectedFluent, v => v.FluentsGallery.SelectedValue);
             this.Bind(ViewModel, vm => vm.SelectedActionClauseType, v => v.ActionClauseGallery.SelectedValue);
             this.Bind(ViewModel, vm => vm.SelectedQueryClauseType, v => v.QueryClauseGallery.SelectedValue);
+
+            this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.ConjunctionButton, Observable.Start(() => new ConjunctionViewModel()));
+            this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.AlternativeButton, Observable.Start(() => new AlternativeViewModel()));
+            this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.ImplicationButton, Observable.Start(() => new ImplicationViewModel()));
+            this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.EquivalenceButton, Observable.Start(() => new EquivalenceViewModel()));
+            this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.NegationButton, Observable.Start(() => new NegationViewModel()));
+            this.WhenAnyValue(v => v.FluentsGallery.SelectedValue)
+                .Where(v => v != null)
+                .InvokeCommand(this, v => v.ViewModel.SelectFormula);
 
             this.WhenAnyValue(v => v.FluentDropDown.IsDropDownOpen)
                 .Where(open => open)
