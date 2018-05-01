@@ -64,24 +64,21 @@ namespace Client.ViewModel.ActionLanguage
 
             AddFluent = ReactiveCommand.Create<LiteralViewModel>(fluent => { });
 
-            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(
-                InsertFormula,
-                null,
-                RxApp.MainThreadScheduler
-            );
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            AddFormula.Subscribe(InsertFormula);
+
             this.WhenAnyObservable(vm => vm.AddFormula)
-                .Where(form => form != null)
+                .CombineLatest(this.WhenAnyValue(vm => vm.InitialCondition.IsFocused), (vm, focused) => focused ? null : vm)
+                .Where(vm => vm != null)
                 .InvokeCommand(this, vm => vm.InitialCondition.AddFormula);
         }
 
-        private IFormulaViewModel InsertFormula(IFormulaViewModel formula)
+        private void InsertFormula(IFormulaViewModel formula)
         {
-            if (!InitialCondition.IsFocused)
+            if (InitialCondition.IsFocused)
             {
-                return formula;
+                InitialCondition = formula.Accept(InitialCondition);
             }
-            InitialCondition = formula.Accept(InitialCondition);
-            return null;
         }
 
         /// <inheritdoc />

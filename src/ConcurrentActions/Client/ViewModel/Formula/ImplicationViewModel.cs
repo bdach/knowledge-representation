@@ -78,37 +78,35 @@ namespace Client.ViewModel.Formula
         /// </summary>
         private void InitializeComponent()
         {
-            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(
-                InsertFormula,
-                null,
-                RxApp.MainThreadScheduler
-            );
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            AddFormula.Subscribe(InsertFormula);
+
             this.WhenAnyObservable(vm => vm.AddFormula)
-                .Where(form => form != null)
+                .CombineLatest(this.WhenAnyValue(vm => vm.IsFocused), (vm, focused) => focused ? null : vm)
+                .Where(vm => vm != null)
                 .InvokeCommand(this, vm => vm.Antecedent.AddFormula);
             this.WhenAnyObservable(vm => vm.AddFormula)
-                .Where(form => form != null)
+                .CombineLatest(this.WhenAnyValue(vm => vm.IsFocused), (vm, focused) => focused ? null : vm)
+                .Where(vm => vm != null)
                 .InvokeCommand(this, vm => vm.Consequent.AddFormula);
         }
 
-        private IFormulaViewModel InsertFormula(IFormulaViewModel formula)
+        private void InsertFormula(IFormulaViewModel formula)
         {
             if (Antecedent.IsFocused)
             {
                 Antecedent = formula.Accept(Antecedent);
-                return null;
             }
             if (Consequent.IsFocused)
             {
                 Consequent = formula.Accept(Consequent);
-                return null;
             }
-            return formula;
         }
 
         /// <inheritdoc />
         public IFormulaViewModel Accept(IFormulaViewModel existingFormula)
         {
+            existingFormula.IsFocused = false;
             return new ImplicationViewModel(existingFormula);
         }
 
