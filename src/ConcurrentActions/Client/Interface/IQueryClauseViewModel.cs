@@ -13,7 +13,7 @@ namespace Client.Interface
         /// <summary>
         /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.
         /// </summary>
-        ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; }
+        ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
 
         /// <summary>
         /// Adds a new <see cref="ProgramViewModel"/> to edited clause.
