@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Model;
 using Model.ActionLanguage;
 using Model.Forms;
@@ -26,7 +27,6 @@ namespace DynamicSystem.ResZero
             _allStates = allStates;
         }
 
-
         /// <summary>
         /// Generate states that are the result of performing a compound action on initial state in project domain
         /// </summary>
@@ -38,26 +38,22 @@ namespace DynamicSystem.ResZero
             var resZeroStates = new List<State>();
             foreach (var action in compoundAction.Actions)
             {
-                
-                var reacheableEffectStatements =
+                var statementsOnAction =
                     _effectStatement.FindAll(effect => effect.Action.Equals(action));
 
-                if (reacheableEffectStatements.Count == 0)
+                if (statementsOnAction.Count == 0)
                     return new HashSet<State>(_allStates);
 
-                var conjunctedStatements = reacheableEffectStatements.Aggregate((sentenceOne, sentenceTwo) =>
-                    new EffectStatement(action,
-                        new Conjunction(sentenceOne.Precondition, sentenceTwo.Precondition),
-                        new Conjunction(sentenceOne.Postcondition, sentenceTwo.Postcondition)));
+                var reacheableStatements =
+                    statementsOnAction.FindAll(statement => statement.Precondition.Evaluate(initialState));
 
+                var accessibleStates = _allStates.Where(state =>
+                    reacheableStatements.All(statement => statement.Postcondition.Evaluate(state)));
 
-                var outputStates = _allStates.Where(state => conjunctedStatements.Precondition.Evaluate(initialState) &&
-                                                            conjunctedStatements.Postcondition.Evaluate(state));
-
-
-                resZeroStates.AddRange(outputStates);
+                resZeroStates.AddRange(accessibleStates);
             }
-            return resZeroStates.Count == 0 ? new HashSet<State>() {initialState} : new HashSet<State>(resZeroStates);
+
+            return new HashSet<State>(resZeroStates);
         }
     }
 }

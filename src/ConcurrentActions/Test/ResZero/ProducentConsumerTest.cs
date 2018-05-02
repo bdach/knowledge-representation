@@ -72,7 +72,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action>() {_put});
             var resultStates = new List<State>() {_stateOne, _stateThree};
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero,compoundAction);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -84,7 +84,7 @@ namespace Test.ResZero
             //given
             var resTestObjInstance = CreateResZeroObjInstance();
             var compoundAction = new CompoundAction(new List<Action>() {_get});
-            var resultStates = new List<State>() {_stateZero};
+            var resultStates = new List<State>() {_stateZero, _stateOne, _stateTwo,_stateThree};
             //when
             var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then
@@ -99,23 +99,6 @@ namespace Test.ResZero
             var resTestObjInstance = CreateResZeroObjInstance();
             var compoundAction = new CompoundAction(new List<Action>() { _consume });
             var resultStates = new List<State>() { _stateTwo,_stateThree };
-            //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
-            //then
-            var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
-            sequenceEqual.Should().BeTrue();
-        }
-
-
-
-
-        [Test]
-        public void ResZero_PUT_GET_Test()
-        {
-            //given
-            var resTestObjInstance = CreateResZeroObjInstance();
-            var compoundAction = new CompoundAction(new List<Action>() {_put, _get});
-            var resultStates = new List<State>() {_stateOne, _stateThree};
             //when
             var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then

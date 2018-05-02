@@ -100,7 +100,7 @@ namespace Test.ResZero
             //given
             var resTestObjInstance = CreateResZeroObjInstance();
             var compoundAction = new CompoundAction(new List<Action>() {_paint});
-            var resultStates = new List<State>() {_stateZero};
+            var resultStates = new List<State>() {_stateZero,_stateOne,_stateTwo};
             //when
             var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then
