@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -31,7 +32,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <summary>
         /// Command adding a new program.
@@ -49,15 +50,26 @@ namespace Client.ViewModel.QueryLanguage
         /// </summary>
         public AccessibilityQueryViewModel()
         {
-            AddFormula = ReactiveCommand
-                .Create<IFormulaViewModel>(formulaViewModel =>
-                    throw new NotImplementedException());
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            AddFormula.Subscribe(InsertFormula);
+
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(_ => !IsFocused)
+                .InvokeCommand(this, vm => vm.Target.AddFormula);
 
             AddProgram = ReactiveCommand
                 .Create<ProgramViewModel>(programViewModel =>
                     throw new NotApplicableException("Accessibility query does not support adding programs"));
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+        }
+
+        private void InsertFormula(IFormulaViewModel formula)
+        {
+            if (Target.IsFocused)
+            {
+                Target = formula.Accept(Target);
+            }
         }
 
         /// <inheritdoc />

@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Interface;
 using Client.View;
 using Model.QueryLanguage;
+using ReactiveUI;
 
 namespace Client.ViewModel
 {
@@ -20,12 +23,22 @@ namespace Client.ViewModel
         /// </remarks>
         public ObservableCollection<IQueryClauseViewModel> QuerySet { get; protected set; }
 
+        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+
         /// <summary>
         /// Initializes a new <see cref="QueryAreaViewModel"/> instance.
         /// </summary>
         public QueryAreaViewModel()
         {
             QuerySet = new ObservableCollection<IQueryClauseViewModel>();
+
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel>(formula =>
+            {
+                foreach (var viewModel in QuerySet)
+                {
+                    Observable.Start(() => formula).InvokeCommand(viewModel, vm => vm.AddFormula);
+                }
+            }, null, RxApp.MainThreadScheduler);
         }
 
         /// <summary>

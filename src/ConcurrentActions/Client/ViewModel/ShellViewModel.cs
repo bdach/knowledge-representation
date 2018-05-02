@@ -47,6 +47,8 @@ namespace Client.ViewModel
             ActionAreaViewModel = new ActionAreaViewModel();
             QueryAreaViewModel = new QueryAreaViewModel();
 
+            #region Proxying user choices to action area
+
             this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedQueryClauseType)
                 .Where(vm => vm != null)
                 .Subscribe(t => QueryAreaViewModel.QuerySet.Add(t.NewInstance()));
@@ -61,7 +63,17 @@ namespace Client.ViewModel
                 .Where(vm => vm != null)
                 .Select(ac => new ActionViewModel(ac.Action))
                 .InvokeCommand(ActionAreaViewModel, vm => vm.AddAction);
-            RibbonViewModel.SelectFormula.InvokeCommand(ActionAreaViewModel, vm => vm.AddFormula);
+            this.WhenAnyObservable(vm => vm.RibbonViewModel.SelectFormula)
+                .InvokeCommand(ActionAreaViewModel, vm => vm.AddFormula);
+
+            #endregion
+
+            #region Proxying user choices to query area
+
+            this.WhenAnyObservable(vm => vm.RibbonViewModel.SelectFormula)
+                .InvokeCommand(QueryAreaViewModel, vm => vm.AddFormula);
+
+            #endregion
 
             RibbonViewModel.Clear.Subscribe(_ =>
             {
