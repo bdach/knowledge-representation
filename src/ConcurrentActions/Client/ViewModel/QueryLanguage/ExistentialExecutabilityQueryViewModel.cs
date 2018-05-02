@@ -4,7 +4,6 @@ using Client.Exception;
 using Client.Interface;
 using Client.View.QueryLanguage;
 using Client.ViewModel.Terminal;
-using Model.Forms;
 using Model.QueryLanguage;
 using ReactiveUI;
 
@@ -31,7 +30,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// Command adding a new formula.
         /// </summary>
-        public ReactiveCommand<IViewModelFor<IFormula>, Unit> AddFormula { get; protected set; }
+        public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
 
         /// <summary>
         /// Command adding a new program.
@@ -50,7 +49,7 @@ namespace Client.ViewModel.QueryLanguage
         public ExistentialExecutabilityQueryViewModel()
         {
             AddFormula = ReactiveCommand
-                .Create<IViewModelFor<IFormula>>(formulaViewModel =>
+                .Create<IFormulaViewModel>(formulaViewModel =>
                     throw new NotApplicableException("Existential executability query does not support adding formulae"));
 
             AddProgram = ReactiveCommand

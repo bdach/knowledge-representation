@@ -100,6 +100,7 @@
     <Compile Include="Global\SerializableScenario.cs" />
     <Compile Include="Interface\IActionClauseViewModel.cs" />
     <Compile Include="Interface\IClauseViewModel.cs" />
+    <Compile Include="Interface\IEditorViewModel.cs" />
     <Compile Include="Interface\IFormulaViewModel.cs" />
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
     <Compile Include="Interface\IViewModelFor.cs" />

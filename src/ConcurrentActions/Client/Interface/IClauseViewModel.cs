@@ -3,7 +3,7 @@
     /// <summary>
     /// Base interface for clause view models.
     /// </summary>
-    public interface IClauseViewModel
+    public interface IClauseViewModel : IEditorViewModel
     {
         /// <summary>
         /// The localization key for this clause type.
