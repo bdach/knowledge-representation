@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Xml.Serialization;
 using System.Windows.Input;
 using Client.Abstract;
 using Client.Global;
@@ -13,6 +12,7 @@ using Client.ViewModel.Terminal;
 using Model.Forms;
 using ReactiveUI;
 using Splat;
+using XSerializer;
 
 namespace Client.ViewModel
 {
@@ -108,7 +108,7 @@ namespace Client.ViewModel
                     .Replace("-", string.Empty).Replace(":", string.Empty);
                 var filepath = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}" + $"\\scenario-{isoDateTimeString}.xml";
 
-                var serializer = new XmlSerializer(typeof(Scenario));
+                var serializer = new XmlSerializer<Scenario>();
                 var writer = new StreamWriter(filepath);
                 serializer.Serialize(writer, scenario);
                 writer.Close();

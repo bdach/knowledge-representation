@@ -1,8 +1,21 @@
-﻿namespace Model.Forms
+﻿using System.Xml.Serialization;
+
+namespace Model.Forms
 {
     /// <summary>
     /// Base interface for all logical formulae in the data model.
     /// </summary>
+    /// <remarks>
+    /// <see cref="XmlIncludeAttribute"/> tags should reference all implementors
+    /// and inheritors of <see cref="IFormula"/> interface to ensure proper serialization.
+    /// </remarks>
+    [XmlInclude(typeof(Alternative))]
+    [XmlInclude(typeof(Conjunction))]
+    [XmlInclude(typeof(Constant))]
+    [XmlInclude(typeof(Equivalence))]
+    [XmlInclude(typeof(Implication))]
+    [XmlInclude(typeof(Literal))]
+    [XmlInclude(typeof(Negation))]
     public interface IFormula
     {
         /// <summary>
