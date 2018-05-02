@@ -55,6 +55,11 @@ namespace Client.ViewModel
         public ReactiveCommand<Unit, Unit> PerformCalculations { get; protected set; }
 
         /// <summary>
+        /// Command used to trigger import of scenario from a file.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ImportFromFile { get; protected set; }
+
+        /// <summary>
         /// Command used to trigger export of current scenario to file.
         /// </summary>
         public ReactiveCommand<Unit, Unit> ExportToFile { get; protected set; }
@@ -153,6 +158,7 @@ namespace Client.ViewModel
             SetEnglishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.AmericanEnglish));
             SetPolishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.Polish));
             PerformCalculations = ReactiveCommand.Create(() => Unit.Default);
+            ImportFromFile = ReactiveCommand.Create(() => Unit.Default);
             ExportToFile = ReactiveCommand.Create(() => Unit.Default);
 
             ShowAddFluentModal = ReactiveCommand.Create(() =>

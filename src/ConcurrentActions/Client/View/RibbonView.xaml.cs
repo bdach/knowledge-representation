@@ -32,6 +32,7 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.ShowAddFluentModal, v => v.AddFluentButton);
             this.BindCommand(ViewModel, vm => vm.ShowAddActionModal, v => v.AddActionButton);
             this.BindCommand(ViewModel, vm => vm.PerformCalculations, v => v.CalculateButton);
+            this.BindCommand(ViewModel, vm => vm.ImportFromFile, v => v.ImportButton);
             this.BindCommand(ViewModel, vm => vm.ExportToFile, v => v.ExportButton);
 
             this.OneWayBind(ViewModel, vm => vm.LanguageSignature.LiteralViewModels, v => v.FluentsGallery.ItemsSource);
