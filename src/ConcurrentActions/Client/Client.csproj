@@ -135,6 +135,8 @@
     <Compile Include="View\Modal\FluentModalView.xaml.cs">
       <DependentUpon>FluentModalView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Modal\Validation\UniqueNotEmptyActionValidationRule.cs" />
+    <Compile Include="View\Modal\Validation\UniqueNotEmptyFluentValidationRule.cs" />
     <Compile Include="View\Terminal\ActionView.xaml.cs">
       <DependentUpon>ActionView.xaml</DependentUpon>
     </Compile>

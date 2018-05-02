@@ -23,7 +23,7 @@ namespace Client.ViewModel.Modal
         /// <summary>
         /// Backing <see cref="Model.Fluent"/> instance.
         /// </summary>
-        private readonly Model.Fluent _fluent;
+        private Model.Fluent _fluent;
 
         /// <summary>
         /// The name of the fluent being added.
@@ -62,7 +62,7 @@ namespace Client.ViewModel.Modal
         public FluentModalViewModel(ScenarioContainer scenarioContainer = null)
         {
             _scenarioContainer = scenarioContainer ?? Locator.Current.GetService<ScenarioContainer>();
-            _fluent = new Model.Fluent("");
+            ResetViewModel();
 
             var canAddFluent = this.WhenAnyValue(vm => vm.FluentName, vm => vm._scenarioContainer.LiteralViewModels)
                 .Select(t => !string.IsNullOrEmpty(t.Item1) && !t.Item2.Any(literal => literal.Fluent.Name.Equals(t.Item1)));
@@ -76,6 +76,20 @@ namespace Client.ViewModel.Modal
 
             // chain adding fluents with closing the modal
             AddFluent.InvokeCommand(CloseModal);
+        }
+
+        /// <summary>
+        /// Resets the current instance of <see cref="FluentModalViewModel"/>.
+        /// </summary>
+        /// <remarks>
+        /// These was introduced as a part of workaround to WPF x ReactiveUI binding issue.
+        /// </remarks>
+        public void ResetViewModel()
+        {
+            _fluent = new Model.Fluent("");
+
+            // since the underlying field has been changed to avoid ghost references, the event has to be raised manually
+            this.RaisePropertyChanged($"FluentName");
         }
     }
 }

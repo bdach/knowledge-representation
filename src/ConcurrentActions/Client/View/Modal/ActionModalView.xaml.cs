@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Reactive.Linq;
 using System.Windows;
-using System.Windows.Media;
 using Client.ViewModel.Modal;
 using ReactiveUI;
 using Splat;
@@ -28,10 +26,7 @@ namespace Client.View.Modal
             this.BindCommand(ViewModel, vm => vm.AddAction, v => v.AddActionConfirmButton);
             this.BindCommand(ViewModel, vm => vm.CloseModal, v => v.AddActionCancelButton);
             this.Bind(ViewModel, vm => vm.ActionName, v => v.ActionNameBox.Text);
-
-            ViewModel.AddAction.CanExecute
-                .Select(canExecute => canExecute ? Brushes.Gray : Brushes.Red)
-                .Subscribe(brush => ActionNameBox.BorderBrush = brush);
+            this.Bind(ViewModel, vm => vm.ActionName, v => v.ActionNameBox.DataContext);
             ViewModel.CloseModal.Subscribe(_ => Close());
         }
 

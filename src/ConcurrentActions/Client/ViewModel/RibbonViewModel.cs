@@ -152,11 +152,15 @@ namespace Client.ViewModel
             ShowAddFluentModal = ReactiveCommand.Create(() =>
             {
                 var modalView = (FluentModalView)Locator.Current.GetService<IViewFor<FluentModalViewModel>>();
+                var modalViewModel = Locator.Current.GetService<FluentModalViewModel>();
+                modalViewModel.ResetViewModel();
                 modalView.ShowDialog();
             });
             ShowAddActionModal = ReactiveCommand.Create(() =>
             {
                 var modalView = (ActionModalView)Locator.Current.GetService<IViewFor<ActionModalViewModel>>();
+                var modalViewModel = Locator.Current.GetService<ActionModalViewModel>();
+                modalViewModel.ResetViewModel();
                 modalView.ShowDialog();
             });
 

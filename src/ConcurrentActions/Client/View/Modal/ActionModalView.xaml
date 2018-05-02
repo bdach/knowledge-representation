@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Client.Provider"
+        xmlns:valid="clr-namespace:Client.View.Modal.Validation"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -23,7 +24,14 @@
         <TextBox
             Style="{DynamicResource ModalTextBox}"
             Grid.Row="1"
-            Name="ActionNameBox" />
+            Name="ActionNameBox" >
+            <!-- OneWayToSource is required due to possible WPF x ReactiveUI binding issue -->
+            <Binding Path="." Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+                <Binding.ValidationRules>
+                    <valid:UniqueNotEmptyActionValidationRule />
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
 
         <StackPanel
             Style="{DynamicResource ModalButtonStackPanel}"
