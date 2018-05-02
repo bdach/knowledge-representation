@@ -23,7 +23,7 @@ namespace Client.ViewModel.Modal
         /// <summary>
         /// Backing <see cref="Model.Action"/> instance.
         /// </summary>
-        private readonly Model.Action _action;
+        private Model.Action _action;
 
         /// <summary>
         /// The name of the Action being added.
@@ -62,9 +62,9 @@ namespace Client.ViewModel.Modal
         public ActionModalViewModel(ScenarioContainer scenarioContainer = null)
         {
             _scenarioContainer = scenarioContainer ?? Locator.Current.GetService<ScenarioContainer>();
-            _action = new Model.Action("");
+            ResetViewModel();
 
-            var canAddAction = this.WhenAnyValue(vm => vm.ActionName, vm => vm._scenarioContainer.ActionViewModels)
+             var canAddAction = this.WhenAnyValue(vm => vm.ActionName, vm => vm._scenarioContainer.ActionViewModels)
                 .Select(t => !string.IsNullOrEmpty(t.Item1) && !t.Item2.Any(action => action.Action.Name.Equals(t.Item1)));
 
             CloseModal = ReactiveCommand.Create(() => Unit.Default);
@@ -76,6 +76,20 @@ namespace Client.ViewModel.Modal
 
             // chain adding actions with closing the modal
             AddAction.InvokeCommand(CloseModal);
+        }
+
+        /// <summary>
+        /// Resets the current instance of <see cref="ActionModalViewModel"/>.
+        /// </summary>
+        /// <remarks>
+        /// These was introduced as a part of workaround to WPF x ReactiveUI binding issue.
+        /// </remarks>
+        public void ResetViewModel()
+        {
+            _action = new Model.Action("");
+
+            // since the underlying field has been changed to avoid ghost references, the event has to be raised manually
+            this.RaisePropertyChanged($"ActionName");
         }
     }
 }

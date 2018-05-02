@@ -40,10 +40,13 @@ namespace Client.Provider
         /// <summary>
         /// Registers view models associated with modal windows in the <see cref="Locator"/>.
         /// </summary>
+        /// <remarks>
+        /// These were changed to singletons as a part of workaround to WPF x ReactiveUI binding issue.
+        /// </remarks>
         private void RegisterModalViewModels()
         {
-            Locator.CurrentMutable.Register(() => new FluentModalViewModel(), typeof(FluentModalViewModel));
-            Locator.CurrentMutable.Register(() => new ActionModalViewModel(), typeof(ActionModalViewModel));
+            Locator.CurrentMutable.RegisterLazySingleton(() => new FluentModalViewModel(), typeof(FluentModalViewModel));
+            Locator.CurrentMutable.RegisterLazySingleton(() => new ActionModalViewModel(), typeof(ActionModalViewModel));
         }
 
         /// <summary>
