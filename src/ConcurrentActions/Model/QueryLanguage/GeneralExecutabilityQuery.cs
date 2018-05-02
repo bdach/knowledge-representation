@@ -13,6 +13,11 @@
         public Program Program { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public GeneralExecutabilityQuery() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GeneralExecutabilityQuery"/> class.
         /// </summary>
         /// <param name="program">The <see cref="Model.Program"/> whose executability should be checked.</param>

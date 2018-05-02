@@ -12,6 +12,11 @@
         private readonly bool _value;
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Constant() { }
+
+        /// <summary>
         /// Initializes a new <see cref="Constant"/> instance with the supplied <see cref="value"/>.
         /// </summary>
         /// <param name="value">The inner constant value of the formula.</param>

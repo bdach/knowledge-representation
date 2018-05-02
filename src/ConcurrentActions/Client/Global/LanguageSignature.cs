@@ -8,17 +8,17 @@ using ReactiveUI;
 namespace Client.Global
 {
     /// <summary>
-    /// Singleton class used to store all the information about current scenario.
+    /// Singleton class used to store all the information about currently defined language.
     /// </summary>
-    public class ScenarioContainer : FodyReactiveObject
+    public class LanguageSignature : FodyReactiveObject
     {
         /// <summary>
-        /// Collection of all <see cref="ActionViewModel"/>s for <see cref="Action"/>s defined in the scenario.
+        /// Collection of all <see cref="ActionViewModel"/>s for <see cref="Action"/>s currently defined in the language.
         /// </summary>
         public ReactiveList<ActionViewModel> ActionViewModels { get; protected set; }
 
         /// <summary>
-        /// Collection of all <see cref="CompoundActionViewModel"/>s for <see cref="CompoundAction"/>s defined in the scenario.
+        /// Collection of all <see cref="CompoundActionViewModel"/>s for <see cref="CompoundAction"/>s currently defined in the language.
         /// </summary>
         /// <remarks>
         /// In fact, the <see cref="CompoundActionViewModel"/> contains a collection of <see cref="ActionViewModel"/>,
@@ -27,19 +27,19 @@ namespace Client.Global
         public ReactiveList<CompoundActionViewModel> CompoundActionViewModels { get; protected set; }
 
         /// <summary>
-        /// Collection of all <see cref="LiteralViewModel"/>s for <see cref="Literal"/>s defined in the scenario.
+        /// Collection of all <see cref="LiteralViewModel"/>s for <see cref="Literal"/>s currently defined in the language.
         /// </summary>
         public ReactiveList<LiteralViewModel> LiteralViewModels { get; protected set; }
 
         /// <summary>
-        /// Collection of all <see cref="ProgramViewModel"/>s for <see cref="Program"/>s defined in the scenario.
+        /// Collection of all <see cref="ProgramViewModel"/>s for <see cref="Program"/>s currently defined in the language.
         /// </summary>
         public ReactiveList<ProgramViewModel> ProgramViewModels { get; protected set; }
 
         /// <summary>
-        /// Initializes a new <see cref="ScenarioContainer"/> instance.
+        /// Initializes a new <see cref="LanguageSignature"/> instance.
         /// </summary>
-        public ScenarioContainer()
+        public LanguageSignature()
         {
             ActionViewModels = new ReactiveList<ActionViewModel>();
             CompoundActionViewModels = new ReactiveList<CompoundActionViewModel>();

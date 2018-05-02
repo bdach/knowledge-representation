@@ -242,7 +242,7 @@
                     Header="{local:Loc QueryClauseGroupBox}">
 
                     <fluent:DropDownButton
-                        Style="{DynamicResource RibbonLargeNarrowMediumDropDown}"
+                        Style="{DynamicResource RibbonLargeSlimDropDown}"
                         KeyTip="Q"
                         Name="AddQueryClauseDropDown"
                         Header="{local:Loc AddQueryClauseDropDown}"
@@ -257,7 +257,7 @@
                     </fluent:DropDownButton>
 
                     <fluent:Button
-                        Style="{DynamicResource RibbonLargeNarrowMediumButton}"
+                        Style="{DynamicResource RibbonLargeSlimButton}"
                         KeyTip="B"
                         Name="AddCompoundActionButton"
                         Header="{local:Loc AddCompoundActionButton}"

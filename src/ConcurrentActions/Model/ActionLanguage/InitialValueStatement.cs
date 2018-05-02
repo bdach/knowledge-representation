@@ -13,6 +13,11 @@ namespace Model.ActionLanguage
         public IFormula InitialCondition { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public InitialValueStatement() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="InitialValueStatement"/> class, using the supplied condition.
         /// </summary>
         /// <param name="initialCondition">An instance of <see cref="IFormula"/> representing the initial value condition.</param>

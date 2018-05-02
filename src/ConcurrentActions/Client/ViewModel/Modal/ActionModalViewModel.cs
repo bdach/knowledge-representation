@@ -16,9 +16,9 @@ namespace Client.ViewModel.Modal
     public class ActionModalViewModel : FodyReactiveObject
     {
         /// <summary>
-        /// A global container instance holding the Actions currently in the scenario.
+        /// A global container instance holding the actions currently defined in the language.
         /// </summary>
-        private readonly ScenarioContainer _scenarioContainer;
+        private readonly LanguageSignature _languageSignature;
 
         /// <summary>
         /// Backing <see cref="Model.Action"/> instance.
@@ -55,22 +55,22 @@ namespace Client.ViewModel.Modal
         /// <summary>
         /// Initializes a new instance of <see cref="ActionModalViewModel"/>.
         /// </summary>
-        /// <param name="scenarioContainer">Scenario container with the current language signature.</param>
+        /// <param name="languageSignature">Container with the current language signature.</param>
         /// <remarks>
-        /// Omitting the <see cref="scenarioContainer"/> parameter causes the method to fetch the instance registered in the <see cref="Locator"/>.
+        /// Omitting the <see cref="languageSignature"/> parameter causes the method to fetch the instance registered in the <see cref="Locator"/>.
         /// </remarks>
-        public ActionModalViewModel(ScenarioContainer scenarioContainer = null)
+        public ActionModalViewModel(LanguageSignature languageSignature = null)
         {
-            _scenarioContainer = scenarioContainer ?? Locator.Current.GetService<ScenarioContainer>();
+            _languageSignature = languageSignature ?? Locator.Current.GetService<LanguageSignature>();
             ResetViewModel();
 
-             var canAddAction = this.WhenAnyValue(vm => vm.ActionName, vm => vm._scenarioContainer.ActionViewModels)
+             var canAddAction = this.WhenAnyValue(vm => vm.ActionName, vm => vm._languageSignature.ActionViewModels)
                 .Select(t => !string.IsNullOrEmpty(t.Item1) && !t.Item2.Any(action => action.Action.Name.Equals(t.Item1)));
 
             CloseModal = ReactiveCommand.Create(() => Unit.Default);
 
             AddAction = ReactiveCommand.Create(
-                () => _scenarioContainer.ActionViewModels.Add(new ActionViewModel(_action)),
+                () => _languageSignature.ActionViewModels.Add(new ActionViewModel(_action)),
                 canAddAction
             );
 

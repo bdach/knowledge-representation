@@ -124,9 +124,9 @@
                 <Setter Property="Size" Value="Large" />
                 <Setter Property="Width" Value="64" />
             </Style>
-            <Style x:Key="RibbonLargeNarrowMediumDropDown" TargetType="fluent:DropDownButton">
+            <Style x:Key="RibbonLargeSlimDropDown" TargetType="fluent:DropDownButton">
                 <Setter Property="Size" Value="Large" />
-                <Setter Property="Width" Value="72" />
+                <Setter Property="Width" Value="80" />
             </Style>
             <Style x:Key="RibbonLargeMediumDropDown" TargetType="fluent:DropDownButton">
                 <Setter Property="Size" Value="Large" />
@@ -144,9 +144,9 @@
                 <Setter Property="Size" Value="Middle" />
                 <Setter Property="Width" Value="112" />
             </Style>
-            <Style x:Key="RibbonLargeNarrowMediumButton" TargetType="fluent:Button">
+            <Style x:Key="RibbonLargeSlimButton" TargetType="fluent:Button">
                 <Setter Property="Size" Value="Large" />
-                <Setter Property="Width" Value="72" />
+                <Setter Property="Width" Value="80" />
             </Style>
             <Style x:Key="RibbonLargeWideButton" TargetType="fluent:Button">
                 <Setter Property="Size" Value="Large" />

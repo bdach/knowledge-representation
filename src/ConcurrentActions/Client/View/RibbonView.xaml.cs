@@ -32,9 +32,10 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.ShowAddFluentModal, v => v.AddFluentButton);
             this.BindCommand(ViewModel, vm => vm.ShowAddActionModal, v => v.AddActionButton);
             this.BindCommand(ViewModel, vm => vm.PerformCalculations, v => v.CalculateButton);
+            this.BindCommand(ViewModel, vm => vm.ExportToFile, v => v.ExportButton);
 
-            this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.LiteralViewModels, v => v.FluentsGallery.ItemsSource);
-            this.OneWayBind(ViewModel, vm => vm.ScenarioContainer.ActionViewModels, v => v.ActionsGallery.ItemsSource);
+            this.OneWayBind(ViewModel, vm => vm.LanguageSignature.LiteralViewModels, v => v.FluentsGallery.ItemsSource);
+            this.OneWayBind(ViewModel, vm => vm.LanguageSignature.ActionViewModels, v => v.ActionsGallery.ItemsSource);
             this.OneWayBind(ViewModel, vm => vm.ActionClauseTypes, v => v.ActionClauseGallery.ItemsSource);
             this.OneWayBind(ViewModel, vm => vm.QueryClauseTypes, v => v.QueryClauseGallery.ItemsSource);
             this.Bind(ViewModel, vm => vm.LocalizeGroupName, v => v.ActionClauseGallery.GroupByAdvanced);
@@ -71,10 +72,10 @@ namespace Client.View
                 .Where(open => open)
                 .Subscribe(_ => QueryClauseGallery.SelectedValue = null);
 
-            this.WhenAnyObservable(v => v.ViewModel.ScenarioContainer.LiteralViewModels.CountChanged)
+            this.WhenAnyObservable(v => v.ViewModel.LanguageSignature.LiteralViewModels.CountChanged)
                 .Select(GetVisibilityForCount)
                 .Subscribe(visibility => FluentSeparator.Visibility = visibility);
-            this.WhenAnyObservable(v => v.ViewModel.ScenarioContainer.ActionViewModels.CountChanged)
+            this.WhenAnyObservable(v => v.ViewModel.LanguageSignature.ActionViewModels.CountChanged)
                 .Select(GetVisibilityForCount)
                 .Subscribe(visibility => ActionSeparator.Visibility = visibility);
         }

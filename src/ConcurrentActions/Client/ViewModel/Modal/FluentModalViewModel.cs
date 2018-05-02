@@ -16,9 +16,9 @@ namespace Client.ViewModel.Modal
     public class FluentModalViewModel : FodyReactiveObject
     {
         /// <summary>
-        /// A global container instance holding the fluents currently in the scenario.
+        /// A global container instance holding the fluents currently defined in the language.
         /// </summary>
-        private readonly ScenarioContainer _scenarioContainer;
+        private readonly LanguageSignature _languageSignature;
 
         /// <summary>
         /// Backing <see cref="Model.Fluent"/> instance.
@@ -55,22 +55,22 @@ namespace Client.ViewModel.Modal
         /// <summary>
         /// Initializes a new instance of <see cref="FluentModalViewModel"/>.
         /// </summary>
-        /// <param name="scenarioContainer">Scenario container with the current language signature.</param>
+        /// <param name="languageSignature">Container with the current language signature.</param>
         /// <remarks>
-        /// Omitting the <see cref="scenarioContainer"/> parameter causes the method to fetch the instance registered in the <see cref="Locator"/>.
+        /// Omitting the <see cref="languageSignature"/> parameter causes the method to fetch the instance registered in the <see cref="Locator"/>.
         /// </remarks>
-        public FluentModalViewModel(ScenarioContainer scenarioContainer = null)
+        public FluentModalViewModel(LanguageSignature languageSignature = null)
         {
-            _scenarioContainer = scenarioContainer ?? Locator.Current.GetService<ScenarioContainer>();
+            _languageSignature = languageSignature ?? Locator.Current.GetService<LanguageSignature>();
             ResetViewModel();
 
-            var canAddFluent = this.WhenAnyValue(vm => vm.FluentName, vm => vm._scenarioContainer.LiteralViewModels)
+            var canAddFluent = this.WhenAnyValue(vm => vm.FluentName, vm => vm._languageSignature.LiteralViewModels)
                 .Select(t => !string.IsNullOrEmpty(t.Item1) && !t.Item2.Any(literal => literal.Fluent.Name.Equals(t.Item1)));
 
             CloseModal = ReactiveCommand.Create(() => Unit.Default);
 
             AddFluent = ReactiveCommand.Create(
-                () => _scenarioContainer.LiteralViewModels.Add(new LiteralViewModel(_fluent)),
+                () => _languageSignature.LiteralViewModels.Add(new LiteralViewModel(_fluent)),
                 canAddFluent
             );
 

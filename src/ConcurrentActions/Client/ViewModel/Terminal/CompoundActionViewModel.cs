@@ -10,7 +10,7 @@ using ReactiveUI;
 namespace Client.ViewModel.Terminal
 {
     /// <summary>
-    /// View model for <see cref="CompoundActionView"/> which represents a compound action from the scenario.
+    /// View model for <see cref="CompoundActionView"/> which represents a compound action from the language signature.
     /// </summary>
     public class CompoundActionViewModel : FodyReactiveObject, IViewModelFor<CompoundAction>
     {

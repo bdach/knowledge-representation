@@ -9,7 +9,7 @@ using ReactiveUI;
 namespace Client.ViewModel.Terminal
 {
     /// <summary>
-    /// View model for <see cref="ProgramViewModel"/> which represents a program from the scenario.
+    /// View model for <see cref="ProgramViewModel"/> which represents a program from the language signature.
     /// </summary>
     public class ProgramViewModel : FodyReactiveObject, IViewModelFor<Program>
     {

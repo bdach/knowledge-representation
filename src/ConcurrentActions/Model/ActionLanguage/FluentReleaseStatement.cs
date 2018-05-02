@@ -24,6 +24,11 @@ namespace Model.ActionLanguage
         public IFormula Precondition { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public FluentReleaseStatement() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FluentReleaseStatement"/> class.
         /// </summary>
         /// <param name="action">The <see cref="Model.Action"/> associated with the fluent release.</param>
@@ -44,6 +49,7 @@ namespace Model.ActionLanguage
         /// <param name="fluent">The <see cref="Model.Fluent"/> to be released.</param>
         public FluentReleaseStatement(Action action, Fluent fluent) : this(action, fluent, Constant.Truth)
         {
+
         }
 
         public override string ToString()

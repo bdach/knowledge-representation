@@ -23,6 +23,11 @@ namespace Model.ActionLanguage
         public IFormula Postcondition { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public EffectStatement() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EffectStatement"/> class.
         /// </summary>
         /// <param name="action">The <see cref="Model.Action"/> whose effects are described by the statement.</param>
@@ -42,6 +47,7 @@ namespace Model.ActionLanguage
         /// </summary>
         public EffectStatement(Action action, IFormula postcondition) : this(action, Constant.Truth, postcondition)
         {
+
         }
 
         /// <summary>

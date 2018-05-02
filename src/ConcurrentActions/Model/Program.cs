@@ -13,6 +13,11 @@ namespace Model
         public List<CompoundAction> Actions { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Program() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Program"/> class, using the supplied enumerable of
         /// <see cref="CompoundAction"/>s.
         /// </summary>

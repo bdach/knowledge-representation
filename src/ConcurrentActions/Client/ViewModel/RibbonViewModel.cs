@@ -22,14 +22,14 @@ namespace Client.ViewModel
     public class RibbonViewModel : FodyReactiveObject
     {
         /// <summary>
-        /// A global container instance holding the fluents currently in the scenario.
+        /// A global container instance holding the current language signature.
         /// </summary>
-        public ScenarioContainer ScenarioContainer { get; }
+        public LanguageSignature LanguageSignature { get; }
 
         #region General commands
 
         /// <summary>
-        /// Command used to clear current scenario.
+        /// Command used to clear current language signature.
         /// </summary>
         public ReactiveCommand<Unit, Unit> Clear { get; protected set; }
 
@@ -53,6 +53,11 @@ namespace Client.ViewModel
         /// Command used to trigger scenario evaluation.
         /// </summary>
         public ReactiveCommand<Unit, Unit> PerformCalculations { get; protected set; }
+
+        /// <summary>
+        /// Command used to trigger export of current scenario to file.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> ExportToFile { get; protected set; }
 
         #endregion
 
@@ -135,19 +140,20 @@ namespace Client.ViewModel
         /// <summary>
         /// Initializes a new <see cref="RibbonViewModel"/> instance.
         /// </summary>
-        /// <param name="scenarioContainer">Scenario container with the current language signature.</param>
+        /// <param name="languageSignature">Container with the current language signature.</param>
         /// <remarks>
-        /// Omitting the <see cref="scenarioContainer"/> parameter causes the method to fetch the instance registered in the <see cref="Locator"/>.
+        /// Omitting the <see cref="languageSignature"/> parameter causes the method to fetch the instance registered in the <see cref="Locator"/>.
         /// </remarks>
-        public RibbonViewModel(ScenarioContainer scenarioContainer = null)
+        public RibbonViewModel(LanguageSignature languageSignature = null)
         {
-            ScenarioContainer = scenarioContainer ?? Locator.Current.GetService<ScenarioContainer>();
+            LanguageSignature = languageSignature ?? Locator.Current.GetService<LanguageSignature>();
 
             Clear = ReactiveCommand.Create(() => Unit.Default);
             CloseWindow = ReactiveCommand.Create(() => Unit.Default);
             SetEnglishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.AmericanEnglish));
             SetPolishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.Polish));
             PerformCalculations = ReactiveCommand.Create(() => Unit.Default);
+            ExportToFile = ReactiveCommand.Create(() => Unit.Default);
 
             ShowAddFluentModal = ReactiveCommand.Create(() =>
             {

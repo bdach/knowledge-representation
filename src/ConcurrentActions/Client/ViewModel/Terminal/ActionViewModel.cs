@@ -9,7 +9,7 @@ using ReactiveUI;
 namespace Client.ViewModel.Terminal
 {
     /// <summary>
-    /// View model for <see cref="ActionView"/> which represents an action from the scenario.
+    /// View model for <see cref="ActionView"/> which represents an action from the language signature.
     /// </summary>
     public class ActionViewModel : FodyReactiveObject, IViewModelFor<Action>
     {

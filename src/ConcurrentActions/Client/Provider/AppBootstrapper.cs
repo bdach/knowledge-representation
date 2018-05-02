@@ -23,7 +23,7 @@ namespace Client.Provider
             LocalizationProvider.SetLocale(LocalizationProvider.Polish);
             RegisterMainWindow();
             RegisterModalViewModels();
-            RegisterScenarioContainer();
+            RegisterLanguageSignature();
             RegisterViews();
         }
 
@@ -50,11 +50,11 @@ namespace Client.Provider
         }
 
         /// <summary>
-        /// Initializes the application scenario container.
+        /// Initializes the application language signature container.
         /// </summary>
-        private void RegisterScenarioContainer()
+        private void RegisterLanguageSignature()
         {
-            Locator.CurrentMutable.RegisterLazySingleton(() => new ScenarioContainer(), typeof(ScenarioContainer));
+            Locator.CurrentMutable.RegisterLazySingleton(() => new LanguageSignature(), typeof(LanguageSignature));
         }
 
         /// <summary>

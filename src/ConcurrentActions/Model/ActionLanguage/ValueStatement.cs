@@ -18,6 +18,11 @@ namespace Model.ActionLanguage
         public Action Action { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public ValueStatement() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ValueStatement"/> class.
         /// </summary>
         /// <param name="condition">The <see cref="IFormula"/> instance representing the condition which must be satisfied upon completing the associated <see cref="Model.Action"/>.</param>

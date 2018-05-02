@@ -96,8 +96,8 @@
     <Compile Include="Exception\MemberNotDefinedException.cs" />
     <Compile Include="Exception\NotApplicableException.cs" />
     <Compile Include="Global\ClauseTypes.cs" />
-    <Compile Include="Global\ScenarioContainer.cs" />
-    <Compile Include="Global\SerializableScenario.cs" />
+    <Compile Include="Global\LanguageSignature.cs" />
+    <Compile Include="Global\Scenario.cs" />
     <Compile Include="Interface\IActionClauseViewModel.cs" />
     <Compile Include="Interface\IClauseViewModel.cs" />
     <Compile Include="Interface\IEditorViewModel.cs" />

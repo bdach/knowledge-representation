@@ -20,7 +20,7 @@ namespace Client.View.Modal.Validation
         /// <returns><see cref="ValidationResult"/> telling whether the supplied <see cref="value"/> is valid.</returns>
         /// <remarks>
         /// <see cref="value"/> is not being used as a part of workaround to WPF x ReactiveUI binding issue.
-        /// Instead, the action name is retrievied from a singleton instance of <see cref="ActionModalViewModel"/>.
+        /// Instead, the action name is retrieved from a singleton instance of <see cref="ActionModalViewModel"/>.
         /// </remarks>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
@@ -32,8 +32,8 @@ namespace Client.View.Modal.Validation
                 return new ValidationResult(false, "This field cannot be empty!");
             }
 
-            var currentScenario = Locator.Current.GetService<ScenarioContainer>();
-            return currentScenario.ActionViewModels.Any(vm => vm.Action.Name.Equals(name))
+            var currentSignature = Locator.Current.GetService<LanguageSignature>();
+            return currentSignature.ActionViewModels.Any(vm => vm.Action.Name.Equals(name))
                 ? new ValidationResult(false, "Action name has to be unique!")
                 : new ValidationResult(true, null);
         }

@@ -17,6 +17,11 @@
         public IFormula Right { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Equivalence() { }
+
+        /// <summary>
         /// Initializes a new <see cref="Equivalence"/> instance, representing a logical equivalence of the supplied <see cref="IFormula"/> instances.
         /// </summary>
         /// <param name="left">The left <see cref="IFormula"/> instance.</param>
