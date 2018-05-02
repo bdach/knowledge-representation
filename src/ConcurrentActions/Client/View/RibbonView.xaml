@@ -87,21 +87,25 @@
 
             <fluent:RibbonTabItem
                 Name="EditTab"
+                KeyTip="E"
                 Header="{local:Loc EditTab}">
 
                 <fluent:RibbonGroupBox
                     Name="LanguageGroupBox"
+                    KeyTip="L"
                     Header="{local:Loc LanguageGroupBox}">
 
                     <fluent:DropDownButton
                         Style="{DynamicResource RibbonLargeNarrowDropDown}"
                         Name="FluentDropDown"
+                        KeyTip="F"
                         Header="{local:Loc FluentDropDown}"
                         Icon="/Client;component/Resources/Images/fluents-64.png"
                         LargeIcon="/Client;component/Resources/Images/fluents-128.png">
 
                         <fluent:MenuItem
                             Name="AddFluentButton"
+                            KeyTip="A"
                             Header="{local:Loc AddFluentButton}"
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
@@ -119,12 +123,14 @@
                     <fluent:DropDownButton
                         Style="{DynamicResource RibbonLargeNarrowDropDown}"
                         Name="ActionDropDown"
+                        KeyTip="A"
                         Header="{local:Loc ActionDropDown}"
                         Icon="/Client;component/Resources/Images/actions-64.png"
                         LargeIcon="/Client;component/Resources/Images/actions-128.png">
 
                         <fluent:MenuItem
                             Name="AddActionButton"
+                            KeyTip="A"
                             Header="{local:Loc AddActionButton}"
                             Icon="/Client;component/Resources/Images/plus-64.png" />
 
@@ -143,11 +149,13 @@
 
                 <fluent:RibbonGroupBox
                     Name="FormulaGroupBox"
+                    KeyTip="F"
                     Header="{local:Loc FormulaGroupBox}">
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleMediumButton}"
                         Name="ConjunctionButton"
+                        KeyTip="C"
                         Header="{local:Loc ConjunctionButton}"
                         Icon="/Client;component/Resources/Images/conjunction-64.png"
                         LargeIcon="/Client;component/Resources/Images/conjunction-128.png" />
@@ -155,6 +163,7 @@
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleMediumButton}"
                         Name="ImplicationButton"
+                        KeyTip="I"
                         Header="{local:Loc ImplicationButton}"
                         Icon="/Client;component/Resources/Images/implication-64.png"
                         LargeIcon="/Client;component/Resources/Images/implication-128.png" />
@@ -162,6 +171,7 @@
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleMediumButton}"
                         Name="NegationButton"
+                        KeyTip="N"
                         Header="{local:Loc NegationButton}"
                         Icon="/Client;component/Resources/Images/negation-64.png"
                         LargeIcon="/Client;component/Resources/Images/negation-128.png" />
@@ -169,6 +179,7 @@
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleWideButton}"
                         Name="AlternativeButton"
+                        KeyTip="A"
                         Header="{local:Loc AlternativeButton}"
                         Icon="/Client;component/Resources/Images/disjunction-64.png"
                         LargeIcon="/Client;component/Resources/Images/disjunction-128.png" />
@@ -176,6 +187,7 @@
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleWideButton}"
                         Name="EquivalenceButton"
+                        KeyTip="E"
                         Header="{local:Loc EquivalenceButton}"
                         Icon="/Client;component/Resources/Images/equivalency-64.png"
                         LargeIcon="/Client;component/Resources/Images/equivalency-128.png" />
@@ -185,6 +197,7 @@
                         <fluent:Button
                             Style="{DynamicResource RibbonMiddleNarrowButton}"
                             Name="TruthButton"
+                            KeyTip="T"
                             Header="{local:Loc TruthButton}"
                             Icon="/Client;component/Resources/Images/truth-64.png"
                             LargeIcon="/Client;component/Resources/Images/truth-128.png" />
@@ -192,6 +205,7 @@
                         <fluent:Button
                             Style="{DynamicResource RibbonMiddleNarrowButton}"
                             Name="FalsityButton"
+                            KeyTip="F"
                             Header="{local:Loc FalsityButton}"
                             Icon="/Client;component/Resources/Images/falsity-64.png"
                             LargeIcon="/Client;component/Resources/Images/falsity-128.png" />
@@ -201,11 +215,13 @@
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox
-                    Name="ClauseGroupBox"
-                    Header="{local:Loc ClauseGroupBox}">
+                    Name="ActionClauseGroupBox"
+                    KeyTip="D"
+                    Header="{local:Loc ActionClauseGroupBox}">
 
                     <fluent:DropDownButton
                         Style="{DynamicResource RibbonLargeMediumDropDown}"
+                        KeyTip="D"
                         Name="AddActionClauseDropDown"
                         Header="{local:Loc AddActionClauseDropDown}"
                         Icon="/Client;component/Resources/Images/domain-64.png"
@@ -218,8 +234,16 @@
 
                     </fluent:DropDownButton>
 
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox
+                    Name="QueryClauseGroupBox"
+                    KeyTip="Q"
+                    Header="{local:Loc QueryClauseGroupBox}">
+
                     <fluent:DropDownButton
-                        Style="{DynamicResource RibbonLargeMediumDropDown}"
+                        Style="{DynamicResource RibbonLargeNarrowMediumDropDown}"
+                        KeyTip="Q"
                         Name="AddQueryClauseDropDown"
                         Header="{local:Loc AddQueryClauseDropDown}"
                         Icon="/Client;component/Resources/Images/queries-64.png"
@@ -232,14 +256,24 @@
 
                     </fluent:DropDownButton>
 
+                    <fluent:Button
+                        Style="{DynamicResource RibbonLargeNarrowMediumButton}"
+                        KeyTip="B"
+                        Name="AddCompoundActionButton"
+                        Header="{local:Loc AddCompoundActionButton}"
+                        Icon="/Client;component/Resources/Images/compound-action-64.png"
+                        LargeIcon="/Client;component/Resources/Images/compound-action-128.png" />
+
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox
+                    KeyTip="S"
                     Name="SystemGroupBox"
                     Header="{local:Loc SystemGroupBox}">
 
                     <fluent:Button
                         Style="{DynamicResource RibbonLargeWideButton}"
+                        KeyTip="R"
                         Name="CalculateButton"
                         Header="{local:Loc CalculateButton}"
                         Icon="/Client;component/Resources/Images/calculate-64.png"

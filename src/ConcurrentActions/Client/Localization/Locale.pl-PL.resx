@@ -120,6 +120,9 @@
   <data name="AccessibilityQuery" xml:space="preserve">
     <value>Kwerenda osiągalności</value>
   </data>
+  <data name="ActionClauseGroupBox" xml:space="preserve">
+    <value>Domena akcji</value>
+  </data>
   <data name="ActionDropDown" xml:space="preserve">
     <value>Akcje</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="AddActionTitle" xml:space="preserve">
     <value> Dodaj nową akcję</value>
+  </data>
+  <data name="AddCompoundActionButton" xml:space="preserve">
+    <value>Dodaj akcję złożoną</value>
   </data>
   <data name="AddFluentButton" xml:space="preserve">
     <value>Dodaj nowy</value>
@@ -167,9 +173,6 @@
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>Ustaw język</value>
-  </data>
-  <data name="ClauseGroupBox" xml:space="preserve">
-    <value>Edytor zdań</value>
   </data>
   <data name="ClearButton" xml:space="preserve">
     <value>Wyczyść</value>
@@ -233,6 +236,9 @@
   </data>
   <data name="OptionsTab" xml:space="preserve">
     <value>Opcje</value>
+  </data>
+  <data name="QueryClauseGroupBox" xml:space="preserve">
+    <value>Kwerendy</value>
   </data>
   <data name="SystemGroupBox" xml:space="preserve">
     <value>System dynamiczny</value>

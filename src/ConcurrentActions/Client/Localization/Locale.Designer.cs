@@ -61,6 +61,24 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AccessibilityQuery.
+        /// </summary>
+        public static string AccessibilityQuery {
+            get {
+                return ResourceManager.GetString("AccessibilityQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ActionClauseGroupBox.
+        /// </summary>
+        public static string ActionClauseGroupBox {
+            get {
+                return ResourceManager.GetString("ActionClauseGroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddActionButton.
         /// </summary>
         public static string ActionDropDown {
@@ -120,6 +138,15 @@ namespace Client.Localization {
         public static string AddActionTitle {
             get {
                 return ResourceManager.GetString("AddActionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddCompoundActionButton.
+        /// </summary>
+        public static string AddCompoundActionButton {
+            get {
+                return ResourceManager.GetString("AddCompoundActionButton", resourceCulture);
             }
         }
         
@@ -205,15 +232,6 @@ namespace Client.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ClauseGroupBox.
-        /// </summary>
-        public static string ClauseGroupBox {
-            get {
-                return ResourceManager.GetString("ClauseGroupBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ClearButton.
         /// </summary>
         public static string ClearButton {
@@ -241,6 +259,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ConstraintStatement.
+        /// </summary>
+        public static string ConstraintStatement {
+            get {
+                return ResourceManager.GetString("ConstraintStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EditTab.
         /// </summary>
         public static string EditTab {
@@ -250,11 +277,29 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EffectStatement.
+        /// </summary>
+        public static string EffectStatement {
+            get {
+                return ResourceManager.GetString("EffectStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EquivalencyButton.
         /// </summary>
         public static string EquivalenceButton {
             get {
                 return ResourceManager.GetString("EquivalenceButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ExecutabilityQuery.
+        /// </summary>
+        public static string ExecutabilityQuery {
+            get {
+                return ResourceManager.GetString("ExecutabilityQuery", resourceCulture);
             }
         }
         
@@ -286,6 +331,24 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FluentReleaseStatement.
+        /// </summary>
+        public static string FluentReleaseStatement {
+            get {
+                return ResourceManager.GetString("FluentReleaseStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FluentSpecificationStatement.
+        /// </summary>
+        public static string FluentSpecificationStatement {
+            get {
+                return ResourceManager.GetString("FluentSpecificationStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FormulaGroupBox.
         /// </summary>
         public static string FormulaGroupBox {
@@ -313,6 +376,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to InitialValueStatement.
+        /// </summary>
+        public static string InitialValueStatement {
+            get {
+                return ResourceManager.GetString("InitialValueStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LanguageGroupBox.
         /// </summary>
         public static string LanguageGroupBox {
@@ -331,11 +403,29 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ObservationStatement.
+        /// </summary>
+        public static string ObservationStatement {
+            get {
+                return ResourceManager.GetString("ObservationStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OptionsTab.
         /// </summary>
         public static string OptionsTab {
             get {
                 return ResourceManager.GetString("OptionsTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to QueryClauseGroupBox.
+        /// </summary>
+        public static string QueryClauseGroupBox {
+            get {
+                return ResourceManager.GetString("QueryClauseGroupBox", resourceCulture);
             }
         }
         
@@ -354,6 +444,24 @@ namespace Client.Localization {
         public static string TruthButton {
             get {
                 return ResourceManager.GetString("TruthButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ValueQuery.
+        /// </summary>
+        public static string ValueQuery {
+            get {
+                return ResourceManager.GetString("ValueQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ValueStatement.
+        /// </summary>
+        public static string ValueStatement {
+            get {
+                return ResourceManager.GetString("ValueStatement", resourceCulture);
             }
         }
         

@@ -124,6 +124,10 @@
                 <Setter Property="Size" Value="Large" />
                 <Setter Property="Width" Value="64" />
             </Style>
+            <Style x:Key="RibbonLargeNarrowMediumDropDown" TargetType="fluent:DropDownButton">
+                <Setter Property="Size" Value="Large" />
+                <Setter Property="Width" Value="72" />
+            </Style>
             <Style x:Key="RibbonLargeMediumDropDown" TargetType="fluent:DropDownButton">
                 <Setter Property="Size" Value="Large" />
                 <Setter Property="Width" Value="96" />
@@ -139,6 +143,10 @@
             <Style x:Key="RibbonMiddleWideButton" TargetType="fluent:Button">
                 <Setter Property="Size" Value="Middle" />
                 <Setter Property="Width" Value="112" />
+            </Style>
+            <Style x:Key="RibbonLargeNarrowMediumButton" TargetType="fluent:Button">
+                <Setter Property="Size" Value="Large" />
+                <Setter Property="Width" Value="72" />
             </Style>
             <Style x:Key="RibbonLargeWideButton" TargetType="fluent:Button">
                 <Setter Property="Size" Value="Large" />
@@ -158,6 +166,9 @@
                         <Setter Property="MinHeight" Value="25" />
                     </Style>
                 </Style.Resources>
+            </Style>
+            <Style TargetType="Image">
+                <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
             </Style>
 
             <Style x:Key="FluentMargin" TargetType="Grid">

@@ -9,9 +9,10 @@
         xmlns:fluent="urn:fluent-ribbon"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize"
-        Title="{local:Loc WindowTitle}" 
-        Width="800" Height="600">
+        ResizeMode="CanResize"
+        Title="{local:Loc WindowTitle}"
+        MinWidth="1024" MinHeight="768"
+        Width="1024" Height="768">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
