@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:reactiveUi="http://reactiveui.net"
              xmlns:view="clr-namespace:Client.View"
-             xmlns:fluent="urn:fluent-ribbon">
+             xmlns:fluent="urn:fluent-ribbon"
+             xmlns:local="clr-namespace:Client.Provider">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -69,6 +70,8 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                <Setter Property="ToolTipService.InitialShowDelay" Value="1000" />
+                <Setter Property="ToolTipService.BetweenShowDelay" Value="500" />
                 <Style.Resources>
                     <Style TargetType="Border">
                         <Style.Triggers>
@@ -175,6 +178,7 @@
                     <Style TargetType="reactiveUi:ViewModelViewHost">
                         <!-- nasty fix to combat stupid control fade-in -->
                         <Setter Property="MinHeight" Value="25" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
                     </Style>
                 </Style.Resources>
             </Style>
@@ -204,6 +208,29 @@
                 <Setter Property="Margin" Value="5 0 0 0" />
                 <Setter Property="Width" Value="64" />
             </Style>
+            
+            <!-- Some common tooltips -->
+            
+            <fluent:ScreenTip
+                x:Key="ActionScreenTip"
+                Title="{local:Loc Action}"
+                Text="{local:Loc ActionScreenTip}"/>
+
+            <fluent:ScreenTip
+                x:Key="PreconditionScreenTip"
+                Title="{local:Loc Precondition}"
+                Text="{local:Loc PreconditionScreenTip}"/>
+
+            <fluent:ScreenTip
+                x:Key="PostconditionScreenTip"
+                Title="{local:Loc Postcondition}"
+                Text="{local:Loc PostconditionScreenTip}"/>
+
+            <fluent:ScreenTip
+                x:Key="FluentScreenTip"
+                Title="{local:Loc Fluent}"
+                Text="{local:Loc FluentScreenTip}"/>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

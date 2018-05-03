@@ -120,6 +120,9 @@
   <data name="AccessibilityQuery" xml:space="preserve">
     <value>AccessibilityQuery</value>
   </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
   <data name="ActionDomainGroupBox" xml:space="preserve">
     <value>ActionDomainGroupBox</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="ActionDropDownScreenTip" xml:space="preserve">
     <value>ActionDropdownScreenTip</value>
+  </data>
+  <data name="ActionScreenTip" xml:space="preserve">
+    <value>ActionScreenTip</value>
   </data>
   <data name="AddActionButton" xml:space="preserve">
     <value>AddActionButton</value>
@@ -201,14 +207,41 @@
   <data name="CloseButtonScreenTip" xml:space="preserve">
     <value>CloseButtonScreenTip</value>
   </data>
+  <data name="ConditionalEffectStatement" xml:space="preserve">
+    <value>ConditionalEffectStatement</value>
+  </data>
+  <data name="ConditionalEffectStatementScreenTip" xml:space="preserve">
+    <value>ConditionalEffectStatementScreenTip</value>
+  </data>
+  <data name="ConditionalFluentReleaseStatement" xml:space="preserve">
+    <value>ConditionalFluentReleaseStatement</value>
+  </data>
+  <data name="ConditionalFluentReleaseStatementScreenTip" xml:space="preserve">
+    <value>ConditionalFluentReleaseStatementScreenTip</value>
+  </data>
+  <data name="ConditionalImpossibilityStatement" xml:space="preserve">
+    <value>ConditionalImpossibilityStatement</value>
+  </data>
+  <data name="ConditionalImpossibilityStatementScreenTip" xml:space="preserve">
+    <value>ConditionalImpossibilityStatementScreenTip</value>
+  </data>
   <data name="ConjunctionButton" xml:space="preserve">
     <value>ConjunctionButton</value>
   </data>
   <data name="ConjunctionButtonScreenTip" xml:space="preserve">
     <value>ConjunctionButtonScreenTip</value>
   </data>
+  <data name="Constraint" xml:space="preserve">
+    <value>Constraint</value>
+  </data>
+  <data name="ConstraintScreenTip" xml:space="preserve">
+    <value>ConstraintScreenTip</value>
+  </data>
   <data name="ConstraintStatement" xml:space="preserve">
     <value>ConstraintStatement</value>
+  </data>
+  <data name="ConstraintStatementScreenTip" xml:space="preserve">
+    <value>ConstraintStatementScreenTip</value>
   </data>
   <data name="EditTab" xml:space="preserve">
     <value>EditTab</value>
@@ -237,6 +270,9 @@
   <data name="FalsityButtonScreenTip" xml:space="preserve">
     <value>FalsityButtonScreenTip</value>
   </data>
+  <data name="Fluent" xml:space="preserve">
+    <value>Fluent</value>
+  </data>
   <data name="FluentDropDown" xml:space="preserve">
     <value>FluentDropDown</value>
   </data>
@@ -246,8 +282,14 @@
   <data name="FluentReleaseStatement" xml:space="preserve">
     <value>FluentReleaseStatement</value>
   </data>
+  <data name="FluentScreenTip" xml:space="preserve">
+    <value>FluentScreenTip</value>
+  </data>
   <data name="FluentSpecificationStatement" xml:space="preserve">
     <value>FluentSpecificationStatement</value>
+  </data>
+  <data name="FluentSpecificationStatementScreenTip" xml:space="preserve">
+    <value>FluentSpecificationStatementScreenTip</value>
   </data>
   <data name="FormulaGroupBox" xml:space="preserve">
     <value>FormulaGroupBox</value>
@@ -264,8 +306,17 @@
   <data name="ImportButtonScreenTip" xml:space="preserve">
     <value>ImportButtonScreenTip</value>
   </data>
+  <data name="InitialCondition" xml:space="preserve">
+    <value>InitialCondition</value>
+  </data>
+  <data name="InitialConditionScreenTip" xml:space="preserve">
+    <value>InitialConditionScreenTip</value>
+  </data>
   <data name="InitialValueStatement" xml:space="preserve">
     <value>InitialValueStatement</value>
+  </data>
+  <data name="InitialValueStatementScreenTip" xml:space="preserve">
+    <value>InitialValueStatementScreenTip</value>
   </data>
   <data name="LanguageGroupBox" xml:space="preserve">
     <value>LanguageGroupBox</value>
@@ -276,11 +327,32 @@
   <data name="NegationButtonScreenTip" xml:space="preserve">
     <value>NegationButtonScreenTip</value>
   </data>
+  <data name="ObservationCondition" xml:space="preserve">
+    <value>ObservationCondition</value>
+  </data>
+  <data name="ObservationConditionScreenTip" xml:space="preserve">
+    <value>ObservationConditionScreenTip</value>
+  </data>
   <data name="ObservationStatement" xml:space="preserve">
     <value>ObservationStatement</value>
   </data>
+  <data name="ObservationStatementScreenTip" xml:space="preserve">
+    <value>ObservationStatementScreenTip</value>
+  </data>
   <data name="OptionsTab" xml:space="preserve">
     <value>OptionsTab</value>
+  </data>
+  <data name="Postcondition" xml:space="preserve">
+    <value>Postcondition</value>
+  </data>
+  <data name="PostconditionScreenTip" xml:space="preserve">
+    <value>PostconditionScreenTip</value>
+  </data>
+  <data name="Precondition" xml:space="preserve">
+    <value>Precondition</value>
+  </data>
+  <data name="PreconditionScreenTip" xml:space="preserve">
+    <value>PreconditionScreenTip</value>
   </data>
   <data name="QueryClauseGroupBox" xml:space="preserve">
     <value>QueryClauseGroupBox</value>
@@ -294,11 +366,38 @@
   <data name="TruthButtonScreenTip" xml:space="preserve">
     <value>TruthButtonScreenTip</value>
   </data>
+  <data name="UnconditionalEffectStatement" xml:space="preserve">
+    <value>UnconditionalEffectStatement</value>
+  </data>
+  <data name="UnconditionalEffectStatementScreenTip" xml:space="preserve">
+    <value>UnconditionalEffectStatementScreenTip</value>
+  </data>
+  <data name="UnconditionalFluentReleaseStatement" xml:space="preserve">
+    <value>UnconditionalFluentReleaseStatement</value>
+  </data>
+  <data name="UnconditionalFluentReleaseStatementScreenTip" xml:space="preserve">
+    <value>UnconditionalFluentReleaseStatementScreenTip</value>
+  </data>
+  <data name="UnconditionalImpossibilityStatement" xml:space="preserve">
+    <value>UnconditionalImpossibilityStatement</value>
+  </data>
+  <data name="UnconditionalImpossibilityStatementScreenTip" xml:space="preserve">
+    <value>UnconditionalImpossibilityStatementScreenTip</value>
+  </data>
+  <data name="ValueCondition" xml:space="preserve">
+    <value>ValueCondition</value>
+  </data>
+  <data name="ValueConditionScreenTip" xml:space="preserve">
+    <value>ValueConditionScreenTip</value>
+  </data>
   <data name="ValueQuery" xml:space="preserve">
     <value>ValueQuery</value>
   </data>
   <data name="ValueStatement" xml:space="preserve">
     <value>ValueStatement</value>
+  </data>
+  <data name="ValueStatementScreenTip" xml:space="preserve">
+    <value>ValueStatementScreenTip</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>WindowTitle</value>

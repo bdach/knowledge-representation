@@ -120,6 +120,9 @@
   <data name="AccessibilityQuery" xml:space="preserve">
     <value>Kwerenda osiągalności</value>
   </data>
+  <data name="Action" xml:space="preserve">
+    <value>Akcja</value>
+  </data>
   <data name="ActionDomainGroupBox" xml:space="preserve">
     <value>Domena akcji</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="ActionDropDownScreenTip" xml:space="preserve">
     <value>Umożliwia dodanie nowej akcji lub wstawienie istniejącej akcji do zdania domeny akcji lub kwerendy.</value>
+  </data>
+  <data name="ActionScreenTip" xml:space="preserve">
+    <value>Akcja, z którą związane jest dane zdanie.</value>
   </data>
   <data name="AddActionButton" xml:space="preserve">
     <value>Dodaj nową</value>
@@ -204,14 +210,41 @@
   <data name="CloseButtonScreenTip" xml:space="preserve">
     <value>Zamyka aplikację.</value>
   </data>
+  <data name="ConditionalEffectStatement" xml:space="preserve">
+    <value>Warunkowe zdanie efektu</value>
+  </data>
+  <data name="ConditionalEffectStatementScreenTip" xml:space="preserve">
+    <value>Opisuje efekty akcji, które zachodzą pod warunkiem spełnienia pewego warunku wstępnego.</value>
+  </data>
+  <data name="ConditionalFluentReleaseStatement" xml:space="preserve">
+    <value>Warunkowe zdanie uwolnienia fluentu</value>
+  </data>
+  <data name="ConditionalFluentReleaseStatementScreenTip" xml:space="preserve">
+    <value>Opisuje losowe efekty akcji, które zachodzą pod warunkiem spełnienia pewnego warunku wstępnego.</value>
+  </data>
+  <data name="ConditionalImpossibilityStatement" xml:space="preserve">
+    <value>Warunkowe zdanie niemożliwości</value>
+  </data>
+  <data name="ConditionalImpossibilityStatementScreenTip" xml:space="preserve">
+    <value>Zapobiega wykonaniu akcji pod warunkiem spełnienia pewnego warunku wstępnego.</value>
+  </data>
   <data name="ConjunctionButton" xml:space="preserve">
     <value>Koniunkcja</value>
   </data>
   <data name="ConjunctionButtonScreenTip" xml:space="preserve">
     <value>Wstawia koniunkcję do wybranej formuły logicznej.</value>
   </data>
+  <data name="Constraint" xml:space="preserve">
+    <value>Warunek integralności</value>
+  </data>
+  <data name="ConstraintScreenTip" xml:space="preserve">
+    <value>Warunek logiczny, który musi być spełniony w każdym stanie.</value>
+  </data>
   <data name="ConstraintStatement" xml:space="preserve">
     <value>Zdanie ograniczenia</value>
+  </data>
+  <data name="ConstraintStatementScreenTip" xml:space="preserve">
+    <value>Zapewnia spełnienie pewnego warunku logicznego we wszystkich możliwych stanach.</value>
   </data>
   <data name="EditTab" xml:space="preserve">
     <value>Edycja</value>
@@ -240,6 +273,9 @@
   <data name="FalsityButtonScreenTip" xml:space="preserve">
     <value>Wstawia stałą fałszu do wybranej formuły logicznej.</value>
   </data>
+  <data name="Fluent" xml:space="preserve">
+    <value>Fluent</value>
+  </data>
   <data name="FluentDropDown" xml:space="preserve">
     <value>Fluenty</value>
   </data>
@@ -249,8 +285,14 @@
   <data name="FluentReleaseStatement" xml:space="preserve">
     <value>Zdania uwolnienia fluentu</value>
   </data>
+  <data name="FluentScreenTip" xml:space="preserve">
+    <value>Fluent, na który ma wpływ dane zdanie.</value>
+  </data>
   <data name="FluentSpecificationStatement" xml:space="preserve">
     <value>Zdanie specyfikacji fluentu</value>
+  </data>
+  <data name="FluentSpecificationStatementScreenTip" xml:space="preserve">
+    <value>Specyfikuje, że dany fluent nie podlega prawu inercji.</value>
   </data>
   <data name="FormulaGroupBox" xml:space="preserve">
     <value>Edytor formuł</value>
@@ -267,8 +309,17 @@
   <data name="ImportButtonScreenTip" xml:space="preserve">
     <value>Wczytuje dane scenariusza z pliku.</value>
   </data>
+  <data name="InitialCondition" xml:space="preserve">
+    <value>Warunek początkowy</value>
+  </data>
+  <data name="InitialConditionScreenTip" xml:space="preserve">
+    <value>Warunek logiczny, który musi być spełniony w stanie początkowym.</value>
+  </data>
   <data name="InitialValueStatement" xml:space="preserve">
     <value>Zdanie wartości początkowej</value>
+  </data>
+  <data name="InitialValueStatementScreenTip" xml:space="preserve">
+    <value>Zapewnia spełnienie pewnego warunku logicznego w stanie początkowym.</value>
   </data>
   <data name="LanguageGroupBox" xml:space="preserve">
     <value>Sygnatura języka</value>
@@ -279,11 +330,32 @@
   <data name="NegationButtonScreenTip" xml:space="preserve">
     <value>Wstawia negację do wybranej formuły logicznej.</value>
   </data>
+  <data name="ObservationCondition" xml:space="preserve">
+    <value>Warunek oberwacji</value>
+  </data>
+  <data name="ObservationConditionScreenTip" xml:space="preserve">
+    <value>Warunek logiczny, który musi być prawdziwy dla przynajmniej jednege potencjalnego efektu wykonania danej akcji.</value>
+  </data>
   <data name="ObservationStatement" xml:space="preserve">
     <value>Zdanie obserwacji</value>
   </data>
+  <data name="ObservationStatementScreenTip" xml:space="preserve">
+    <value>Określa, że podany warunek logiczny jest spełniony przynajmniej w jednym przypadku po wykonaniu danej akcji.</value>
+  </data>
   <data name="OptionsTab" xml:space="preserve">
     <value>Opcje</value>
+  </data>
+  <data name="Postcondition" xml:space="preserve">
+    <value>Warunek końcowy</value>
+  </data>
+  <data name="PostconditionScreenTip" xml:space="preserve">
+    <value>Warunek logiczny określający efekt wykonania akcji.</value>
+  </data>
+  <data name="Precondition" xml:space="preserve">
+    <value>Warunek wstępny</value>
+  </data>
+  <data name="PreconditionScreenTip" xml:space="preserve">
+    <value>Warunek logiczny, który musi być spełniony, aby zdanie miało efekt.</value>
   </data>
   <data name="QueryClauseGroupBox" xml:space="preserve">
     <value>Kwerendy</value>
@@ -297,11 +369,38 @@
   <data name="TruthButtonScreenTip" xml:space="preserve">
     <value>Wstawia stałą prawdy do wybranej formuły logicznej.</value>
   </data>
+  <data name="UnconditionalEffectStatement" xml:space="preserve">
+    <value>Bezwarunkowe zdanie efektu</value>
+  </data>
+  <data name="UnconditionalEffectStatementScreenTip" xml:space="preserve">
+    <value>Opisuje pewne efekty akcji.</value>
+  </data>
+  <data name="UnconditionalFluentReleaseStatement" xml:space="preserve">
+    <value>Bezwarunkowe zdanie uwolnienia fluentu</value>
+  </data>
+  <data name="UnconditionalFluentReleaseStatementScreenTip" xml:space="preserve">
+    <value>Opisuje losowe efekty akcji.</value>
+  </data>
+  <data name="UnconditionalImpossibilityStatement" xml:space="preserve">
+    <value>Bezwarunkowe zdanie niemożliwości</value>
+  </data>
+  <data name="UnconditionalImpossibilityStatementScreenTip" xml:space="preserve">
+    <value>Zapobiega wykonaniu danej akcji.</value>
+  </data>
+  <data name="ValueCondition" xml:space="preserve">
+    <value>Warunek wartości</value>
+  </data>
+  <data name="ValueConditionScreenTip" xml:space="preserve">
+    <value>Warunek logiczny, który musi być spełniony zawsze po wykonaniu danej akcji.</value>
+  </data>
   <data name="ValueQuery" xml:space="preserve">
     <value>Kwerendy wartości</value>
   </data>
   <data name="ValueStatement" xml:space="preserve">
     <value>Zdanie wartości</value>
+  </data>
+  <data name="ValueStatementScreenTip" xml:space="preserve">
+    <value>Określa, że podany warunek logiczny jest spełniony zawsze po wykonaniu danej akcji.</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value> Akcje równoległe</value>

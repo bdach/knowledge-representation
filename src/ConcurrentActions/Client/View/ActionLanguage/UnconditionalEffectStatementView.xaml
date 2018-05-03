@@ -5,11 +5,17 @@
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:reactiveUi="http://reactiveui.net"
                        xmlns:view="clr-namespace:Client.View"
+                       xmlns:fluent="urn:fluent-ribbon"
+                       xmlns:local="clr-namespace:Client.Provider"
                        mc:Ignorable="d"
                        Style="{DynamicResource {x:Type view:ExpressionButton}}">
+    <view:ExpressionButton.ToolTip>
+        <fluent:ScreenTip Title="{local:Loc UnconditionalEffectStatement}"
+                          Text="{local:Loc UnconditionalEffectStatementScreenTip}" />
+    </view:ExpressionButton.ToolTip>
     <WrapPanel>
-        <reactiveUi:ViewModelViewHost Name="Action" />
+        <reactiveUi:ViewModelViewHost Name="Action" ToolTip="{DynamicResource ActionScreenTip}" />
         <TextBlock Name="Label" Style="{DynamicResource StatementLabel}" />
-        <reactiveUi:ViewModelViewHost Name="Postcondition" />
+        <reactiveUi:ViewModelViewHost Name="Postcondition" ToolTip="{DynamicResource PostconditionScreenTip}" />
     </WrapPanel>
 </view:ExpressionButton>
