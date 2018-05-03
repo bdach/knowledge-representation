@@ -19,6 +19,7 @@ namespace Client.ViewModel.Terminal
         /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
+        /// <inheritdoc />
         public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
 
         public PlaceholderViewModel()

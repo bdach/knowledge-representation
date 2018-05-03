@@ -77,7 +77,7 @@ namespace Client.ViewModel.QueryLanguage
 
             AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
             Program.CompoundActions.ItemsAdded.Subscribe(compoundAction =>
-                compoundAction.ChangeListener = this.WhenAnyObservable(vm => vm.AddAtomicAction).InvokeCommand(compoundAction.AddAtomicAction)
+                compoundAction.CommandInvocationListener = this.WhenAnyObservable(vm => vm.AddAtomicAction).InvokeCommand(compoundAction.AddAtomicAction)
             );
             Program.CompoundActions.ItemsRemoved.Subscribe(compoundAction => compoundAction.Dispose());
 

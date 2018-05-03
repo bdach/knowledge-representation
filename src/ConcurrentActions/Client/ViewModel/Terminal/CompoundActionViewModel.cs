@@ -27,9 +27,16 @@ namespace Client.ViewModel.Terminal
         /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
+        /// <summary>
+        /// Adds an atomic action to this compound action.
+        /// </summary>
         public ReactiveCommand<ActionViewModel, ActionViewModel> AddAtomicAction { get; protected set; }
 
-        public IDisposable ChangeListener { get; set; }
+        /// <summary>
+        /// This listener keeps track of when the <see cref="IQueryClauseViewModel.AddAtomicAction"/> command is called.
+        /// It is saved here so it is disposed when the view model gets deleted and falls out of scope.
+        /// </summary>
+        public IDisposable CommandInvocationListener { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="CompoundActionViewModel"/> instance.
@@ -73,7 +80,7 @@ namespace Client.ViewModel.Terminal
         {
             DeleteFocused?.Dispose();
             AddAtomicAction?.Dispose();
-            ChangeListener?.Dispose();
+            CommandInvocationListener?.Dispose();
         }
     }
 }
