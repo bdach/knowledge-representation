@@ -162,6 +162,9 @@
   <data name="AddCompoundActionButtonScreenTip" xml:space="preserve">
     <value>Wstawia pustą akcję złożoną do wybranego programu.</value>
   </data>
+  <data name="AddCompoundActionButtonUnbroken" xml:space="preserve">
+    <value>Dodaj akcję złożoną</value>
+  </data>
   <data name="AddFluentButton" xml:space="preserve">
     <value>Dodaj nowy</value>
   </data>
