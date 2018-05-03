@@ -70,11 +70,11 @@ namespace Client.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ActionClauseGroupBox.
+        ///   Looks up a localized string similar to ActionDomainGroupBox.
         /// </summary>
-        public static string ActionClauseGroupBox {
+        public static string ActionDomainGroupBox {
             get {
-                return ResourceManager.GetString("ActionClauseGroupBox", resourceCulture);
+                return ResourceManager.GetString("ActionDomainGroupBox", resourceCulture);
             }
         }
         
@@ -84,6 +84,15 @@ namespace Client.Localization {
         public static string ActionDropDown {
             get {
                 return ResourceManager.GetString("ActionDropDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ActionDropdownScreenTip.
+        /// </summary>
+        public static string ActionDropDownScreenTip {
+            get {
+                return ResourceManager.GetString("ActionDropDownScreenTip", resourceCulture);
             }
         }
         
@@ -106,15 +115,6 @@ namespace Client.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AddActionClauseDropDown.
-        /// </summary>
-        public static string AddActionClauseDropDown {
-            get {
-                return ResourceManager.GetString("AddActionClauseDropDown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to AddActionConfirmButton.
         /// </summary>
         public static string AddActionConfirmButton {
@@ -129,6 +129,24 @@ namespace Client.Localization {
         public static string AddActionPrompt {
             get {
                 return ResourceManager.GetString("AddActionPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddActionStatementDropDown.
+        /// </summary>
+        public static string AddActionStatementDropDown {
+            get {
+                return ResourceManager.GetString("AddActionStatementDropDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddActionStatementDropDownScreenTip.
+        /// </summary>
+        public static string AddActionStatementDropDownScreenTip {
+            get {
+                return ResourceManager.GetString("AddActionStatementDropDownScreenTip", resourceCulture);
             }
         }
         
@@ -196,11 +214,20 @@ namespace Client.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AddQueryClauseDropDown.
+        ///   Looks up a localized string similar to AddQueryStatementDropDown.
         /// </summary>
-        public static string AddQueryClauseDropDown {
+        public static string AddQueryStatementDropDown {
             get {
-                return ResourceManager.GetString("AddQueryClauseDropDown", resourceCulture);
+                return ResourceManager.GetString("AddQueryStatementDropDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddQueryStatementDropDownScreenTip.
+        /// </summary>
+        public static string AddQueryStatementDropDownScreenTip {
+            get {
+                return ResourceManager.GetString("AddQueryStatementDropDownScreenTip", resourceCulture);
             }
         }
         
@@ -214,11 +241,29 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AlternativeButtonScreenTip.
+        /// </summary>
+        public static string AlternativeButtonScreenTip {
+            get {
+                return ResourceManager.GetString("AlternativeButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CalculateButton.
         /// </summary>
         public static string CalculateButton {
             get {
                 return ResourceManager.GetString("CalculateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CalculateButtonScreenTip.
+        /// </summary>
+        public static string CalculateButtonScreenTip {
+            get {
+                return ResourceManager.GetString("CalculateButtonScreenTip", resourceCulture);
             }
         }
         
@@ -241,6 +286,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ClearButtonScreenTip.
+        /// </summary>
+        public static string ClearButtonScreenTip {
+            get {
+                return ResourceManager.GetString("ClearButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CloseButton.
         /// </summary>
         public static string CloseButton {
@@ -250,11 +304,29 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CloseButtonScreenTip.
+        /// </summary>
+        public static string CloseButtonScreenTip {
+            get {
+                return ResourceManager.GetString("CloseButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ConjunctionButton.
         /// </summary>
         public static string ConjunctionButton {
             get {
                 return ResourceManager.GetString("ConjunctionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConjunctionButtonScreenTip.
+        /// </summary>
+        public static string ConjunctionButtonScreenTip {
+            get {
+                return ResourceManager.GetString("ConjunctionButtonScreenTip", resourceCulture);
             }
         }
         
@@ -295,6 +367,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EquivalenceButtonScreenTip.
+        /// </summary>
+        public static string EquivalenceButtonScreenTip {
+            get {
+                return ResourceManager.GetString("EquivalenceButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ExecutabilityQuery.
         /// </summary>
         public static string ExecutabilityQuery {
@@ -313,6 +394,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ExportButtonScreenTip.
+        /// </summary>
+        public static string ExportButtonScreenTip {
+            get {
+                return ResourceManager.GetString("ExportButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FalsityButton.
         /// </summary>
         public static string FalsityButton {
@@ -322,11 +412,29 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FalsityButtonScreenTip.
+        /// </summary>
+        public static string FalsityButtonScreenTip {
+            get {
+                return ResourceManager.GetString("FalsityButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FluentDropDown.
         /// </summary>
         public static string FluentDropDown {
             get {
                 return ResourceManager.GetString("FluentDropDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FluentDropDownScreenTip.
+        /// </summary>
+        public static string FluentDropDownScreenTip {
+            get {
+                return ResourceManager.GetString("FluentDropDownScreenTip", resourceCulture);
             }
         }
         
@@ -367,11 +475,29 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ImplicationButtonScreenTip.
+        /// </summary>
+        public static string ImplicationButtonScreenTip {
+            get {
+                return ResourceManager.GetString("ImplicationButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ImportButton.
         /// </summary>
         public static string ImportButton {
             get {
                 return ResourceManager.GetString("ImportButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ImportButtonScreenTip.
+        /// </summary>
+        public static string ImportButtonScreenTip {
+            get {
+                return ResourceManager.GetString("ImportButtonScreenTip", resourceCulture);
             }
         }
         
@@ -399,6 +525,15 @@ namespace Client.Localization {
         public static string NegationButton {
             get {
                 return ResourceManager.GetString("NegationButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NegationButtonScreenTip.
+        /// </summary>
+        public static string NegationButtonScreenTip {
+            get {
+                return ResourceManager.GetString("NegationButtonScreenTip", resourceCulture);
             }
         }
         
@@ -444,6 +579,15 @@ namespace Client.Localization {
         public static string TruthButton {
             get {
                 return ResourceManager.GetString("TruthButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TruthButtonScreenTip.
+        /// </summary>
+        public static string TruthButtonScreenTip {
+            get {
+                return ResourceManager.GetString("TruthButtonScreenTip", resourceCulture);
             }
         }
         

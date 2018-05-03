@@ -120,11 +120,14 @@
   <data name="AccessibilityQuery" xml:space="preserve">
     <value>Kwerenda osiągalności</value>
   </data>
-  <data name="ActionClauseGroupBox" xml:space="preserve">
+  <data name="ActionDomainGroupBox" xml:space="preserve">
     <value>Domena akcji</value>
   </data>
   <data name="ActionDropDown" xml:space="preserve">
     <value>Akcje</value>
+  </data>
+  <data name="ActionDropDownScreenTip" xml:space="preserve">
+    <value>Umożliwia dodanie nowej akcji lub wstawienie istniejącej akcji do zdania domeny akcji lub kwerendy.</value>
   </data>
   <data name="AddActionButton" xml:space="preserve">
     <value>Dodaj nową</value>
@@ -132,20 +135,26 @@
   <data name="AddActionCancelButton" xml:space="preserve">
     <value>Anuluj</value>
   </data>
-  <data name="AddActionClauseDropDown" xml:space="preserve">
-    <value>Dodaj zdanie domeny akcji</value>
-  </data>
   <data name="AddActionConfirmButton" xml:space="preserve">
     <value>Dodaj</value>
   </data>
   <data name="AddActionPrompt" xml:space="preserve">
     <value>Wpisz unikalną nazwę akcji</value>
   </data>
+  <data name="AddActionStatementDropDown" xml:space="preserve">
+    <value>Dodaj zdanie domeny akcji</value>
+  </data>
+  <data name="AddActionStatementDropDownScreenTip" xml:space="preserve">
+    <value>Wstawia zdanie domeny akcji do edytowanego scenariusza.</value>
+  </data>
   <data name="AddActionTitle" xml:space="preserve">
     <value> Dodaj nową akcję</value>
   </data>
   <data name="AddCompoundActionButton" xml:space="preserve">
     <value>Dodaj akcję złożoną</value>
+  </data>
+  <data name="AddCompoundActionButtonScreenTip" xml:space="preserve">
+    <value>Wstawia pustą akcję złożoną do wybranego programu.</value>
   </data>
   <data name="AddFluentButton" xml:space="preserve">
     <value>Dodaj nowy</value>
@@ -162,14 +171,23 @@
   <data name="AddFluentTitle" xml:space="preserve">
     <value> Dodaj nowy fluent</value>
   </data>
-  <data name="AddQueryClauseDropDown" xml:space="preserve">
+  <data name="AddQueryStatementDropDown" xml:space="preserve">
     <value>Dodaj kwerendę</value>
+  </data>
+  <data name="AddQueryStatementDropDownScreenTip" xml:space="preserve">
+    <value>Wstawia kwerendę do edytowanego scenariusza.</value>
   </data>
   <data name="AlternativeButton" xml:space="preserve">
     <value>Alternatywa</value>
   </data>
+  <data name="AlternativeButtonScreenTip" xml:space="preserve">
+    <value>Wstawia alternatywę do wybranej formuły logicznej.</value>
+  </data>
   <data name="CalculateButton" xml:space="preserve">
     <value>Wykonaj obliczenia</value>
+  </data>
+  <data name="CalculateButtonScreenTip" xml:space="preserve">
+    <value>Dokonuje ewaluacji kwerend na podstawie wprowadzonej domeny akcji.</value>
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>Ustaw język</value>
@@ -177,11 +195,20 @@
   <data name="ClearButton" xml:space="preserve">
     <value>Wyczyść</value>
   </data>
+  <data name="ClearButtonScreenTip" xml:space="preserve">
+    <value>Usuwa wszystkie fluenty, akcje, zdania domeny akcji i kwerendy z obecnie edytowanego scenariusza.</value>
+  </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Zakończ</value>
   </data>
+  <data name="CloseButtonScreenTip" xml:space="preserve">
+    <value>Zamyka aplikację.</value>
+  </data>
   <data name="ConjunctionButton" xml:space="preserve">
     <value>Koniunkcja</value>
+  </data>
+  <data name="ConjunctionButtonScreenTip" xml:space="preserve">
+    <value>Wstawia koniunkcję do wybranej formuły logicznej.</value>
   </data>
   <data name="ConstraintStatement" xml:space="preserve">
     <value>Zdanie ograniczenia</value>
@@ -195,17 +222,29 @@
   <data name="EquivalenceButton" xml:space="preserve">
     <value>Równoważność</value>
   </data>
+  <data name="EquivalenceButtonScreenTip" xml:space="preserve">
+    <value>Wstawia równoważność do wybranej formuły logicznej.</value>
+  </data>
   <data name="ExecutabilityQuery" xml:space="preserve">
     <value>Kwerendy wykonywalności</value>
   </data>
   <data name="ExportButton" xml:space="preserve">
     <value>Eksportuj do pliku</value>
   </data>
+  <data name="ExportButtonScreenTip" xml:space="preserve">
+    <value>Zapisuje dane obecnie edytowanego scenariusza do pliku.</value>
+  </data>
   <data name="FalsityButton" xml:space="preserve">
     <value>Fałsz</value>
   </data>
+  <data name="FalsityButtonScreenTip" xml:space="preserve">
+    <value>Wstawia stałą fałszu do wybranej formuły logicznej.</value>
+  </data>
   <data name="FluentDropDown" xml:space="preserve">
     <value>Fluenty</value>
+  </data>
+  <data name="FluentDropDownScreenTip" xml:space="preserve">
+    <value>Umożliwia dodanie nowego fluentu lub wstawienie istniejącego fluentu do zdania domeny akcji lub kwerendy.</value>
   </data>
   <data name="FluentReleaseStatement" xml:space="preserve">
     <value>Zdania uwolnienia fluentu</value>
@@ -219,8 +258,14 @@
   <data name="ImplicationButton" xml:space="preserve">
     <value>Implikacja</value>
   </data>
+  <data name="ImplicationButtonScreenTip" xml:space="preserve">
+    <value>Wstawia implikację do wybranej formuły logicznej.</value>
+  </data>
   <data name="ImportButton" xml:space="preserve">
     <value>Importuj z pliku</value>
+  </data>
+  <data name="ImportButtonScreenTip" xml:space="preserve">
+    <value>Wczytuje dane scenariusza z pliku.</value>
   </data>
   <data name="InitialValueStatement" xml:space="preserve">
     <value>Zdanie wartości początkowej</value>
@@ -230,6 +275,9 @@
   </data>
   <data name="NegationButton" xml:space="preserve">
     <value>Negacja</value>
+  </data>
+  <data name="NegationButtonScreenTip" xml:space="preserve">
+    <value>Wstawia negację do wybranej formuły logicznej.</value>
   </data>
   <data name="ObservationStatement" xml:space="preserve">
     <value>Zdanie obserwacji</value>
@@ -245,6 +293,9 @@
   </data>
   <data name="TruthButton" xml:space="preserve">
     <value>Prawda</value>
+  </data>
+  <data name="TruthButtonScreenTip" xml:space="preserve">
+    <value>Wstawia stałą prawdy do wybranej formuły logicznej.</value>
   </data>
   <data name="ValueQuery" xml:space="preserve">
     <value>Kwerendy wartości</value>

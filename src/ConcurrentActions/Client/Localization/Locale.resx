@@ -120,11 +120,14 @@
   <data name="AccessibilityQuery" xml:space="preserve">
     <value>AccessibilityQuery</value>
   </data>
-  <data name="ActionClauseGroupBox" xml:space="preserve">
-    <value>ActionClauseGroupBox</value>
+  <data name="ActionDomainGroupBox" xml:space="preserve">
+    <value>ActionDomainGroupBox</value>
   </data>
   <data name="ActionDropDown" xml:space="preserve">
     <value>AddActionButton</value>
+  </data>
+  <data name="ActionDropDownScreenTip" xml:space="preserve">
+    <value>ActionDropdownScreenTip</value>
   </data>
   <data name="AddActionButton" xml:space="preserve">
     <value>AddActionButton</value>
@@ -132,14 +135,17 @@
   <data name="AddActionCancelButton" xml:space="preserve">
     <value>AddActionCancelButton</value>
   </data>
-  <data name="AddActionClauseDropDown" xml:space="preserve">
-    <value>AddActionClauseDropDown</value>
-  </data>
   <data name="AddActionConfirmButton" xml:space="preserve">
     <value>AddActionConfirmButton</value>
   </data>
   <data name="AddActionPrompt" xml:space="preserve">
     <value>AddActionPrompt</value>
+  </data>
+  <data name="AddActionStatementDropDown" xml:space="preserve">
+    <value>AddActionStatementDropDown</value>
+  </data>
+  <data name="AddActionStatementDropDownScreenTip" xml:space="preserve">
+    <value>AddActionStatementDropDownScreenTip</value>
   </data>
   <data name="AddActionTitle" xml:space="preserve">
     <value>AddActionTitle</value>
@@ -162,14 +168,23 @@
   <data name="AddFluentTitle" xml:space="preserve">
     <value>AddFluentTitle</value>
   </data>
-  <data name="AddQueryClauseDropDown" xml:space="preserve">
-    <value>AddQueryClauseDropDown</value>
+  <data name="AddQueryStatementDropDown" xml:space="preserve">
+    <value>AddQueryStatementDropDown</value>
+  </data>
+  <data name="AddQueryStatementDropDownScreenTip" xml:space="preserve">
+    <value>AddQueryStatementDropDownScreenTip</value>
   </data>
   <data name="AlternativeButton" xml:space="preserve">
     <value>AlternativeButton</value>
   </data>
+  <data name="AlternativeButtonScreenTip" xml:space="preserve">
+    <value>AlternativeButtonScreenTip</value>
+  </data>
   <data name="CalculateButton" xml:space="preserve">
     <value>CalculateButton</value>
+  </data>
+  <data name="CalculateButtonScreenTip" xml:space="preserve">
+    <value>CalculateButtonScreenTip</value>
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>ChooseLanguage</value>
@@ -177,11 +192,20 @@
   <data name="ClearButton" xml:space="preserve">
     <value>ClearButton</value>
   </data>
+  <data name="ClearButtonScreenTip" xml:space="preserve">
+    <value>ClearButtonScreenTip</value>
+  </data>
   <data name="CloseButton" xml:space="preserve">
     <value>CloseButton</value>
   </data>
+  <data name="CloseButtonScreenTip" xml:space="preserve">
+    <value>CloseButtonScreenTip</value>
+  </data>
   <data name="ConjunctionButton" xml:space="preserve">
     <value>ConjunctionButton</value>
+  </data>
+  <data name="ConjunctionButtonScreenTip" xml:space="preserve">
+    <value>ConjunctionButtonScreenTip</value>
   </data>
   <data name="ConstraintStatement" xml:space="preserve">
     <value>ConstraintStatement</value>
@@ -195,17 +219,29 @@
   <data name="EquivalenceButton" xml:space="preserve">
     <value>EquivalencyButton</value>
   </data>
+  <data name="EquivalenceButtonScreenTip" xml:space="preserve">
+    <value>EquivalenceButtonScreenTip</value>
+  </data>
   <data name="ExecutabilityQuery" xml:space="preserve">
     <value>ExecutabilityQuery</value>
   </data>
   <data name="ExportButton" xml:space="preserve">
     <value>ExportButton</value>
   </data>
+  <data name="ExportButtonScreenTip" xml:space="preserve">
+    <value>ExportButtonScreenTip</value>
+  </data>
   <data name="FalsityButton" xml:space="preserve">
     <value>FalsityButton</value>
   </data>
+  <data name="FalsityButtonScreenTip" xml:space="preserve">
+    <value>FalsityButtonScreenTip</value>
+  </data>
   <data name="FluentDropDown" xml:space="preserve">
     <value>FluentDropDown</value>
+  </data>
+  <data name="FluentDropDownScreenTip" xml:space="preserve">
+    <value>FluentDropDownScreenTip</value>
   </data>
   <data name="FluentReleaseStatement" xml:space="preserve">
     <value>FluentReleaseStatement</value>
@@ -219,8 +255,14 @@
   <data name="ImplicationButton" xml:space="preserve">
     <value>ImplicationButton</value>
   </data>
+  <data name="ImplicationButtonScreenTip" xml:space="preserve">
+    <value>ImplicationButtonScreenTip</value>
+  </data>
   <data name="ImportButton" xml:space="preserve">
     <value>ImportButton</value>
+  </data>
+  <data name="ImportButtonScreenTip" xml:space="preserve">
+    <value>ImportButtonScreenTip</value>
   </data>
   <data name="InitialValueStatement" xml:space="preserve">
     <value>InitialValueStatement</value>
@@ -230,6 +272,9 @@
   </data>
   <data name="NegationButton" xml:space="preserve">
     <value>NegationButton</value>
+  </data>
+  <data name="NegationButtonScreenTip" xml:space="preserve">
+    <value>NegationButtonScreenTip</value>
   </data>
   <data name="ObservationStatement" xml:space="preserve">
     <value>ObservationStatement</value>
@@ -245,6 +290,9 @@
   </data>
   <data name="TruthButton" xml:space="preserve">
     <value>TruthButton</value>
+  </data>
+  <data name="TruthButtonScreenTip" xml:space="preserve">
+    <value>TruthButtonScreenTip</value>
   </data>
   <data name="ValueQuery" xml:space="preserve">
     <value>ValueQuery</value>

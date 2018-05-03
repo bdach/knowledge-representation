@@ -120,11 +120,14 @@
   <data name="AccessibilityQuery" xml:space="preserve">
     <value>Accessibility Query</value>
   </data>
-  <data name="ActionClauseGroupBox" xml:space="preserve">
+  <data name="ActionDomainGroupBox" xml:space="preserve">
     <value>Action Domain</value>
   </data>
   <data name="ActionDropDown" xml:space="preserve">
     <value>Actions</value>
+  </data>
+  <data name="ActionDropDownScreenTip" xml:space="preserve">
+    <value>Add a new action to the scenario, or insert an existing one into one of the action domain statements or queries.</value>
   </data>
   <data name="AddActionButton" xml:space="preserve">
     <value>Add New</value>
@@ -132,20 +135,29 @@
   <data name="AddActionCancelButton" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="AddActionClauseDropDown" xml:space="preserve">
-    <value>Add Action Domain Clause</value>
-  </data>
   <data name="AddActionConfirmButton" xml:space="preserve">
     <value>Confirm</value>
   </data>
   <data name="AddActionPrompt" xml:space="preserve">
     <value>Enter a unique action name</value>
   </data>
+  <data name="AddActionStatementDropDown" xml:space="preserve">
+    <value>Action Domain Statements</value>
+  </data>
+  <data name="AddActionStatementDropDownScreenTip" xml:space="preserve">
+    <value>Add an action domain statement to the current scenario.</value>
+  </data>
   <data name="AddActionTitle" xml:space="preserve">
     <value> Add New Action</value>
   </data>
   <data name="AddCompoundActionButton" xml:space="preserve">
     <value>Add Com- pound Action</value>
+  </data>
+  <data name="AddCompoundActionButtonScreenTip" xml:space="preserve">
+    <value>Insert an empty compound action into the selected program.</value>
+  </data>
+  <data name="AddCompoundActionButtonUnbroken" xml:space="preserve">
+    <value>Add Compound Action</value>
   </data>
   <data name="AddFluentButton" xml:space="preserve">
     <value>Add New</value>
@@ -162,14 +174,23 @@
   <data name="AddFluentTitle" xml:space="preserve">
     <value> Add New Fluent</value>
   </data>
-  <data name="AddQueryClauseDropDown" xml:space="preserve">
-    <value>Add Query Clause</value>
+  <data name="AddQueryStatementDropDown" xml:space="preserve">
+    <value>Query Statements</value>
+  </data>
+  <data name="AddQueryStatementDropDownScreenTip" xml:space="preserve">
+    <value>Add a query statement to the current scenario.</value>
   </data>
   <data name="AlternativeButton" xml:space="preserve">
     <value>Alternative</value>
   </data>
+  <data name="AlternativeButtonScreenTip" xml:space="preserve">
+    <value>Insert an alternative into the selected logical formula.</value>
+  </data>
   <data name="CalculateButton" xml:space="preserve">
     <value>Perform Calculations</value>
+  </data>
+  <data name="CalculateButtonScreenTip" xml:space="preserve">
+    <value>Evaluate the queries within the action domain entered.</value>
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>Choose Language</value>
@@ -177,11 +198,20 @@
   <data name="ClearButton" xml:space="preserve">
     <value>Clear</value>
   </data>
+  <data name="ClearButtonScreenTip" xml:space="preserve">
+    <value>Remove all fluents, actions, action domain statements and queries from the curerntly edited scenario.</value>
+  </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="CloseButtonScreenTip" xml:space="preserve">
+    <value>Closes the application.</value>
+  </data>
   <data name="ConjunctionButton" xml:space="preserve">
     <value>Conjunction</value>
+  </data>
+  <data name="ConjunctionButtonScreenTip" xml:space="preserve">
+    <value>Insert a conjunction into the selected logical formula.</value>
   </data>
   <data name="ConstraintStatement" xml:space="preserve">
     <value>Constraint Statement</value>
@@ -195,17 +225,29 @@
   <data name="EquivalenceButton" xml:space="preserve">
     <value>Equivalence</value>
   </data>
+  <data name="EquivalenceButtonScreenTip" xml:space="preserve">
+    <value>Insert an equivalence clause into the selected logical formula.</value>
+  </data>
   <data name="ExecutabilityQuery" xml:space="preserve">
     <value>Executability Queries</value>
   </data>
   <data name="ExportButton" xml:space="preserve">
     <value>Export to file</value>
   </data>
+  <data name="ExportButtonScreenTip" xml:space="preserve">
+    <value>Save the data of the currently edited scenario to a file.</value>
+  </data>
   <data name="FalsityButton" xml:space="preserve">
     <value>Falsity</value>
   </data>
+  <data name="FalsityButtonScreenTip" xml:space="preserve">
+    <value>Insert a falsity constant into the selected logical formula.</value>
+  </data>
   <data name="FluentDropDown" xml:space="preserve">
     <value>Fluents</value>
+  </data>
+  <data name="FluentDropDownScreenTip" xml:space="preserve">
+    <value>Add a new fluent to the scenario, or insert an existing one into one of the action domain statements or queries.</value>
   </data>
   <data name="FluentReleaseStatement" xml:space="preserve">
     <value>Fluent Release Statements</value>
@@ -214,13 +256,19 @@
     <value>Fluent Specification Statement</value>
   </data>
   <data name="FormulaGroupBox" xml:space="preserve">
-    <value>Formulae Editor</value>
+    <value>Formula Editor</value>
   </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>Implication</value>
   </data>
+  <data name="ImplicationButtonScreenTip" xml:space="preserve">
+    <value>Insert an implication into the selected logical formula.</value>
+  </data>
   <data name="ImportButton" xml:space="preserve">
     <value>Import from file</value>
+  </data>
+  <data name="ImportButtonScreenTip" xml:space="preserve">
+    <value>Load scenario data from a file.</value>
   </data>
   <data name="InitialValueStatement" xml:space="preserve">
     <value>Initial Value Statement</value>
@@ -230,6 +278,9 @@
   </data>
   <data name="NegationButton" xml:space="preserve">
     <value>Negation</value>
+  </data>
+  <data name="NegationButtonScreenTip" xml:space="preserve">
+    <value>Insert a negation into the selected logical formula.</value>
   </data>
   <data name="ObservationStatement" xml:space="preserve">
     <value>Observation Statement</value>
@@ -245,6 +296,9 @@
   </data>
   <data name="TruthButton" xml:space="preserve">
     <value>Truth</value>
+  </data>
+  <data name="TruthButtonScreenTip" xml:space="preserve">
+    <value>Insert a truth constant into the selected logical formula.</value>
   </data>
   <data name="ValueQuery" xml:space="preserve">
     <value>Value Queries</value>
