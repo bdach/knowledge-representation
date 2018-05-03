@@ -5,13 +5,20 @@
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:reactiveUi="http://reactiveui.net"
                        xmlns:view="clr-namespace:Client.View"
+                       xmlns:fluent="urn:fluent-ribbon"
+                       xmlns:local="clr-namespace:Client.Provider"
                        mc:Ignorable="d"
                        Style="{DynamicResource {x:Type view:ExpressionButton}}">
+    <view:ExpressionButton.ToolTip>
+        <fluent:ScreenTip
+            Title="{local:Loc ConditionalFluentReleaseStatement}"
+            Text="{local:Loc ConditionalFluentReleaseStatementScreenTip}"/>
+    </view:ExpressionButton.ToolTip>
     <WrapPanel>
-        <reactiveUi:ViewModelViewHost Name="Action" />
+        <reactiveUi:ViewModelViewHost Name="Action" ToolTip="{DynamicResource ActionScreenTip}" />
         <TextBlock Name="LabelLeft" Style="{DynamicResource StatementLabel}" />
-        <reactiveUi:ViewModelViewHost Name="Literal" />
+        <reactiveUi:ViewModelViewHost Name="Literal" ToolTip="{DynamicResource FluentScreenTip}" />
         <TextBlock Name="LabelRight" Style="{DynamicResource StatementLabel}" />
-        <reactiveUi:ViewModelViewHost Name="Precondition" />
+        <reactiveUi:ViewModelViewHost Name="Precondition" ToolTip="{DynamicResource PreconditionScreenTip}" />
     </WrapPanel>
 </view:ExpressionButton>

@@ -19,15 +19,45 @@
 
                         <fluent:Button
                             Name="ClearButton"
-                            Header="{local:Loc ClearButton}" />
+                            Header="{local:Loc ClearButton}">
+
+                            <fluent:Button.ToolTip>
+
+                                <fluent:ScreenTip
+                                    Title="{local:Loc ClearButton}"
+                                    Text="{local:Loc ClearButtonScreenTip}"/>
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
 
                         <fluent:Button
                             Name="ImportButton"
-                            Header="{local:Loc ImportButton}" />
+                            Header="{local:Loc ImportButton}">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc ImportButton}"
+                                    Text="{local:Loc ImportButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
 
                         <fluent:Button
                             Name="ExportButton"
-                            Header="{local:Loc ExportButton}" />
+                            Header="{local:Loc ExportButton}">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc ExportButton}"
+                                    Text="{local:Loc ExportButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
 
                         <fluent:BackstageTabItem
                             Name="OptionsTab"
@@ -79,7 +109,17 @@
 
                         <fluent:Button
                             Name="CloseButton"
-                            Header="{local:Loc CloseButton}" />
+                            Header="{local:Loc CloseButton}">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc CloseButton}"
+                                    Text="{local:Loc CloseButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
 
                     </fluent:BackstageTabControl>
                 </fluent:Backstage>
@@ -102,6 +142,13 @@
                         Header="{local:Loc FluentDropDown}"
                         Icon="/Client;component/Resources/Images/fluents-64.png"
                         LargeIcon="/Client;component/Resources/Images/fluents-128.png">
+                        
+                        <fluent:DropDownButton.ToolTip>
+                            
+                            <fluent:ScreenTip Title="{local:Loc FluentDropDown}"
+                                              Text="{local:Loc FluentDropDownScreenTip}" />
+
+                        </fluent:DropDownButton.ToolTip>
 
                         <fluent:MenuItem
                             Name="AddFluentButton"
@@ -127,6 +174,14 @@
                         Header="{local:Loc ActionDropDown}"
                         Icon="/Client;component/Resources/Images/actions-64.png"
                         LargeIcon="/Client;component/Resources/Images/actions-128.png">
+                        
+                        <fluent:DropDownButton.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="{local:Loc ActionDropDown}"
+                                Text="{local:Loc ActionDropDownScreenTip}" />
+
+                        </fluent:DropDownButton.ToolTip>
 
                         <fluent:MenuItem
                             Name="AddActionButton"
@@ -158,7 +213,17 @@
                         KeyTip="C"
                         Header="{local:Loc ConjunctionButton}"
                         Icon="/Client;component/Resources/Images/conjunction-64.png"
-                        LargeIcon="/Client;component/Resources/Images/conjunction-128.png" />
+                        LargeIcon="/Client;component/Resources/Images/conjunction-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc ConjunctionButton}"
+                                Text="{local:Loc ConjunctionButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleMediumButton}"
@@ -166,7 +231,17 @@
                         KeyTip="I"
                         Header="{local:Loc ImplicationButton}"
                         Icon="/Client;component/Resources/Images/implication-64.png"
-                        LargeIcon="/Client;component/Resources/Images/implication-128.png" />
+                        LargeIcon="/Client;component/Resources/Images/implication-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc ImplicationButton}"
+                                Text="{local:Loc ImplicationButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleMediumButton}"
@@ -174,7 +249,17 @@
                         KeyTip="N"
                         Header="{local:Loc NegationButton}"
                         Icon="/Client;component/Resources/Images/negation-64.png"
-                        LargeIcon="/Client;component/Resources/Images/negation-128.png" />
+                        LargeIcon="/Client;component/Resources/Images/negation-128.png">
+
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc NegationButton}"
+                                Text="{local:Loc NegationButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleWideButton}"
@@ -182,7 +267,17 @@
                         KeyTip="A"
                         Header="{local:Loc AlternativeButton}"
                         Icon="/Client;component/Resources/Images/disjunction-64.png"
-                        LargeIcon="/Client;component/Resources/Images/disjunction-128.png" />
+                        LargeIcon="/Client;component/Resources/Images/disjunction-128.png">
+                        
+                        <fluent:Button.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="{local:Loc AlternativeButton}"
+                                Text="{local:Loc AlternativeButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
 
                     <fluent:Button
                         Style="{DynamicResource RibbonMiddleWideButton}"
@@ -190,7 +285,17 @@
                         KeyTip="E"
                         Header="{local:Loc EquivalenceButton}"
                         Icon="/Client;component/Resources/Images/equivalency-64.png"
-                        LargeIcon="/Client;component/Resources/Images/equivalency-128.png" />
+                        LargeIcon="/Client;component/Resources/Images/equivalency-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc EquivalenceButton}"
+                                Text="{local:Loc EquivalenceButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
 
                     <StackPanel>
 
@@ -200,7 +305,17 @@
                             KeyTip="T"
                             Header="{local:Loc TruthButton}"
                             Icon="/Client;component/Resources/Images/truth-64.png"
-                            LargeIcon="/Client;component/Resources/Images/truth-128.png" />
+                            LargeIcon="/Client;component/Resources/Images/truth-128.png">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc TruthButton}"
+                                    Text="{local:Loc TruthButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
 
                         <fluent:Button
                             Style="{DynamicResource RibbonMiddleNarrowButton}"
@@ -208,7 +323,17 @@
                             KeyTip="F"
                             Header="{local:Loc FalsityButton}"
                             Icon="/Client;component/Resources/Images/falsity-64.png"
-                            LargeIcon="/Client;component/Resources/Images/falsity-128.png" />
+                            LargeIcon="/Client;component/Resources/Images/falsity-128.png">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc FalsityButton}"
+                                    Text="{local:Loc FalsityButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
 
                     </StackPanel>
 
@@ -217,15 +342,23 @@
                 <fluent:RibbonGroupBox
                     Name="ActionClauseGroupBox"
                     KeyTip="D"
-                    Header="{local:Loc ActionClauseGroupBox}">
+                    Header="{local:Loc ActionDomainGroupBox}">
 
                     <fluent:DropDownButton
-                        Style="{DynamicResource RibbonLargeMediumDropDown}"
+                        Style="{DynamicResource RibbonLargeWideDropDown}"
                         KeyTip="D"
                         Name="AddActionClauseDropDown"
-                        Header="{local:Loc AddActionClauseDropDown}"
+                        Header="{local:Loc AddActionStatementDropDown}"
                         Icon="/Client;component/Resources/Images/domain-64.png"
                         LargeIcon="/Client;component/Resources/Images/domain-128.png">
+                        
+                        <fluent:DropDownButton.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc AddActionStatementDropDown}"
+                                Text="{local:Loc AddActionStatementDropDownScreenTip}" />
+
+                        </fluent:DropDownButton.ToolTip>
 
                         <fluent:Gallery
                             Name="ActionClauseGallery"
@@ -245,9 +378,17 @@
                         Style="{DynamicResource RibbonLargeSlimDropDown}"
                         KeyTip="Q"
                         Name="AddQueryClauseDropDown"
-                        Header="{local:Loc AddQueryClauseDropDown}"
+                        Header="{local:Loc AddQueryStatementDropDown}"
                         Icon="/Client;component/Resources/Images/queries-64.png"
                         LargeIcon="/Client;component/Resources/Images/queries-128.png">
+                        
+                        <fluent:DropDownButton.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc AddQueryStatementDropDown}"
+                                Text="{local:Loc AddQueryStatementDropDownScreenTip}" />
+
+                        </fluent:DropDownButton.ToolTip>
                         
                         <fluent:Gallery
                             Name="QueryClauseGallery"
@@ -262,7 +403,17 @@
                         Name="AddCompoundActionButton"
                         Header="{local:Loc AddCompoundActionButton}"
                         Icon="/Client;component/Resources/Images/compound-action-64.png"
-                        LargeIcon="/Client;component/Resources/Images/compound-action-128.png" />
+                        LargeIcon="/Client;component/Resources/Images/compound-action-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc AddCompoundActionButtonUnbroken}"
+                                Text="{local:Loc AddCompoundActionButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
 
                 </fluent:RibbonGroupBox>
 
@@ -277,7 +428,17 @@
                         Name="CalculateButton"
                         Header="{local:Loc CalculateButton}"
                         Icon="/Client;component/Resources/Images/calculate-64.png"
-                        LargeIcon="/Client;component/Resources/Images/calculate-128.png" />
+                        LargeIcon="/Client;component/Resources/Images/calculate-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc CalculateButton}"
+                                Text="{local:Loc CalculateButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
 
                 </fluent:RibbonGroupBox>
 

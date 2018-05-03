@@ -5,10 +5,21 @@
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:reactiveUi="http://reactiveui.net"
                        xmlns:view="clr-namespace:Client.View"
+                       xmlns:fluent="urn:fluent-ribbon"
+                       xmlns:local="clr-namespace:Client.Provider"
                        mc:Ignorable="d"
                        Style="{DynamicResource {x:Type view:ExpressionButton}}">
+    <view:ExpressionButton.ToolTip>
+        <fluent:ScreenTip Title="{local:Loc InitialValueStatement}"
+                          Text="{local:Loc InitialValueStatementScreenTip}" />
+    </view:ExpressionButton.ToolTip>
     <WrapPanel>
         <TextBlock x:Name="Label" Style="{DynamicResource StatementLabel}" />
-        <reactiveUi:ViewModelViewHost x:Name="InitialCondition" />
+        <reactiveUi:ViewModelViewHost x:Name="InitialCondition">
+            <reactiveUi:ViewModelViewHost.ToolTip>
+                <fluent:ScreenTip Title="{local:Loc InitialCondition}"
+                                  Text="{local:Loc InitialConditionScreenTip}" />
+            </reactiveUi:ViewModelViewHost.ToolTip>
+        </reactiveUi:ViewModelViewHost>
     </WrapPanel>
 </view:ExpressionButton>
