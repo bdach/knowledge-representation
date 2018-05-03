@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -40,6 +42,10 @@ namespace Client.ViewModel.Terminal
         private void InitializeComponent()
         {
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Select(_ => CompoundActions.SingleOrDefault(action => action.IsFocused))
+                .Where(action => action != null)
+                .Subscribe(action => CompoundActions.Remove(action));
         }
 
         public Program ToModel()

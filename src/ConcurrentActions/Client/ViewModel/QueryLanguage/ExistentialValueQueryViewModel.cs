@@ -77,11 +77,24 @@ namespace Client.ViewModel.QueryLanguage
 
             AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
             Program.CompoundActions.ItemsAdded.Subscribe(compoundAction =>
-                compoundAction.CommandInvocationListener = this.WhenAnyObservable(vm => vm.AddAtomicAction).InvokeCommand(compoundAction.AddAtomicAction)
-            );
+            {
+                compoundAction.CommandInvocationListeners.Add(
+                    this.WhenAnyObservable(vm => vm.AddAtomicAction).InvokeCommand(compoundAction.AddAtomicAction)
+                );
+                compoundAction.CommandInvocationListeners.Add(
+                    this.WhenAnyObservable(vm => vm.DeleteFocused).Where(_ => !IsFocused).InvokeCommand(compoundAction.DeleteFocused)
+                );
+            });
             Program.CompoundActions.ItemsRemoved.Subscribe(compoundAction => compoundAction.Dispose());
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            DeleteFocused.Where(_ => Target.IsFocused).Subscribe(_ => Target = new PlaceholderViewModel());
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Target.IsFocused || Program.IsFocused))
+                .InvokeCommand(this, vm => vm.Program.DeleteFocused);
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Target.IsFocused || Program.IsFocused))
+                .InvokeCommand(this, vm => vm.Target.DeleteFocused);
         }
 
         private void InsertFormula(IFormulaViewModel formula)

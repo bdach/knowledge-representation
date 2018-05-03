@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -33,10 +34,10 @@ namespace Client.ViewModel.Terminal
         public ReactiveCommand<ActionViewModel, ActionViewModel> AddAtomicAction { get; protected set; }
 
         /// <summary>
-        /// This listener keeps track of when the <see cref="IQueryClauseViewModel.AddAtomicAction"/> command is called.
-        /// It is saved here so it is disposed when the view model gets deleted and falls out of scope.
+        /// This list keeps track of which commands higher in the hierarchy are piped into this view model.
+        /// They are saved here so as to dispose of them when the view model gets deleted and falls out of scope.
         /// </summary>
-        public IDisposable CommandInvocationListener { get; set; }
+        public List<IDisposable> CommandInvocationListeners { get; set; } = new List<IDisposable>();
 
         /// <summary>
         /// Initializes a new <see cref="CompoundActionViewModel"/> instance.
@@ -54,6 +55,10 @@ namespace Client.ViewModel.Terminal
         private void InitializeComponent()
         {
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Select(_ => Actions.SingleOrDefault(action => action.IsFocused))
+                .Where(action => action != null)
+                .Subscribe(action => Actions.Remove(action));
 
             AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
             this.WhenAnyObservable(vm => vm.AddAtomicAction)
@@ -80,7 +85,10 @@ namespace Client.ViewModel.Terminal
         {
             DeleteFocused?.Dispose();
             AddAtomicAction?.Dispose();
-            CommandInvocationListener?.Dispose();
+            foreach (var commandInvocationListener in CommandInvocationListeners)
+            {
+                commandInvocationListener?.Dispose();
+            }
         }
     }
 }

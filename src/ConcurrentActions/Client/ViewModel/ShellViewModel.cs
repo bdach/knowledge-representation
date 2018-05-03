@@ -89,7 +89,8 @@ namespace Client.ViewModel
             this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedAction)
                 .InvokeCommand(QueryAreaViewModel, vm => vm.AddAtomicAction);
 
-            // TODO: proxy deleting of focused queries and query elements
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .InvokeCommand(QueryAreaViewModel, vm => vm.DeleteFocused);
 
             #endregion
 

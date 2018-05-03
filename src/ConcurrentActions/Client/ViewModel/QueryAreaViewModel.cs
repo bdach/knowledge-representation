@@ -36,6 +36,11 @@ namespace Client.ViewModel
         public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
 
         /// <summary>
+        /// Command used to delete the currently focused item.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
+        /// <summary>
         /// Command used to forward atomic actions that are to be added to compound actions.
         /// </summary>
         public ReactiveCommandBase<ActionViewModel, Unit> AddAtomicAction { get; protected set; }
@@ -70,6 +75,24 @@ namespace Client.ViewModel
                     Observable.Start(() => action).InvokeCommand(viewModel, vm => vm.AddAtomicAction);
                 }
             });
+
+            DeleteFocused = ReactiveCommand.Create(() =>
+            {
+                foreach (var viewModel in QuerySet)
+                {
+                    if (viewModel.IsFocused)
+                    {
+                        QuerySet.Remove(viewModel);
+                        return;
+                    }
+                }
+
+                // these foreach loops are separated to make sure that we propagate deletion only if no clauses are selected
+                foreach (var viewModel in QuerySet)
+                {
+                    Observable.Start(() => Unit.Default).InvokeCommand(viewModel.DeleteFocused);
+                }
+            }, null, RxApp.MainThreadScheduler);
         }
 
         /// <summary>

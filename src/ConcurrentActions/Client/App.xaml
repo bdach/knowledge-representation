@@ -31,6 +31,7 @@
                 </Setter>
             </Style>
             <Style TargetType="ItemsControl" x:Key="ButtonSequence">
+                <Setter Property="AlternationCount" Value="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" />
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
@@ -46,9 +47,9 @@
                                 <reactiveUi:ViewModelViewHost ViewModel="{Binding}" />
                             </StackPanel>
                             <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                                     <Setter Property="Visibility" TargetName="Separator" Value="Collapsed" />
-                                </DataTrigger>
+                                </Trigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </Setter.Value>
