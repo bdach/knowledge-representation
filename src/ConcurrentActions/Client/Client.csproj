@@ -98,6 +98,7 @@
     <Compile Include="Abstract\FodyReactiveObject.cs" />
     <Compile Include="Exception\MemberNotDefinedException.cs" />
     <Compile Include="Exception\NotApplicableException.cs" />
+    <Compile Include="Exception\SerializationException.cs" />
     <Compile Include="Global\ClauseTypes.cs" />
     <Compile Include="Global\LanguageSignature.cs" />
     <Compile Include="Global\Scenario.cs" />
@@ -122,9 +123,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Locale.pl-PL.resx</DependentUpon>
     </Compile>
-    <Compile Include="Provider\AppBootstrapper.cs" />
+    <Compile Include="AppStart\AppBootstrapper.cs" />
     <Compile Include="Provider\LocExtention.cs" />
     <Compile Include="Provider\LocalizationProvider.cs" />
+    <Compile Include="Provider\ScenarioSerializer.cs" />
+    <Compile Include="Provider\SerializationProvider.cs" />
     <Compile Include="ViewModel\ActionLanguage\UnconditionalImpossibilityStatementViewModel.cs" />
     <Compile Include="ViewModel\Modal\ActionModalViewModel.cs" />
     <Compile Include="ViewModel\Modal\FluentModalViewModel.cs" />
@@ -502,6 +505,7 @@
     <Resource Include="Resources\Images\compound-action-256.png" />
     <Resource Include="Resources\Images\compound-action-64.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

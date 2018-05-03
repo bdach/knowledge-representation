@@ -18,23 +18,9 @@ namespace Client.Global
         public ReactiveList<ActionViewModel> ActionViewModels { get; protected set; }
 
         /// <summary>
-        /// Collection of all <see cref="CompoundActionViewModel"/>s for <see cref="CompoundAction"/>s currently defined in the language.
-        /// </summary>
-        /// <remarks>
-        /// In fact, the <see cref="CompoundActionViewModel"/> contains a collection of <see cref="ActionViewModel"/>,
-        /// but I wanted the toolip to look cool.
-        /// </remarks>
-        public ReactiveList<CompoundActionViewModel> CompoundActionViewModels { get; protected set; }
-
-        /// <summary>
         /// Collection of all <see cref="LiteralViewModel"/>s for <see cref="Literal"/>s currently defined in the language.
         /// </summary>
         public ReactiveList<LiteralViewModel> LiteralViewModels { get; protected set; }
-
-        /// <summary>
-        /// Collection of all <see cref="ProgramViewModel"/>s for <see cref="Program"/>s currently defined in the language.
-        /// </summary>
-        public ReactiveList<ProgramViewModel> ProgramViewModels { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="LanguageSignature"/> instance.
@@ -42,9 +28,16 @@ namespace Client.Global
         public LanguageSignature()
         {
             ActionViewModels = new ReactiveList<ActionViewModel>();
-            CompoundActionViewModels = new ReactiveList<CompoundActionViewModel>();
             LiteralViewModels = new ReactiveList<LiteralViewModel>();
-            ProgramViewModels = new ReactiveList<ProgramViewModel>();
+        }
+
+        /// <summary>
+        /// Clears all collections that are a part of the language signature.
+        /// </summary>
+        public void Clear()
+        {
+            ActionViewModels.Clear();
+            LiteralViewModels.Clear();
         }
     }
 }

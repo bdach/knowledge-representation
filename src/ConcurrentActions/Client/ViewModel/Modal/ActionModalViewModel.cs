@@ -82,7 +82,7 @@ namespace Client.ViewModel.Modal
         /// Resets the current instance of <see cref="ActionModalViewModel"/>.
         /// </summary>
         /// <remarks>
-        /// These was introduced as a part of workaround to WPF x ReactiveUI binding issue.
+        /// This was introduced as a part of workaround to WPF x ReactiveUI binding issue.
         /// </remarks>
         public void ResetViewModel()
         {

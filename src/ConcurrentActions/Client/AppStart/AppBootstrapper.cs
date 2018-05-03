@@ -2,13 +2,14 @@
 using System.Reflection;
 using Client.Abstract;
 using Client.Global;
+using Client.Provider;
 using Client.View;
 using Client.ViewModel;
 using Client.ViewModel.Modal;
 using ReactiveUI;
 using Splat;
 
-namespace Client.Provider
+namespace Client.AppStart
 {
     /// <summary>
     /// Class responsible for app initialization and dependency injection setup.

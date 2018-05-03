@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Client.Provider;
+using Client.AppStart;
 using Client.View;
 using Client.ViewModel;
 using ReactiveUI;
