@@ -49,9 +49,10 @@ namespace Client.ViewModel
             QueryAreaViewModel = new QueryAreaViewModel();
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+
             RibbonViewModel.PerformCalculations.Subscribe(_ =>
             {
-                // TODO: get the list of fluents, clauses, etc.
+                // TODO: get the list of fluents, clauses, etc. (possibly filter out unused actions and fluents from galleries since deleting is not supported)
             });
 
             #region Proxying user choices to action area
@@ -73,7 +74,8 @@ namespace Client.ViewModel
             this.WhenAnyObservable(vm => vm.RibbonViewModel.SelectFormula)
                 .InvokeCommand(ActionAreaViewModel, vm => vm.AddFormula);
 
-            DeleteFocused.Where(_ => Keyboard.IsKeyDown(Key.Delete)).InvokeCommand(ActionAreaViewModel, vm => vm.DeleteFocused);
+            DeleteFocused.Where(_ => Keyboard.IsKeyDown(Key.Delete))
+                .InvokeCommand(ActionAreaViewModel, vm => vm.DeleteFocused);
 
             #endregion
 
@@ -87,6 +89,7 @@ namespace Client.ViewModel
                 .InvokeCommand(QueryAreaViewModel, vm => vm.AddAtomicAction);
 
             this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Keyboard.IsKeyDown(Key.Delete))
                 .InvokeCommand(QueryAreaViewModel, vm => vm.DeleteFocused);
 
             #endregion
@@ -121,6 +124,7 @@ namespace Client.ViewModel
         /// <returns><see cref="Scenario"/> instance which is a full description of currently defined scenario.</returns>
         private Scenario GetCurrentScenario()
         {
+            // TODO: move logic to mediator
             var currentSignature = Locator.Current.GetService<LanguageSignature>();
             return new Scenario
             {
