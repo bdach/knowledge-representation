@@ -128,7 +128,7 @@ namespace Client.ViewModel
 
         #endregion
 
-        #region Clause dropdown choices
+        #region Clause editing commands & properties
 
         /// <summary>
         /// Contains the last selected action clause type.
@@ -139,6 +139,11 @@ namespace Client.ViewModel
         /// Contains the last selected query clause type.
         /// </summary>
         public IQueryClauseViewModel SelectedQueryClauseType { get; set; }
+
+        /// <summary>
+        /// Command used to add a new empty compound action to a program.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; private set; }
 
         #endregion
 
@@ -177,6 +182,7 @@ namespace Client.ViewModel
             });
 
             SelectFormula = ReactiveCommand.Create((IFormulaViewModel vm) => vm);
+            AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
 
             LocalizeGroupName = obj => LocalizationProvider.Instance[((IClauseViewModel)obj).ClauseTypeNameKey];
             // Force switch to new language

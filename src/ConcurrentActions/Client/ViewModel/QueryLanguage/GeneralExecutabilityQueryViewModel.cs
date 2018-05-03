@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -36,7 +37,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// Command adding a new program.
         /// </summary>
-        public ReactiveCommand<ProgramViewModel, Unit> AddProgram { get; protected set; }
+        public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -51,9 +52,10 @@ namespace Client.ViewModel.QueryLanguage
         {
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
 
-            AddProgram = ReactiveCommand
-                .Create<ProgramViewModel>(programViewModel =>
-                    throw new NotImplementedException());
+            AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
+            this.WhenAnyObservable(vm => vm.AddEmptyCompoundAction)
+                .Where(_ => Program.IsFocused)
+                .Subscribe(_ => Program.CompoundActions.Add(new CompoundActionViewModel()));
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
         }

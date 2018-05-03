@@ -32,7 +32,7 @@
                     <Setter.Value>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Name="Separator" Background="{x:Null}" Text=", " Style="{DynamicResource BaseLabel}" />
+                                <TextBlock Name="Separator" Text=", " Style="{DynamicResource BaseLabel}" />
                                 <reactiveUi:ViewModelViewHost ViewModel="{Binding}" />
                             </StackPanel>
                             <DataTemplate.Triggers>

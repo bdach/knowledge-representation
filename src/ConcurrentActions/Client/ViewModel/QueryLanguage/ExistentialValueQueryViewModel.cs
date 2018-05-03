@@ -47,7 +47,7 @@ namespace Client.ViewModel.QueryLanguage
         /// <summary>
         /// Command adding a new program.
         /// </summary>
-        public ReactiveCommand<ProgramViewModel, Unit> AddProgram { get; protected set; }
+        public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -67,9 +67,10 @@ namespace Client.ViewModel.QueryLanguage
                 .Where(_ => !IsFocused)
                 .InvokeCommand(this, vm => vm.Target.AddFormula);
 
-            AddProgram = ReactiveCommand
-                .Create<ProgramViewModel>(programViewModel =>
-                    throw new NotImplementedException());
+            AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
+            this.WhenAnyObservable(vm => vm.AddEmptyCompoundAction)
+                .Where(_ => Program.IsFocused)
+                .Subscribe(_ => Program.CompoundActions.Add(new CompoundActionViewModel()));
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
         }

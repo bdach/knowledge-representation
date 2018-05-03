@@ -24,6 +24,8 @@ namespace Client.View.Terminal
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.CompoundActions, v => v.CompoundActions.ItemsSource);
 
+            this.WhenAnyValue(v => v.IsFocused)
+                .BindTo(this, v => v.ViewModel.IsFocused);
             this.WhenAnyValue(v => v.IsMouseOver, v => v.CompoundActions.IsMouseOver)
                 .Select(t => t.Item1 && !t.Item2)
                 .Subscribe(v => Highlight = v);

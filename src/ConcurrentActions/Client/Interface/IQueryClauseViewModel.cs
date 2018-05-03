@@ -16,9 +16,9 @@ namespace Client.Interface
         ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
 
         /// <summary>
-        /// Adds a new <see cref="ProgramViewModel"/> to edited clause.
+        /// Adds a new empty <see cref="CompoundActionViewModel"/> to edited clause.
         /// </summary>
-        ReactiveCommand<ProgramViewModel, Unit> AddProgram { get; }
+        ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; }
 
         /// <summary>
         /// Creates a new empty instance of a given type of query.

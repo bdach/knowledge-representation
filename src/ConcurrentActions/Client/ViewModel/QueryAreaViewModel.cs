@@ -23,7 +23,15 @@ namespace Client.ViewModel
         /// </remarks>
         public ObservableCollection<IQueryClauseViewModel> QuerySet { get; protected set; }
 
+        /// <summary>
+        /// Command used to add formulae to the query clauses.
+        /// </summary>
         public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
+
+        /// <summary>
+        /// Command used to add empty compound actions to the query clauses.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="QueryAreaViewModel"/> instance.
@@ -37,6 +45,14 @@ namespace Client.ViewModel
                 foreach (var viewModel in QuerySet)
                 {
                     Observable.Start(() => formula).InvokeCommand(viewModel, vm => vm.AddFormula);
+                }
+            }, null, RxApp.MainThreadScheduler);
+
+            AddEmptyCompoundAction = ReactiveCommand.Create<Unit>(_ =>
+            {
+                foreach (var viewModel in QuerySet)
+                {
+                    Observable.Start(() => Unit.Default).InvokeCommand(viewModel, vm => vm.AddEmptyCompoundAction);
                 }
             }, null, RxApp.MainThreadScheduler);
         }

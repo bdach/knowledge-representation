@@ -35,9 +35,9 @@ namespace Client.ViewModel.QueryLanguage
         public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <summary>
-        /// Command adding a new program.
+        /// Command adding a new empty compound action.
         /// </summary>
-        public ReactiveCommand<ProgramViewModel, Unit> AddProgram { get; protected set; }
+        public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
 
         /// <inheritdoc />
         public bool IsFocused { get; set; }
@@ -57,9 +57,7 @@ namespace Client.ViewModel.QueryLanguage
                 .Where(_ => !IsFocused)
                 .InvokeCommand(this, vm => vm.Target.AddFormula);
 
-            AddProgram = ReactiveCommand
-                .Create<ProgramViewModel>(programViewModel =>
-                    throw new NotApplicableException("Accessibility query does not support adding programs"));
+            AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
         }

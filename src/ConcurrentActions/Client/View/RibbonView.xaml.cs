@@ -54,11 +54,11 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.NegationButton, Observable.Start(() => new NegationViewModel()));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.TruthButton, Observable.Start(() => new ConstantViewModel(Constant.Truth)));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.FalsityButton, Observable.Start(() => new ConstantViewModel(Constant.Falsity)));
-
             this.WhenAnyValue(v => v.ViewModel.SelectedFluent)
                 .Where(v => v != null)
                 .Select(v => new LiteralViewModel(v.Fluent))
                 .InvokeCommand<IFormulaViewModel, RibbonView>(this, v => v.ViewModel.SelectFormula);
+            this.BindCommand(ViewModel, vm => vm.AddEmptyCompoundAction, v => v.AddCompoundActionButton);
 
             this.WhenAnyValue(v => v.FluentDropDown.IsDropDownOpen)
                 .Where(open => open)
