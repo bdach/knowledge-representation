@@ -21,6 +21,11 @@ namespace Client.Interface
         ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; }
 
         /// <summary>
+        /// Forwards an <see cref="ActionViewModel"/> to the program's compound actions for addition.
+        /// </summary>
+        ReactiveCommand<ActionViewModel, ActionViewModel> AddAtomicAction { get; }
+
+        /// <summary>
         /// Creates a new empty instance of a given type of query.
         /// Implementation of the prototype pattern.
         /// </summary>

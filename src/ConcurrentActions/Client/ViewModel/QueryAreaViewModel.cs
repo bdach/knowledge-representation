@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using Client.Abstract;
 using Client.Interface;
 using Client.View;
+using Client.ViewModel.Terminal;
 using Model.QueryLanguage;
 using ReactiveUI;
 
@@ -34,6 +36,11 @@ namespace Client.ViewModel
         public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
 
         /// <summary>
+        /// Command used to forward atomic actions that are to be added to compound actions.
+        /// </summary>
+        public ReactiveCommandBase<ActionViewModel, Unit> AddAtomicAction { get; protected set; }
+
+        /// <summary>
         /// Initializes a new <see cref="QueryAreaViewModel"/> instance.
         /// </summary>
         public QueryAreaViewModel()
@@ -55,6 +62,14 @@ namespace Client.ViewModel
                     Observable.Start(() => Unit.Default).InvokeCommand(viewModel, vm => vm.AddEmptyCompoundAction);
                 }
             }, null, RxApp.MainThreadScheduler);
+
+            AddAtomicAction = ReactiveCommand.Create<ActionViewModel>(action =>
+            {
+                foreach (var viewModel in QuerySet)
+                {
+                    Observable.Start(() => action).InvokeCommand(viewModel, vm => vm.AddAtomicAction);
+                }
+            });
         }
 
         /// <summary>

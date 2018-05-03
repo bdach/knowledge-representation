@@ -17,8 +17,18 @@
             </Style>
 
             <Style TargetType="ItemsControl" x:Key="EditorControl">
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="BorderBrush" Value="LightSteelBlue" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border BorderThickness="1"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}">
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
             <Style TargetType="ItemsControl" x:Key="ButtonSequence">
                 <Setter Property="ItemsPanel">

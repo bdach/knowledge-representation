@@ -40,6 +40,9 @@ namespace Client.ViewModel.QueryLanguage
         public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
 
         /// <inheritdoc />
+        public ReactiveCommand<ActionViewModel, ActionViewModel> AddAtomicAction { get; protected set; }
+
+        /// <inheritdoc />
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
@@ -58,6 +61,8 @@ namespace Client.ViewModel.QueryLanguage
                 .InvokeCommand(this, vm => vm.Target.AddFormula);
 
             AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
+
+            AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
         }

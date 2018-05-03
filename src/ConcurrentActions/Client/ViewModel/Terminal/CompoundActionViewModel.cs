@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
@@ -12,7 +14,7 @@ namespace Client.ViewModel.Terminal
     /// <summary>
     /// View model for <see cref="CompoundActionView"/> which represents a compound action from the language signature.
     /// </summary>
-    public class CompoundActionViewModel : FodyReactiveObject, IViewModelFor<CompoundAction>
+    public class CompoundActionViewModel : FodyReactiveObject, IViewModelFor<CompoundAction>, IDisposable
     {
         /// <summary>
         /// List of actions which are part of this compound action.
@@ -24,6 +26,10 @@ namespace Client.ViewModel.Terminal
 
         /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
+        public ReactiveCommand<ActionViewModel, ActionViewModel> AddAtomicAction { get; protected set; }
+
+        public IDisposable ChangeListener { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="CompoundActionViewModel"/> instance.
@@ -41,6 +47,12 @@ namespace Client.ViewModel.Terminal
         private void InitializeComponent()
         {
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+
+            AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
+            this.WhenAnyObservable(vm => vm.AddAtomicAction)
+                .Where(_ => IsFocused)
+                .Where(action => action != null && !Actions.Any(other => other.Action.Equals(action.Action)))
+                .Subscribe(action => Actions.Add(new ActionViewModel(action.Action)));
         }
 
         /// <summary>
@@ -55,6 +67,13 @@ namespace Client.ViewModel.Terminal
                 throw new MemberNotDefinedException("One of the actions in this compound action has not been defined");
             }
             return new CompoundAction(actions);
+        }
+
+        public void Dispose()
+        {
+            DeleteFocused?.Dispose();
+            AddAtomicAction?.Dispose();
+            ChangeListener?.Dispose();
         }
     }
 }
