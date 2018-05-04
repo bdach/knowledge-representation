@@ -120,6 +120,9 @@
   <data name="AccessibilityQuery" xml:space="preserve">
     <value>Accessibility Query</value>
   </data>
+  <data name="AccessibilityQueryScreenTip" xml:space="preserve">
+    <value>Determines whether or not a certain logical formula can be satisfied after executing a certain program from the initial state.</value>
+  </data>
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
@@ -264,6 +267,18 @@
   <data name="ExecutabilityQuery" xml:space="preserve">
     <value>Executability Queries</value>
   </data>
+  <data name="ExistentialExecutabilityQuery" xml:space="preserve">
+    <value>Existential Executability Query</value>
+  </data>
+  <data name="ExistentialExecutabilityQueryScreenTip" xml:space="preserve">
+    <value>Determines whether or not a certain program is ever executable in full from the initial state.</value>
+  </data>
+  <data name="ExistentialValueQuery" xml:space="preserve">
+    <value>Existential Value Query</value>
+  </data>
+  <data name="ExistentialValueQueryScreenTip" xml:space="preserve">
+    <value>Determines whether or not a certain logical formula can ever be satisfied after executing a certain program from the initial state.</value>
+  </data>
   <data name="ExportButton" xml:space="preserve">
     <value>Export to file</value>
   </data>
@@ -299,6 +314,18 @@
   </data>
   <data name="FormulaGroupBox" xml:space="preserve">
     <value>Formula Editor</value>
+  </data>
+  <data name="GeneralExecutabilityQuery" xml:space="preserve">
+    <value>General Executability Query</value>
+  </data>
+  <data name="GeneralExecutabilityQueryScreenTip" xml:space="preserve">
+    <value>Determines whether or not a certain program is always executable in full from the initial state.</value>
+  </data>
+  <data name="GeneralValueQuery" xml:space="preserve">
+    <value>General Value Query</value>
+  </data>
+  <data name="GeneralValueQueryScreenTip" xml:space="preserve">
+    <value>Determines whether or not a certain logical formula is always satisfied after executing a certain pogram from the initial state.</value>
   </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>Implication</value>
@@ -360,11 +387,23 @@
   <data name="PreconditionScreenTip" xml:space="preserve">
     <value>The logical formula which must be true for the statement to have any effect.</value>
   </data>
+  <data name="Program" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="ProgramScreenTip" xml:space="preserve">
+    <value>The sequence of compound actions which is the subject of the query.</value>
+  </data>
   <data name="QueryClauseGroupBox" xml:space="preserve">
     <value>Queries</value>
   </data>
   <data name="SystemGroupBox" xml:space="preserve">
     <value>Dynamic System</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="TargetScreenTip" xml:space="preserve">
+    <value>The target logical condition which should be satisfied.</value>
   </data>
   <data name="TruthButton" xml:space="preserve">
     <value>Truth</value>

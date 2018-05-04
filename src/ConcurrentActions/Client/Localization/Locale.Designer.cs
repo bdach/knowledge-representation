@@ -70,6 +70,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AccessibilityQueryScreenTip.
+        /// </summary>
+        public static string AccessibilityQueryScreenTip {
+            get {
+                return ResourceManager.GetString("AccessibilityQueryScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Action.
         /// </summary>
         public static string Action {
@@ -484,6 +493,42 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ExistentialExecutabilityQuery.
+        /// </summary>
+        public static string ExistentialExecutabilityQuery {
+            get {
+                return ResourceManager.GetString("ExistentialExecutabilityQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ExistentialExecutabilityQueryScreenTip.
+        /// </summary>
+        public static string ExistentialExecutabilityQueryScreenTip {
+            get {
+                return ResourceManager.GetString("ExistentialExecutabilityQueryScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ExistentialValueQuery.
+        /// </summary>
+        public static string ExistentialValueQuery {
+            get {
+                return ResourceManager.GetString("ExistentialValueQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ExistentialValueQueryScreenTip.
+        /// </summary>
+        public static string ExistentialValueQueryScreenTip {
+            get {
+                return ResourceManager.GetString("ExistentialValueQueryScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ExportButton.
         /// </summary>
         public static string ExportButton {
@@ -588,6 +633,42 @@ namespace Client.Localization {
         public static string FormulaGroupBox {
             get {
                 return ResourceManager.GetString("FormulaGroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GeneralExecutabilityQuery.
+        /// </summary>
+        public static string GeneralExecutabilityQuery {
+            get {
+                return ResourceManager.GetString("GeneralExecutabilityQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GeneralExecutabilityQueryScreenTip.
+        /// </summary>
+        public static string GeneralExecutabilityQueryScreenTip {
+            get {
+                return ResourceManager.GetString("GeneralExecutabilityQueryScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GeneralValueQuery.
+        /// </summary>
+        public static string GeneralValueQuery {
+            get {
+                return ResourceManager.GetString("GeneralValueQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GeneralValueQueryScreenTip.
+        /// </summary>
+        public static string GeneralValueQueryScreenTip {
+            get {
+                return ResourceManager.GetString("GeneralValueQueryScreenTip", resourceCulture);
             }
         }
         
@@ -772,6 +853,24 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Program.
+        /// </summary>
+        public static string Program {
+            get {
+                return ResourceManager.GetString("Program", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProgramScreenTip.
+        /// </summary>
+        public static string ProgramScreenTip {
+            get {
+                return ResourceManager.GetString("ProgramScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to QueryClauseGroupBox.
         /// </summary>
         public static string QueryClauseGroupBox {
@@ -786,6 +885,24 @@ namespace Client.Localization {
         public static string SystemGroupBox {
             get {
                 return ResourceManager.GetString("SystemGroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target.
+        /// </summary>
+        public static string Target {
+            get {
+                return ResourceManager.GetString("Target", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TargetScreenTip.
+        /// </summary>
+        public static string TargetScreenTip {
+            get {
+                return ResourceManager.GetString("TargetScreenTip", resourceCulture);
             }
         }
         
