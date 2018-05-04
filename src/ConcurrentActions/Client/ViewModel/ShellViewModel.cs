@@ -11,14 +11,13 @@ using Client.Provider;
 using Client.View;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
-using Model.Forms;
 using ReactiveUI;
 using Splat;
 
 namespace Client.ViewModel
 {
     /// <summary>
-    /// View model for <see cref="T:Client.View.ShellView" /> which is the root view of the application.
+    /// View model for <see cref="ShellView" /> which is the root view of the application.
     /// </summary>
     public class ShellViewModel : FodyReactiveObject, IScenarioOwner
     {
