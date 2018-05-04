@@ -80,7 +80,7 @@ namespace Client.ViewModel.Formula
         /// <returns><see cref="Model.Forms.Constant"/> model represented by given view model as <see cref="IFormula"/>.</returns>
         public IFormula ToModel()
         {
-            if (Constant != null)
+            if (Constant == null)
                 throw new MemberNotDefinedException("Constant does not have a value");
 
             return Constant;
