@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Reactive;
+﻿using System.Reactive;
 using System.Reactive.Linq;
-using System.Windows.Input;
 using Client.Abstract;
 using Client.Interface;
 using Client.View;
@@ -23,7 +21,7 @@ namespace Client.ViewModel
         /// <remarks>
         /// This is not a *SET*. You have been bamboozled.
         /// </remarks>
-        public ObservableCollection<IQueryClauseViewModel> QuerySet { get; protected set; }
+        public ReactiveList<IQueryClauseViewModel> QuerySet { get; protected set; }
 
         /// <summary>
         /// Command used to add formulae to the query clauses.
@@ -50,7 +48,7 @@ namespace Client.ViewModel
         /// </summary>
         public QueryAreaViewModel()
         {
-            QuerySet = new ObservableCollection<IQueryClauseViewModel>();
+            QuerySet = new ReactiveList<IQueryClauseViewModel>();
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel>(formula =>
             {

@@ -32,12 +32,22 @@ namespace Client.Global
         }
 
         /// <summary>
-        /// Clears all collections that are a part of the language signature.
+        /// Clears all members that are a part of the current language signature.
         /// </summary>
         public void Clear()
         {
             ActionViewModels.Clear();
             LiteralViewModels.Clear();
+        }
+
+        /// <summary>
+        /// Extends the current language signature with members from the supplied <see cref="languageSignature"/>.
+        /// </summary>
+        /// <param name="languageSignature">New language signature.</param>
+        public void Extend(LanguageSignature languageSignature)
+        {
+            ActionViewModels.AddRange(languageSignature.ActionViewModels);
+            LiteralViewModels.AddRange(languageSignature.LiteralViewModels);
         }
     }
 }
