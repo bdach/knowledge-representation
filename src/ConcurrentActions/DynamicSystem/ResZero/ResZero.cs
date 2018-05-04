@@ -5,7 +5,6 @@ using Model.ActionLanguage;
 
 namespace DynamicSystem.ResZero
 {
-    /// <inheritdoc />
     /// <summary>
     /// Class for generating states that are the output of Res Zero.
     /// </summary>
@@ -29,29 +28,21 @@ namespace DynamicSystem.ResZero
         /// Generate states that are the result of performing a compound action on initial state in project domain
         /// </summary>
         /// <param name="initialState">State on which ResZero will perform.</param>
-        /// <param name="compoundAction">Actions that are to be performed on given state</param>
+        /// <param name="decomposition">The decomposition to be performed in a given state</param>
         /// <returns>Iterable collection of <see cref="State"/>, which is the result of ResZero </returns>
-        public IEnumerable<State> GetStates(State initialState, CompoundAction compoundAction)
+        public IEnumerable<State> GetStates(State initialState, CompoundAction decomposition)
         {
-            var resZeroStates = new List<State>();
-            foreach (var action in compoundAction.Actions)
+            var statementsOnAction =
+                _effectStatement.FindAll(effect => decomposition.Actions.Contains(effect.Action));
+            if (statementsOnAction.Count == 0)
             {
-                var statementsOnAction =
-                    _effectStatement.FindAll(effect => effect.Action.Equals(action));
-
-                if (statementsOnAction.Count == 0)
-                    return new HashSet<State>(_allStates);
-
-                var reacheableStatements =
-                    statementsOnAction.FindAll(statement => statement.Precondition.Evaluate(initialState));
-
-                var accessibleStates = _allStates.Where(state =>
-                    reacheableStatements.All(statement => statement.Postcondition.Evaluate(state)));
-
-                resZeroStates.AddRange(accessibleStates);
+                return new HashSet<State>(_allStates);
             }
-
-            return new HashSet<State>(resZeroStates);
+            var reachableStatements =
+                statementsOnAction.FindAll(statement => statement.Precondition.Evaluate(initialState));
+            var accessibleStates = _allStates.Where(state =>
+                reachableStatements.All(statement => statement.Postcondition.Evaluate(state)));
+            return new HashSet<State>(accessibleStates);
         }
     }
 }

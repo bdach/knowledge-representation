@@ -115,12 +115,13 @@ namespace Test.ResZero
             //given
             var resTestObjInstance = CreateResZeroObjInstance();
             var compoundAction = new CompoundAction(new List<Action> {_takeA, _takeB});
-            var resultStates = new List<State> {_stateOne, _stateTwo};
             //when
             var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
             //then
-            var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
-            sequenceEqual.Should().BeTrue();
+            resZeroStates.Should().BeEmpty();
+            // I know that this might seem counterintuitive that we're expecting an empty set of result states here,
+            // but take note that the Res_0 calculation object does not know anything about action decompositions at this stage.
+            // Hence we should be getting an empty set here, since the two actions have inconsistent postconditions.
         }
     }
 }

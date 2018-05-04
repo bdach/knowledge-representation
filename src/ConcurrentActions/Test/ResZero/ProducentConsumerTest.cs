@@ -32,6 +32,7 @@ namespace Test.ResZero
                 new Conjunction(new Negation(new Literal(_bufferEmpty)), new Negation(new Literal(_hasItem))),
                 new Conjunction(new Literal(_bufferEmpty), new Literal(_hasItem))));
             actionDomain.EffectStatements.Add(new EffectStatement(_consume, new Negation(new Literal(_hasItem))));
+            actionDomain.EffectStatements.Add(EffectStatement.Impossible(_consume, new Literal(_hasItem, true)));
             return actionDomain;
         }
 
@@ -104,6 +105,44 @@ namespace Test.ResZero
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
+        }
+
+        [Test]
+        public void ResZero_GET_PUT_Test()
+        {
+            //given
+            var resTestObjInstance = CreateResZeroObjInstance();
+            var compoundAction = new CompoundAction(new List<Action>() {_get, _put});
+            var resultStates = new List<State>() { _stateOne, _stateThree };
+            //when
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            //then
+            var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
+            sequenceEqual.Should().BeTrue();
+        }
+
+        [Test]
+        public void ResZero_PUT_CONSUME_ImpossibilityTest()
+        {
+            // given
+            var resTestObjInstance = CreateResZeroObjInstance();
+            var compoundAction = new CompoundAction(new List<Action> {_put, _consume});
+            // when
+            var resZeroStates = resTestObjInstance.GetStates(_stateTwo, compoundAction);
+            // then
+            resZeroStates.Should().BeEmpty();
+        }
+
+        [Test]
+        public void ResZero_CONSUME_ImpossibilityTest()
+        {
+            // given
+            var resTestObjInstance = CreateResZeroObjInstance();
+            var compoundAction = new CompoundAction(new List<Action> {_consume});
+            // when
+            var resZeroStates = resTestObjInstance.GetStates(_stateTwo, compoundAction);
+            // then
+            resZeroStates.Should().BeEmpty();
         }
     }
 }
