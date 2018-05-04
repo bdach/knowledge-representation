@@ -134,7 +134,7 @@ namespace Client.ViewModel.Formula
         public IFormula ToModel()
         {
             var left = Left?.ToModel();
-            var right = Left?.ToModel();
+            var right = Right?.ToModel();
 
             if (left == null)
                 throw new MemberNotDefinedException("Left formula of an equivalence is not defined");
