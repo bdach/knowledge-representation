@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Reactive;
+﻿using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Interface;
@@ -20,7 +19,7 @@ namespace Client.ViewModel
         /// <summary>
         /// Collection containing all Action Language clauses.
         /// </summary>
-        public ObservableCollection<IActionClauseViewModel> ActionDomain { get; protected set; }
+        public ReactiveList<IActionClauseViewModel> ActionDomain { get; protected set; }
 
         /// <summary>
         /// Command used for adding an action to an item of this collection.
@@ -47,7 +46,7 @@ namespace Client.ViewModel
         /// </summary>
         public ActionAreaViewModel()
         {
-            ActionDomain = new ObservableCollection<IActionClauseViewModel>();
+            ActionDomain = new ReactiveList<IActionClauseViewModel>();
 
             AddAction = ReactiveCommand.Create((ActionViewModel ac) =>
             {

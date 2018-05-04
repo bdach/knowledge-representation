@@ -107,6 +107,8 @@
     <Compile Include="Interface\IEditorViewModel.cs" />
     <Compile Include="Interface\IFormulaViewModel.cs" />
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
+    <Compile Include="Interface\IScenarioConverter.cs" />
+    <Compile Include="Interface\IScenarioOwner.cs" />
     <Compile Include="Interface\IViewModelFor.cs" />
     <Compile Include="Localization\Locale.Designer.cs">
       <AutoGen>True</AutoGen>

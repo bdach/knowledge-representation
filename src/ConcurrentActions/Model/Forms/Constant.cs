@@ -1,4 +1,6 @@
-﻿namespace Model.Forms
+﻿using System;
+
+namespace Model.Forms
 {
     /// <inheritdoc />
     /// <summary>
@@ -9,7 +11,23 @@
         /// <summary>
         /// The inner constant value of the formula.
         /// </summary>
-        private readonly bool _value;
+        private bool _value;
+
+        /// <summary>
+        /// DO NOT USE!
+        /// </summary>
+        /// <remarks>
+        /// This was introduced as a part of workaround to XSerializer ignoring custom
+        /// serialization rules issue. This property ensures proper serialization and deserialization
+        /// of constants, because implementing IXmlSerializable has no effect for some reason.
+        /// </remarks>
+        // TODO: fix this (maybe switch to just Value public property and implement Equals?)
+        [Obsolete("This property should be used only during deserialization, use comparison to Constant.Truth or Constant.Falsity instead")]
+        public bool Value
+        {
+            get => _value;
+            set => _value = value;
+        }
 
         /// <summary>
         /// Empty construction required by serialization.

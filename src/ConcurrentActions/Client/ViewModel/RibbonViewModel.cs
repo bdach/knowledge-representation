@@ -107,7 +107,7 @@ namespace Client.ViewModel
         /// <remarks>
         /// Fun fact: I tried to leave this out and bind onto a static property in the view.
         /// Unfortunately ReactiveUI shat itself when I tried to do that, but this works, so here you go.
-        /// Potential TODO: get this outta here
+        /// TODO: potentially get this outta here
         /// </remarks>
         public ReadOnlyCollection<IActionClauseViewModel> ActionClauseTypes { get; } = ClauseTypes.GetAllImplementors<IActionClauseViewModel>();
 
@@ -117,7 +117,7 @@ namespace Client.ViewModel
         /// <remarks>
         /// Fun fact: I tried to leave this out and bind onto a static property in the view.
         /// Unfortunately ReactiveUI shat itself when I tried to do that, but this works, so here you go.
-        /// Potential TODO: get this outta here
+        /// TODO: potentially get this outta here
         /// </remarks>
         public ReadOnlyCollection<IQueryClauseViewModel> QueryClauseTypes { get; } = ClauseTypes.GetAllImplementors<IQueryClauseViewModel>();
 
@@ -185,9 +185,9 @@ namespace Client.ViewModel
             AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
 
             LocalizeGroupName = obj => LocalizationProvider.Instance[((IClauseViewModel)obj).ClauseTypeNameKey];
+
+            // TODO: fix this (maybe?)
             // force switch to new language
-            // I know, this is way too ugly to live, but I don't really want to spend more time on this
-            // TODO: fix maybe?
             LocalizationProvider.Instance.PropertyChanged += (sender, args) =>
             {
                 LocalizeGroupName = obj => LocalizationProvider.Instance[((IClauseViewModel)obj).ClauseTypeNameKey];

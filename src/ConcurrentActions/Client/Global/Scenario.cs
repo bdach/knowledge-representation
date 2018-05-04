@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Model;
 using Model.ActionLanguage;
-using Model.Forms;
 using Model.QueryLanguage;
 
 namespace Client.Global
@@ -19,7 +18,7 @@ namespace Client.Global
         /// <summary>
         /// List of <see cref="Model.Fluent"/>s that are in the language signature.
         /// </summary>
-        public List<Literal> Literals { get; set; }
+        public List<Model.Fluent> Fluents { get; set; }
 
         /// <summary>
         /// A set of all action language clauses from the scenario.

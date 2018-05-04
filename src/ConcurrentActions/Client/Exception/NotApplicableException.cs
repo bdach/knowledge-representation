@@ -5,6 +5,7 @@
     /// Custom exception thrown when an attempt of adding a formula to a formula-less clause
     /// or adding a program to a program-less clause was made.
     /// </summary>
+    // TODO : possibly redundant, remove if not used
     public class NotApplicableException : System.Exception
     {
         /// <inheritdoc />
