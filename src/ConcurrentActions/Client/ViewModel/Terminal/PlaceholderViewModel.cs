@@ -1,9 +1,13 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
+using Client.Global;
 using Client.Interface;
 using Model;
 using Model.Forms;
 using ReactiveUI;
+using Action = Model.Action;
 
 namespace Client.ViewModel.Terminal
 {
@@ -25,6 +29,10 @@ namespace Client.ViewModel.Terminal
         public PlaceholderViewModel()
         {
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(_ => IsFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
+
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
         }
 

@@ -201,6 +201,9 @@
   <data name="CalculateButtonScreenTip" xml:space="preserve">
     <value>Evaluate the queries within the action domain entered.</value>
   </data>
+  <data name="CannotAddFormulaError" xml:space="preserve">
+    <value>The selected element does not support inserting formulae</value>
+  </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>Choose Language</value>
   </data>
@@ -263,6 +266,9 @@
   </data>
   <data name="EquivalenceButtonScreenTip" xml:space="preserve">
     <value>Insert an equivalence clause into the selected logical formula.</value>
+  </data>
+  <data name="ErrorMessageItem" xml:space="preserve">
+    <value>Tips</value>
   </data>
   <data name="ExecutabilityQuery" xml:space="preserve">
     <value>Executability Queries</value>

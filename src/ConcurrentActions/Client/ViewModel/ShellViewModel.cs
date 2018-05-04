@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Windows.Input;
 using Client.Abstract;
 using Client.Global;
+using Client.Provider;
 using Client.View;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
@@ -38,6 +39,8 @@ namespace Client.ViewModel
         /// Command triggered by delete key used to delete currently selected clause element.
         /// </summary>
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
+        public string StatusBarMessage { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="ShellViewModel"/> instance.
@@ -91,6 +94,12 @@ namespace Client.ViewModel
                 .Where(_ => Keyboard.IsKeyDown(Key.Delete))
                 .InvokeCommand(QueryAreaViewModel, vm => vm.DeleteFocused);
 
+            Interactions.StatusBarError.RegisterHandler(interaction =>
+            {
+                StatusBarMessage = LocalizationProvider.Instance[interaction.Input];
+                interaction.SetOutput(Unit.Default);
+            });
+
             #endregion
 
             #region Backstage support
@@ -113,6 +122,11 @@ namespace Client.ViewModel
             {
 
             });
+
+            this.WhenAnyObservable(vm => vm.RibbonViewModel.SetEnglishLocale)
+                .Subscribe(msg => StatusBarMessage = "");
+            this.WhenAnyObservable(vm => vm.RibbonViewModel.SetPolishLocale)
+                .Subscribe(msg => StatusBarMessage = "");
 
             #endregion
         }

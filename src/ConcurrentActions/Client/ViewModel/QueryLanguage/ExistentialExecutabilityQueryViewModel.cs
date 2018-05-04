@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
+using Client.Global;
 using Client.Interface;
 using Client.View.QueryLanguage;
 using Client.ViewModel.Terminal;
@@ -54,6 +56,9 @@ namespace Client.ViewModel.QueryLanguage
         public ExistentialExecutabilityQueryViewModel()
         {
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(_ => IsFocused || Program.AnyChildFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
 
             AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
 

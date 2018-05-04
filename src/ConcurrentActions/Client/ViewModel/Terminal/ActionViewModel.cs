@@ -1,10 +1,14 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Reactive;
+using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
+using Client.Global;
 using Client.Interface;
 using Client.View.Terminal;
 using Model;
 using ReactiveUI;
+using Action = Model.Action;
 
 namespace Client.ViewModel.Terminal
 {
@@ -23,6 +27,9 @@ namespace Client.ViewModel.Terminal
 
         /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
+        /// <inheritdoc />
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="ActionViewModel"/> instance.
@@ -50,6 +57,10 @@ namespace Client.ViewModel.Terminal
         private void InitializeComponent()
         {
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(_ => IsFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
         }
 
         /// <summary>

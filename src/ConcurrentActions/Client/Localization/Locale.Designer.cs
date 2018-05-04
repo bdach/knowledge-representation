@@ -295,6 +295,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CannotAddFormulaError.
+        /// </summary>
+        public static string CannotAddFormulaError {
+            get {
+                return ResourceManager.GetString("CannotAddFormulaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ChooseLanguage.
         /// </summary>
         public static string ChooseLanguage {
@@ -480,6 +489,15 @@ namespace Client.Localization {
         public static string EquivalenceButtonScreenTip {
             get {
                 return ResourceManager.GetString("EquivalenceButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ErrorMessageItem.
+        /// </summary>
+        public static string ErrorMessageItem {
+            get {
+                return ResourceManager.GetString("ErrorMessageItem", resourceCulture);
             }
         }
         

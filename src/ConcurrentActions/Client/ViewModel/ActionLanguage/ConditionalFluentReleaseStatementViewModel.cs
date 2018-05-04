@@ -3,6 +3,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
+using Client.Global;
 using Client.Interface;
 using Client.View.ActionLanguage;
 using Client.ViewModel.Formula;
@@ -115,6 +116,10 @@ namespace Client.ViewModel.ActionLanguage
 
         private void InsertFormula(IFormulaViewModel formula)
         {
+            if (Action.IsFocused || Fluent.IsFocused)
+            {
+                Interactions.RaiseStatusBarError("CannotAddFormulaError");
+            }
             if (Precondition.IsFocused)
             {
                 Precondition = formula.Accept(Precondition);

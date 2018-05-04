@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Linq;
 using System.Windows;
 using Client.ViewModel;
 using ReactiveUI;
@@ -26,7 +27,16 @@ namespace Client.View
             this.OneWayBind(ViewModel, vm => vm.ActionAreaViewModel, v => v.ActionArea.ViewModel);
             this.OneWayBind(ViewModel, vm => vm.QueryAreaViewModel, v => v.QueryArea.ViewModel);
             this.BindCommand(ViewModel, vm => vm.DeleteFocused, v => v.ShellWindow, "KeyDown");
+            this.OneWayBind(ViewModel, vm => vm.StatusBarMessage, v => v.ErrorMessage.Text);
             ViewModel.RibbonViewModel.CloseWindow.Subscribe(_ => Close());
+
+            this.WhenAnyValue(v => v.ViewModel.StatusBarMessage)
+                .Select(msg => string.IsNullOrEmpty(msg) ? Visibility.Collapsed : Visibility.Visible)
+                .BindTo(this, v => v.ErrorContent.Visibility);
+
+            this.WhenAnyValue(v => v.ViewModel.StatusBarMessage)
+                .Throttle(TimeSpan.FromSeconds(5), RxApp.MainThreadScheduler)
+                .Subscribe(_ => ErrorContent.Visibility = Visibility.Collapsed);
         }
 
         public ShellViewModel ViewModel
