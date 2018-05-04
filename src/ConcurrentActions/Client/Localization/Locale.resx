@@ -195,6 +195,9 @@
   <data name="CalculateButtonScreenTip" xml:space="preserve">
     <value>CalculateButtonScreenTip</value>
   </data>
+  <data name="CannotAddFormulaError" xml:space="preserve">
+    <value>CannotAddFormulaError</value>
+  </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>ChooseLanguage</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="EquivalenceButtonScreenTip" xml:space="preserve">
     <value>EquivalenceButtonScreenTip</value>
+  </data>
+  <data name="ErrorMessageItem" xml:space="preserve">
+    <value>ErrorMessageItem</value>
   </data>
   <data name="ExecutabilityQuery" xml:space="preserve">
     <value>ExecutabilityQuery</value>

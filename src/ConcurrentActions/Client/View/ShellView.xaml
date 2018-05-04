@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <rui:ViewModelViewHost Name="Ribbon"
@@ -45,6 +46,35 @@
                 Margin="2,4,4,4" />
 
         </Grid>
+        
+        <fluent:StatusBar
+            Grid.Row="2"
+            Name="StatusBar">
+
+            <fluent:StatusBarItem
+                Name="ErrorMessageItem"
+                HorizontalAlignment="Left">
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    Name="ErrorContent"
+                    Visibility="Collapsed">
+
+                    <Image
+                        Name="ErrorIcon"
+                        Height="16"
+                        Margin="5 0"
+                        Source="/Client;component/Resources/Images/warning-96.png" />
+
+                    <TextBlock
+                        Name="ErrorMessage" />
+
+                </StackPanel>
+
+            </fluent:StatusBarItem>
+
+        </fluent:StatusBar>
+
     </Grid>
 </fluent:RibbonWindow>
 

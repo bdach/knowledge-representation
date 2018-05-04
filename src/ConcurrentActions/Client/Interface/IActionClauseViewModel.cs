@@ -19,11 +19,6 @@ namespace Client.Interface
         /// This is intended for statements which take a single fluent.
         /// </summary>
         ReactiveCommand<LiteralViewModel, LiteralViewModel> AddFluent { get; }
-        
-        /// <summary>
-        /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.
-        /// </summary>
-        ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
 
         /// <summary>
         /// Creates a new empty instance of a given type of action statement.

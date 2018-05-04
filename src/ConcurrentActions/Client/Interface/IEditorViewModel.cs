@@ -17,5 +17,10 @@ namespace Client.Interface
         /// Command triggered by delete key used to delete currently selected clause element.
         /// </summary>
         ReactiveCommand<Unit, Unit> DeleteFocused { get; }
+
+        /// <summary>
+        /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.
+        /// </summary>
+        ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
     }
 }

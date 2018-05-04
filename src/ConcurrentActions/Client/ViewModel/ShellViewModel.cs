@@ -42,6 +42,8 @@ namespace Client.ViewModel
         /// </summary>
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
+        public string StatusBarMessage { get; set; }
+
         /// <summary>
         /// Initializes a new <see cref="ShellViewModel"/> instance.
         /// </summary>
@@ -94,6 +96,12 @@ namespace Client.ViewModel
                 .Where(_ => Keyboard.IsKeyDown(Key.Delete))
                 .InvokeCommand(QueryAreaViewModel, vm => vm.DeleteFocused);
 
+            Interactions.StatusBarError.RegisterHandler(interaction =>
+            {
+                StatusBarMessage = LocalizationProvider.Instance[interaction.Input];
+                interaction.SetOutput(Unit.Default);
+            });
+
             #endregion
 
             #region Backstage support
@@ -118,6 +126,11 @@ namespace Client.ViewModel
                 var serializationProvider = new SerializationProvider(this, new ScenarioSerializer());
                 serializationProvider.SerializeScenario();
             });
+
+            this.WhenAnyObservable(vm => vm.RibbonViewModel.SetEnglishLocale)
+                .Subscribe(msg => StatusBarMessage = "");
+            this.WhenAnyObservable(vm => vm.RibbonViewModel.SetPolishLocale)
+                .Subscribe(msg => StatusBarMessage = "");
 
             #endregion
         }

@@ -4,6 +4,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
+using Client.Global;
 using Client.Interface;
 using Model;
 using ReactiveUI;
@@ -23,8 +24,16 @@ namespace Client.ViewModel.Terminal
         /// <inheritdoc />
         public bool IsFocused { get; set; }
 
+        /// <summary>
+        /// Determines whether any child of this view model has focus.
+        /// </summary>
+        public bool AnyChildFocused => IsFocused || CompoundActions.Any(a => a.AnyChildFocused);
+
         /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
+        /// <inheritdoc />
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
 
         /// <summary>
         /// Initializes a new <see cref="ProgramViewModel"/> instance.
@@ -46,6 +55,11 @@ namespace Client.ViewModel.Terminal
                 .Select(_ => CompoundActions.SingleOrDefault(action => action.IsFocused))
                 .Where(action => action != null)
                 .Subscribe(action => CompoundActions.Remove(action));
+
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(_ => IsFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
         }
 
         public Program ToModel()

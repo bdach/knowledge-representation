@@ -3,6 +3,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
+using Client.Global;
 using Client.Interface;
 using Client.View.ActionLanguage;
 using Client.ViewModel.Formula;
@@ -74,6 +75,9 @@ namespace Client.ViewModel.ActionLanguage
             AddFluent.BindTo(this, vm => vm.Fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(_ => IsFocused || Action.IsFocused || Fluent.IsFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
 

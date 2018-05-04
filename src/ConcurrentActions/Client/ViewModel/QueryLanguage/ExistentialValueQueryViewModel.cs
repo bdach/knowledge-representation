@@ -3,6 +3,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
+using Client.Global;
 using Client.Interface;
 using Client.View.QueryLanguage;
 using Client.ViewModel.Terminal;
@@ -65,7 +66,9 @@ namespace Client.ViewModel.QueryLanguage
         {
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
             AddFormula.Subscribe(InsertFormula);
-
+            this.WhenAnyObservable(vm => vm.AddFormula)
+                .Where(_ => Program.AnyChildFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
             this.WhenAnyObservable(vm => vm.AddFormula)
                 .Where(_ => !IsFocused)
                 .InvokeCommand(this, vm => vm.Target.AddFormula);

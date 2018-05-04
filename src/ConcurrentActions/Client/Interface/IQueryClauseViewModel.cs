@@ -11,11 +11,6 @@ namespace Client.Interface
     public interface IQueryClauseViewModel : IClauseViewModel
     {
         /// <summary>
-        /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.
-        /// </summary>
-        ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
-
-        /// <summary>
         /// Adds a new empty <see cref="CompoundActionViewModel"/> to edited clause.
         /// </summary>
         ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; }

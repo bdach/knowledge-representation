@@ -15,11 +15,5 @@ namespace Client.Interface
         /// <param name="existingFormula">Existing instance of <see cref="IFormulaViewModel"/>.</param>
         /// <returns>New instance of <see cref="IFormulaViewModel"/>, to be substituted in place of the old one.</returns>
         IFormulaViewModel Accept(IFormulaViewModel existingFormula);
-
-        /// <summary>
-        /// Adds a new nested <see cref="IViewModelFor{IFormula}"/> to the formula.
-        /// </summary>
-        ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
-        
     }
 }

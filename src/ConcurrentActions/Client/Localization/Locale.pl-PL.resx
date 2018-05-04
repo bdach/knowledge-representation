@@ -201,6 +201,9 @@
   <data name="CalculateButtonScreenTip" xml:space="preserve">
     <value>Dokonuje ewaluacji kwerend na podstawie wprowadzonej domeny akcji.</value>
   </data>
+  <data name="CannotAddFormulaError" xml:space="preserve">
+    <value>Wybrany element nie wspiera wstawiania formuł logicznych</value>
+  </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>Ustaw język</value>
   </data>
@@ -263,6 +266,9 @@
   </data>
   <data name="EquivalenceButtonScreenTip" xml:space="preserve">
     <value>Wstawia równoważność do wybranej formuły logicznej.</value>
+  </data>
+  <data name="ErrorMessageItem" xml:space="preserve">
+    <value>Podpowiedzi</value>
   </data>
   <data name="ExecutabilityQuery" xml:space="preserve">
     <value>Kwerendy wykonywalności</value>
