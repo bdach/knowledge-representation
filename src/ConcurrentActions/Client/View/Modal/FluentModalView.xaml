@@ -10,7 +10,10 @@
         ResizeMode="NoResize"
         Title="{local:Loc AddFluentTitle}"
         Width="300" Height="150" >
-    <Grid Style="{DynamicResource FluentMargin}" >
+    <Grid
+        Style="{DynamicResource FluentMargin}"
+        FocusManager.FocusedElement="{Binding ElementName=FluentNameBox}" >
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="2*" />
