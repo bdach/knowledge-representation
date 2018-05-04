@@ -78,7 +78,6 @@ namespace Client.ViewModel.ActionLanguage
             AddAction.BindTo(this, vm => vm.Action);
 
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
-
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
             AddFormula.Subscribe(InsertFormula);
 
@@ -90,15 +89,25 @@ namespace Client.ViewModel.ActionLanguage
                 .InvokeCommand(this, vm => vm.Postcondition.AddFormula);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            DeleteFocused.Where(_ => Action.IsFocused).Subscribe(_ => Action = new PlaceholderViewModel());
-            DeleteFocused.Where(_ => Precondition.IsFocused).Subscribe(_ => Precondition = new PlaceholderViewModel());
-            DeleteFocused.Where(_ => Postcondition.IsFocused).Subscribe(_ => Postcondition = new PlaceholderViewModel());
 
-            DeleteFocused.Where(_ => !(Action.IsFocused || Precondition.IsFocused || Postcondition.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Action.IsFocused)
+                .Subscribe(_ => Action = new PlaceholderViewModel());
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Precondition.IsFocused)
+                .Subscribe(_ => Precondition = new PlaceholderViewModel());
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Postcondition.IsFocused)
+                .Subscribe(_ => Postcondition = new PlaceholderViewModel());
+            
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Action.IsFocused || Precondition.IsFocused || Postcondition.IsFocused))
                 .InvokeCommand(this, vm => vm.Action.DeleteFocused);
-            DeleteFocused.Where(_ => !(Action.IsFocused || Precondition.IsFocused || Postcondition.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Action.IsFocused || Precondition.IsFocused || Postcondition.IsFocused))
                 .InvokeCommand(this, vm => vm.Precondition.DeleteFocused);
-            DeleteFocused.Where(_ => !(Action.IsFocused || Precondition.IsFocused || Postcondition.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Action.IsFocused || Precondition.IsFocused || Postcondition.IsFocused))
                 .InvokeCommand(this, vm => vm.Postcondition.DeleteFocused);
         }
 

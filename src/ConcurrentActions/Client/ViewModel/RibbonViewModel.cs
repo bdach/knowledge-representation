@@ -143,7 +143,7 @@ namespace Client.ViewModel
         /// <summary>
         /// Command used to add a new empty compound action to a program.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; private set; }
+        public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
 
         #endregion
 
@@ -185,7 +185,7 @@ namespace Client.ViewModel
             AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
 
             LocalizeGroupName = obj => LocalizationProvider.Instance[((IClauseViewModel)obj).ClauseTypeNameKey];
-            // Force switch to new language
+            // force switch to new language
             // I know, this is way too ugly to live, but I don't really want to spend more time on this
             // TODO: fix maybe?
             LocalizationProvider.Instance.PropertyChanged += (sender, args) =>

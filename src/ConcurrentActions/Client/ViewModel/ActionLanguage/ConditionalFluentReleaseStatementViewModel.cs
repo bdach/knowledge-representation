@@ -91,15 +91,25 @@ namespace Client.ViewModel.ActionLanguage
                 .InvokeCommand(this, vm => vm.Precondition.AddFormula);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            DeleteFocused.Where(_ => Action.IsFocused).Subscribe(_ => Action = new PlaceholderViewModel());
-            DeleteFocused.Where(_ => Fluent.IsFocused).Subscribe(_ => Fluent = new PlaceholderViewModel());
-            DeleteFocused.Where(_ => Precondition.IsFocused).Subscribe(_ => Precondition = new PlaceholderViewModel());
 
-            DeleteFocused.Where(_ => !(Action.IsFocused || Fluent.IsFocused || Precondition.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Action.IsFocused)
+                .Subscribe(_ => Action = new PlaceholderViewModel());
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Fluent.IsFocused)
+                .Subscribe(_ => Fluent = new PlaceholderViewModel());
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Precondition.IsFocused)
+                .Subscribe(_ => Precondition = new PlaceholderViewModel());
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Action.IsFocused || Fluent.IsFocused || Precondition.IsFocused))
                 .InvokeCommand(this, vm => vm.Action.DeleteFocused);
-            DeleteFocused.Where(_ => !(Action.IsFocused || Fluent.IsFocused || Precondition.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Action.IsFocused || Fluent.IsFocused || Precondition.IsFocused))
                 .InvokeCommand(this, vm => vm.Fluent.DeleteFocused);
-            DeleteFocused.Where(_ => !(Action.IsFocused || Fluent.IsFocused || Precondition.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Action.IsFocused || Fluent.IsFocused || Precondition.IsFocused))
                 .InvokeCommand(this, vm => vm.Precondition.DeleteFocused);
         }
 

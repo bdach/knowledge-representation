@@ -64,12 +64,17 @@ namespace Client.ViewModel.ActionLanguage
             AddAction.BindTo(this, vm => vm.Action);
 
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
-
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            DeleteFocused.Where(_ => Action.IsFocused).Subscribe(_ => Action = new PlaceholderViewModel());
-            DeleteFocused.Where(_ => !Action.IsFocused).InvokeCommand(this, vm => vm.Action.DeleteFocused);
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Action.IsFocused)
+                .Subscribe(_ => Action = new PlaceholderViewModel());
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !Action.IsFocused)
+                .InvokeCommand(this, vm => vm.Action.DeleteFocused);
         }
 
         /// <inheritdoc />

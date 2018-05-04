@@ -56,11 +56,19 @@ namespace Client.ViewModel.QueryLanguage
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
 
             AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
+
             this.WhenAnyObservable(vm => vm.AddEmptyCompoundAction)
                 .Where(_ => IsFocused || Program.IsFocused)
                 .Subscribe(_ => Program.CompoundActions.Add(new CompoundActionViewModel()));
 
             AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
+
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !Program.IsFocused)
+                .InvokeCommand(this, vm => vm.Program.DeleteFocused);
+
             Program.CompoundActions.ItemsAdded.Subscribe(compoundAction =>
             {
                 compoundAction.CommandInvocationListeners.Add(
@@ -71,11 +79,6 @@ namespace Client.ViewModel.QueryLanguage
                 );
             });
             Program.CompoundActions.ItemsRemoved.Subscribe(compoundAction => compoundAction.Dispose());
-
-            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            this.WhenAnyObservable(vm => vm.DeleteFocused)
-                .Where(_ => !Program.IsFocused)
-                .InvokeCommand(this, vm => vm.Program.DeleteFocused);
         }
 
         /// <inheritdoc />

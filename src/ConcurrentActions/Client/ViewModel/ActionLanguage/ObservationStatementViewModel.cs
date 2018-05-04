@@ -70,7 +70,6 @@ namespace Client.ViewModel.ActionLanguage
             AddAction.BindTo(this, vm => vm.Action);
 
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
-
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
             AddFormula.Subscribe(InsertFormula);
 
@@ -79,12 +78,19 @@ namespace Client.ViewModel.ActionLanguage
                 .InvokeCommand(this, vm => vm.Condition.AddFormula);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            DeleteFocused.Where(_ => Condition.IsFocused).Subscribe(_ => Condition = new PlaceholderViewModel());
-            DeleteFocused.Where(_ => Action.IsFocused).Subscribe(_ => Action = new PlaceholderViewModel());
 
-            DeleteFocused.Where(_ => !(Condition.IsFocused || Action.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Condition.IsFocused)
+                .Subscribe(_ => Condition = new PlaceholderViewModel());
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Action.IsFocused)
+                .Subscribe(_ => Action = new PlaceholderViewModel());
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Condition.IsFocused || Action.IsFocused))
                 .InvokeCommand(this, vm => vm.Condition.DeleteFocused);
-            DeleteFocused.Where(_ => !(Condition.IsFocused || Action.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Condition.IsFocused || Action.IsFocused))
                 .InvokeCommand(this, vm => vm.Action.DeleteFocused);
         }
 

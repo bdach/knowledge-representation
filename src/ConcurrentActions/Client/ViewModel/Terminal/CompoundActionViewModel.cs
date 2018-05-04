@@ -22,16 +22,16 @@ namespace Client.ViewModel.Terminal
         /// </summary>
         public ReactiveList<ActionViewModel> Actions { get; set; }
 
+        /// <summary>
+        /// Adds an atomic action to this compound action.
+        /// </summary>
+        public ReactiveCommand<ActionViewModel, ActionViewModel> AddAtomicAction { get; protected set; }
+
         /// <inheritdoc />
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
-
-        /// <summary>
-        /// Adds an atomic action to this compound action.
-        /// </summary>
-        public ReactiveCommand<ActionViewModel, ActionViewModel> AddAtomicAction { get; protected set; }
 
         /// <summary>
         /// This list keeps track of which commands higher in the hierarchy are piped into this view model.
@@ -54,17 +54,17 @@ namespace Client.ViewModel.Terminal
         /// </summary>
         private void InitializeComponent()
         {
-            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            this.WhenAnyObservable(vm => vm.DeleteFocused)
-                .Select(_ => Actions.SingleOrDefault(action => action.IsFocused))
-                .Where(action => action != null)
-                .Subscribe(action => Actions.Remove(action));
-
             AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
             this.WhenAnyObservable(vm => vm.AddAtomicAction)
                 .Where(_ => IsFocused)
                 .Where(action => action != null && !Actions.Any(other => other.Action.Equals(action.Action)))
                 .Subscribe(action => Actions.Add(new ActionViewModel(action.Action)));
+
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Select(_ => Actions.SingleOrDefault(action => action.IsFocused))
+                .Where(action => action != null)
+                .Subscribe(action => Actions.Remove(action));
         }
 
         /// <summary>

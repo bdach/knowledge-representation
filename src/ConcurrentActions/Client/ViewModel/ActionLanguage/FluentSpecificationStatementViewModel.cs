@@ -68,8 +68,14 @@ namespace Client.ViewModel.ActionLanguage
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            DeleteFocused.Where(_ => Fluent.IsFocused).Subscribe(_ => Fluent = new PlaceholderViewModel());
-            DeleteFocused.Where(_ => !Fluent.IsFocused).InvokeCommand(this, vm => vm.Fluent.DeleteFocused);
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Fluent.IsFocused)
+                .Subscribe(_ => Fluent = new PlaceholderViewModel());
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !Fluent.IsFocused)
+                .InvokeCommand(this, vm => vm.Fluent.DeleteFocused);
         }
 
         /// <inheritdoc />

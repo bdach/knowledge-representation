@@ -92,12 +92,19 @@ namespace Client.ViewModel.Formula
                 .InvokeCommand(this, vm => vm.Right.AddFormula);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            DeleteFocused.Where(_ => Left.IsFocused).Subscribe(_ => Left = new PlaceholderViewModel());
-            DeleteFocused.Where(_ => Right.IsFocused).Subscribe(_ => Right = new PlaceholderViewModel());
 
-            DeleteFocused.Where(_ => !(Left.IsFocused || Right.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Left.IsFocused)
+                .Subscribe(_ => Left = new PlaceholderViewModel());
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Right.IsFocused)
+                .Subscribe(_ => Right = new PlaceholderViewModel());
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Left.IsFocused || Right.IsFocused))
                 .InvokeCommand(this, vm => vm.Left.DeleteFocused);
-            DeleteFocused.Where(_ => !(Left.IsFocused || Right.IsFocused))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Left.IsFocused || Right.IsFocused))
                 .InvokeCommand(this, vm => vm.Right.DeleteFocused);
         }
 

@@ -65,7 +65,11 @@ namespace Client.ViewModel.QueryLanguage
             AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            DeleteFocused.Where(_ => Target.IsFocused).Subscribe(_ => Target = new PlaceholderViewModel());
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Target.IsFocused)
+                .Subscribe(_ => Target = new PlaceholderViewModel());
+
             this.WhenAnyObservable(vm => vm.DeleteFocused)
                 .Where(_ => !Target.IsFocused)
                 .InvokeCommand(this, vm => vm.Target.DeleteFocused);

@@ -58,9 +58,7 @@ namespace Client.ViewModel.ActionLanguage
         {
             // TODO: display error?
             AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
-
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
-
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
             AddFormula.Subscribe(InsertFormula);
 
@@ -69,8 +67,14 @@ namespace Client.ViewModel.ActionLanguage
                 .InvokeCommand(this, vm => vm.Constraint.AddFormula);
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            DeleteFocused.Where(_ => Constraint.IsFocused).Subscribe(_ => Constraint = new PlaceholderViewModel());
-            DeleteFocused.Where(_ => !Constraint.IsFocused).InvokeCommand(this, vm => vm.Constraint.DeleteFocused);
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Constraint.IsFocused)
+                .Subscribe(_ => Constraint = new PlaceholderViewModel());
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !Constraint.IsFocused)
+                .InvokeCommand(this, vm => vm.Constraint.DeleteFocused);
         }
 
         private void InsertFormula(IFormulaViewModel formula)

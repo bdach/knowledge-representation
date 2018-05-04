@@ -34,7 +34,6 @@ namespace Client.ViewModel.Terminal
             return this;
         }
 
-
         /// <inheritdoc />
         Action IViewModelFor<Action>.ToModel()
         {

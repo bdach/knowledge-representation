@@ -57,9 +57,6 @@ namespace Client.ViewModel
 
             #region Proxying user choices to action area
 
-            this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedQueryClauseType)
-                .Where(vm => vm != null)
-                .Subscribe(t => QueryAreaViewModel.QuerySet.Add(t.NewInstance()));
             this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedActionClauseType)
                 .Where(vm => vm != null)
                 .Subscribe(t => ActionAreaViewModel.ActionDomain.Add(t.NewInstance()));
@@ -73,21 +70,23 @@ namespace Client.ViewModel
                 .InvokeCommand(ActionAreaViewModel, vm => vm.AddAction);
             this.WhenAnyObservable(vm => vm.RibbonViewModel.SelectFormula)
                 .InvokeCommand(ActionAreaViewModel, vm => vm.AddFormula);
-
-            DeleteFocused.Where(_ => Keyboard.IsKeyDown(Key.Delete))
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Keyboard.IsKeyDown(Key.Delete))
                 .InvokeCommand(ActionAreaViewModel, vm => vm.DeleteFocused);
 
             #endregion
 
             #region Proxying user choices to query area
 
+            this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedQueryClauseType)
+                .Where(vm => vm != null)
+                .Subscribe(t => QueryAreaViewModel.QuerySet.Add(t.NewInstance()));
             this.WhenAnyObservable(vm => vm.RibbonViewModel.SelectFormula)
                 .InvokeCommand(QueryAreaViewModel, vm => vm.AddFormula);
             this.WhenAnyObservable(vm => vm.RibbonViewModel.AddEmptyCompoundAction)
                 .InvokeCommand(QueryAreaViewModel, vm => vm.AddEmptyCompoundAction);
             this.WhenAnyValue(vm => vm.RibbonViewModel.SelectedAction)
                 .InvokeCommand(QueryAreaViewModel, vm => vm.AddAtomicAction);
-
             this.WhenAnyObservable(vm => vm.DeleteFocused)
                 .Where(_ => Keyboard.IsKeyDown(Key.Delete))
                 .InvokeCommand(QueryAreaViewModel, vm => vm.DeleteFocused);

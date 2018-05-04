@@ -71,11 +71,26 @@ namespace Client.ViewModel.QueryLanguage
                 .InvokeCommand(this, vm => vm.Target.AddFormula);
 
             AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
+
             this.WhenAnyObservable(vm => vm.AddEmptyCompoundAction)
                 .Where(_ => IsFocused || Program.IsFocused)
                 .Subscribe(_ => Program.CompoundActions.Add(new CompoundActionViewModel()));
 
             AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
+
+            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => Target.IsFocused)
+                .Subscribe(_ => Target = new PlaceholderViewModel());
+
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Target.IsFocused || Program.IsFocused))
+                .InvokeCommand(this, vm => vm.Program.DeleteFocused);
+            this.WhenAnyObservable(vm => vm.DeleteFocused)
+                .Where(_ => !(Target.IsFocused || Program.IsFocused))
+                .InvokeCommand(this, vm => vm.Target.DeleteFocused);
+
             Program.CompoundActions.ItemsAdded.Subscribe(compoundAction =>
             {
                 compoundAction.CommandInvocationListeners.Add(
@@ -86,15 +101,6 @@ namespace Client.ViewModel.QueryLanguage
                 );
             });
             Program.CompoundActions.ItemsRemoved.Subscribe(compoundAction => compoundAction.Dispose());
-
-            DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-            DeleteFocused.Where(_ => Target.IsFocused).Subscribe(_ => Target = new PlaceholderViewModel());
-            this.WhenAnyObservable(vm => vm.DeleteFocused)
-                .Where(_ => !(Target.IsFocused || Program.IsFocused))
-                .InvokeCommand(this, vm => vm.Program.DeleteFocused);
-            this.WhenAnyObservable(vm => vm.DeleteFocused)
-                .Where(_ => !(Target.IsFocused || Program.IsFocused))
-                .InvokeCommand(this, vm => vm.Target.DeleteFocused);
         }
 
         public void InsertFormula(IFormulaViewModel formula)
