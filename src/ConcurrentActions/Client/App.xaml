@@ -230,6 +230,16 @@
                 x:Key="FluentScreenTip"
                 Title="{local:Loc Fluent}"
                 Text="{local:Loc FluentScreenTip}"/>
+            
+            <fluent:ScreenTip
+                x:Key="TargetScreenTip"
+                Title="{local:Loc Target}"
+                Text="{local:Loc TargetScreenTip}" />
+
+            <fluent:ScreenTip
+                x:Key="ProgramScreenTip"
+                Title="{local:Loc Program}"
+                Text="{local:Loc ProgramScreenTip}" />
 
         </ResourceDictionary>
     </Application.Resources>

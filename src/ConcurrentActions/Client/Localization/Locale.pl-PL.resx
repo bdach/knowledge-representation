@@ -120,6 +120,9 @@
   <data name="AccessibilityQuery" xml:space="preserve">
     <value>Kwerenda osiągalności</value>
   </data>
+  <data name="AccessibilityQueryScreenTip" xml:space="preserve">
+    <value>Określa, czy podany warunek logiczny jest osiągalny poprzez wykonanie pewnego programu ze stanu początkowego.</value>
+  </data>
   <data name="Action" xml:space="preserve">
     <value>Akcja</value>
   </data>
@@ -264,6 +267,18 @@
   <data name="ExecutabilityQuery" xml:space="preserve">
     <value>Kwerendy wykonywalności</value>
   </data>
+  <data name="ExistentialExecutabilityQuery" xml:space="preserve">
+    <value>Egzystencjalna kwerenda wykonywalności</value>
+  </data>
+  <data name="ExistentialExecutabilityQueryScreenTip" xml:space="preserve">
+    <value>Określa, czy podany program jest kiedykolwiek wykonywalny w całości ze stanu początkowego.</value>
+  </data>
+  <data name="ExistentialValueQuery" xml:space="preserve">
+    <value>Egzystencjalna kwerenda wartości</value>
+  </data>
+  <data name="ExistentialValueQueryScreenTip" xml:space="preserve">
+    <value>Określa, czy po wykonaniu podanego programu kiedykolwiek spełniony jest pewien warunek logiczny.</value>
+  </data>
   <data name="ExportButton" xml:space="preserve">
     <value>Eksportuj do pliku</value>
   </data>
@@ -299,6 +314,18 @@
   </data>
   <data name="FormulaGroupBox" xml:space="preserve">
     <value>Edytor formuł</value>
+  </data>
+  <data name="GeneralExecutabilityQuery" xml:space="preserve">
+    <value>Ogólna kwerenda wykonywalności</value>
+  </data>
+  <data name="GeneralExecutabilityQueryScreenTip" xml:space="preserve">
+    <value>Określa, czy podany program jest zawsze wykonywalny w całości ze stanu początkowego.</value>
+  </data>
+  <data name="GeneralValueQuery" xml:space="preserve">
+    <value>Ogólna kwerenda wartości</value>
+  </data>
+  <data name="GeneralValueQueryScreenTip" xml:space="preserve">
+    <value>Określa, czy po wykonaniu podanego programu zawsze spełniony jest pewien warunek logiczny.</value>
   </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>Implikacja</value>
@@ -360,11 +387,23 @@
   <data name="PreconditionScreenTip" xml:space="preserve">
     <value>Warunek logiczny, który musi być spełniony, aby zdanie miało efekt.</value>
   </data>
+  <data name="Program" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="ProgramScreenTip" xml:space="preserve">
+    <value>Sekwencja akcji złożonych, której dotyczy kwerenda.</value>
+  </data>
   <data name="QueryClauseGroupBox" xml:space="preserve">
     <value>Kwerendy</value>
   </data>
   <data name="SystemGroupBox" xml:space="preserve">
     <value>System dynamiczny</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Cel</value>
+  </data>
+  <data name="TargetScreenTip" xml:space="preserve">
+    <value>Warunek logiczny, który powinien zostać spełniony.</value>
   </data>
   <data name="TruthButton" xml:space="preserve">
     <value>Prawda</value>

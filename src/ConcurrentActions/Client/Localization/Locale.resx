@@ -120,6 +120,9 @@
   <data name="AccessibilityQuery" xml:space="preserve">
     <value>AccessibilityQuery</value>
   </data>
+  <data name="AccessibilityQueryScreenTip" xml:space="preserve">
+    <value>AccessibilityQueryScreenTip</value>
+  </data>
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
@@ -258,6 +261,18 @@
   <data name="ExecutabilityQuery" xml:space="preserve">
     <value>ExecutabilityQuery</value>
   </data>
+  <data name="ExistentialExecutabilityQuery" xml:space="preserve">
+    <value>ExistentialExecutabilityQuery</value>
+  </data>
+  <data name="ExistentialExecutabilityQueryScreenTip" xml:space="preserve">
+    <value>ExistentialExecutabilityQueryScreenTip</value>
+  </data>
+  <data name="ExistentialValueQuery" xml:space="preserve">
+    <value>ExistentialValueQuery</value>
+  </data>
+  <data name="ExistentialValueQueryScreenTip" xml:space="preserve">
+    <value>ExistentialValueQueryScreenTip</value>
+  </data>
   <data name="ExportButton" xml:space="preserve">
     <value>ExportButton</value>
   </data>
@@ -293,6 +308,18 @@
   </data>
   <data name="FormulaGroupBox" xml:space="preserve">
     <value>FormulaGroupBox</value>
+  </data>
+  <data name="GeneralExecutabilityQuery" xml:space="preserve">
+    <value>GeneralExecutabilityQuery</value>
+  </data>
+  <data name="GeneralExecutabilityQueryScreenTip" xml:space="preserve">
+    <value>GeneralExecutabilityQueryScreenTip</value>
+  </data>
+  <data name="GeneralValueQuery" xml:space="preserve">
+    <value>GeneralValueQuery</value>
+  </data>
+  <data name="GeneralValueQueryScreenTip" xml:space="preserve">
+    <value>GeneralValueQueryScreenTip</value>
   </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>ImplicationButton</value>
@@ -354,11 +381,23 @@
   <data name="PreconditionScreenTip" xml:space="preserve">
     <value>PreconditionScreenTip</value>
   </data>
+  <data name="Program" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="ProgramScreenTip" xml:space="preserve">
+    <value>ProgramScreenTip</value>
+  </data>
   <data name="QueryClauseGroupBox" xml:space="preserve">
     <value>QueryClauseGroupBox</value>
   </data>
   <data name="SystemGroupBox" xml:space="preserve">
     <value>SystemGroupBox</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="TargetScreenTip" xml:space="preserve">
+    <value>TargetScreenTip</value>
   </data>
   <data name="TruthButton" xml:space="preserve">
     <value>TruthButton</value>
