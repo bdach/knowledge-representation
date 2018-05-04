@@ -27,5 +27,23 @@ namespace Model.QueryLanguage
         {
             return $"accessible {Target}";
         }
+
+        protected bool Equals(AccessibilityQuery other)
+        {
+            return Equals(Target, other.Target);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((AccessibilityQuery) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Target != null ? Target.GetHashCode() : 0);
+        }
     }
 }

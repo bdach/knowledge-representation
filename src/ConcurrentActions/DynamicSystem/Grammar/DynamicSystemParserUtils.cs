@@ -21,8 +21,9 @@ namespace DynamicSystem.Grammar
 
         public static IFormula ParseFormula(string input)
         {
+            var lexer = new DynamicSystemLexer(new AntlrInputStream(input));
             var parser = new DynamicSystemParser(
-                new CommonTokenStream(new DynamicSystemLexer(new AntlrInputStream(input))));
+                new CommonTokenStream(lexer));
             return parser.actionDomain().Accept(new FormulaParsingVisitor()) ;
         }
 
@@ -32,6 +33,7 @@ namespace DynamicSystem.Grammar
                 new CommonTokenStream(new DynamicSystemLexer(new AntlrInputStream(input))));
             return parser.querySet().Accept(new QuerySetParsingVisitor()) as QuerySet;
         }
-
     }
+
+    
 }

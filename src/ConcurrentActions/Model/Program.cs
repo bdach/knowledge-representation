@@ -27,5 +27,28 @@ namespace Model
             var actionNames = string.Join(", ", Actions);
             return $"({actionNames})";
         }
+
+        protected bool Equals(Program other)
+        {
+            return new HashSet<CompoundAction>(Actions).SetEquals(new HashSet<CompoundAction>(other.Actions));
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Program) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            var hash = 0;
+            if (Actions != null)
+            {
+                foreach (var action in Actions) hash ^= action.GetHashCode();
+            }
+            return hash;
+        }
     }
 }

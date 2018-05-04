@@ -25,5 +25,23 @@
         {
             return $"executable always {Program}";
         }
+
+        protected bool Equals(GeneralExecutabilityQuery other)
+        {
+            return Equals(Program, other.Program);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((GeneralExecutabilityQuery) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Program != null ? Program.GetHashCode() : 0);
+        }
     }
 }

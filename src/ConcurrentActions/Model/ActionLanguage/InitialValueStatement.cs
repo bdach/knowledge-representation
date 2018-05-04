@@ -25,5 +25,23 @@ namespace Model.ActionLanguage
         {
             return $"initially {InitialCondition}";
         }
+
+        protected bool Equals(InitialValueStatement other)
+        {
+            return Equals(InitialCondition, other.InitialCondition);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((InitialValueStatement) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (InitialCondition != null ? InitialCondition.GetHashCode() : 0);
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace DynamicSystem.Grammar
             else
             {
                 // impossible action
-                return new EffectStatement(action, condition, Constant.Truth);
+                return new EffectStatement(action, Constant.Falsity, Constant.Truth);
             }
         }
 
