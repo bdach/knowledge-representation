@@ -65,6 +65,9 @@ namespace Client.ViewModel.ActionLanguage
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
+        public bool AnyChildFocused => IsFocused || Action.IsFocused || Fluent.IsFocused || Precondition.IsFocused;
+
+        /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>
@@ -72,12 +75,14 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public ConditionalFluentReleaseStatementViewModel()
         {
-            AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(
-                action => action,
-                this.WhenAnyValue(v => v.Action.IsFocused)
-            );
-            AddAction.BindTo(this, vm => vm.Action);
+            AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
+            AddAction.Where(_ => Action.IsFocused).
+                BindTo(this, vm => vm.Action);
+            this.WhenAnyObservable(vm => vm.AddAction)
+                .Where(_ => Fluent.AnyChildFocused || Precondition.AnyChildFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddActionError"));
 
+            // TODO: wrong user choice COULD be handled here somehow, but *I'm* NOT doing it
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(
                 fluent => fluent,
                 this.WhenAnyValue(v => v.Fluent.IsFocused)

@@ -60,6 +60,9 @@ namespace Client.ViewModel.ActionLanguage
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
+        public bool AnyChildFocused => IsFocused || Action.AnyChildFocused || Precondition.AnyChildFocused;
+
+        /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>
@@ -67,13 +70,16 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public ConditionalImpossibilityStatementViewModel()
         {
-            AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(
-                action => action,
-                this.WhenAnyValue(vm => vm.Action.IsFocused)
-            );
-            AddAction.BindTo(this, vm => vm.Action);
+            AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
+            AddAction.Where(_ => Action.IsFocused)
+                .BindTo(this, vm => vm.Action);
+            this.WhenAnyObservable(vm => vm.AddAction)
+                .Where(_ => Precondition.AnyChildFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddActionError"));
 
+            // TODO: wrong user choice COULD be handled here somehow, but *I'm* NOT doing it
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
+
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
             AddFormula.Subscribe(InsertFormula);
 

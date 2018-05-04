@@ -1,10 +1,6 @@
-﻿using System;
-using System.Reactive;
-using System.Reactive.Linq;
+﻿using System.Reactive;
 using Client.Abstract;
-using Client.Global;
 using Client.Interface;
-using Model;
 using Model.Forms;
 using ReactiveUI;
 using Action = Model.Action;
@@ -21,19 +17,18 @@ namespace Client.ViewModel.Terminal
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
-        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+        public bool AnyChildFocused => IsFocused;
 
         /// <inheritdoc />
-        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
+        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
+
+        /// <inheritdoc />
+        public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         public PlaceholderViewModel()
         {
-            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
-            this.WhenAnyObservable(vm => vm.AddFormula)
-                .Where(_ => IsFocused)
-                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
-
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
+            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
         }
 
         /// <inheritdoc />

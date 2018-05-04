@@ -201,6 +201,12 @@
   <data name="CalculateButtonScreenTip" xml:space="preserve">
     <value>Evaluate the queries within the action domain entered.</value>
   </data>
+  <data name="CannotAddActionError" xml:space="preserve">
+    <value>The selected element does not support inserting atomic actions</value>
+  </data>
+  <data name="CannotAddCompoundActionError" xml:space="preserve">
+    <value>The selected item does not support inserting compound actions</value>
+  </data>
   <data name="CannotAddFormulaError" xml:space="preserve">
     <value>The selected element does not support inserting formulae</value>
   </data>

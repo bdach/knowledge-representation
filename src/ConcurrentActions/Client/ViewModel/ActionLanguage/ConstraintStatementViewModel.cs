@@ -3,6 +3,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
+using Client.Global;
 using Client.Interface;
 using Client.View.ActionLanguage;
 using Client.ViewModel.Formula;
@@ -49,6 +50,9 @@ namespace Client.ViewModel.ActionLanguage
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
+        public bool AnyChildFocused => IsFocused || Constraint.AnyChildFocused;
+
+        /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>
@@ -56,9 +60,14 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public ConstraintStatementViewModel()
         {
-            // TODO: display error?
             AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
+            this.WhenAnyObservable(vm => vm.AddAction)
+                .Where(_ => AnyChildFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddActionError"));
+
+            // TODO: wrong user choice COULD be handled here somehow, but *I'm* NOT doing it
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
+
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
             AddFormula.Subscribe(InsertFormula);
 

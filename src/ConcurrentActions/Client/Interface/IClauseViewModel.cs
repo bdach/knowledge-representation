@@ -1,4 +1,7 @@
-﻿namespace Client.Interface
+﻿using Client.ViewModel.Formula;
+using ReactiveUI;
+
+namespace Client.Interface
 {
     /// <summary>
     /// Base interface for clause view models.
@@ -10,5 +13,10 @@
         /// Used for ribbon grouping.
         /// </summary>
         string ClauseTypeNameKey { get; }
+
+        /// <summary>
+        /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.
+        /// </summary>
+        ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
     }
 }

@@ -97,7 +97,6 @@
     </ApplicationDefinition>
     <Compile Include="Abstract\FodyReactiveObject.cs" />
     <Compile Include="Exception\MemberNotDefinedException.cs" />
-    <Compile Include="Exception\NotApplicableException.cs" />
     <Compile Include="Exception\SerializationException.cs" />
     <Compile Include="Global\ClauseTypes.cs" />
     <Compile Include="Global\Interactions.cs" />

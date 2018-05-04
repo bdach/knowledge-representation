@@ -48,6 +48,9 @@ namespace Client.ViewModel.QueryLanguage
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
+        public bool AnyChildFocused => IsFocused || Program.AnyChildFocused;
+
+        /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>
@@ -67,6 +70,9 @@ namespace Client.ViewModel.QueryLanguage
                 .Subscribe(_ => Program.CompoundActions.Add(new CompoundActionViewModel()));
 
             AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
+            this.WhenAnyObservable(vm => vm.AddAtomicAction)
+                .Where(_ => Program.IsFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddActionError"));
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
 

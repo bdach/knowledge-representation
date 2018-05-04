@@ -201,6 +201,12 @@
   <data name="CalculateButtonScreenTip" xml:space="preserve">
     <value>Dokonuje ewaluacji kwerend na podstawie wprowadzonej domeny akcji.</value>
   </data>
+  <data name="CannotAddActionError" xml:space="preserve">
+    <value>Wybrany element nie wspiera wstawiania akcji atomowych</value>
+  </data>
+  <data name="CannotAddCompoundActionError" xml:space="preserve">
+    <value>Wybrany element nie wspiera wstawiania akcji złożonych</value>
+  </data>
   <data name="CannotAddFormulaError" xml:space="preserve">
     <value>Wybrany element nie wspiera wstawiania formuł logicznych</value>
   </data>

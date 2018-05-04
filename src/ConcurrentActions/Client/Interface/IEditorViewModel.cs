@@ -14,13 +14,13 @@ namespace Client.Interface
         bool IsFocused { get; set; }
 
         /// <summary>
+        /// Checks whether any child of the given node has focus (including the main node itself).
+        /// </summary>
+        bool AnyChildFocused { get; }
+
+        /// <summary>
         /// Command triggered by delete key used to delete currently selected clause element.
         /// </summary>
         ReactiveCommand<Unit, Unit> DeleteFocused { get; }
-
-        /// <summary>
-        /// Adds a new <see cref="IViewModelFor{IFormula}"/> to edited clause.
-        /// </summary>
-        ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; }
     }
 }
