@@ -554,46 +554,106 @@ Potencjalnymi stanami początkowymi są $\sigma_0$ oraz $\sigma_2$.
 \begin{itemize}
     \item Dla~stanu $\sigma_0$ mamy
     \begin{align*}
-        Res_0(\sigma_0, \{ \textsc{Put} \}) &= \{ \sigma_1 \} = Res(\sigma_0, \{ \textsc{Put} \}) \\
-        Res_0(\sigma_0, \{ \textsc{Get} \}) &= \{ \sigma_0 \} = Res(\sigma_0, \{ \textsc{Get} \}) \\
-        Res_0(\sigma_0, \{ \textsc{Consume} \}) &= \{ \sigma_2 \} = Res(\sigma_0, \{ \textsc{Consume} \}) \\
-        Res_0(\sigma_0, \{ \textsc{Put, Get} \}) &= \{ \sigma_1 \} = Res(\sigma_0, \{ \textsc{Put, Get} \}) \\
+        New(\sigma_0, \sigma_0) &= \emptyset \\
+        New(\sigma_0, \sigma_1) &= \{\neg \textit{bufferEmpty} \} \\
+        New(\sigma_0, \sigma_2) &= \{ \neg \textit{hasItem} \} \\
+        New(\sigma_0, \sigma_3) &= \{\neg \textit{bufferEmpty}, \neg \textit{hasItem} \} \\
+        \\
+        Res_0(\sigma_0, \{ \textsc{Put} \}) &= \{ \sigma_1, \sigma_3 \} \\
+        Res_0(\sigma_0, \{ \textsc{Put} \}) &= \{ \sigma_1 \} \\
+        \\
+        Res_0(\sigma_0, \{ \textsc{Get} \}) &= \{ \sigma_0, \sigma_1, \sigma_2, \sigma_3 \} \\
+        Res(\sigma_0, \{ \textsc{Get} \}) &= \{ \sigma_0 \} \\
+        \\
+        Res_0(\sigma_0, \{ \textsc{Consume} \}) &= \{ \sigma_2, \sigma_3 \} \\
+        Res(\sigma_0, \{ \textsc{Consume} \}) &= \{ \sigma_2 \} \\
+        \\
+        Res_0(\sigma_0, \{ \textsc{Put, Get} \}) &= \{ \sigma_1, \sigma_3 \} \\
+        Res(\sigma_0, \{ \textsc{Put, Get} \})  &= \{ \sigma_1 \} \\
+        \\
         Res_0(\sigma_0, \{ \textsc{Put, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_0, \{ \textsc{Put, Consume} \}) \\
-        Res_0(\sigma_0, \{ \textsc{Get, Consume} \}) &= \{ \sigma_2 \} = Res(\sigma_0, \{ \textsc{Get, Consume} \}) \\
+        \\
+        Res_0(\sigma_0, \{ \textsc{Get, Consume} \}) &= \{ \sigma_2, \sigma_3 \} \\
+        Res(\sigma_0, \{ \textsc{Get, Consume} \})  &= \{ \sigma_2 \} \\
+        \\
         Res_0(\sigma_0, \{ \textsc{Put, Get, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_0, \{ \textsc{Put, Get, Consume} \})
     \end{align*}
     
     \item Dla~stanu $\sigma_1$ mamy
     \begin{align*}
-        Res_0(\sigma_1, \{ \textsc{Put} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{Put} \}) \\
-        Res_0(\sigma_1, \{ \textsc{Get} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{Get} \}) \\
-        Res_0(\sigma_1, \{ \textsc{Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Consume} \}) \\
-        Res_0(\sigma_1, \{ \textsc{Put, Get} \}) &= \{ \sigma_1 \} = Res(\sigma_1, \{ \textsc{Put, Get} \}) \\
-        Res_0(\sigma_1, \{ \textsc{Put, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Put, Consume} \}) \\
-        Res_0(\sigma_1, \{ \textsc{Get, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Get, Consume} \}) \\
-        Res_0(\sigma_1, \{ \textsc{Put, Get, Consume} \}) &= \{ \sigma_3 \} = Res(\sigma_1, \{ \textsc{Put, Get, Consume} \})
+        New(\sigma_1, \sigma_0) &= \{ \textit{bufferEmpty} \} \\
+        New(\sigma_1, \sigma_1) &= \emptyset \\
+        New(\sigma_1, \sigma_2) &= \{ \textit{bufferEmpty}, \neg \textit{hasItem} \} \\
+        New(\sigma_1, \sigma_3) &= \{ \neg \textit{hasItem} \} \\
+        \\
+        Res_0(\sigma_1, \{ \textsc{Get} \}) &= \{ \sigma_0, \sigma_1, \sigma_2, \sigma_3 \} \\
+        Res(\sigma_1, \{ \textsc{Get} \}) &= \{ \sigma_1 \} \\
+        \\
+        Res_0(\sigma_1, \{ \textsc{Put} \}) &= \{ \sigma_0, \sigma_1, \sigma_2, \sigma_3 \} \\
+        Res(\sigma_1, \{ \textsc{Put} \}) &= \{ \sigma_1 \} \\
+        \\
+        Res_0(\sigma_1, \{ \textsc{Consume} \}) &= \{ \sigma_2, \sigma_3 \} \\
+        Res(\sigma_1, \{ \textsc{Consume} \}) &= \{ \sigma_3 \} \\
+        \\
+        Res_0(\sigma_1, \{ \textsc{Put, Get} \}) &= \{ \sigma_0, \sigma_1, \sigma_2, \sigma_3 \} \\
+        Res(\sigma_1, \{ \textsc{Put, Get} \}) &= \{ \sigma_1 \} \\
+        \\
+        Res_0(\sigma_1, \{ \textsc{Put, Consume} \}) &= \{ \sigma_2, \sigma_3 \} \\
+        Res(\sigma_1, \{ \textsc{Put, Consume} \}) &= \{ \sigma_3 \} \\
+        \\
+        Res_0(\sigma_1, \{ \textsc{Get, Consume} \}) &= \{ \sigma_2, \sigma_3 \} \\
+        Res(\sigma_1, \{ \textsc{Get, Consume} \}) &= \{ \sigma_3 \} \\
+        \\
+        Res_0(\sigma_1, \{ \textsc{Put, Get, Consume} \}) &= \{ \sigma_2, \sigma_3 \} \\
+        Res(\sigma_1, \{ \textsc{Put, Get, Consume} \}) &= \{ \sigma_3 \}
     \end{align*}
     
     \item Dla~stanu $\sigma_2$ mamy
     \begin{align*}
-        Res_0(\sigma_2, \{ \textsc{Put} \}) &= \{ \sigma_3 \} = Res(\sigma_2, \{ \textsc{Put} \}) \\
-        Res_0(\sigma_2, \{ \textsc{Get} \}) &= \{ \sigma_2 \} = Res(\sigma_2, \{ \textsc{Get} \}) \\
+        New(\sigma_2, \sigma_0) &= \{ \textit{hasItem} \} \\
+        New(\sigma_2, \sigma_1) &= \{ \neg \textit{bufferEmpty}, \textit{hasItem} \} \\
+        New(\sigma_2, \sigma_2) &= \emptyset \\
+        New(\sigma_2, \sigma_3) &= \{ \neg \textit{bufferEmpty} \} \\
+        \\
+        Res_0(\sigma_2, \{ \textsc{Get} \}) &= \{ \sigma_0, \sigma_1, \sigma_2, \sigma_3 \} \\
+        Res(\sigma_2, \{ \textsc{Get} \}) &= \{ \sigma_2 \} \\
+        \\
+        Res_0(\sigma_2, \{ \textsc{Put} \}) &= \{ \sigma_1, \sigma_3 \} \\
+        Res(\sigma_2, \{ \textsc{Put} \}) &= \{ \sigma_3 \} \\
+        \\
         Res_0(\sigma_2, \{ \textsc{Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Consume} \}) \\
-        Res_0(\sigma_2, \{ \textsc{Put, Get} \}) &= \{ \sigma_3 \} = Res(\sigma_2, \{ \textsc{Put, Get} \}) \\
+        \\
+        Res_0(\sigma_2, \{ \textsc{Put, Get} \}) &= \{ \sigma_1, \sigma_3 \} \\
+        Res(\sigma_2, \{ \textsc{Put, Get} \}) &= \{ \sigma_3 \} \\
+        \\
         Res_0(\sigma_2, \{ \textsc{Put, Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Put, Consume} \}) \\
+        \\
         Res_0(\sigma_2, \{ \textsc{Get, Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Get, Consume} \}) \\
+        \\
         Res_0(\sigma_2, \{ \textsc{Put, Get, Consume} \}) &= \emptyset = Res(\sigma_2, \{ \textsc{Put, Get, Consume} \})
     \end{align*}
     Występowanie zbiorów pustych w~akcjach złożonych zawierających akcję atomową \textsc{Consume} zapewnia definicja \ref{defn:potentially-executable} -- nie~istnieje żaden potencjalny wynik wykonania tych akcji.
 
     \item Dla~stanu $\sigma_3$ mamy
     \begin{align*}
-        Res_0(\sigma_3, \{ \textsc{Put} \}) &= \{ \sigma_3 \} = Res(\sigma_3, \{ \textsc{Put} \}) \\
+        New(\sigma_3, \sigma_0) &= \{ \textit{bufferEmpty}, \textit{hasItem} \} \\
+        New(\sigma_3, \sigma_1) &= \{ \neg \textit{hasItem} \} \\
+        New(\sigma_3, \sigma_2) &= \{ \textit{bufferEmpty} \} \\
+        New(\sigma_3, \sigma_3) &= \emptyset \\
+        \\
         Res_0(\sigma_3, \{ \textsc{Get} \}) &= \{ \sigma_0 \} = Res(\sigma_3, \{ \textsc{Get} \}) \\
+        \\
+        Res_0(\sigma_3, \{ \textsc{Put} \}) &= \{ \sigma_0, \sigma_1, \sigma_2, \sigma_3 \} \\
+        Res(\sigma_3, \{ \textsc{Put} \}) &= \{ \sigma_3 \} \\
+        \\
         Res_0(\sigma_3, \{ \textsc{Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Consume} \}) \\
+        \\
         Res_0(\sigma_3, \{ \textsc{Put, Get} \}) &= \{ \sigma_0 \} = Res(\sigma_3, \{ \textsc{Put, Get} \}) \\
+        \\
         Res_0(\sigma_3, \{ \textsc{Put, Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Put, Consume} \}) \\
+        \\
         Res_0(\sigma_3, \{ \textsc{Get, Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Get, Consume} \}) \\
+        \\
         Res_0(\sigma_3, \{ \textsc{Put, Get, Consume} \}) &= \emptyset = Res(\sigma_3, \{ \textsc{Put, Get, Consume} \})
     \end{align*}
 \end{itemize}
