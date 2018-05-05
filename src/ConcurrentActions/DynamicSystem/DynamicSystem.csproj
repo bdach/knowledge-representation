@@ -58,7 +58,6 @@
     <Compile Include="QueriesEvaluation\QueriesEvaluator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetGeneration\SetGenerator.cs" />
-    <Compile Include="MinimizeNew\ITransitionFunctionGenerator.cs" />
     <Compile Include="MinimizeNew\TransitionFunctionGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
