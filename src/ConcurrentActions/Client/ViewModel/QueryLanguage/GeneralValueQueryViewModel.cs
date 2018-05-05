@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
@@ -78,9 +79,8 @@ namespace Client.ViewModel.QueryLanguage
 
             AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
             this.WhenAnyObservable(vm => vm.AddEmptyCompoundAction)
-                .Where(_ => Target.AnyChildFocused)
+                .Where(_ => Target.AnyChildFocused || Program.CompoundActions.Any(compundAction => compundAction.AnyChildFocused))
                 .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddCompoundActionError"));
-
             this.WhenAnyObservable(vm => vm.AddEmptyCompoundAction)
                 .Where(_ => IsFocused || Program.IsFocused)
                 .Subscribe(_ => Program.CompoundActions.Add(new CompoundActionViewModel()));
