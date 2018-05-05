@@ -17,7 +17,7 @@
                 <Setter Property="VerticalContentAlignment" Value="Stretch" />
             </Style>
 
-            <Style TargetType="Control" x:Key="EditorControl">
+            <Style TargetType="ItemsControl" x:Key="EditorControl">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
