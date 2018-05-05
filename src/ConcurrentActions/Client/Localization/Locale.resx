@@ -162,6 +162,12 @@
   <data name="AddCompoundActionButton" xml:space="preserve">
     <value>AddCompoundActionButton</value>
   </data>
+  <data name="AddCompoundActionButtonScreenTip" xml:space="preserve">
+    <value>AddCompoundActionButtonScreenTip</value>
+  </data>
+  <data name="AddCompoundActionButtonUnbroken" xml:space="preserve">
+    <value>AddCompoundActionButtonUnbroken</value>
+  </data>
   <data name="AddFluentButton" xml:space="preserve">
     <value>AddFluentButton</value>
   </data>
@@ -201,8 +207,8 @@
   <data name="CannotAddCompoundActionError" xml:space="preserve">
     <value>CannotAddCompoundActionError</value>
   </data>
-  <data name="CannotAddFluentError" xml:space="preserve">
-    <value>CannotAddFluentError</value>
+  <data name="CannotAddFormulaError" xml:space="preserve">
+    <value>CannotAddFormulaError</value>
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>ChooseLanguage</value>

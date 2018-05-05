@@ -108,6 +108,10 @@ namespace Client.ViewModel.Formula
                 .InvokeCommand(this, vm => vm.Consequent.DeleteFocused);
         }
 
+        /// <summary>
+        /// Function used to handle formula insertion based on window focus.
+        /// </summary>
+        /// <param name="formula">The <see cref="IFormulaViewModel"/> instance to be inserted.</param>
         private void InsertFormula(IFormulaViewModel formula)
         {
             if (Antecedent.IsFocused)
