@@ -103,16 +103,25 @@ namespace Client.ViewModel.QueryLanguage
                 .Where(_ => !(Target.IsFocused || Program.IsFocused))
                 .InvokeCommand(this, vm => vm.Target.DeleteFocused);
 
-            Program.CompoundActions.ItemsAdded.Subscribe(compoundAction =>
-            {
-                compoundAction.CommandInvocationListeners.Add(
-                    this.WhenAnyObservable(vm => vm.AddAtomicAction).InvokeCommand(compoundAction.AddAtomicAction)
-                );
-                compoundAction.CommandInvocationListeners.Add(
-                    this.WhenAnyObservable(vm => vm.DeleteFocused).Where(_ => !IsFocused).InvokeCommand(compoundAction.DeleteFocused)
-                );
-            });
-            Program.CompoundActions.ItemsRemoved.Subscribe(compoundAction => compoundAction.Dispose());
+            this.WhenAnyValue(vm => vm.Program)
+                .Select(program => program.CompoundActions)
+                .Subscribe(compoundActions =>
+                {
+                    foreach (var compoundActionViewModel in compoundActions)
+                    {
+                        RegisterListeners(compoundActionViewModel);
+                    }
+                });
+            this.WhenAnyObservable(vm => vm.Program.CompoundActions.ItemsAdded)
+                .Subscribe(RegisterListeners);
+            this.WhenAnyObservable(vm => vm.Program.CompoundActions.ItemsRemoved)
+                .Subscribe(compoundAction => compoundAction.Dispose());
+        }
+
+        private void RegisterListeners(CompoundActionViewModel compoundAction)
+        {
+            compoundAction.CommandInvocationListeners.Add(this.WhenAnyObservable(vm => vm.AddAtomicAction).InvokeCommand(compoundAction.AddAtomicAction));
+            compoundAction.CommandInvocationListeners.Add(this.WhenAnyObservable(vm => vm.DeleteFocused).Where(_ => !IsFocused).InvokeCommand(compoundAction.DeleteFocused));
         }
 
         public void InsertFormula(IFormulaViewModel formula)
