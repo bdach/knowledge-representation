@@ -144,7 +144,7 @@ namespace Client.ViewModel.QueryLanguage
         /// Gets the underlying query model out of the view model.
         /// </summary>
         /// <returns><see cref="ExistentialValueQuery"/> model represented by given view model.</returns>
-        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
+        /// <exception cref="MemberNotDefinedException">Thrown when one of the view model members is null or a placeholder.</exception>
         public ExistentialValueQuery ToModel()
         {
             var target = Target?.ToModel();

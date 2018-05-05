@@ -14,7 +14,7 @@ namespace Client.Interface
         /// </summary>
         /// <returns>Model represented by given view model.</returns>
         /// <remarks>
-        /// Should throw <see cref="MemberNotDefinedException"/> is one of the members
+        /// Should throw <see cref="MemberNotDefinedException"/> if one of the members
         /// is null or a <see cref="PlaceholderViewModel"/> instance.
         /// </remarks>
         T ToModel();

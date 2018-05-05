@@ -109,7 +109,7 @@ namespace Client.ViewModel
         /// them into <see cref="QuerySet"/> instance.
         /// </summary>
         /// <returns><see cref="QuerySet"/> instance with all query clauses from the current scenario.</returns>
-        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
+        /// <exception cref="MemberNotDefinedException">Thrown when one of the view model members is null or a placeholder.</exception>
         public QuerySet GetQuerySetModel()
         {
             var querySet = new QuerySet();

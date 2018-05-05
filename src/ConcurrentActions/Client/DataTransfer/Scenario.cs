@@ -2,6 +2,7 @@
 using Model;
 using Model.ActionLanguage;
 using Model.QueryLanguage;
+using Fluent = Model.Fluent;
 
 namespace Client.DataTransfer
 {
@@ -39,5 +40,16 @@ namespace Client.DataTransfer
         /// Manually entered query set string.
         /// </summary>
         public string QuerySetInput { get; set; }
+
+        /// <summary>
+        /// Initializes a new <see cref="Scenario"/> instance.
+        /// </summary>
+        public Scenario()
+        {
+            Actions = new List<Action>();
+            Fluents = new List<Model.Fluent>();
+            ActionDomain = new ActionDomain();
+            QuerySet = new QuerySet();
+        }
     }
 }

@@ -107,7 +107,7 @@ namespace Client.ViewModel
         /// them into <see cref="ActionDomain"/> instance.
         /// </summary>
         /// <returns><see cref="ActionDomain"/> instance with all action clauses from the current scenario.</returns>
-        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
+        /// <exception cref="MemberNotDefinedException">Thrown when one of the view model members is null or a placeholder.</exception>
         public ActionDomain GetActionDomainModel()
         {
             var actionDomain = new ActionDomain();

@@ -35,6 +35,7 @@ namespace Client.Provider
         /// </summary>
         /// <param name="scenario"><see cref="Scenario"/> instance to serialize.</param>
         /// <param name="filepath">Path to output file.</param>
+        /// <exception cref="SerializationException">Thrown when serialization of provided <see cref="Scenario"/> instance failed.</exception>
         public void Serialize(Scenario scenario, string filepath)
         {
             if (scenario != null && !string.IsNullOrEmpty(filepath))
@@ -59,6 +60,7 @@ namespace Client.Provider
         /// </summary>
         /// <param name="filepath">Path to input file.</param>
         /// <returns><see cref="Scenario"/> instance or null if <see cref="filepath"/> was null or empty.</returns>
+        /// <exception cref="SerializationException">Thrown when deserialization of <see cref="Scenario"/> instance from provided file failed.</exception>
         public Scenario Deserialize(string filepath)
         {
             Scenario scenario = null;

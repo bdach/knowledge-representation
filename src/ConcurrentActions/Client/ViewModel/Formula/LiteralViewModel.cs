@@ -72,7 +72,7 @@ namespace Client.ViewModel.Formula
         /// Gets the underlying literal model out of the view model.
         /// </summary>
         /// <returns><see cref="Literal"/> model represented by given view model as <see cref="IFormula"/>.</returns>
-        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
+        /// <exception cref="MemberNotDefinedException">Thrown when one of the view model members is null or a placeholder.</exception>
         public IFormula ToModel()
         {
             if (Fluent == null)
@@ -86,7 +86,7 @@ namespace Client.ViewModel.Formula
         /// Gets the underlying fluent model out of the view model.
         /// </summary>
         /// <returns><see cref="Model.Fluent"/> model represented by given view model.</returns>
-        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
+        /// <exception cref="MemberNotDefinedException">Thrown when one of the view model members is null or a placeholder.</exception>
         Model.Fluent IViewModelFor<Model.Fluent>.ToModel()
         {
             if (Fluent == null)

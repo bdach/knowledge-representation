@@ -60,7 +60,7 @@ namespace Client.ViewModel.Terminal
         /// Gets the underlying action model out of the view model.
         /// </summary>
         /// <returns><see cref="Model.Action"/> model represented by given view model.</returns>
-        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
+        /// <exception cref="MemberNotDefinedException">Thrown when one of the view model members is null or a placeholder.</exception>
         public Action ToModel()
         {
             if (Action == null)

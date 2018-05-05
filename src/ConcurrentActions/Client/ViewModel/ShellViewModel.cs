@@ -82,7 +82,7 @@ namespace Client.ViewModel
 
             Interactions.StatusBarError.RegisterHandler(interaction =>
             {
-                StatusBarMessage = LocalizationProvider.Instance[interaction.Input];
+                StatusBarMessage = LocalizationProvider.Instance[interaction.Input] ?? interaction.Input;
                 interaction.SetOutput(Unit.Default);
             });
 

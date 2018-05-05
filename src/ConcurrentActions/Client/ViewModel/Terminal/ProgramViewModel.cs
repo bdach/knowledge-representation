@@ -58,7 +58,7 @@ namespace Client.ViewModel.Terminal
         /// Gets the underlying program model out of the view model.
         /// </summary>
         /// <returns><see cref="Program"/> model represented by given view model.</returns>
-        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
+        /// <exception cref="MemberNotDefinedException">Thrown when one of the view model members is null or a placeholder.</exception>
         public Program ToModel()
         {
             var compoundActions = CompoundActions.Select(compoundAction => compoundAction.ToModel()).ToList();

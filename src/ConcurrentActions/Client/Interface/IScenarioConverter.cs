@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Client.DataTransfer;
+using Client.Exception;
 using Client.Global;
 using Client.Provider;
 
@@ -19,6 +20,10 @@ namespace Client.Interface
         /// </summary>
         /// <param name="scenario">Scenario instance to be processed.</param>
         /// <returns><see cref="LanguageSignature"/> instance.</returns>
+        /// <remarks>
+        /// Should throw <see cref="SerializationException"/> if rebuilding of the scenario
+        /// from provided <see cref="Scenario"/> instance failed or is not possible.
+        /// </remarks>
         LanguageSignature GetLanguageSignature(Scenario scenario);
 
         /// <summary>
@@ -26,6 +31,10 @@ namespace Client.Interface
         /// </summary>
         /// <param name="scenario">Scenario instance to be processed.</param>
         /// <returns>Collection of <see cref="IActionClauseViewModel"/> implementors.</returns>
+        /// <remarks>
+        /// Should throw <see cref="SerializationException"/> if rebuilding of the scenario
+        /// from provided <see cref="Scenario"/> instance failed or is not possible.
+        /// </remarks>
         IEnumerable<IActionClauseViewModel> GetActionClauseViewModels(Scenario scenario);
 
         /// <summary>
@@ -33,6 +42,10 @@ namespace Client.Interface
         /// </summary>
         /// <param name="scenario">Scenario instance to be processed.</param>
         /// <returns>Collection of <see cref="IQueryClauseViewModel"/> implementors.</returns>
+        /// <remarks>
+        /// Should throw <see cref="SerializationException"/> if rebuilding of the scenario
+        /// from provided <see cref="Scenario"/> instance failed or is not possible.
+        /// </remarks>
         IEnumerable<IQueryClauseViewModel> GetQueryClauseViewModels(Scenario scenario);
     }
 }
