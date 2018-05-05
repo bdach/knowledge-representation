@@ -64,7 +64,7 @@ namespace Client.ViewModel.Terminal
             var compoundActions = CompoundActions.Select(compoundAction => compoundAction.ToModel()).ToList();
             if (compoundActions.Any(compoundAction => compoundAction == null))
             {
-                throw new MemberNotDefinedException("One of the compound actions in a program is not defined");
+                throw new MemberNotDefinedException("PogramCompoundActionError");
             }
 
             return new Program(compoundActions);

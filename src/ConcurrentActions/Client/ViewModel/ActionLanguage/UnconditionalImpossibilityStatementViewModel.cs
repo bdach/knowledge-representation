@@ -103,7 +103,7 @@ namespace Client.ViewModel.ActionLanguage
             var action = Action?.ToModel();
 
             if (action == null)
-                throw new MemberNotDefinedException("Action in an unconditional impossibility statement is not defined");
+                throw new MemberNotDefinedException("UnconditionalImpossibilityStatementActionError");
 
             return EffectStatement.Impossible(action, Constant.Truth);
         }

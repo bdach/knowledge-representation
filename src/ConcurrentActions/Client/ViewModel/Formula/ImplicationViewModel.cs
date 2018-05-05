@@ -139,9 +139,9 @@ namespace Client.ViewModel.Formula
             var consequent = Consequent?.ToModel();
 
             if (antecedent == null)
-                throw new MemberNotDefinedException("Antecedent of an implication is not defined");
+                throw new MemberNotDefinedException("ImplicationAntecedentError");
             if (consequent == null)
-                throw new MemberNotDefinedException("Consequent of an implication is not defined");
+                throw new MemberNotDefinedException("ImplicationConsequentError");
 
             return new Implication(antecedent, consequent);
         }

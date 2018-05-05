@@ -114,7 +114,7 @@ namespace Client.ViewModel.Formula
             var formula = Formula?.ToModel();
 
             if (formula == null)
-                throw new MemberNotDefinedException("Formula inside a negation is not defined");
+                throw new MemberNotDefinedException("NegationFormulaError");
 
             return new Negation(formula);
         }

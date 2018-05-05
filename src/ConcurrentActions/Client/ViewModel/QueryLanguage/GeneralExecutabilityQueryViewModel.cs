@@ -120,7 +120,7 @@ namespace Client.ViewModel.QueryLanguage
             var program = Program?.ToModel();
 
             if (program == null)
-                throw new MemberNotDefinedException("Program in a general executability query is not defined");
+                throw new MemberNotDefinedException("GeneralExecutabilityQueryProgramError");
 
             return new GeneralExecutabilityQuery(program);
         }

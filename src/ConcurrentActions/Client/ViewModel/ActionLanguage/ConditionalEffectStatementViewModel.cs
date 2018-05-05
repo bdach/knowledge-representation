@@ -154,11 +154,11 @@ namespace Client.ViewModel.ActionLanguage
             var postcondition = Postcondition?.ToModel();
 
             if (action == null)
-                throw new MemberNotDefinedException("Action in a conditional effect statement is not defined");
+                throw new MemberNotDefinedException("ConditionalEffectStatementActionError");
             if (precondition == null)
-                throw new MemberNotDefinedException("Precondtition in a conditional effect statement is not defined");
+                throw new MemberNotDefinedException("ConditionalEffectStatementPreconditionError");
             if (postcondition == null)
-                throw new MemberNotDefinedException("Postcondition in a conditional effect statement is not defined");
+                throw new MemberNotDefinedException("ConditionalEffectStatementPostconditionError");
 
             return new EffectStatement(action, precondition, postcondition);
         }

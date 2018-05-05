@@ -119,9 +119,9 @@ namespace Client.ViewModel.ActionLanguage
             var fluent = Fluent?.ToModel();
 
             if (action == null)
-                throw new MemberNotDefinedException("Action in a conditional fluent release statement is not defined");
+                throw new MemberNotDefinedException("UnconditionalFluentReleaseStatementActionError");
             if (fluent == null)
-                throw new MemberNotDefinedException("Fluent in a conditional fluent release statement is not defined");
+                throw new MemberNotDefinedException("UnconditionalFluentReleaseStatementFluentError");
 
             return new FluentReleaseStatement(action, fluent);
         }

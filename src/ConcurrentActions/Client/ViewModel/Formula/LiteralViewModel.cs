@@ -76,7 +76,7 @@ namespace Client.ViewModel.Formula
         public IFormula ToModel()
         {
             if (Fluent == null)
-                throw new MemberNotDefinedException("Literal does not have any fluent assigned");
+                throw new MemberNotDefinedException("LiteralFluentError");
 
             return new Literal(Fluent, false);
         }
@@ -90,7 +90,7 @@ namespace Client.ViewModel.Formula
         Model.Fluent IViewModelFor<Model.Fluent>.ToModel()
         {
             if (Fluent == null)
-                throw new MemberNotDefinedException("Literal does not have any fluent assigned");
+                throw new MemberNotDefinedException("LiteralFluentError");
 
             return Fluent;
         }

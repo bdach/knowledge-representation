@@ -128,9 +128,9 @@ namespace Client.ViewModel.ActionLanguage
             var action = Action?.ToModel();
 
             if (condition == null)
-                throw new MemberNotDefinedException("Condition in a value statement is not defined");
+                throw new MemberNotDefinedException("ValueStatementConditionError");
             if (action == null)
-                throw new MemberNotDefinedException("Action in a value statement is not defined");
+                throw new MemberNotDefinedException("ValueStatementActionError");
 
             return new ValueStatement(condition, action);
         }

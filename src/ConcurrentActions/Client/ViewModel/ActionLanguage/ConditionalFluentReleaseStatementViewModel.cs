@@ -150,11 +150,11 @@ namespace Client.ViewModel.ActionLanguage
             var precondition = Precondition?.ToModel();
 
             if (action == null)
-                throw new MemberNotDefinedException("Action in a conditional fluent release statement is not defined");
+                throw new MemberNotDefinedException("ConditionalFluentReleaseStatementActionError");
             if (fluent == null)
-                throw new MemberNotDefinedException("Fluent in a conditional fluent release statement is not defined");
+                throw new MemberNotDefinedException("ConditionalFluentReleaseStatementFluentError");
             if (precondition == null)
-                throw new MemberNotDefinedException("Precondtition in a conditional fluent release statement is not defined");
+                throw new MemberNotDefinedException("ConditionalFluentReleaseStatementPreconditionError");
 
             return new FluentReleaseStatement(action, fluent, precondition);
         }

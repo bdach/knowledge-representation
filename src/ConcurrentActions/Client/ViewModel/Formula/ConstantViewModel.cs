@@ -86,7 +86,7 @@ namespace Client.ViewModel.Formula
         public IFormula ToModel()
         {
             if (Constant == null)
-                throw new MemberNotDefinedException("Constant does not have a value");
+                throw new MemberNotDefinedException("ConstantValueError");
 
             return Constant;
         }

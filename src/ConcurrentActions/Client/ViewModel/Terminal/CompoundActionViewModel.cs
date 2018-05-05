@@ -83,7 +83,7 @@ namespace Client.ViewModel.Terminal
             var actions = Actions.Select(action => action.ToModel()).ToList();
             if (actions.Any(action => action == null))
             {
-                throw new MemberNotDefinedException("One of the actions in a compound action is not defined");
+                throw new MemberNotDefinedException("CompoundActionActionError");
             }
 
             return new CompoundAction(actions);

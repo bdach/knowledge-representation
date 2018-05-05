@@ -151,9 +151,9 @@ namespace Client.ViewModel.QueryLanguage
             var program = Program?.ToModel();
 
             if (target == null)
-                throw new MemberNotDefinedException("Target in an existential value query is not defined");
+                throw new MemberNotDefinedException("ExistentialValueQueryTargetError");
             if (program == null)
-                throw new MemberNotDefinedException("Program in an existential value query is not defined");
+                throw new MemberNotDefinedException("ExistentialValueQueryProgramError");
 
             return new ExistentialValueQuery(target, program);
         }

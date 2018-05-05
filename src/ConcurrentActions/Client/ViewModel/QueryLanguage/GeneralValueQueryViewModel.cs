@@ -150,9 +150,9 @@ namespace Client.ViewModel.QueryLanguage
             var program = Program?.ToModel();
 
             if (target == null)
-                throw new MemberNotDefinedException("Target in a general value query is not defined");
+                throw new MemberNotDefinedException("GeneralValueQueryTargetError");
             if (program == null)
-                throw new MemberNotDefinedException("Program in a general value query is not defined");
+                throw new MemberNotDefinedException("GeneralValueQueryProgramError");
 
             return new GeneralValueQuery(target, program);
         }

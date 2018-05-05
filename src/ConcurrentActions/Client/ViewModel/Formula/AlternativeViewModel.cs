@@ -152,9 +152,9 @@ namespace Client.ViewModel.Formula
             var right = Right?.ToModel();
 
             if (left == null)
-                throw new MemberNotDefinedException("Left formula of an alternative is not defined");
+                throw new MemberNotDefinedException("AlternativeLeftFormulaError");
             if (right == null)
-                throw new MemberNotDefinedException("Right formula of an alternative is not defined");
+                throw new MemberNotDefinedException("AlternativeRightFormulaError");
 
             return new Alternative(left, right);
         }

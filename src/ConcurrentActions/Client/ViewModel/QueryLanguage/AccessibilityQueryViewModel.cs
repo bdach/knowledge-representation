@@ -110,7 +110,7 @@ namespace Client.ViewModel.QueryLanguage
             var target = Target?.ToModel();
 
             if (target == null)
-                throw new MemberNotDefinedException("Target in an accessibility query is not defined");
+                throw new MemberNotDefinedException("AccessibilityQueryTargetError");
 
             return new AccessibilityQuery(target);
         }

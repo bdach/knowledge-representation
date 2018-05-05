@@ -79,6 +79,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AccessibilityQueryTargetError.
+        /// </summary>
+        public static string AccessibilityQueryTargetError {
+            get {
+                return ResourceManager.GetString("AccessibilityQueryTargetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Action.
         /// </summary>
         public static string Action {
@@ -115,11 +124,38 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ActionErrorPrefix.
+        /// </summary>
+        public static string ActionErrorPrefix {
+            get {
+                return ResourceManager.GetString("ActionErrorPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ActionErrorSuffix.
+        /// </summary>
+        public static string ActionErrorSuffix {
+            get {
+                return ResourceManager.GetString("ActionErrorSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ActionScreenTip.
         /// </summary>
         public static string ActionScreenTip {
             get {
                 return ResourceManager.GetString("ActionScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ActionValueError.
+        /// </summary>
+        public static string ActionValueError {
+            get {
+                return ResourceManager.GetString("ActionValueError", resourceCulture);
             }
         }
         
@@ -277,6 +313,24 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AlternativeLeftFormulaError.
+        /// </summary>
+        public static string AlternativeLeftFormulaError {
+            get {
+                return ResourceManager.GetString("AlternativeLeftFormulaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AlternativeRightFormulaError.
+        /// </summary>
+        public static string AlternativeRightFormulaError {
+            get {
+                return ResourceManager.GetString("AlternativeRightFormulaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CalculateButton.
         /// </summary>
         public static string CalculateButton {
@@ -367,11 +421,56 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CompoundActionActionError.
+        /// </summary>
+        public static string CompoundActionActionError {
+            get {
+                return ResourceManager.GetString("CompoundActionActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CompoundActionActionsError.
+        /// </summary>
+        public static string CompoundActionActionsError {
+            get {
+                return ResourceManager.GetString("CompoundActionActionsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ConditionalEffectStatement.
         /// </summary>
         public static string ConditionalEffectStatement {
             get {
                 return ResourceManager.GetString("ConditionalEffectStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConditionalEffectStatementActionError.
+        /// </summary>
+        public static string ConditionalEffectStatementActionError {
+            get {
+                return ResourceManager.GetString("ConditionalEffectStatementActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConditionalEffectStatementPostconditionError.
+        /// </summary>
+        public static string ConditionalEffectStatementPostconditionError {
+            get {
+                return ResourceManager.GetString("ConditionalEffectStatementPostconditionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConditionalEffectStatementPreconditionError.
+        /// </summary>
+        public static string ConditionalEffectStatementPreconditionError {
+            get {
+                return ResourceManager.GetString("ConditionalEffectStatementPreconditionError", resourceCulture);
             }
         }
         
@@ -394,6 +493,33 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ConditionalFluentReleaseStatementActionError.
+        /// </summary>
+        public static string ConditionalFluentReleaseStatementActionError {
+            get {
+                return ResourceManager.GetString("ConditionalFluentReleaseStatementActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConditionalFluentReleaseStatementFluentError.
+        /// </summary>
+        public static string ConditionalFluentReleaseStatementFluentError {
+            get {
+                return ResourceManager.GetString("ConditionalFluentReleaseStatementFluentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConditionalFluentReleaseStatementPreconditionError.
+        /// </summary>
+        public static string ConditionalFluentReleaseStatementPreconditionError {
+            get {
+                return ResourceManager.GetString("ConditionalFluentReleaseStatementPreconditionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ConditionalFluentReleaseStatementScreenTip.
         /// </summary>
         public static string ConditionalFluentReleaseStatementScreenTip {
@@ -408,6 +534,24 @@ namespace Client.Localization {
         public static string ConditionalImpossibilityStatement {
             get {
                 return ResourceManager.GetString("ConditionalImpossibilityStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConditionalImpossibilityStatementActionError.
+        /// </summary>
+        public static string ConditionalImpossibilityStatementActionError {
+            get {
+                return ResourceManager.GetString("ConditionalImpossibilityStatementActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConditionalImpossibilityStatementPreconditionError.
+        /// </summary>
+        public static string ConditionalImpossibilityStatementPreconditionError {
+            get {
+                return ResourceManager.GetString("ConditionalImpossibilityStatementPreconditionError", resourceCulture);
             }
         }
         
@@ -439,6 +583,33 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ConjunctionLeftFormulaError.
+        /// </summary>
+        public static string ConjunctionLeftFormulaError {
+            get {
+                return ResourceManager.GetString("ConjunctionLeftFormulaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConjunctionRightFormulaError.
+        /// </summary>
+        public static string ConjunctionRightFormulaError {
+            get {
+                return ResourceManager.GetString("ConjunctionRightFormulaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConstantValueError.
+        /// </summary>
+        public static string ConstantValueError {
+            get {
+                return ResourceManager.GetString("ConstantValueError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Constraint.
         /// </summary>
         public static string Constraint {
@@ -462,6 +633,15 @@ namespace Client.Localization {
         public static string ConstraintStatement {
             get {
                 return ResourceManager.GetString("ConstraintStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConstraintStatementConditionError.
+        /// </summary>
+        public static string ConstraintStatementConditionError {
+            get {
+                return ResourceManager.GetString("ConstraintStatementConditionError", resourceCulture);
             }
         }
         
@@ -493,6 +673,33 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EffectStatementActionError.
+        /// </summary>
+        public static string EffectStatementActionError {
+            get {
+                return ResourceManager.GetString("EffectStatementActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EffectStatementPostconditionError.
+        /// </summary>
+        public static string EffectStatementPostconditionError {
+            get {
+                return ResourceManager.GetString("EffectStatementPostconditionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EffectStatementPreconditionError.
+        /// </summary>
+        public static string EffectStatementPreconditionError {
+            get {
+                return ResourceManager.GetString("EffectStatementPreconditionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EquivalencyButton.
         /// </summary>
         public static string EquivalenceButton {
@@ -507,6 +714,24 @@ namespace Client.Localization {
         public static string EquivalenceButtonScreenTip {
             get {
                 return ResourceManager.GetString("EquivalenceButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EquivalenceLeftFormulaError.
+        /// </summary>
+        public static string EquivalenceLeftFormulaError {
+            get {
+                return ResourceManager.GetString("EquivalenceLeftFormulaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EquivalenceRightFormulaError.
+        /// </summary>
+        public static string EquivalenceRightFormulaError {
+            get {
+                return ResourceManager.GetString("EquivalenceRightFormulaError", resourceCulture);
             }
         }
         
@@ -538,6 +763,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ExistentialExecutabilityQueryProgramError.
+        /// </summary>
+        public static string ExistentialExecutabilityQueryProgramError {
+            get {
+                return ResourceManager.GetString("ExistentialExecutabilityQueryProgramError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ExistentialExecutabilityQueryScreenTip.
         /// </summary>
         public static string ExistentialExecutabilityQueryScreenTip {
@@ -556,11 +790,29 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ExistentialValueQueryProgramError.
+        /// </summary>
+        public static string ExistentialValueQueryProgramError {
+            get {
+                return ResourceManager.GetString("ExistentialValueQueryProgramError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ExistentialValueQueryScreenTip.
         /// </summary>
         public static string ExistentialValueQueryScreenTip {
             get {
                 return ResourceManager.GetString("ExistentialValueQueryScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ExistentialValueQueryTargetError.
+        /// </summary>
+        public static string ExistentialValueQueryTargetError {
+            get {
+                return ResourceManager.GetString("ExistentialValueQueryTargetError", resourceCulture);
             }
         }
         
@@ -628,6 +880,51 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FluentErrorPrefix.
+        /// </summary>
+        public static string FluentErrorPrefix {
+            get {
+                return ResourceManager.GetString("FluentErrorPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FluentErrorSuffix.
+        /// </summary>
+        public static string FluentErrorSuffix {
+            get {
+                return ResourceManager.GetString("FluentErrorSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FluentReleaseActionError.
+        /// </summary>
+        public static string FluentReleaseActionError {
+            get {
+                return ResourceManager.GetString("FluentReleaseActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FluentReleaseFluentError.
+        /// </summary>
+        public static string FluentReleaseFluentError {
+            get {
+                return ResourceManager.GetString("FluentReleaseFluentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FluentReleasePreconditionError.
+        /// </summary>
+        public static string FluentReleasePreconditionError {
+            get {
+                return ResourceManager.GetString("FluentReleasePreconditionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FluentReleaseStatement.
         /// </summary>
         public static string FluentReleaseStatement {
@@ -655,6 +952,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FluentSpecificationStatementFluentError.
+        /// </summary>
+        public static string FluentSpecificationStatementFluentError {
+            get {
+                return ResourceManager.GetString("FluentSpecificationStatementFluentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FluentSpecificationStatementScreenTip.
         /// </summary>
         public static string FluentSpecificationStatementScreenTip {
@@ -673,11 +979,38 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FormulaTypeErrorPrefix.
+        /// </summary>
+        public static string FormulaTypeErrorPrefix {
+            get {
+                return ResourceManager.GetString("FormulaTypeErrorPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FormulaTypeErrorSuffix.
+        /// </summary>
+        public static string FormulaTypeErrorSuffix {
+            get {
+                return ResourceManager.GetString("FormulaTypeErrorSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GeneralExecutabilityQuery.
         /// </summary>
         public static string GeneralExecutabilityQuery {
             get {
                 return ResourceManager.GetString("GeneralExecutabilityQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GeneralExecutabilityQueryProgramError.
+        /// </summary>
+        public static string GeneralExecutabilityQueryProgramError {
+            get {
+                return ResourceManager.GetString("GeneralExecutabilityQueryProgramError", resourceCulture);
             }
         }
         
@@ -700,6 +1033,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GeneralValueQueryProgramError.
+        /// </summary>
+        public static string GeneralValueQueryProgramError {
+            get {
+                return ResourceManager.GetString("GeneralValueQueryProgramError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GeneralValueQueryScreenTip.
         /// </summary>
         public static string GeneralValueQueryScreenTip {
@@ -709,11 +1051,29 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GeneralValueQueryTargetError.
+        /// </summary>
+        public static string GeneralValueQueryTargetError {
+            get {
+                return ResourceManager.GetString("GeneralValueQueryTargetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GrammarTab.
         /// </summary>
         public static string GrammarTab {
             get {
                 return ResourceManager.GetString("GrammarTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ImplicationAntecedentError.
+        /// </summary>
+        public static string ImplicationAntecedentError {
+            get {
+                return ResourceManager.GetString("ImplicationAntecedentError", resourceCulture);
             }
         }
         
@@ -732,6 +1092,15 @@ namespace Client.Localization {
         public static string ImplicationButtonScreenTip {
             get {
                 return ResourceManager.GetString("ImplicationButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ImplicationConsequentError.
+        /// </summary>
+        public static string ImplicationConsequentError {
+            get {
+                return ResourceManager.GetString("ImplicationConsequentError", resourceCulture);
             }
         }
         
@@ -781,6 +1150,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to InitialValueStatementInitialConditionError.
+        /// </summary>
+        public static string InitialValueStatementInitialConditionError {
+            get {
+                return ResourceManager.GetString("InitialValueStatementInitialConditionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to InitialValueStatementScreenTip.
         /// </summary>
         public static string InitialValueStatementScreenTip {
@@ -799,6 +1177,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LiteralFluentError.
+        /// </summary>
+        public static string LiteralFluentError {
+            get {
+                return ResourceManager.GetString("LiteralFluentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NegationButton.
         /// </summary>
         public static string NegationButton {
@@ -813,6 +1200,15 @@ namespace Client.Localization {
         public static string NegationButtonScreenTip {
             get {
                 return ResourceManager.GetString("NegationButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NegationFormulaError.
+        /// </summary>
+        public static string NegationFormulaError {
+            get {
+                return ResourceManager.GetString("NegationFormulaError", resourceCulture);
             }
         }
         
@@ -844,6 +1240,24 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ObservationStatementActionError.
+        /// </summary>
+        public static string ObservationStatementActionError {
+            get {
+                return ResourceManager.GetString("ObservationStatementActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ObservationStatementConditionError.
+        /// </summary>
+        public static string ObservationStatementConditionError {
+            get {
+                return ResourceManager.GetString("ObservationStatementConditionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ObservationStatementScreenTip.
         /// </summary>
         public static string ObservationStatementScreenTip {
@@ -858,6 +1272,15 @@ namespace Client.Localization {
         public static string OptionsTab {
             get {
                 return ResourceManager.GetString("OptionsTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PogramCompoundActionError.
+        /// </summary>
+        public static string PogramCompoundActionError {
+            get {
+                return ResourceManager.GetString("PogramCompoundActionError", resourceCulture);
             }
         }
         
@@ -907,6 +1330,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ProgramCompoundActionsError.
+        /// </summary>
+        public static string ProgramCompoundActionsError {
+            get {
+                return ResourceManager.GetString("ProgramCompoundActionsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ProgramScreenTip.
         /// </summary>
         public static string ProgramScreenTip {
@@ -921,6 +1353,33 @@ namespace Client.Localization {
         public static string QueryClauseGroupBox {
             get {
                 return ResourceManager.GetString("QueryClauseGroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ScenarioDeserializationFailed.
+        /// </summary>
+        public static string ScenarioDeserializationFailed {
+            get {
+                return ResourceManager.GetString("ScenarioDeserializationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ScenarioRebuildingError.
+        /// </summary>
+        public static string ScenarioRebuildingError {
+            get {
+                return ResourceManager.GetString("ScenarioRebuildingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ScenarioSerializationFailed.
+        /// </summary>
+        public static string ScenarioSerializationFailed {
+            get {
+                return ResourceManager.GetString("ScenarioSerializationFailed", resourceCulture);
             }
         }
         
@@ -979,6 +1438,24 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to UnconditionalEffectStatementActionError.
+        /// </summary>
+        public static string UnconditionalEffectStatementActionError {
+            get {
+                return ResourceManager.GetString("UnconditionalEffectStatementActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UnconditionalEffectStatementPostconditionError.
+        /// </summary>
+        public static string UnconditionalEffectStatementPostconditionError {
+            get {
+                return ResourceManager.GetString("UnconditionalEffectStatementPostconditionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UnconditionalEffectStatementScreenTip.
         /// </summary>
         public static string UnconditionalEffectStatementScreenTip {
@@ -997,6 +1474,24 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to UnconditionalFluentReleaseStatementActionError.
+        /// </summary>
+        public static string UnconditionalFluentReleaseStatementActionError {
+            get {
+                return ResourceManager.GetString("UnconditionalFluentReleaseStatementActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UnconditionalFluentReleaseStatementFluentError.
+        /// </summary>
+        public static string UnconditionalFluentReleaseStatementFluentError {
+            get {
+                return ResourceManager.GetString("UnconditionalFluentReleaseStatementFluentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UnconditionalFluentReleaseStatementScreenTip.
         /// </summary>
         public static string UnconditionalFluentReleaseStatementScreenTip {
@@ -1011,6 +1506,15 @@ namespace Client.Localization {
         public static string UnconditionalImpossibilityStatement {
             get {
                 return ResourceManager.GetString("UnconditionalImpossibilityStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UnconditionalImpossibilityStatementActionError.
+        /// </summary>
+        public static string UnconditionalImpossibilityStatementActionError {
+            get {
+                return ResourceManager.GetString("UnconditionalImpossibilityStatementActionError", resourceCulture);
             }
         }
         
@@ -1056,6 +1560,24 @@ namespace Client.Localization {
         public static string ValueStatement {
             get {
                 return ResourceManager.GetString("ValueStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ValueStatementActionError.
+        /// </summary>
+        public static string ValueStatementActionError {
+            get {
+                return ResourceManager.GetString("ValueStatementActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ValueStatementConditionError.
+        /// </summary>
+        public static string ValueStatementConditionError {
+            get {
+                return ResourceManager.GetString("ValueStatementConditionError", resourceCulture);
             }
         }
         

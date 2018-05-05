@@ -119,10 +119,10 @@ namespace Client.Provider
         {
             ValidateInstances();
 
-            Scenario scenario = null;
-            LanguageSignature languageSignature = null;
-            IEnumerable<IActionClauseViewModel> actionClauses = null;
-            IEnumerable<IQueryClauseViewModel> queryClauses = null;
+            Scenario scenario;
+            LanguageSignature languageSignature;
+            IEnumerable<IActionClauseViewModel> actionClauses;
+            IEnumerable<IQueryClauseViewModel> queryClauses;
 
             try
             {
@@ -176,7 +176,7 @@ namespace Client.Provider
         {
             if (scenario == null)
             {
-                throw new SerializationException("Rebuilding of the provided scenario is not possible");
+                throw new SerializationException("ScenarioRebuildingError");
             }
 
             return _languageSignature ?? (_languageSignature = RebuildLanguageSignature(scenario));
@@ -193,7 +193,7 @@ namespace Client.Provider
         {
             if (scenario == null)
             {
-                throw new SerializationException("Rebuilding of the provided scenario is not possible");
+                throw new SerializationException("ScenarioRebuildingError");
             }
 
             var languageSignature = new LanguageSignature();
@@ -209,7 +209,7 @@ namespace Client.Provider
         {
             if (scenario == null)
             {
-                throw new SerializationException("Rebuilding of the provided scenario is not possible");
+                throw new SerializationException("ScenarioRebuildingError");
             }
 
             var languageSignature = GetLanguageSignature(scenario);
@@ -231,7 +231,7 @@ namespace Client.Provider
         {
             if (scenario == null)
             {
-                throw new SerializationException("Rebuilding of the provided scenario is not possible");
+                throw new SerializationException("ScenarioRebuildingError");
             }
 
             var languageSignature = GetLanguageSignature(scenario);
@@ -259,7 +259,7 @@ namespace Client.Provider
         {
             if (constraintStatement.Constraint == null)
             {
-                throw new SerializationException("Constraint condition in a constraint statement is not defined");
+                throw new SerializationException("ConstraintStatementConditionError");
             }
 
             return new ConstraintStatementViewModel
@@ -281,23 +281,25 @@ namespace Client.Provider
         {
             if (effectStatement.Action == null)
             {
-                throw new SerializationException("Action in an effect statement is not defined");
+                throw new SerializationException("EffectStatementActionError");
             }
 
             if (effectStatement.Precondition == null)
             {
-                throw new SerializationException("Precondition in an effect statement is not defined");
+                throw new SerializationException("EffectStatementPreconditionError");
             }
 
             if (effectStatement.Postcondition == null)
             {
-                throw new SerializationException("Postcondition in an effect statement is not defined");
+                throw new SerializationException("EffectStatementPostconditionError");
             }
 
             var actionViewModel = languageSignature.ActionViewModels.FirstOrDefault(vm => vm.Action.Name.Equals(effectStatement.Action.Name));
             if (actionViewModel == null)
             {
-                throw new SerializationException($"Action with name \"{effectStatement.Action.Name}\" was not found in the language signature");
+                throw new SerializationException($"{LocalizationProvider.Instance["ActionErrorPrefix"]}" +
+                                                 $" \"{effectStatement.Action.Name}\" " +
+                                                 $"{LocalizationProvider.Instance["ActionErrorSuffix"]}");
             }
 
             if (effectStatement.Postcondition == Constant.Falsity)
@@ -353,29 +355,33 @@ namespace Client.Provider
         {
             if (fluentReleaseStatement.Action == null)
             {
-                throw new SerializationException("Action in a fluent release statement is not defined");
+                throw new SerializationException("FluentReleaseActionError");
             }
 
             if (fluentReleaseStatement.Fluent == null)
             {
-                throw new SerializationException("Fluent in a fluent release statement is not defined");
+                throw new SerializationException("FluentReleaseFluentError");
             }
 
             if (fluentReleaseStatement.Precondition == null)
             {
-                throw new SerializationException("Precondition in a fluent release statement is not defined");
+                throw new SerializationException("FluentReleasePreconditionError");
             }
 
             var actionViewModel = languageSignature.ActionViewModels.FirstOrDefault(vm => vm.Action.Name.Equals(fluentReleaseStatement.Action.Name));
             if (actionViewModel == null)
             {
-                throw new SerializationException($"Action with name \"{fluentReleaseStatement.Action.Name}\" was not found in the language signature");
+                throw new SerializationException($"{LocalizationProvider.Instance["ActionErrorPrefix"]}" +
+                                                 $" \"{fluentReleaseStatement.Action.Name}\" " +
+                                                 $"{LocalizationProvider.Instance["ActionErrorSuffix"]}");
             }
 
             var literalViewModel = languageSignature.LiteralViewModels.FirstOrDefault(vm => vm.Fluent.Name.Equals(fluentReleaseStatement.Fluent.Name));
             if (literalViewModel == null)
             {
-                throw new SerializationException($"Fluent with name \"{fluentReleaseStatement.Fluent.Name}\" was not found in the language signature");
+                throw new SerializationException($"{LocalizationProvider.Instance["FluentErrorPrefix"]}" +
+                                                 $" \"{fluentReleaseStatement.Fluent.Name}\" " +
+                                                 $"{LocalizationProvider.Instance["FluentErrorSuffix"]}");
             }
 
             if (fluentReleaseStatement.Precondition == Constant.Truth)
@@ -410,13 +416,15 @@ namespace Client.Provider
         {
             if (fluentSpecificationStatement.Fluent == null)
             {
-                throw new SerializationException("Fluent in a fluent specification statement is not defined");
+                throw new SerializationException("FluentSpecificationStatementFluentError");
             }
 
             var literalViewModel = languageSignature.LiteralViewModels.FirstOrDefault(vm => vm.Fluent.Name.Equals(fluentSpecificationStatement.Fluent.Name));
             if (literalViewModel == null)
             {
-                throw new SerializationException($"Fluent with name \"{fluentSpecificationStatement.Fluent.Name}\" was not found in the language signature");
+                throw new SerializationException($"{LocalizationProvider.Instance["FluentErrorPrefix"]}" +
+                                                 $" \"{fluentSpecificationStatement.Fluent.Name}\" " +
+                                                 $"{LocalizationProvider.Instance["FluentErrorSuffix"]}");
             }
 
             return new FluentSpecificationStatementViewModel
@@ -438,7 +446,7 @@ namespace Client.Provider
         {
             if (initialValueStatement.InitialCondition == null)
             {
-                throw new SerializationException("Initial condition in an initial statement is not defined");
+                throw new SerializationException("InitialValueStatementInitialConditionError");
             }
 
             return new InitialValueStatementViewModel
@@ -458,20 +466,22 @@ namespace Client.Provider
         /// <exception cref="SerializationException">Thrown when one of the statement members is missing or cannot be found in the language signature.</exception>
         private IActionClauseViewModel Visit(ObservationStatement observationStatement, LanguageSignature languageSignature)
         {
-            if (observationStatement.Action == null)
-            {
-                throw new SerializationException("Action in an observation statement is not defined");
-            }
-
             if (observationStatement.Condition == null)
             {
-                throw new SerializationException("Condition in an observation statement is not defined");
+                throw new SerializationException("ObservationStatementConditionError");
+            }
+
+            if (observationStatement.Action == null)
+            {
+                throw new SerializationException("ObservationStatementActionError");
             }
 
             var actionViewModel = languageSignature.ActionViewModels.FirstOrDefault(vm => vm.Action.Name.Equals(observationStatement.Action.Name));
             if (actionViewModel == null)
             {
-                throw new SerializationException($"Action with name \"{observationStatement.Action.Name}\" was not found in the language signature");
+                throw new SerializationException($"{LocalizationProvider.Instance["ActionErrorPrefix"]}" +
+                                                 $" \"{observationStatement.Action.Name}\" " +
+                                                 $"{LocalizationProvider.Instance["ActionErrorSuffix"]}");
             }
 
             return new ObservationStatementViewModel
@@ -492,20 +502,22 @@ namespace Client.Provider
         /// <exception cref="SerializationException">Thrown when one of the statement members is missing or cannot be found in the language signature.</exception>
         private IActionClauseViewModel Visit(ValueStatement valueStatement, LanguageSignature languageSignature)
         {
-            if (valueStatement.Action == null)
-            {
-                throw new SerializationException("Action in a value statement is not defined");
-            }
-
             if (valueStatement.Condition == null)
             {
-                throw new SerializationException("Condition in a value statement is not defined");
+                throw new SerializationException("ValueStatementConditionError");
+            }
+
+            if (valueStatement.Action == null)
+            {
+                throw new SerializationException("ValueStatementActionError");
             }
 
             var actionViewModel = languageSignature.ActionViewModels.FirstOrDefault(vm => vm.Action.Name.Equals(valueStatement.Action.Name));
             if (actionViewModel == null)
             {
-                throw new SerializationException($"Action with name \"{valueStatement.Action.Name}\" was not found in the language signature");
+                throw new SerializationException($"{LocalizationProvider.Instance["ActionErrorPrefix"]}" +
+                                                 $" \"{valueStatement.Action.Name}\" " +
+                                                 $"{LocalizationProvider.Instance["ActionErrorSuffix"]}");
             }
 
             return new ValueStatementViewModel
@@ -532,7 +544,7 @@ namespace Client.Provider
         {
             if (accessibilityQuery.Target == null)
             {
-                throw new SerializationException("Target in an accessibility query is not defined");
+                throw new SerializationException("AccessibilityQueryTargetError");
             }
 
             return new AccessibilityQueryViewModel
@@ -554,7 +566,7 @@ namespace Client.Provider
         {
             if (existentialExecutabilityQuery.Program == null)
             {
-                throw new SerializationException("Program in an existential executability query is not defined");
+                throw new SerializationException("ExistentialExecutabilityQueryProgramError");
             }
 
             return new ExistentialExecutabilityQueryViewModel
@@ -576,12 +588,12 @@ namespace Client.Provider
         {
             if (existentialValueQuery.Target == null)
             {
-                throw new SerializationException("Target in an existential value query is not defined");
+                throw new SerializationException("ExistentialValueQueryTargetError");
             }
 
             if (existentialValueQuery.Program == null)
             {
-                throw new SerializationException("Program in an existential value query is not defined");
+                throw new SerializationException("ExistentialValueQueryProgramError");
             }
 
             return new ExistentialValueQueryViewModel
@@ -604,7 +616,7 @@ namespace Client.Provider
         {
             if (generalExecutabilityQuery.Program == null)
             {
-                throw new SerializationException("Program in an general executability query is not defined");
+                throw new SerializationException("GeneralExecutabilityQueryProgramError");
             }
 
             return new GeneralExecutabilityQueryViewModel
@@ -626,12 +638,12 @@ namespace Client.Provider
         {
             if (generalValueQuery.Target == null)
             {
-                throw new SerializationException("Target in a general value query is not defined");
+                throw new SerializationException("GeneralValueQueryTargetError");
             }
 
             if (generalValueQuery.Program == null)
             {
-                throw new SerializationException("Program in a general value query is not defined");
+                throw new SerializationException("GeneralValueQueryProgramError");
             }
 
             return new GeneralValueQueryViewModel
@@ -661,12 +673,12 @@ namespace Client.Provider
                 case Alternative alternative:
                     if (alternative.Left == null)
                     {
-                        throw new SerializationException("Left formula of an alternative is not defined");
+                        throw new SerializationException("AlternativeLeftFormulaError");
                     }
 
                     if (alternative.Right == null)
                     {
-                        throw new SerializationException("Right formula of an alternative is not defined");
+                        throw new SerializationException("AlternativeRightFormulaError");
                     }
 
                     return new AlternativeViewModel
@@ -677,12 +689,12 @@ namespace Client.Provider
                 case Conjunction conjunction:
                     if (conjunction.Left == null)
                     {
-                        throw new SerializationException("Left formula of a conjunction is not defined");
+                        throw new SerializationException("ConjunctionLeftFormulaError");
                     }
 
                     if (conjunction.Right == null)
                     {
-                        throw new SerializationException("Right formula of a conjunction is not defined");
+                        throw new SerializationException("ConjunctionRightFormulaError");
                     }
 
                     return new ConjunctionViewModel
@@ -701,12 +713,12 @@ namespace Client.Provider
                 case Equivalence equivalence:
                     if (equivalence.Left == null)
                     {
-                        throw new SerializationException("Left formula of an equivalence is not defined");
+                        throw new SerializationException("EquivalenceLeftFormulaError");
                     }
 
                     if (equivalence.Right == null)
                     {
-                        throw new SerializationException("Right formula of an equivalence is not defined");
+                        throw new SerializationException("EquivalenceRightFormulaError");
                     }
 
                     return new EquivalenceViewModel
@@ -717,12 +729,12 @@ namespace Client.Provider
                 case Implication implication:
                     if (implication.Antecedent == null)
                     {
-                        throw new SerializationException("Antecedent of an implication is not defined");
+                        throw new SerializationException("ImplicationAntecedentError");
                     }
                     
                     if (implication.Consequent == null)
                     {
-                        throw new SerializationException("Consequent of an implication is not defined");
+                        throw new SerializationException("ImplicationConsequentError");
                     }
 
                     return new ImplicationViewModel
@@ -733,20 +745,22 @@ namespace Client.Provider
                 case Literal literal:
                     if (literal.Fluent == null)
                     {
-                        throw new SerializationException("Literal does not have any fluent assigned");
+                        throw new SerializationException("LiteralFluentError");
                     }
 
                     var literalViewModel = languageSignature.LiteralViewModels.FirstOrDefault(vm => vm.Fluent.Name.Equals(literal.Fluent.Name));
                     if (literalViewModel == null)
                     {
-                        throw new SerializationException($"Fluent with name \"{literal.Fluent.Name}\" was not found in the language signature");
+                        throw new SerializationException($"{LocalizationProvider.Instance["FluentErrorPrefix"]}" +
+                                                         $" \"{literal.Fluent.Name}\" " +
+                                                         $"{LocalizationProvider.Instance["FluentErrorSuffix"]}");
                     }
 
                     return new LiteralViewModel(literalViewModel.Fluent);
                 case Negation negation:
                     if (negation.Formula == null)
                     {
-                        throw new SerializationException("Formula inside a negation is not defined");
+                        throw new SerializationException("NegationFormulaError");
                     }
 
                     return new NegationViewModel
@@ -754,7 +768,9 @@ namespace Client.Provider
                         Formula = Visit(negation.Formula, languageSignature)
                     };
                 default:
-                    throw new SerializationException($"IFormula implementor of type \"{formula.GetType()}\" was not recognized");
+                    throw new SerializationException($"{LocalizationProvider.Instance["FormulaTypeErrorPrefix"]}" +
+                                                     $" \"{formula.GetType()}\" " +
+                                                     $"{LocalizationProvider.Instance["FormulaTypeErrorSuffix"]}");
             }
         }
 
@@ -771,7 +787,7 @@ namespace Client.Provider
         {
             if (program.Actions == null)
             {
-                throw new SerializationException("Compound actions of a program are not defined");
+                throw new SerializationException("ProgramCompoundActionsError");
             }
 
             var programViewModel = new ProgramViewModel();
@@ -792,7 +808,7 @@ namespace Client.Provider
         {
             if (compoundAction.Actions == null)
             {
-                throw new SerializationException("Actions of a compound action are not defined");
+                throw new SerializationException("CompoundActionActionsError");
             }
 
             var compoundActionViewModel = new CompoundActionViewModel();
@@ -801,7 +817,9 @@ namespace Client.Provider
                 var actionViewModel = languageSignature.ActionViewModels.FirstOrDefault(vm => vm.Action.Name.Equals(action.Name));
                 if (actionViewModel == null)
                 {
-                    throw new SerializationException($"Action with name \"{action.Name}\" was not found in the language signature");
+                    throw new SerializationException($"{LocalizationProvider.Instance["ActionErrorPrefix"]}" +
+                                                     $" \"{action.Name}\" " +
+                                                     $"{LocalizationProvider.Instance["ActionErrorSuffix"]}");
                 }
                 return new ActionViewModel(actionViewModel.Action);
             }));

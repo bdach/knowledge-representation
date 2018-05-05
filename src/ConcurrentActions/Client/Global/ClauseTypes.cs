@@ -20,13 +20,16 @@ namespace Client.Global
             var type = typeof(T);
             if (!type.IsInterface)
             {
-                throw new ArgumentException("This method supports onlyinterface types");
+                throw new ArgumentException("This method supports interface types only");
             }
+
             var allTypes = Assembly.GetExecutingAssembly().GetTypes();
-            var targetTypes = allTypes.Where(otherType => otherType.IsClass && otherType.IsPublic && otherType.GetInterfaces().Contains(type))
+            var targetTypes = allTypes
+                .Where(otherType => otherType.IsClass && otherType.IsPublic && otherType.GetInterfaces().Contains(type))
                 .OrderBy(otherType => otherType.Name)
-                .Select(otherType => (T) Activator.CreateInstance(otherType))
+                .Select(otherType => (T)Activator.CreateInstance(otherType))
                 .ToList();
+
             return new ReadOnlyCollection<T>(targetTypes);
         }
     }

@@ -48,7 +48,7 @@ namespace Client.Provider
                 }
                 catch (InvalidOperationException)
                 {
-                    throw new SerializationException("Serialization of the current scenario to specified file failed");
+                    throw new SerializationException("ScenarioSerializationFailed");
                 }
 
                 writer.Close();
@@ -75,7 +75,7 @@ namespace Client.Provider
                 }
                 catch (InvalidOperationException)
                 {
-                    throw new SerializationException("Deserialization of specified scenario file failed");
+                    throw new SerializationException("ScenarioDeserializationFailed");
                 }
 
                 reader.Close();

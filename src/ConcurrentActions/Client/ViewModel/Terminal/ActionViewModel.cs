@@ -64,7 +64,7 @@ namespace Client.ViewModel.Terminal
         public Action ToModel()
         {
             if (Action == null)
-                throw new MemberNotDefinedException("One of the actions is not defined");
+                throw new MemberNotDefinedException("ActionValueError");
 
             return Action;
         }

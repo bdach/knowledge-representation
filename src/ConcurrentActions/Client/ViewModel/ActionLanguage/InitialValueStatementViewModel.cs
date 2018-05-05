@@ -111,7 +111,7 @@ namespace Client.ViewModel.ActionLanguage
             var initialCondition = InitialCondition?.ToModel();
 
             if (initialCondition == null)
-                throw new MemberNotDefinedException("Initial condition in an initial value statement is not defined");
+                throw new MemberNotDefinedException("InitialValueStatementInitialConditionError");
 
             return new InitialValueStatement(initialCondition);
         }

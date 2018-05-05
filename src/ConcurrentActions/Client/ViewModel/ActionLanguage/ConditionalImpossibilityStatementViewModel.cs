@@ -133,10 +133,10 @@ namespace Client.ViewModel.ActionLanguage
             var action = Action?.ToModel();
             var precondition = Precondition?.ToModel();
 
-            if (Action == null)
-                throw new MemberNotDefinedException("Action in a conditional impossibility statement is not defined");
-            if (Precondition == null)
-                throw new MemberNotDefinedException("Precondtition in a conditional impossibility statement is not defined");
+            if (action == null)
+                throw new MemberNotDefinedException("ConditionalImpossibilityStatementActionError");
+            if (precondition == null)
+                throw new MemberNotDefinedException("ConditionalImpossibilityStatementPreconditionError");
 
             return EffectStatement.Impossible(action, precondition);
         }

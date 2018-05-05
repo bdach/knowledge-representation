@@ -129,9 +129,9 @@ namespace Client.ViewModel.ActionLanguage
             var action = Action?.ToModel();
 
             if (condition == null)
-                throw new MemberNotDefinedException("Condition in an observation statement is not defined");
+                throw new MemberNotDefinedException("ObservationStatementConditionError");
             if (action == null)
-                throw new MemberNotDefinedException("Action in an observation statement is not defined");
+                throw new MemberNotDefinedException("ObservationStatementActionError");
 
             return new ObservationStatement(condition, action);
         }

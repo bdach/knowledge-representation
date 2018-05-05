@@ -104,7 +104,7 @@ namespace Client.ViewModel.ActionLanguage
             var fluent = Fluent?.ToModel();
 
             if (fluent == null)
-                throw new MemberNotDefinedException("Fluent in a fluent specification statement is not defined");
+                throw new MemberNotDefinedException("FluentSpecificationStatementFluentError");
 
             return new FluentSpecificationStatement(fluent);
         }
