@@ -40,6 +40,9 @@ namespace Client.ViewModel.Formula
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
+        public bool AnyChildFocused => IsFocused || Formula.AnyChildFocused;
+
+        /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>

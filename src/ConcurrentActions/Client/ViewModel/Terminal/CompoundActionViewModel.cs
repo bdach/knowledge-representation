@@ -5,7 +5,6 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
-using Client.Global;
 using Client.Interface;
 using Client.View.Terminal;
 using Model;
@@ -39,9 +38,6 @@ namespace Client.ViewModel.Terminal
         /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
-        /// <inheritdoc />
-        public ReactiveCommand<IFormulaViewModel, IFormulaViewModel> AddFormula { get; protected set; }
-
         /// <summary>
         /// This list keeps track of which commands higher in the hierarchy are piped into this view model.
         /// They are saved here so as to dispose of them when the view model gets deleted and falls out of scope.
@@ -54,11 +50,6 @@ namespace Client.ViewModel.Terminal
         public CompoundActionViewModel()
         {
             Actions = new ReactiveList<ActionViewModel>();
-
-            AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
-            this.WhenAnyObservable(vm => vm.AddFormula)
-                .Where(_ => IsFocused)
-                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
 
             InitializeComponent();
         }

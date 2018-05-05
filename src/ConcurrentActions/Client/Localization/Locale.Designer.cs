@@ -295,11 +295,29 @@ namespace Client.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CannotAddFormulaError.
+        ///   Looks up a localized string similar to CannotAddActionError.
         /// </summary>
-        public static string CannotAddFormulaError {
+        public static string CannotAddActionError {
             get {
-                return ResourceManager.GetString("CannotAddFormulaError", resourceCulture);
+                return ResourceManager.GetString("CannotAddActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CannotAddCompoundActionError.
+        /// </summary>
+        public static string CannotAddCompoundActionError {
+            get {
+                return ResourceManager.GetString("CannotAddCompoundActionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CannotAddFluentError.
+        /// </summary>
+        public static string CannotAddFluentError {
+            get {
+                return ResourceManager.GetString("CannotAddFluentError", resourceCulture);
             }
         }
         

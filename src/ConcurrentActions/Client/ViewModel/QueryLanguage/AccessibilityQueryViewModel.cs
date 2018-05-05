@@ -3,6 +3,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
+using Client.Global;
 using Client.Interface;
 using Client.View.QueryLanguage;
 using Client.ViewModel.Terminal;
@@ -46,6 +47,9 @@ namespace Client.ViewModel.QueryLanguage
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
+        public bool AnyChildFocused => IsFocused || Target.AnyChildFocused;
+
+        /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>
@@ -61,8 +65,14 @@ namespace Client.ViewModel.QueryLanguage
                 .InvokeCommand(this, vm => vm.Target.AddFormula);
 
             AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
+            this.WhenAnyObservable(vm => vm.AddEmptyCompoundAction)
+                .Where(_ => AnyChildFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddCompoundActionError"));
 
             AddAtomicAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
+            this.WhenAnyObservable(vm => vm.AddAtomicAction)
+                .Where(_ => AnyChildFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddActionError"));
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
 

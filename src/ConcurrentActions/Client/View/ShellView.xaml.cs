@@ -36,7 +36,7 @@ namespace Client.View
 
             this.WhenAnyValue(v => v.ViewModel.StatusBarMessage)
                 .Throttle(TimeSpan.FromSeconds(5), RxApp.MainThreadScheduler)
-                .Subscribe(_ => ErrorContent.Visibility = Visibility.Collapsed);
+                .Subscribe(_ => ViewModel.StatusBarMessage = "");
         }
 
         public ShellViewModel ViewModel

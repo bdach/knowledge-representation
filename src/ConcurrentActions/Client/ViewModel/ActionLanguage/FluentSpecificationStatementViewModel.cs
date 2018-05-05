@@ -50,6 +50,9 @@ namespace Client.ViewModel.ActionLanguage
         public bool IsFocused { get; set; }
 
         /// <inheritdoc />
+        public bool AnyChildFocused => IsFocused || Fluent.IsFocused;
+
+        /// <inheritdoc />
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
         /// <summary>
@@ -57,18 +60,20 @@ namespace Client.ViewModel.ActionLanguage
         /// </summary>
         public FluentSpecificationStatementViewModel()
         {
-            // TODO: display error?
             AddAction = ReactiveCommand.Create<ActionViewModel, ActionViewModel>(action => action);
+            this.WhenAnyObservable(vm => vm.AddAction)
+                .Where(_ => AnyChildFocused)
+                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddActionError"));
 
+            // TODO: wrong user choice COULD be handled here somehow, but *I'm* NOT doing it
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(
                 fluent => fluent,
                 this.WhenAnyValue(v => v.Fluent.IsFocused)
             );
-            AddFluent.BindTo(this, vm => vm.Fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
             this.WhenAnyObservable(vm => vm.AddFormula)
-                .Where(_ => IsFocused || Fluent.IsFocused)
+                .Where(_ => AnyChildFocused)
                 .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
