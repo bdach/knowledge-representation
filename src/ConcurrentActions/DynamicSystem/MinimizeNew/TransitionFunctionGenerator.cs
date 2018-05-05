@@ -10,7 +10,7 @@ namespace DynamicSystem.MinimizeNew
     /// <summary>
     /// Class for generating transition function
     /// </summary>
-    class TransitionFunctionGenerator
+    public static class TransitionFunctionGenerator
     {
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace DynamicSystem.MinimizeNew
         /// <param name="resZero"><see cref="Dictionary{ValueTuple{CompoundAction, State}, HashSet{State}"/> describing Res_0 function.</param>
         /// <param name="newSets"><see cref="Dictionary{ValueTuple{CompoundAction, State, State}, HashSet{Fluent}}"/> describing New sets.</param>
         /// <returns><see cref="TransitionFunction"/> object.</returns>
-        public TransitionFunction GenerateTransitionFunction(
+        public static TransitionFunction GenerateTransitionFunction(
             Dictionary<(CompoundAction, State), HashSet<State>> resZero,
             Dictionary<(CompoundAction, State, State), HashSet<Fluent>> newSets)
         {
@@ -58,7 +58,7 @@ namespace DynamicSystem.MinimizeNew
         }
 
         /// <summary>
-        /// Filter New <see cref="HashSet{T}"/> of <see cref="State"/> that will be considered for specific <see cref="CompoundAction"/> and <see cref="State"/>
+        /// Filter <see cref="HashSet{State}"/> New sets that will be considered for specific <see cref="CompoundAction"/> and <see cref="State"/>
         /// </summary>
         /// <param name="compoundAction"><see cref="CompoundAction"/> to be executed.</param>
         /// <param name="state">Current <see cref="State"/> of a dynamic system.</param>
@@ -84,7 +84,7 @@ namespace DynamicSystem.MinimizeNew
         /// <param name="assignment"><see cref="ValueTuple{CompoundAction, State, HashSet{State}}"/> describing Res_0 assignment.</param>
         /// <param name="newSetDict"><see cref="Dictionary{ValueTuple{CompoundAction, State, State}, HashSet{Fluent}}"/> with New sets that are considered.</param>
         /// <returns></returns>
-        private HashSet<State> GenerateTransitionFunction(
+        private static HashSet<State> GenerateTransitionFunction(
             (CompoundAction, State, HashSet<State>) assignment,
             Dictionary<(CompoundAction, State, State), HashSet<Fluent>> newSetDict)
         {
