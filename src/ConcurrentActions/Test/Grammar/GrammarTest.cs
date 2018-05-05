@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using DynamicSystem.Grammar;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Model.ActionLanguage;
 using Model.Forms;
 using Model.QueryLanguage;
 using NUnit.Framework;
 using Action = Model.Action;
+using Assert = NUnit.Framework.Assert;
 
 namespace Test.Grammar
 {
     [TestFixture()]
     public class GrammarTest
     {
+
         [Test]
         public void TestConstraintStatementParsing()
         {

@@ -34,7 +34,7 @@ TEXT: [a-zA-Z]+;
 fluent: TEXT;
 action: TEXT;
 
-WS : (' ' | '\t')+ -> channel(HIDDEN);
+WS : (' ' | '\t' | '\r' | '\n')+ -> channel(HIDDEN);
 
 constant: TRUTH | FALSITY;
 literal: NEGATION fluent | fluent;
