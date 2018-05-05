@@ -568,7 +568,6 @@ namespace Client.Provider
         /// <param name="compoundAction">Compound action to visit.</param>
         /// <param name="languageSignature">Scenario's language signature.</param>
         /// <returns>Appropriate <see cref="CompoundActionViewModel"/> instance.</returns>
-        // BUG: after deserialization actions cannot be deleted from within a compound action (probably some hashset issue)
         private CompoundActionViewModel Visit(CompoundAction compoundAction, LanguageSignature languageSignature)
         {
             var compoundActionViewModel = new CompoundActionViewModel();
