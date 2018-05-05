@@ -100,10 +100,12 @@ namespace Client.ViewModel.ActionLanguage
             return new InitialValueStatementViewModel();
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Gets the underlying action clause model out of the view model.
         /// </summary>
         /// <returns><see cref="InitialValueStatement"/> model represented by given view model.</returns>
+        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
         public InitialValueStatement ToModel()
         {
             var initialCondition = InitialCondition?.ToModel();

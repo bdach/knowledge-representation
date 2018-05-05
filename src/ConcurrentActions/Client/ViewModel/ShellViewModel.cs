@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Windows.Input;
 using Client.Abstract;
 using Client.DataTransfer;
+using Client.Exception;
 using Client.Global;
 using Client.Interface;
 using Client.Provider;
@@ -249,15 +250,26 @@ namespace Client.ViewModel
         /// <inheritdoc />
         public Scenario GetCurrentScenario()
         {
-            return new Scenario
+            Scenario scenario = null;
+
+            try
             {
-                Actions = LanguageSignature.ActionViewModels.Select(x => x.ToModel()).ToList(),
-                Fluents = LanguageSignature.LiteralViewModels.Select(x => x.Fluent).ToList(),
-                ActionDomain = ActionAreaViewModel.GetActionDomainModel(),
-                ActionDomainInput = ActionAreaViewModel.ActionDomainInput,
-                QuerySet = QueryAreaViewModel.GetQuerySetModel(),
-                QuerySetInput = QueryAreaViewModel.QuerySetInput
-            };
+                scenario = new Scenario
+                {
+                    Actions = LanguageSignature.ActionViewModels.Select(x => x.ToModel()).ToList(),
+                    Fluents = LanguageSignature.LiteralViewModels.Select(x => ((IViewModelFor<Model.Fluent>)x).ToModel()).ToList(),
+                    ActionDomain = ActionAreaViewModel.GetActionDomainModel(),
+                    ActionDomainInput = ActionAreaViewModel.ActionDomainInput,
+                    QuerySet = QueryAreaViewModel.GetQuerySetModel(),
+                    QuerySetInput = QueryAreaViewModel.QuerySetInput
+                };
+            }
+            catch (MemberNotDefinedException ex)
+            {
+                Interactions.RaiseStatusBarError(ex.Message);
+            }
+
+            return scenario;
         }
     }
 }

@@ -129,10 +129,12 @@ namespace Client.ViewModel.QueryLanguage
             return new GeneralValueQueryViewModel();
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Gets the underlying query model out of the view model.
         /// </summary>
         /// <returns><see cref="GeneralValueQuery"/> model represented by given view model.</returns>
+        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
         public GeneralValueQuery ToModel()
         {
             var target = Target?.ToModel();

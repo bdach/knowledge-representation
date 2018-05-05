@@ -99,10 +99,12 @@ namespace Client.ViewModel.QueryLanguage
             return new AccessibilityQueryViewModel();
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Gets the underlying query model out of the view model.
         /// </summary>
         /// <returns><see cref="AccessibilityQuery"/> model represented by given view model.</returns>
+        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
         public AccessibilityQuery ToModel()
         {
             var target = Target?.ToModel();

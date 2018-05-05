@@ -116,10 +116,12 @@ namespace Client.ViewModel.ActionLanguage
             return new ValueStatementViewModel();
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Gets the underlying action clause model out of the view model.
         /// </summary>
         /// <returns><see cref="ValueStatement"/> model represented by given view model.</returns>
+        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
         public ValueStatement ToModel()
         {
             var condition = Condition?.ToModel();

@@ -53,13 +53,20 @@ namespace Client.ViewModel.Terminal
                 .Subscribe(action => CompoundActions.Remove(action));
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Gets the underlying program model out of the view model.
+        /// </summary>
+        /// <returns><see cref="Program"/> model represented by given view model.</returns>
+        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
         public Program ToModel()
         {
-            var compoundActions = CompoundActions.Select(cavm => cavm.ToModel()).ToList();
-            if (compoundActions.Any(ca => ca == null))
+            var compoundActions = CompoundActions.Select(compoundAction => compoundAction.ToModel()).ToList();
+            if (compoundActions.Any(compoundAction => compoundAction == null))
             {
-                throw new MemberNotDefinedException("One of the compound actions in the program has not been defined");
+                throw new MemberNotDefinedException("One of the compound actions in a program is not defined");
             }
+
             return new Program(compoundActions);
         }
     }

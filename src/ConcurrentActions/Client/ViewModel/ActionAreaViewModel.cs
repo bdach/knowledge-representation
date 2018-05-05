@@ -1,6 +1,7 @@
 ﻿using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
+using Client.Exception;
 using Client.Interface;
 using Client.View;
 using Client.ViewModel.Formula;
@@ -64,7 +65,7 @@ namespace Client.ViewModel
                 {
                     Observable.Start(() => ac).InvokeCommand(viewModel.AddAction);
                 }
-            }, null, RxApp.MainThreadScheduler);  // WARNING: Do not remove this, lest you get threading errors.
+            }, null, RxApp.MainThreadScheduler);  // WARNING: do not remove this, lest you get threading errors
 
             AddFluent = ReactiveCommand.Create((LiteralViewModel fl) =>
             {
@@ -106,6 +107,7 @@ namespace Client.ViewModel
         /// them into <see cref="ActionDomain"/> instance.
         /// </summary>
         /// <returns><see cref="ActionDomain"/> instance with all action clauses from the current scenario.</returns>
+        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
         public ActionDomain GetActionDomainModel()
         {
             var actionDomain = new ActionDomain();

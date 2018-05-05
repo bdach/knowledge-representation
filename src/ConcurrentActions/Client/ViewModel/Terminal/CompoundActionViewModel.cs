@@ -72,20 +72,24 @@ namespace Client.ViewModel.Terminal
                 .Subscribe(action => Actions.Remove(action));
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Gets the underlying compound action model out of the view model.
         /// </summary>
-        /// <returns><see cref="Model.CompoundAction"/> model represented by given view model.</returns>
+        /// <returns><see cref="CompoundAction"/> model represented by given view model.</returns>
+        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
         public CompoundAction ToModel()
         {
-            var actions = Actions.Select(avm => avm.ToModel()).ToList();
-            if (actions.Any(a => a == null))
+            var actions = Actions.Select(action => action.ToModel()).ToList();
+            if (actions.Any(action => action == null))
             {
-                throw new MemberNotDefinedException("One of the actions in this compound action has not been defined");
+                throw new MemberNotDefinedException("One of the actions in a compound action is not defined");
             }
+
             return new CompoundAction(actions);
         }
 
+        // TODO: docs
         public void Dispose()
         {
             DeleteFocused?.Dispose();

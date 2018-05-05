@@ -37,7 +37,7 @@ namespace Client.Provider
         /// <param name="filepath">Path to output file.</param>
         public void Serialize(Scenario scenario, string filepath)
         {
-            if (scenario == null || !string.IsNullOrEmpty(filepath))
+            if (scenario != null && !string.IsNullOrEmpty(filepath))
             {
                 var writer = new StreamWriter(filepath);
 

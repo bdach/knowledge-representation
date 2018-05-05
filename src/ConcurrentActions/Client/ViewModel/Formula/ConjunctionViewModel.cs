@@ -130,10 +130,12 @@ namespace Client.ViewModel.Formula
             return new ConjunctionViewModel(existingFormula);
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Gets the underlying formula model out of the view model.
         /// </summary>
         /// <returns><see cref="Conjunction"/> model represented by given view model as <see cref="IFormula"/>.</returns>
+        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
         public IFormula ToModel()
         {
             var left = Left?.ToModel();

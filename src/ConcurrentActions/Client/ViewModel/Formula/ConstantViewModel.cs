@@ -77,10 +77,12 @@ namespace Client.ViewModel.Formula
             return new ConstantViewModel(Constant);
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Gets the underlying constant model out of the view model.
         /// </summary>
         /// <returns><see cref="Model.Forms.Constant"/> model represented by given view model as <see cref="IFormula"/>.</returns>
+        /// <exception cref="MemberNotDefinedException">Thrown if one of the view model members is null or a placeholder.</exception>
         public IFormula ToModel()
         {
             if (Constant == null)
