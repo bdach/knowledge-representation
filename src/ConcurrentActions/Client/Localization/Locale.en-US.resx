@@ -259,7 +259,7 @@
     <value>Postcondition in a conditional effect statement is not defined</value>
   </data>
   <data name="ConditionalEffectStatementPreconditionError" xml:space="preserve">
-    <value>Precondtition in a conditional effect statement is not defined</value>
+    <value>Precondition in a conditional effect statement is not defined</value>
   </data>
   <data name="ConditionalEffectStatementScreenTip" xml:space="preserve">
     <value>Describes the effects of an action, which take place if and only if a certain precondition is met.</value>
@@ -274,7 +274,7 @@
     <value>Fluent in a conditional fluent release statement is not defined</value>
   </data>
   <data name="ConditionalFluentReleaseStatementPreconditionError" xml:space="preserve">
-    <value>Precondtition in a conditional fluent release statement is not defined</value>
+    <value>Precondition in a conditional fluent release statement is not defined</value>
   </data>
   <data name="ConditionalFluentReleaseStatementScreenTip" xml:space="preserve">
     <value>Describes nondeterministic effects of an action, which take place if and only if a certain precondition is met.</value>
@@ -286,7 +286,7 @@
     <value>Action in a conditional impossibility statement is not defined</value>
   </data>
   <data name="ConditionalImpossibilityStatementPreconditionError" xml:space="preserve">
-    <value>Precondtition in a conditional impossibility statement is not defined</value>
+    <value>Precondition in a conditional impossibility statement is not defined</value>
   </data>
   <data name="ConditionalImpossibilityStatementScreenTip" xml:space="preserve">
     <value>Prevents the execution of the associated action, as long as a certain precondition is met.</value>
