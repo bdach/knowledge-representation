@@ -302,9 +302,9 @@ namespace Client.Provider
                                                  $"{LocalizationProvider.Instance["ActionErrorSuffix"]}");
             }
 
-            if (effectStatement.Postcondition == Constant.Falsity)
+            if (effectStatement.Postcondition.Equals(Constant.Falsity))
             {
-                if (effectStatement.Precondition == Constant.Truth)
+                if (effectStatement.Precondition.Equals(Constant.Truth))
                 {
                     return new UnconditionalImpossibilityStatementViewModel
                     {
@@ -322,7 +322,7 @@ namespace Client.Provider
             }
             else // postcondition is defined
             {
-                if (effectStatement.Precondition == Constant.Truth)
+                if (effectStatement.Precondition.Equals(Constant.Truth))
                 {
                     return new UnconditionalEffectStatementViewModel
                     {
@@ -384,7 +384,7 @@ namespace Client.Provider
                                                  $"{LocalizationProvider.Instance["FluentErrorSuffix"]}");
             }
 
-            if (fluentReleaseStatement.Precondition == Constant.Truth)
+            if (fluentReleaseStatement.Precondition.Equals(Constant.Truth))
             {
                 return new UnconditionalFluentReleaseStatementViewModel
                 {
@@ -706,7 +706,6 @@ namespace Client.Provider
                     return new ConstantViewModel
                     {
 #pragma warning disable 618
-                        // TODO: fix this during refactoring of Model.Constant
                         Constant = constant.Value ? Constant.Truth : Constant.Falsity
 #pragma warning restore 618
                     };

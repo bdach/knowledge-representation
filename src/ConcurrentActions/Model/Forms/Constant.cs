@@ -21,7 +21,6 @@ namespace Model.Forms
         /// serialization rules issue. This property ensures proper serialization and deserialization
         /// of constants, because implementing IXmlSerializable has no effect for some reason.
         /// </remarks>
-        // TODO: fix this (maybe switch to just Value public property and implement Equals?)
         [Obsolete("This property should be used only during deserialization, use comparison to Constant.Truth or Constant.Falsity instead")]
         public bool Value
         {
@@ -62,6 +61,16 @@ namespace Model.Forms
         public override string ToString()
         {
             return _value ? "\u22A4" : "\u22A5";
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Constant constant && _value == constant._value;
+        }
+
+        public override int GetHashCode()
+        {
+            return -1939223833 + _value.GetHashCode();
         }
     }
 }

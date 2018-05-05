@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
@@ -70,11 +71,9 @@ namespace Client.ViewModel.ActionLanguage
                 fluent => fluent,
                 this.WhenAnyValue(v => v.Fluent.IsFocused)
             );
+            AddFluent.BindTo(this, vm => vm.Fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);
-            this.WhenAnyObservable(vm => vm.AddFormula)
-                .Where(_ => AnyChildFocused)
-                .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddFormulaError"));
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
 
