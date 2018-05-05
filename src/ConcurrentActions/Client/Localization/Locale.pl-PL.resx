@@ -333,6 +333,9 @@
   <data name="GeneralValueQueryScreenTip" xml:space="preserve">
     <value>Określa, czy po wykonaniu podanego programu zawsze spełniony jest pewien warunek logiczny.</value>
   </data>
+  <data name="GrammarTab" xml:space="preserve">
+    <value>Gramatyka</value>
+  </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>Implikacja</value>
   </data>

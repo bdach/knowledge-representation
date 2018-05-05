@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Client.ViewModel;
 using ReactiveUI;
 
@@ -21,6 +22,14 @@ namespace Client.View
         {
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.ActionDomain, v => v.ActionListView.ItemsSource);
+            this.Bind(ViewModel, vm => vm.ActionDomainInput, v => v.ActionTextBox.Text);
+
+            this.WhenAnyValue(v => v.ViewModel.GrammarMode)
+                .Subscribe(grammarMode =>
+                {
+                    ActionListView.Visibility = grammarMode ? Visibility.Hidden : Visibility.Visible;
+                    ActionTextBox.Visibility = grammarMode ? Visibility.Visible : Visibility.Hidden;
+                });
         }
 
         public ActionAreaViewModel ViewModel

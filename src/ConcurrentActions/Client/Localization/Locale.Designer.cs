@@ -691,6 +691,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GrammarTab.
+        /// </summary>
+        public static string GrammarTab {
+            get {
+                return ResourceManager.GetString("GrammarTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ImplicationButton.
         /// </summary>
         public static string ImplicationButton {

@@ -3,7 +3,7 @@ using Model;
 using Model.ActionLanguage;
 using Model.QueryLanguage;
 
-namespace Client.Global
+namespace Client.DataTransfer
 {
     /// <summary>
     /// Container holding models of items from language signature and clauses.
@@ -26,8 +26,18 @@ namespace Client.Global
         public ActionDomain ActionDomain { get; set; }
 
         /// <summary>
+        /// Manually entered action domain string.
+        /// </summary>
+        public string ActionDomainInput { get; set; }
+
+        /// <summary>
         /// A set of all query language clauses from the scenario.
         /// </summary>
         public QuerySet QuerySet { get; set; }
+
+        /// <summary>
+        /// Manually entered query set string.
+        /// </summary>
+        public string QuerySetInput { get; set; }
     }
 }

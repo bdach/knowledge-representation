@@ -6,7 +6,6 @@ using Client.Exception;
 using Client.Global;
 using Client.Interface;
 using Client.View.Terminal;
-using Model;
 using ReactiveUI;
 using Action = Model.Action;
 

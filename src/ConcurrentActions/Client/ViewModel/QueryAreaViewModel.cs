@@ -24,6 +24,11 @@ namespace Client.ViewModel
         public ReactiveList<IQueryClauseViewModel> QuerySet { get; protected set; }
 
         /// <summary>
+        /// String bound to user input from the QueryAreaBox.
+        /// </summary>
+        public string QuerySetInput { get; set; } = "";
+
+        /// <summary>
         /// Command used to add formulae to the query clauses.
         /// </summary>
         public ReactiveCommand<IFormulaViewModel, Unit> AddFormula { get; protected set; }
@@ -42,6 +47,11 @@ namespace Client.ViewModel
         /// Command used to forward atomic actions that are to be added to compound actions.
         /// </summary>
         public ReactiveCommandBase<ActionViewModel, Unit> AddAtomicAction { get; protected set; }
+
+        /// <summary>
+        /// Indicates whether the grammar tab is selected.
+        /// </summary>
+        public bool GrammarMode { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="QueryAreaViewModel"/> instance.

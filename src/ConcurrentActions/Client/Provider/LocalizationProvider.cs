@@ -9,6 +9,7 @@ namespace Client.Provider
     /// <summary>
     /// Custom translation provider which allows for runtime language change.
     /// </summary>
+    // TODO: decide whether this should be a true singleton, static or whatever
     public class LocalizationProvider : INotifyPropertyChanged
     {
         /// <summary>

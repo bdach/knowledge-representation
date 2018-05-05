@@ -5,6 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
     <Grid>
-        <ItemsControl Name="QueryListView" Style="{DynamicResource EditorControl}"/>
+        <ItemsControl
+            Style="{DynamicResource EditorControl}"
+            Name="QueryListView"
+            Visibility="Visible" />
+        <TextBox
+            Style="{DynamicResource EditorBox}"
+            Name="QueryTextBox"
+            Visibility="Hidden" />
     </Grid>
 </UserControl>

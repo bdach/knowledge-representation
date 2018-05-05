@@ -32,8 +32,11 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.ShowAddFluentModal, v => v.AddFluentButton);
             this.BindCommand(ViewModel, vm => vm.ShowAddActionModal, v => v.AddActionButton);
             this.BindCommand(ViewModel, vm => vm.PerformCalculations, v => v.CalculateButton);
+            this.BindCommand(ViewModel, vm => vm.PerformGrammarCalculations, v => v.GrammarCalculateButton);
             this.BindCommand(ViewModel, vm => vm.ImportFromFile, v => v.ImportButton);
             this.BindCommand(ViewModel, vm => vm.ExportToFile, v => v.ExportButton);
+            this.BindCommand(ViewModel, vm => vm.EditTabSelected, v => v.EditTab);
+            this.BindCommand(ViewModel, vm => vm.GrammarTabSelected, v => v.GrammarTab);
 
             this.OneWayBind(ViewModel, vm => vm.LanguageSignature.LiteralViewModels, v => v.FluentsGallery.ItemsSource);
             this.OneWayBind(ViewModel, vm => vm.LanguageSignature.ActionViewModels, v => v.ActionsGallery.ItemsSource);
@@ -54,11 +57,12 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.NegationButton, Observable.Start(() => new NegationViewModel()));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.TruthButton, Observable.Start(() => new ConstantViewModel(Constant.Truth)));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.FalsityButton, Observable.Start(() => new ConstantViewModel(Constant.Falsity)));
+            this.BindCommand(ViewModel, vm => vm.AddEmptyCompoundAction, v => v.AddCompoundActionButton);
+
             this.WhenAnyValue(v => v.ViewModel.SelectedFluent)
                 .Where(v => v != null)
                 .Select(v => new LiteralViewModel(v.Fluent))
                 .InvokeCommand<IFormulaViewModel, RibbonView>(this, v => v.ViewModel.SelectFormula);
-            this.BindCommand(ViewModel, vm => vm.AddEmptyCompoundAction, v => v.AddCompoundActionButton);
 
             this.WhenAnyValue(v => v.FluentDropDown.IsDropDownOpen)
                 .Where(open => open)

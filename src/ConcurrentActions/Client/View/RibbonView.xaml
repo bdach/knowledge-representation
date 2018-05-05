@@ -444,6 +444,38 @@
 
             </fluent:RibbonTabItem>
 
+            <fluent:RibbonTabItem
+                Name="GrammarTab"
+                KeyTip="G"
+                Header="{local:Loc GrammarTab}">
+
+                <fluent:RibbonGroupBox
+                    KeyTip="S"
+                    Name="GrammarSystemGroupBox"
+                    Header="{local:Loc SystemGroupBox}">
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonLargeWideButton}"
+                        KeyTip="R"
+                        Name="GrammarCalculateButton"
+                        Header="{local:Loc CalculateButton}"
+                        Icon="/Client;component/Resources/Images/calculate-64.png"
+                        LargeIcon="/Client;component/Resources/Images/calculate-128.png">
+
+                        <fluent:Button.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="{local:Loc CalculateButton}"
+                                Text="{local:Loc CalculateButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                </fluent:RibbonGroupBox>
+
+            </fluent:RibbonTabItem>
+
         </fluent:Ribbon>
 
     </Grid>

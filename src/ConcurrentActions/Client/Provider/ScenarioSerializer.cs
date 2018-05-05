@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
+using Client.DataTransfer;
 using Client.Exception;
-using Client.Global;
 using Microsoft.Win32;
 using XSerializer;
 

@@ -102,7 +102,7 @@
     <Compile Include="Global\ClauseTypes.cs" />
     <Compile Include="Global\Interactions.cs" />
     <Compile Include="Global\LanguageSignature.cs" />
-    <Compile Include="Global\Scenario.cs" />
+    <Compile Include="DataTransfer\Scenario.cs" />
     <Compile Include="Interface\IActionClauseViewModel.cs" />
     <Compile Include="Interface\IClauseViewModel.cs" />
     <Compile Include="Interface\IEditorViewModel.cs" />

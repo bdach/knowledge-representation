@@ -5,6 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
     <Grid>
-        <ItemsControl Name="ActionListView" Style="{DynamicResource EditorControl}"/>
+        <ItemsControl
+            Style="{DynamicResource EditorControl}"
+            Name="ActionListView"
+            Visibility="Visible" />
+        <TextBox
+            Style="{DynamicResource EditorBox}"
+            Name="ActionTextBox"
+            Visibility="Hidden" />
     </Grid>
 </UserControl>

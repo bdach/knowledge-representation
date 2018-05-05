@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Client.DataTransfer;
 using Client.Global;
 using Client.Provider;
 

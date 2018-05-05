@@ -17,7 +17,7 @@
                 <Setter Property="VerticalContentAlignment" Value="Stretch" />
             </Style>
 
-            <Style TargetType="ItemsControl" x:Key="EditorControl">
+            <Style TargetType="Control" x:Key="EditorControl">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -55,6 +55,11 @@
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
+            </Style>
+            <Style TargetType="TextBox" x:Key="EditorBox">
+                <!-- TODO: fancy styling of grammar text boxes -->
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="AcceptsReturn" Value="True" />
             </Style>
 
             <Style TargetType="{x:Type view:ExpressionButton}">

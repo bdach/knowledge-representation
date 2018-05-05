@@ -333,6 +333,9 @@
   <data name="GeneralValueQueryScreenTip" xml:space="preserve">
     <value>Determines whether or not a certain logical formula is always satisfied after executing a certain pogram from the initial state.</value>
   </data>
+  <data name="GrammarTab" xml:space="preserve">
+    <value>Grammar</value>
+  </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>Implication</value>
   </data>

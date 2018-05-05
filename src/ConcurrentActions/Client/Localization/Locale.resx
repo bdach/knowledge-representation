@@ -327,6 +327,9 @@
   <data name="GeneralValueQueryScreenTip" xml:space="preserve">
     <value>GeneralValueQueryScreenTip</value>
   </data>
+  <data name="GrammarTab" xml:space="preserve">
+    <value>GrammarTab</value>
+  </data>
   <data name="ImplicationButton" xml:space="preserve">
     <value>ImplicationButton</value>
   </data>

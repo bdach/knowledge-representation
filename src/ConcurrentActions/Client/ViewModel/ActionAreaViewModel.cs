@@ -22,6 +22,11 @@ namespace Client.ViewModel
         public ReactiveList<IActionClauseViewModel> ActionDomain { get; protected set; }
 
         /// <summary>
+        /// String bound to user input from the ActionAreaBox.
+        /// </summary>
+        public string ActionDomainInput { get; set; } = "";
+
+        /// <summary>
         /// Command used for adding an action to an item of this collection.
         /// </summary>
         public ReactiveCommand<ActionViewModel, Unit> AddAction;
@@ -40,6 +45,11 @@ namespace Client.ViewModel
         /// Command triggered by delete key used to delete currently selected clause element.
         /// </summary>
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
+
+        /// <summary>
+        /// Indicates whether the grammar tab is selected.
+        /// </summary>
+        public bool GrammarMode { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="ActionAreaViewModel"/> instance.

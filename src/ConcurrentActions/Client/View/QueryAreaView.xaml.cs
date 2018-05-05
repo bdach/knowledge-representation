@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Client.ViewModel;
 using ReactiveUI;
 
@@ -21,6 +22,14 @@ namespace Client.View
         {
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.QuerySet, v => v.QueryListView.ItemsSource);
+            this.Bind(ViewModel, vm => vm.QuerySetInput, v => v.QueryTextBox.Text);
+
+            this.WhenAnyValue(v => v.ViewModel.GrammarMode)
+                .Subscribe(grammarMode =>
+                {
+                    QueryListView.Visibility = grammarMode ? Visibility.Hidden : Visibility.Visible;
+                    QueryTextBox.Visibility = grammarMode ? Visibility.Visible : Visibility.Hidden;
+                });
         }
 
         public QueryAreaViewModel ViewModel

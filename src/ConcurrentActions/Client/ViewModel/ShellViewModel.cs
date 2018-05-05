@@ -5,6 +5,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using Client.Abstract;
+using Client.DataTransfer;
 using Client.Global;
 using Client.Interface;
 using Client.Provider;
@@ -21,6 +22,11 @@ namespace Client.ViewModel
     /// </summary>
     public class ShellViewModel : FodyReactiveObject, IScenarioOwner
     {
+        /// <summary>
+        /// A global container instance holding the current language signature.
+        /// </summary>
+        public LanguageSignature LanguageSignature { get; }
+
         /// <summary>
         /// View model of nested <see cref="RibbonView"/>.
         /// </summary>
@@ -41,13 +47,22 @@ namespace Client.ViewModel
         /// </summary>
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
 
+        /// <summary>
+        /// Message currently displayed in the status bar.
+        /// </summary>
         public string StatusBarMessage { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="ShellViewModel"/> instance.
         /// </summary>
-        public ShellViewModel()
+        /// <param name="languageSignature">Container with the current language signature.</param>
+        /// <remarks>
+        /// Omitting the <see cref="languageSignature"/> parameter causes the method to fetch the instance registered in the <see cref="Locator"/>.
+        /// </remarks>
+        public ShellViewModel(LanguageSignature languageSignature = null)
         {
+            LanguageSignature = languageSignature ?? Locator.Current.GetService<LanguageSignature>();
+
             RibbonViewModel = new RibbonViewModel();
             ActionAreaViewModel = new ActionAreaViewModel();
             QueryAreaViewModel = new QueryAreaViewModel();
@@ -57,6 +72,29 @@ namespace Client.ViewModel
             RibbonViewModel.PerformCalculations.Subscribe(_ =>
             {
                 // TODO: get the list of fluents, clauses, etc. (possibly filter out unused actions and fluents from galleries since deleting is not supported)
+            });
+
+            RibbonViewModel.PerformGrammarCalculations.Subscribe(_ =>
+            {
+                // TODO: parse input with grammar, show errors, pass to DynamicSystem for evaluation
+            });
+
+            Interactions.StatusBarError.RegisterHandler(interaction =>
+            {
+                StatusBarMessage = LocalizationProvider.Instance[interaction.Input];
+                interaction.SetOutput(Unit.Default);
+            });
+
+            RibbonViewModel.EditTabSelected.Subscribe(_ =>
+            {
+                ActionAreaViewModel.GrammarMode = false;
+                QueryAreaViewModel.GrammarMode = false;
+            });
+
+            RibbonViewModel.GrammarTabSelected.Subscribe(_ =>
+            {
+                ActionAreaViewModel.GrammarMode = true;
+                QueryAreaViewModel.GrammarMode = true;
             });
 
             #region Proxying user choices to action area
@@ -95,21 +133,13 @@ namespace Client.ViewModel
                 .Where(_ => Keyboard.IsKeyDown(Key.Delete))
                 .InvokeCommand(QueryAreaViewModel, vm => vm.DeleteFocused);
 
-            Interactions.StatusBarError.RegisterHandler(interaction =>
-            {
-                StatusBarMessage = LocalizationProvider.Instance[interaction.Input];
-                interaction.SetOutput(Unit.Default);
-            });
-
             #endregion
 
             #region Backstage support
 
             RibbonViewModel.Clear.Subscribe(_ =>
             {
-                var currentSignature = Locator.Current.GetService<LanguageSignature>();
-                currentSignature.Clear();
-
+                LanguageSignature.Clear();
                 ClearActionClauses();
                 ClearQueryClauses();
             });
@@ -138,36 +168,71 @@ namespace Client.ViewModel
         public void ClearActionClauses()
         {
             ActionAreaViewModel.ActionDomain.Clear();
+            ActionAreaViewModel.ActionDomainInput = "";
         }
 
         /// <inheritdoc />
         public void ClearQueryClauses()
         {
             QueryAreaViewModel.QuerySet.Clear();
+            QueryAreaViewModel.QuerySetInput = "";
         }
 
         /// <inheritdoc />
-        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses)
+        public void ExtendActionClauses(string actionDomainInput)
         {
-            ActionAreaViewModel.ActionDomain.AddRange(actionClauses);
+            if (!string.IsNullOrEmpty(actionDomainInput))
+            {
+                ActionAreaViewModel.ActionDomainInput = !string.IsNullOrEmpty(ActionAreaViewModel.ActionDomainInput)
+                    ? $"{ActionAreaViewModel.ActionDomainInput}{Environment.NewLine}{actionDomainInput}"
+                    : actionDomainInput;
+            }
         }
 
         /// <inheritdoc />
-        public void ExtendQueryClauses(IEnumerable<IQueryClauseViewModel> queryClauses)
+        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses, string actionDomainInput = null)
         {
-            QueryAreaViewModel.QuerySet.AddRange(queryClauses);
+            if (actionClauses != null)
+            {
+                ActionAreaViewModel.ActionDomain.AddRange(actionClauses);
+            }
+
+            ExtendActionClauses(actionDomainInput);
+        }
+
+        /// <inheritdoc />
+        public void ExtendQueryClauses(string querySetInput)
+        {
+            if (!string.IsNullOrEmpty(querySetInput))
+            {
+                QueryAreaViewModel.QuerySetInput = !string.IsNullOrEmpty(QueryAreaViewModel.QuerySetInput)
+                    ? $"{QueryAreaViewModel.QuerySetInput}{Environment.NewLine}{querySetInput}"
+                    : querySetInput;
+            }
+        }
+
+        /// <inheritdoc />
+        public void ExtendQueryClauses(IEnumerable<IQueryClauseViewModel> queryClauses, string querySetInput = null)
+        {
+            if (queryClauses != null)
+            {
+                QueryAreaViewModel.QuerySet.AddRange(queryClauses);
+            }
+
+            ExtendQueryClauses(querySetInput);
         }
 
         /// <inheritdoc />
         public Scenario GetCurrentScenario()
         {
-            var currentSignature = Locator.Current.GetService<LanguageSignature>();
             return new Scenario
             {
-                Actions = currentSignature.ActionViewModels.Select(x => x.ToModel()).ToList(),
-                Fluents = currentSignature.LiteralViewModels.Select(x => x.Fluent).ToList(),
+                Actions = LanguageSignature.ActionViewModels.Select(x => x.ToModel()).ToList(),
+                Fluents = LanguageSignature.LiteralViewModels.Select(x => x.Fluent).ToList(),
                 ActionDomain = ActionAreaViewModel.GetActionDomainModel(),
-                QuerySet = QueryAreaViewModel.GetQuerySetModel()
+                ActionDomainInput = ActionAreaViewModel.ActionDomainInput,
+                QuerySet = QueryAreaViewModel.GetQuerySetModel(),
+                QuerySetInput = QueryAreaViewModel.QuerySetInput
             };
         }
     }

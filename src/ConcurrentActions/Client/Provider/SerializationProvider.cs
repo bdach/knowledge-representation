@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Client.DataTransfer;
 using Client.Exception;
 using Client.Global;
 using Client.Interface;
@@ -60,7 +61,7 @@ namespace Client.Provider
         /// </summary>
         /// <remarks>
         /// Should be used only if just the <see cref="IScenarioConverter"/>
-        /// public interface is goind to be used.
+        /// public interface is going to be used.
         /// </remarks>
         public SerializationProvider() { }
 
@@ -122,10 +123,10 @@ namespace Client.Provider
             currentSignature.Extend(languageSignature);
 
             _scenarioOwner.ClearActionClauses();
-            _scenarioOwner.ExtendActionClauses(actionClauses);
+            _scenarioOwner.ExtendActionClauses(actionClauses, scenario.ActionDomainInput);
 
             _scenarioOwner.ClearQueryClauses();
-            _scenarioOwner.ExtendQueryClauses(queryClauses);
+            _scenarioOwner.ExtendQueryClauses(queryClauses, scenario.QuerySetInput);
         }
 
         /// <summary>

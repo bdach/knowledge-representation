@@ -4,7 +4,6 @@ using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Global;
 using Client.Interface;
-using Model;
 using Model.Forms;
 using ReactiveUI;
 using Action = Model.Action;
