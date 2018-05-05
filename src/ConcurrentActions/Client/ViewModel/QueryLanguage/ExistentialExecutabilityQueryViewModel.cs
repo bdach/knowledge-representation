@@ -97,6 +97,10 @@ namespace Client.ViewModel.QueryLanguage
                 .Subscribe(compoundAction => compoundAction.Dispose());
         }
 
+        /// <summary>
+        /// Registers the command invocation listener for a new compound action.
+        /// </summary>
+        /// <param name="compoundAction">The newly added <see cref="CompoundActionViewModel"/> instance.</param>
         private void RegisterListeners(CompoundActionViewModel compoundAction)
         {
             compoundAction.CommandInvocationListeners.Add(this.WhenAnyObservable(vm => vm.AddAtomicAction).InvokeCommand(compoundAction.AddAtomicAction));

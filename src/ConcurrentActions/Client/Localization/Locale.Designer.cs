@@ -232,6 +232,24 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AddCompoundActionButtonScreenTip.
+        /// </summary>
+        public static string AddCompoundActionButtonScreenTip {
+            get {
+                return ResourceManager.GetString("AddCompoundActionButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddCompoundActionButtonUnbroken.
+        /// </summary>
+        public static string AddCompoundActionButtonUnbroken {
+            get {
+                return ResourceManager.GetString("AddCompoundActionButtonUnbroken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddFluentButton.
         /// </summary>
         public static string AddFluentButton {
@@ -367,11 +385,11 @@ namespace Client.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CannotAddFluentError.
+        ///   Looks up a localized string similar to CannotAddFormulaError.
         /// </summary>
-        public static string CannotAddFluentError {
+        public static string CannotAddFormulaError {
             get {
-                return ResourceManager.GetString("CannotAddFluentError", resourceCulture);
+                return ResourceManager.GetString("CannotAddFormulaError", resourceCulture);
             }
         }
         

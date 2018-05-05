@@ -43,7 +43,6 @@ namespace Client.ViewModel
         /// </summary>
         public ReactiveCommand<Unit, Unit> SetEnglishLocale { get; protected set; }
 
-        // TODO: consider changing locale commands to one parameter-based command
         /// <summary>
         /// Command changing the application language to Polish.
         /// </summary>

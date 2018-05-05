@@ -88,8 +88,10 @@ namespace Client.ViewModel.Terminal
 
             return new CompoundAction(actions);
         }
-
-        // TODO: docs
+        
+        /// <summary>
+        /// Disposes of all child members and unregisters command execution for this view model to avoid memory leaks (due to refcount not going down to zero).
+        /// </summary>
         public void Dispose()
         {
             DeleteFocused?.Dispose();

@@ -10,7 +10,6 @@ namespace Client.Global
     /// <summary>
     /// Singleton class used to store all the information about currently defined language.
     /// </summary>
-    // TODO: decide whether to keep this as a signleton or convert to static
     public class LanguageSignature : FodyReactiveObject
     {
         /// <summary>

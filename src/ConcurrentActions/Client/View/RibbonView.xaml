@@ -78,17 +78,6 @@
                                     <Rectangle
                                         Style="{DynamicResource BackstageSeparator}"/>
 
-                                    <!-- TODO: for some reason gives different results than when set manually -->
-                                    <!--<fluent:Button
-                                        Style="{DynamicResource BackstageButton}"
-                                        Name="EnglishButton"
-                                        Header="[en] English (US)" />
-
-                                    <fluent:Button
-                                        Style="{DynamicResource BackstageButton}"
-                                        Name="PolishButton"
-                                        Header="[pl] polski" />-->
-
                                     <fluent:Button
                                         Name="EnglishButton"
                                         Header="[en] English (US)"

@@ -118,12 +118,20 @@ namespace Client.ViewModel.QueryLanguage
                 .Subscribe(compoundAction => compoundAction.Dispose());
         }
 
+        /// <summary>
+        /// Registers the command invocation listener for a new compound action.
+        /// </summary>
+        /// <param name="compoundAction">The newly added <see cref="CompoundActionViewModel"/> instance.</param>
         private void RegisterListeners(CompoundActionViewModel compoundAction)
         {
             compoundAction.CommandInvocationListeners.Add(this.WhenAnyObservable(vm => vm.AddAtomicAction).InvokeCommand(compoundAction.AddAtomicAction));
             compoundAction.CommandInvocationListeners.Add(this.WhenAnyObservable(vm => vm.DeleteFocused).Where(_ => !IsFocused).InvokeCommand(compoundAction.DeleteFocused));
         }
 
+        /// <summary>
+        /// Function used to handle formula insertion based on window focus.
+        /// </summary>
+        /// <param name="formula">The <see cref="IFormulaViewModel"/> instance to be inserted.</param>
         public void InsertFormula(IFormulaViewModel formula)
         {
             if (Target.IsFocused)
