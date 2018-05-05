@@ -39,7 +39,6 @@ namespace Client
             ShellView = (ShellView)Locator.Current.GetService<IViewFor<ShellViewModel>>();
             ShellView.Show();
 
-            // TODO : possibly redundant, remove if not used
             // fix for multiple notifications firing ReactiveList.AddRange
             RxApp.SupportsRangeNotifications = false;
         }
