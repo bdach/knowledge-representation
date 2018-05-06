@@ -82,8 +82,10 @@
     <Compile Include="DNF\Visitors\NegationPropagatingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\SimplifyingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\VisitorTestUtils.cs" />
-    <Compile Include="MinimizeNew\TestCases\ITransitionFunctionGeneratorTestCase.cs" />
+    <Compile Include="MinimizeNew\TestCases\ITransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TestCases\ProducerAndConsumerTransitionFunctionGenerationTestCase.cs" />
+    <Compile Include="MinimizeNew\TestCases\SchoedingerCatTransitionFunctionGenerationTestCase.cs" />
+    <Compile Include="MinimizeNew\TestCases\TwoPaintersTransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TransitionFunctionGeneratorTest.cs" />
     <Compile Include="Model\ActionTest.cs" />
     <Compile Include="Model\CompoundActionTest.cs" />

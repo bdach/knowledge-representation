@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Model;
+using Model.Forms;
 
 namespace Test.MinimizeNew.TestCases
 {
-    internal class ProducerAndConsumerTransitionFunctionGenerationTestCase : ITransitionFunctionGeneratorTestCase
+    internal class ProducerAndConsumerTransitionFunctionGenerationTestCase : ITransitionFunctionGenerationTestCase
     {
         public Dictionary<(CompoundAction, State), HashSet<State>> ResZero => resZero;
-        public Dictionary<(CompoundAction, State, State), HashSet<Fluent>> NewSets => newSets;
+        public Dictionary<(CompoundAction, State, State), HashSet<Literal>> NewSets => newSets;
         public TransitionFunction TransitionFunction
         {
             get
@@ -51,6 +52,14 @@ namespace Test.MinimizeNew.TestCases
             new State(new Dictionary<Fluent, bool> {{Fluent["BE"], false}, {Fluent["HI"], false}})
         };
 
+        private static readonly Dictionary<string, Literal> Literal = new Dictionary<string, Literal>
+        {
+            {"BE", new Literal(Fluent["BE"], false)},
+            {"~BE", new Literal(Fluent["BE"], true)},
+            {"HI", new Literal(Fluent["HI"], false)},
+            {"~HI", new Literal(Fluent["HI"], true)}
+        };
+
         private static Dictionary<(CompoundAction, State), HashSet<State>> resZero =
             new Dictionary<(CompoundAction, State), HashSet<State>>
             {
@@ -87,140 +96,140 @@ namespace Test.MinimizeNew.TestCases
                 {(CompoundAction["{PUT, GET, CONSUME}"], State[3]), new HashSet<State> { }},
             };
 
-        private static Dictionary<(CompoundAction, State, State), HashSet<Fluent>> newSets =
-            new Dictionary<(CompoundAction, State, State), HashSet<Fluent>>
+        private static Dictionary<(CompoundAction, State, State), HashSet<Literal>> newSets =
+            new Dictionary<(CompoundAction, State, State), HashSet<Literal>>
             {
                 // Result 0
-                {(CompoundAction["{PUT}"], State[0], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[0], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[0], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[0], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[0], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[0], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[0], State[0]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[0], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[0], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[0], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[0], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[0], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[0], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[0], State[0]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[1], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[1], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[1], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[1], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[1], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[1], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[1], State[0]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[1], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[1], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[1], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[1], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[1], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[1], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[1], State[0]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[2], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[2], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[2], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[2], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[2], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[2], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[2], State[0]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[2], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[2], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[2], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[2], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[2], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[2], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[2], State[0]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[3], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[3], State[0]), new HashSet<Fluent> {Fluent["BE"], Fluent["HI"]}},
-                {(CompoundAction["{CONSUME}"], State[3], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[3], State[0]), new HashSet<Fluent> {Fluent["BE"], Fluent["HI"]}},
-                {(CompoundAction["{PUT, CONSUME}"], State[3], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[3], State[0]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[3], State[0]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[3], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[3], State[0]), new HashSet<Literal> {Literal["BE"], Literal["HI"]}},
+                {(CompoundAction["{CONSUME}"], State[3], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[3], State[0]), new HashSet<Literal> {Literal["BE"], Literal["HI"]}},
+                {(CompoundAction["{PUT, CONSUME}"], State[3], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[3], State[0]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[3], State[0]), new HashSet<Literal> { }},
 
                 // Result 1
-                {(CompoundAction["{PUT}"], State[0], State[1]), new HashSet<Fluent> {Fluent["BE"]}},
-                {(CompoundAction["{GET}"], State[0], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[0], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[0], State[1]), new HashSet<Fluent> {Fluent["BE"]}},
-                {(CompoundAction["{PUT, CONSUME}"], State[0], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[0], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[0], State[1]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[0], State[1]), new HashSet<Literal> {Literal["~BE"]}},
+                {(CompoundAction["{GET}"], State[0], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[0], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[0], State[1]), new HashSet<Literal> {Literal["~BE"]}},
+                {(CompoundAction["{PUT, CONSUME}"], State[0], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[0], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[0], State[1]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[1], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[1], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[1], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[1], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[1], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[1], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[1], State[1]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[1], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[1], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[1], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[1], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[1], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[1], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[1], State[1]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[2], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[2], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[2], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[2], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[2], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[2], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[2], State[1]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[2], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[2], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[2], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[2], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[2], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[2], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[2], State[1]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[3], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[3], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[3], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[3], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[3], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[3], State[1]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[3], State[1]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[3], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[3], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[3], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[3], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[3], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[3], State[1]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[3], State[1]), new HashSet<Literal> { }},
 
                 // Result 2
-                {(CompoundAction["{PUT}"], State[0], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[0], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[0], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[0], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[0], State[2]), new HashSet<Fluent> {Fluent["BE"], Fluent["HI"]}},
-                {(CompoundAction["{GET, CONSUME}"], State[0], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[0], State[2]), new HashSet<Fluent> {Fluent["BE"], Fluent["HI"]}},
+                {(CompoundAction["{PUT}"], State[0], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[0], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[0], State[2]), new HashSet<Literal> {Literal["~HI"]}},
+                {(CompoundAction["{PUT, GET}"], State[0], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[0], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[0], State[2]), new HashSet<Literal> {Literal["~HI"]}},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[0], State[2]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[1], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[1], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[1], State[2]), new HashSet<Fluent> {Fluent["HI"]}},
-                {(CompoundAction["{PUT, GET}"], State[1], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[1], State[2]), new HashSet<Fluent> {Fluent["HI"]}},
-                {(CompoundAction["{GET, CONSUME}"], State[1], State[2]), new HashSet<Fluent> {Fluent["HI"]}},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[1], State[2]), new HashSet<Fluent> {Fluent["HI"]}},
+                {(CompoundAction["{PUT}"], State[1], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[1], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[1], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[1], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[1], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[1], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[1], State[2]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[2], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[2], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[2], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[2], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[2], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[2], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[2], State[2]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[2], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[2], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[2], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[2], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[2], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[2], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[2], State[2]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[3], State[2]), new HashSet<Fluent> {Fluent["BE"]}},
-                {(CompoundAction["{GET}"], State[3], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[3], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[3], State[2]), new HashSet<Fluent> {Fluent["BE"]}},
-                {(CompoundAction["{PUT, CONSUME}"], State[3], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[3], State[2]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[3], State[2]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[3], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[3], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[3], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[3], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[3], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[3], State[2]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[3], State[2]), new HashSet<Literal> { }},
 
                 // Result 3
-                {(CompoundAction["{PUT}"], State[0], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[0], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[0], State[3]), new HashSet<Fluent> {Fluent["HI"]}},
-                {(CompoundAction["{PUT, GET}"], State[0], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[0], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[0], State[3]), new HashSet<Fluent> {Fluent["HI"]}},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[0], State[3]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[0], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[0], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[0], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[0], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[0], State[3]), new HashSet<Literal> {Literal["~BE"], Literal["~HI"]}},
+                {(CompoundAction["{GET, CONSUME}"], State[0], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[0], State[3]), new HashSet<Literal> {Literal["~BE"], Literal["~HI"]}},
 
-                {(CompoundAction["{PUT}"], State[1], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[1], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[1], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[1], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[1], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[1], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[1], State[3]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[1], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[1], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[1], State[3]), new HashSet<Literal> {Literal["~HI"]}},
+                {(CompoundAction["{PUT, GET}"], State[1], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[1], State[3]), new HashSet<Literal> {Literal["~HI"]}},
+                {(CompoundAction["{GET, CONSUME}"], State[1], State[3]), new HashSet<Literal> {Literal["~HI"]}},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[1], State[3]), new HashSet<Literal> {Literal["~HI"]}},
 
-                {(CompoundAction["{PUT}"], State[2], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[2], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[2], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[2], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[2], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[2], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[2], State[3]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[2], State[3]), new HashSet<Literal> {Literal["~BE"]}},
+                {(CompoundAction["{GET}"], State[2], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[2], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[2], State[3]), new HashSet<Literal> {Literal["~BE"]}},
+                {(CompoundAction["{PUT, CONSUME}"], State[2], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[2], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[2], State[3]), new HashSet<Literal> { }},
 
-                {(CompoundAction["{PUT}"], State[3], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET}"], State[3], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{CONSUME}"], State[3], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET}"], State[3], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, CONSUME}"], State[3], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[3], State[3]), new HashSet<Fluent> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[3], State[3]), new HashSet<Fluent> { }},
+                {(CompoundAction["{PUT}"], State[3], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET}"], State[3], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{CONSUME}"], State[3], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET}"], State[3], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, CONSUME}"], State[3], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{GET, CONSUME}"], State[3], State[3]), new HashSet<Literal> { }},
+                {(CompoundAction["{PUT, GET, CONSUME}"], State[3], State[3]), new HashSet<Literal> { }},
             };
     }
 }

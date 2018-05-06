@@ -1,10 +1,5 @@
 ﻿using DynamicSystem.MinimizeNew;
-using Model;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Test.MinimizeNew.TestCases;
 using static NUnit.Framework.CollectionAssert;
 
@@ -13,7 +8,7 @@ namespace Test.MinimizeNew
     [TestFixture]
     public class TransitionFunctionGeneratorTest
     {
-        private static void Test(ITransitionFunctionGeneratorTestCase testCase)
+        private static void Test(ITransitionFunctionGenerationTestCase testCase)
         {
             var expected = testCase.TransitionFunction;
             var actual = TransitionFunctionGenerator.GenerateTransitionFunction(testCase.ResZero, testCase.NewSets);
@@ -32,5 +27,16 @@ namespace Test.MinimizeNew
             Test(new ProducerAndConsumerTransitionFunctionGenerationTestCase());
         }
 
+        [Test]
+        public void TestTransitionFunctionGeneration_SchroedingerCat()
+        {
+            Test(new SchoedingerCatTransitionFunctionGenerationTestCase());
+        }
+
+        [Test]
+        public void TestTransitionFunctionGeneration_TwoPainters()
+        {
+            Test(new TwoPaintersTransitionFunctionGenerationTestCase());
+        }
     }
 }
