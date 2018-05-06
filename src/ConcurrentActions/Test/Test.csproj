@@ -82,6 +82,9 @@
     <Compile Include="DNF\Visitors\NegationPropagatingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\SimplifyingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\VisitorTestUtils.cs" />
+    <Compile Include="MinimizeNew\TestCases\ITransitionFunctionGeneratorTestCase.cs" />
+    <Compile Include="MinimizeNew\TestCases\ProducerAndConsumerTransitionFunctionGenerationTestCase.cs" />
+    <Compile Include="MinimizeNew\TransitionFunctionGeneratorTest.cs" />
     <Compile Include="Model\ActionTest.cs" />
     <Compile Include="Model\CompoundActionTest.cs" />
     <Compile Include="Model\Forms\AlternativeTest.cs" />
@@ -101,7 +104,9 @@
     <Compile Include="SetGeneration\AdmissibleStatesTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DynamicSystem\DynamicSystem.csproj">

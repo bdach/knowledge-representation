@@ -47,12 +47,8 @@ namespace DynamicSystem.MinimizeNew
         /// <returns>Empty <see cref="TransitionFunction"/>.</returns>
         private static TransitionFunction InitializeTransitionFunction(Dictionary<(CompoundAction, State), HashSet<State>> resZero)
         {
-            var compoundActions = resZero.Keys
-                .Select(key => key.Item1)
-                .ToArray();
-            var states = resZero.Keys
-                .Select(key => key.Item2)
-                .ToArray();
+            var compoundActions = resZero.Keys.Select(key => key.Item1).Distinct().ToArray();
+            var states = resZero.Keys.Select(key => key.Item2).Distinct().ToArray();
 
             return new TransitionFunction(compoundActions, states);
         }
@@ -69,12 +65,13 @@ namespace DynamicSystem.MinimizeNew
             CompoundAction compoundAction, State state, HashSet<State> potentialResults,
             Dictionary<(CompoundAction, State, State), HashSet<Fluent>> newSets)
         {
-            return newSets
-                .Where(newSet =>
-                       compoundAction == newSet.Key.Item1
-                    && state == newSet.Key.Item2
-                    && potentialResults.Contains(newSet.Key.Item3))
-                .ToDictionary(newSet => newSet.Key, newSet => newSet.Value);
+            var consideredNewSets = new Dictionary<(CompoundAction, State, State), HashSet<Fluent>>();
+            foreach (var result in potentialResults)
+            {
+                var key = (compoundAction, state, result);
+                consideredNewSets.Add(key, newSets[key]);
+            }
+            return consideredNewSets;
         }
 
         /// <summary>
