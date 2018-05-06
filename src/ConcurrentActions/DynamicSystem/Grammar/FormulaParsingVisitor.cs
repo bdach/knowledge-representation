@@ -9,6 +9,9 @@ using Model.Forms;
 
 namespace DynamicSystem.Grammar
 {
+    /// <summary>
+    /// Implementation of DynamicSystem AST visitor which parses <see cref="IFormula"/>
+    /// </summary>
     internal class FormulaParsingVisitor : DynamicSystemBaseVisitor<IFormula>
     {
         public override IFormula VisitConstant(DynamicSystemParser.ConstantContext context)

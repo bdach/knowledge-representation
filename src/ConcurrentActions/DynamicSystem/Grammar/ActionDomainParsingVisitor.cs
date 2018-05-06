@@ -10,6 +10,9 @@ using Action = Model.Action;
 
 namespace DynamicSystem.Grammar
 {
+    /// <summary>
+    /// Implementation of DynamicSystem AST visitor which parses <see cref="ActionDomain"/>
+    /// </summary>
     internal class ActionDomainParsingVisitor : DynamicSystemBaseVisitor<Object>
     {
         public override object VisitInitialValueStatement(DynamicSystemParser.InitialValueStatementContext context)

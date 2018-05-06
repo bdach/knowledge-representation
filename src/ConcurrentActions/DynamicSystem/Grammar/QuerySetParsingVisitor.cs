@@ -9,6 +9,7 @@ using Action = Model.Action;
 
 namespace DynamicSystem.Grammar
 {
+    /// Implementation of DynamicSystem AST visitor which parses <see cref="QuerySet"/>
     internal class QuerySetParsingVisitor : DynamicSystemBaseVisitor<Object>
     {
         public override object VisitQuerySet(DynamicSystemParser.QuerySetContext context)
