@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using DynamicSystem.DNF;
@@ -26,6 +27,10 @@ namespace DynamicSystem.QueriesEvaluation
 
         private static bool ExistentialExecutabilityQueryRecursion(HashSet<State> possibleStates, TransitionFunction transitionFunction, List<CompoundAction> actions, int currentActionIndex)
         {
+            if (possibleStates.Count == 0)
+            {
+                return false;
+            }
             if (actions.Count <= currentActionIndex)
             {
                 return true;
@@ -53,6 +58,10 @@ namespace DynamicSystem.QueriesEvaluation
 
         private static bool GeneralExecutabilityQueryRecursion(HashSet<State> possibleStates, TransitionFunction transitionFunction, List<CompoundAction> actions, int currentActionIndex)
         {
+            if (possibleStates.Count == 0)
+            {
+                return false;
+            }
             if (actions.Count <= currentActionIndex)
             {
                 return true;
@@ -61,7 +70,7 @@ namespace DynamicSystem.QueriesEvaluation
             foreach (var state in possibleStates)
             {
                 HashSet<State> newPossibleStates = transitionFunction[currentAction, state];
-                bool result = ExistentialExecutabilityQueryRecursion(newPossibleStates, transitionFunction, actions, currentActionIndex + 1);
+                bool result = GeneralExecutabilityQueryRecursion(newPossibleStates, transitionFunction, actions, currentActionIndex + 1);
                 if (!result)
                 {
                     return false;
