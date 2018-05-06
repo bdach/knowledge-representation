@@ -86,8 +86,8 @@ namespace Test.NewGeneration
         public void NewCatS1ToS2CompoundAction()
         {
             var newGenerator = new NewGenerator(_actionDomain, _fluents);
-            var newFluentsForPeek = newGenerator.GetSet(_peek, _stateOne, _stateTwo);
-            var newFluentsForPet = newGenerator.GetSet(_pet, _stateOne, _stateTwo);
+            var newFluentsForPeek = newGenerator.GetLiterals(_peek, _stateOne, _stateTwo);
+            var newFluentsForPet = newGenerator.GetLiterals(_pet, _stateOne, _stateTwo);
 
             //should just join them here
             var outLiterals = newFluentsForPeek.Union(newFluentsForPet);
