@@ -62,23 +62,6 @@ namespace Model
             get => transitionFunction[ValueTuple.Create(compoundAction, state)];
             set => transitionFunction[ValueTuple.Create(compoundAction, state)] = value;
         }
-
-        //Possible implementation of GetAllCompoundActionsForState(State state)
-        //It would need State.Equals to be overriden
-        /// <summary>
-        /// Returns a list of <see cref="CompoundAction"/> for a given state
-        /// </summary>
-        //public List<CompoundAction> GetAllCompoundActionsForState(State state)
-        //{
-        //    List<CompoundAction> result = new List<CompoundAction>();
-        //    foreach (var key in transitionFunction.Keys)
-        //    {
-        //        if (key.Item2.Equals(state))
-        //        {
-        //            result.Add(key.Item1);
-        //        }
-        //    }
-        //    return result;
-        //}
+        
     }
 }

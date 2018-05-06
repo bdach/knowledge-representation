@@ -150,7 +150,7 @@ namespace DynamicSystem.QueriesEvaluation
         }
 
         /// <summary>
-        /// [NOT IMPLEMENTED] Evaluates a <see cref="AccessibilityQuery"/>
+        ///Evaluates a <see cref="AccessibilityQuery"/>
         /// </summary>
         public static bool EvaluateAccessibilityQuery(HashSet<State> initialStates, TransitionFunction transitionFunction, AccessibilityQuery query)
         {
@@ -168,8 +168,6 @@ namespace DynamicSystem.QueriesEvaluation
 
         private static bool AccessibilityQueryRecursion(HashSet<State> visitedStates, State currentState, TransitionFunction transitionFunction, AccessibilityQuery query)
         {
-            throw new NotImplementedException();
-            //TODO:
             if (query.Target.Evaluate(currentState))
             {
                 return true;
@@ -182,27 +180,51 @@ namespace DynamicSystem.QueriesEvaluation
             HashSet<State> newVisitedStates = new HashSet<State>(visitedStates);
             newVisitedStates.Add(currentState);
 
-            //TODO:uncomment once GetAllCompoundActionsForState(State state) is implemented or method concept is changed
-            //IEnumerable<CompoundAction> possibleActions = transitionFunction.GetAllCompoundActionsForState(currentState);
-            //if (possibleActions.Count() == 0)
-            //{
-            //    return false;
-            //}
+            List<CompoundAction> possibleActions = transitionFunction.CompoundActions.Where(
+                (compoundAction) => transitionFunction[compoundAction, currentState] != null &&
+                                    transitionFunction[compoundAction, currentState].Count > 0).ToList();
 
-            //foreach (var action in possibleActions)
-            //{
-            //    HashSet<State> possibleStates = transitionFunction[action, currentState];
-            //
-            //    foreach (var state in possibleStates)
-            //    {
-            //        bool result = AccessibilityQueryRecursion(newVisitedStates, state, transitionFunction, query);
-            //        if (!result)
-            //        {
-            //            return false;
-            //        }
-            //    }
-            //}
-            //return true;
+            if (!possibleActions.Any())
+            {
+                return false;
+            }
+
+            
+            bool atLeastOneActionLeadsToPositiveEnding = false;
+            foreach (var action in possibleActions)
+            {
+                HashSet<State> possibleStates = transitionFunction[action, currentState];
+
+                bool fromEveryStateThereIsAPathToPositiveEnding = true;
+                bool atLeastOneState = false;
+
+                foreach (var state in possibleStates)
+                {
+                    if (state == currentState)
+                    {
+                        continue;
+                    }
+                    atLeastOneState = true;
+                    bool result = AccessibilityQueryRecursion(newVisitedStates, state, transitionFunction, query);
+                    if (!result)
+                    {
+                        fromEveryStateThereIsAPathToPositiveEnding = false;
+                        break;
+                    }
+                }
+
+                if (fromEveryStateThereIsAPathToPositiveEnding && atLeastOneState)
+                {
+                    atLeastOneActionLeadsToPositiveEnding = true;
+                    break;
+                }
+            }
+
+            if (atLeastOneActionLeadsToPositiveEnding)
+            {
+                return true;
+            }
+            return false;   
         }
     }
 }
