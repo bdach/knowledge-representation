@@ -13,6 +13,7 @@ using Client.Provider;
 using Client.View;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
+using DynamicSystem.Grammar;
 using ReactiveUI;
 using Splat;
 

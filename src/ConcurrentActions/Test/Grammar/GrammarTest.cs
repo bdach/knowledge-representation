@@ -44,7 +44,7 @@ namespace Test.Grammar
             var expected = new List<EffectStatement>()
             {
                 new EffectStatement(action, new Literal(fluent), new Literal(fluent, true)),
-                new EffectStatement(action, Constant.Falsity, Constant.Truth),
+                new EffectStatement(action, new Literal(fluent), Constant.Falsity),
                 new EffectStatement(action, new Literal(fluent))
             };
             // when
