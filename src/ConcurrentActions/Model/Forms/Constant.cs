@@ -1,4 +1,6 @@
-﻿namespace Model.Forms
+﻿using System;
+
+namespace Model.Forms
 {
     /// <inheritdoc />
     /// <summary>
@@ -9,7 +11,27 @@
         /// <summary>
         /// The inner constant value of the formula.
         /// </summary>
-        private readonly bool value;
+        private bool _value;
+
+        /// <summary>
+        /// DO NOT USE!
+        /// </summary>
+        /// <remarks>
+        /// This was introduced as a part of workaround to XSerializer ignoring custom
+        /// serialization rules issue. This property ensures proper serialization and deserialization
+        /// of constants, because implementing IXmlSerializable has no effect for some reason.
+        /// </remarks>
+        [Obsolete("This property should be used only during deserialization, use comparison to Constant.Truth or Constant.Falsity instead")]
+        public bool Value
+        {
+            get => _value;
+            set => _value = value;
+        }
+
+        /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Constant() { }
 
         /// <summary>
         /// Initializes a new <see cref="Constant"/> instance with the supplied <see cref="value"/>.
@@ -17,13 +39,13 @@
         /// <param name="value">The inner constant value of the formula.</param>
         private Constant(bool value)
         {
-            this.value = value;
+            _value = value;
         }
 
         /// <inheritdoc />
         public bool Evaluate(IState state)
         {
-            return value;
+            return _value;
         }
 
         public IFormula Accept(IFormulaVisitor visitor)
@@ -43,12 +65,12 @@
 
         public override string ToString()
         {
-            return value ? "\u22A4" : "\u22A5";
+            return _value ? "\u22A4" : "\u22A5";
         }
 
         protected bool Equals(Constant other)
         {
-            return value == other.value;
+            return _value == other._value;
         }
 
         public override bool Equals(object obj)
@@ -61,7 +83,7 @@
 
         public override int GetHashCode()
         {
-            return value.GetHashCode();
+            return _value.GetHashCode();
         }
     }
 }

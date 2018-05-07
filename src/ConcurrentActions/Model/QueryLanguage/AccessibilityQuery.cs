@@ -15,6 +15,11 @@ namespace Model.QueryLanguage
         public IFormula Target { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public AccessibilityQuery() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AccessibilityQuery"/> class.
         /// </summary>
         /// <param name="target">The target <see cref="IFormula"/> to be satisfied.</param>
@@ -26,6 +31,24 @@ namespace Model.QueryLanguage
         public override string ToString()
         {
             return $"accessible {Target}";
+        }
+
+        protected bool Equals(AccessibilityQuery other)
+        {
+            return Equals(Target, other.Target);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((AccessibilityQuery) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Target != null ? Target.GetHashCode() : 0);
         }
     }
 }

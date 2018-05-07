@@ -12,6 +12,11 @@
         public IFormula Formula { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Negation() { }
+
+        /// <summary>
         /// Initializes a new <see cref="Negation"/> instance.
         /// </summary>
         /// <param name="formula">The <see cref="IFormula"/> whose value should be negated.</param>

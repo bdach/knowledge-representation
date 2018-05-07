@@ -12,6 +12,11 @@
         public Fluent Fluent { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public FluentSpecificationStatement() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FluentSpecificationStatement"/> class.
         /// </summary>
         /// <param name="fluent">The <see cref="Model.Fluent"/> associated with the statement.</param>

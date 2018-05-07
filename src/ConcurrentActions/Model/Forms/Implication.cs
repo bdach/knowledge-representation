@@ -17,6 +17,11 @@
         public IFormula Consequent { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Implication() { }
+
+        /// <summary>
         /// Initializes a new <see cref="Implication"/> instance.
         /// </summary>
         /// <param name="antecedent">An <see cref="IFormula"/> instance representing the antecedent of the implication.</param>

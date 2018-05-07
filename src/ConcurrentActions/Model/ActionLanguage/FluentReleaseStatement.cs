@@ -24,6 +24,11 @@ namespace Model.ActionLanguage
         public IFormula Precondition { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public FluentReleaseStatement() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FluentReleaseStatement"/> class.
         /// </summary>
         /// <param name="action">The <see cref="Model.Action"/> associated with the fluent release.</param>
@@ -44,6 +49,7 @@ namespace Model.ActionLanguage
         /// <param name="fluent">The <see cref="Model.Fluent"/> to be released.</param>
         public FluentReleaseStatement(Action action, Fluent fluent) : this(action, fluent, Constant.Truth)
         {
+
         }
 
         public override string ToString()
@@ -51,6 +57,30 @@ namespace Model.ActionLanguage
             var prefix = $"{Action} releases {Fluent}";
             var suffix = Precondition == Constant.Truth ? "" : $"if {Precondition}";
             return string.Join(" ", prefix, suffix);
+        }
+
+        protected bool Equals(FluentReleaseStatement other)
+        {
+            return Equals(Action, other.Action) && Equals(Fluent, other.Fluent) && Equals(Precondition, other.Precondition);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((FluentReleaseStatement) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Action != null ? Action.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Fluent != null ? Fluent.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Precondition != null ? Precondition.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }
