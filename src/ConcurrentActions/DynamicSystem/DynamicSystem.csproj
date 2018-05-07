@@ -61,6 +61,7 @@
     <Compile Include="DNF\Visitors\NaryConjunctionGeneratingFormulaVisitor.cs" />
     <Compile Include="DNF\Visitors\NegationPropagatingFormulaVisitor.cs" />
     <Compile Include="DNF\Visitors\SimplifyingFormulaVisitor.cs" />
+    <Compile Include="NewGeneration\NewGenerator.cs" />
     <Compile Include="Grammar\DynamicSystemParserUtils.cs" />
     <Compile Include="Grammar\ActionDomainParsingVisitor.cs" />
     <Compile Include="Grammar\FormulaParsingVisitor.cs" />

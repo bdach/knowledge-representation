@@ -96,6 +96,7 @@
     <Compile Include="Model\StateTest.cs" />
     <Compile Include="Model\StructureTest.cs" />
     <Compile Include="Model\TransitionFunctionTest.cs" />
+    <Compile Include="NewGeneration\NewCatTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResZero\ProducentConsumerTest.cs" />
     <Compile Include="ResZero\ResZeroCatTest.cs" />
