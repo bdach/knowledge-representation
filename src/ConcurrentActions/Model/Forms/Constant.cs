@@ -68,19 +68,9 @@ namespace Model.Forms
             return _value ? "\u22A4" : "\u22A5";
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is Constant constant && _value == constant._value;
-        }
-
-        public override int GetHashCode()
-        {
-            return -1939223833 + _value.GetHashCode();
-        }
-
         protected bool Equals(Constant other)
         {
-            return value == other.value;
+            return _value == other._value;
         }
 
         public override bool Equals(object obj)
@@ -93,7 +83,7 @@ namespace Model.Forms
 
         public override int GetHashCode()
         {
-            return value.GetHashCode();
+            return _value.GetHashCode();
         }
     }
 }
