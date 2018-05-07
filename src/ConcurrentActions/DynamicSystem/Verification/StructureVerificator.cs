@@ -9,22 +9,19 @@ using System.Threading.Tasks;
 
 namespace DynamicSystem.Verification
 {
-    public  static class StructureVerification
+    public static class StructureVerification
     {
         private static bool CheckValueStatements(List<ValueStatement> statements, TransitionFunction function, State initial)
         {
-            
-            foreach(var statement in statements)
+            foreach (var statement in statements)
             {
-                
+                var states = function[new CompoundAction(statement.Action), initial];
                 var condition = statement.Condition;
-                var compoundAction = new CompoundAction(statement.Action);
-                var states = new HashSet<State> { initial };
 
-                if (!CheckValue(states, compoundAction, condition, function))
+                if (!CheckValue(states, condition))
                     return false;
             }
-            
+
             return true;
         }
 
@@ -32,50 +29,30 @@ namespace DynamicSystem.Verification
         {
             foreach (var statement in statements)
             {
-
+                var states = function[new CompoundAction(statement.Action), initial];
                 var condition = statement.Condition;
-                var compoundAction = new CompoundAction(statement.Action);
-                var states = new HashSet<State> { initial };
 
-                if (!CheckObservation(states, compoundAction, condition, function))
+                if (!CheckObservation(states, condition))
                     return false;
             }
 
             return true;
         }
 
-        private static bool CheckValue(HashSet<State> states, CompoundAction action, IFormula cond, TransitionFunction function)
+        private static bool CheckValue(HashSet<State> states, IFormula cond)
         {
             foreach (var state in states)
-            {
-                if (cond.Evaluate(state) == true)
-                    continue;
-
-                var nextStates = function[action, state];
-                if (nextStates.Count == 0)
+                if (!cond.Evaluate(state))
                     return false;
-
-                if (!CheckValue(nextStates, action, cond, function))
-                    return false;
-            }
 
             return true;
         }
 
-        private static bool CheckObservation(HashSet<State> states, CompoundAction action, IFormula cond, TransitionFunction function)
+        private static bool CheckObservation(HashSet<State> states, IFormula cond)
         {
             foreach (var state in states)
-            {
-                if (cond.Evaluate(state) == true)
+                if (cond.Evaluate(state))
                     return true;
-
-                var nextStates = function[action, state];
-                if (nextStates.Count == 0)
-                    continue;
-
-                if (CheckValue(nextStates, action, cond, function))
-                    return true;
-            }
 
             return false;
         }
@@ -85,7 +62,7 @@ namespace DynamicSystem.Verification
             var valueStatements = domain.ValueStatements;
             var observationStatements = domain.ObservationStatements;
 
-            return CheckValueStatements(valueStatements, structure.TransitionFunction, structure.InitialState) 
+            return CheckValueStatements(valueStatements, structure.TransitionFunction, structure.InitialState)
                 && CheckObservationStatements(observationStatements, structure.TransitionFunction, structure.InitialState);
         }
     }

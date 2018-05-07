@@ -104,6 +104,7 @@
     <Compile Include="SetGeneration\CompoundActionTest.cs" />
     <Compile Include="SetGeneration\InitialStatesTest.cs" />
     <Compile Include="SetGeneration\AdmissibleStatesTest.cs" />
+    <Compile Include="Verification\StructureVerificationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
