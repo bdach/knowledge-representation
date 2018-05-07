@@ -25,5 +25,23 @@ namespace Model.ActionLanguage
         {
             return $"always {Constraint}";
         }
+
+        protected bool Equals(ConstraintStatement other)
+        {
+            return Equals(Constraint, other.Constraint);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ConstraintStatement) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Constraint != null ? Constraint.GetHashCode() : 0);
+        }
     }
 }

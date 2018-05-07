@@ -75,5 +75,27 @@ namespace Model
             var actionNames = string.Join(", ", Actions);
             return "{" + actionNames + "}";
         }
+
+        protected bool Equals(CompoundAction other)
+        {
+            return Actions.SetEquals(other.Actions);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((CompoundAction) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 0;
+            if (Actions != null)
+                foreach (var action in Actions)
+                    hashCode ^= action.GetHashCode();
+            return hashCode;
+        }
     }
 }

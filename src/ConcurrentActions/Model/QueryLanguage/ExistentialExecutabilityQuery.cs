@@ -25,5 +25,23 @@
         {
             return $"executable sometimes {Program}";
         }
+
+        protected bool Equals(ExistentialExecutabilityQuery other)
+        {
+            return Equals(Program, other.Program);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ExistentialExecutabilityQuery) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Program != null ? Program.GetHashCode() : 0);
+        }
     }
 }

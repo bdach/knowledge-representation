@@ -7,6 +7,7 @@ namespace Test.Model
     [TestFixture]
     public class ActionTest
     {
+        [Test]
         public void Equal()
         {
             // given
@@ -18,6 +19,7 @@ namespace Test.Model
             equal.Should().BeTrue();
         }
 
+        [Test]
         public void NotEqual()
         {
             // given

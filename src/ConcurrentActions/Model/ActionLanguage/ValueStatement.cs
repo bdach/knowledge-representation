@@ -32,5 +32,26 @@ namespace Model.ActionLanguage
         {
             return $"{Condition} after {Action}";
         }
+
+        protected bool Equals(ValueStatement other)
+        {
+            return Equals(Condition, other.Condition) && Equals(Action, other.Action);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ValueStatement) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Condition != null ? Condition.GetHashCode() : 0) * 397) ^ (Action != null ? Action.GetHashCode() : 0);
+            }
+        }
     }
 }

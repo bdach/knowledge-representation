@@ -67,5 +67,29 @@ namespace Model.ActionLanguage
             var suffix = Precondition == Constant.Truth ? "" : $"if {Precondition}";
             return string.Join(" ", prefix, suffix);
         }
+
+        protected bool Equals(EffectStatement other)
+        {
+            return Equals(Action, other.Action) && Equals(Precondition, other.Precondition) && Equals(Postcondition, other.Postcondition);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((EffectStatement) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Action != null ? Action.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Precondition != null ? Precondition.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Postcondition != null ? Postcondition.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
     }
 }
