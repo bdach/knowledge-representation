@@ -82,6 +82,7 @@
     <Compile Include="DNF\Visitors\NegationPropagatingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\SimplifyingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\VisitorTestUtils.cs" />
+    <Compile Include="Grammar\GrammarTest.cs" />
     <Compile Include="Model\ActionTest.cs" />
     <Compile Include="Model\CompoundActionTest.cs" />
     <Compile Include="Model\Forms\AlternativeTest.cs" />

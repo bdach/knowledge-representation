@@ -1,0 +1,80 @@
+﻿<fluent:RibbonWindow
+        x:Class="Client.View.ShellView" x:Name="ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:rui="clr-namespace:ReactiveUI;assembly=ReactiveUI"
+        xmlns:local="clr-namespace:Client.Provider"
+        xmlns:fluent="urn:fluent-ribbon"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Title="{local:Loc WindowTitle}"
+        MinWidth="1024" MinHeight="768"
+        Width="1024" Height="768">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <rui:ViewModelViewHost Name="Ribbon"
+            Grid.Row="0" Grid.Column="0"
+            HorizontalContentAlignment="Stretch" />
+
+        <Grid 
+            Grid.Row="1"
+            FocusManager.IsFocusScope="True">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <rui:ViewModelViewHost Name="ActionArea"
+                Grid.Column="0"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Margin="4,4,2,4" />
+
+            <rui:ViewModelViewHost Name="QueryArea"
+                Grid.Column="1"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Margin="2,4,4,4" />
+
+        </Grid>
+        
+        <fluent:StatusBar
+            Grid.Row="2"
+            Name="StatusBar">
+
+            <fluent:StatusBarItem
+                Name="ErrorMessageItem"
+                HorizontalAlignment="Left">
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    Name="ErrorContent"
+                    Visibility="Collapsed">
+
+                    <Image
+                        Name="ErrorIcon"
+                        Height="16"
+                        Margin="5 0"
+                        Source="/Client;component/Resources/Images/warning-96.png" />
+
+                    <TextBlock
+                        Name="ErrorMessage" />
+
+                </StackPanel>
+
+            </fluent:StatusBarItem>
+
+        </fluent:StatusBar>
+
+    </Grid>
+</fluent:RibbonWindow>
+
