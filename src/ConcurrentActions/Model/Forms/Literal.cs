@@ -18,14 +18,17 @@ namespace Model.Forms
         /// </summary>
         public bool Negated { get; set; }
 
+        /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Literal() { }
+
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new <see cref="Literal" /> instance.
         /// This constructor does not negate the fluent value by default.
         /// </summary>
-        public Literal(Fluent fluent) : this(fluent, false)
-        {
-        }
+        public Literal(Fluent fluent) : this(fluent, false) { }
 
         /// <summary>
         /// Initializes a new <see cref="Literal"/> instance.

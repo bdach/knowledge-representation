@@ -1,0 +1,639 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessibilityQuery" xml:space="preserve">
+    <value>AccessibilityQuery</value>
+  </data>
+  <data name="AccessibilityQueryScreenTip" xml:space="preserve">
+    <value>AccessibilityQueryScreenTip</value>
+  </data>
+  <data name="AccessibilityQueryTargetError" xml:space="preserve">
+    <value>AccessibilityQueryTargetError</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ActionDomainGroupBox" xml:space="preserve">
+    <value>ActionDomainGroupBox</value>
+  </data>
+  <data name="ActionDropDown" xml:space="preserve">
+    <value>AddActionButton</value>
+  </data>
+  <data name="ActionDropDownScreenTip" xml:space="preserve">
+    <value>ActionDropdownScreenTip</value>
+  </data>
+  <data name="ActionErrorPrefix" xml:space="preserve">
+    <value>ActionErrorPrefix</value>
+  </data>
+  <data name="ActionErrorSuffix" xml:space="preserve">
+    <value>ActionErrorSuffix</value>
+  </data>
+  <data name="ActionScreenTip" xml:space="preserve">
+    <value>ActionScreenTip</value>
+  </data>
+  <data name="ActionValueError" xml:space="preserve">
+    <value>ActionValueError</value>
+  </data>
+  <data name="AddActionButton" xml:space="preserve">
+    <value>AddActionButton</value>
+  </data>
+  <data name="AddActionCancelButton" xml:space="preserve">
+    <value>AddActionCancelButton</value>
+  </data>
+  <data name="AddActionConfirmButton" xml:space="preserve">
+    <value>AddActionConfirmButton</value>
+  </data>
+  <data name="AddActionPrompt" xml:space="preserve">
+    <value>AddActionPrompt</value>
+  </data>
+  <data name="AddActionStatementDropDown" xml:space="preserve">
+    <value>AddActionStatementDropDown</value>
+  </data>
+  <data name="AddActionStatementDropDownScreenTip" xml:space="preserve">
+    <value>AddActionStatementDropDownScreenTip</value>
+  </data>
+  <data name="AddActionTitle" xml:space="preserve">
+    <value>AddActionTitle</value>
+  </data>
+  <data name="AddCompoundActionButton" xml:space="preserve">
+    <value>AddCompoundActionButton</value>
+  </data>
+  <data name="AddCompoundActionButtonScreenTip" xml:space="preserve">
+    <value>AddCompoundActionButtonScreenTip</value>
+  </data>
+  <data name="AddCompoundActionButtonUnbroken" xml:space="preserve">
+    <value>AddCompoundActionButtonUnbroken</value>
+  </data>
+  <data name="AddFluentButton" xml:space="preserve">
+    <value>AddFluentButton</value>
+  </data>
+  <data name="AddFluentCancelButton" xml:space="preserve">
+    <value>AddFluentCancelButton</value>
+  </data>
+  <data name="AddFluentConfirmButton" xml:space="preserve">
+    <value>AddFluentConfirmButton</value>
+  </data>
+  <data name="AddFluentPrompt" xml:space="preserve">
+    <value>AddFluentPrompt</value>
+  </data>
+  <data name="AddFluentTitle" xml:space="preserve">
+    <value>AddFluentTitle</value>
+  </data>
+  <data name="AddQueryStatementDropDown" xml:space="preserve">
+    <value>AddQueryStatementDropDown</value>
+  </data>
+  <data name="AddQueryStatementDropDownScreenTip" xml:space="preserve">
+    <value>AddQueryStatementDropDownScreenTip</value>
+  </data>
+  <data name="AlternativeButton" xml:space="preserve">
+    <value>AlternativeButton</value>
+  </data>
+  <data name="AlternativeButtonScreenTip" xml:space="preserve">
+    <value>AlternativeButtonScreenTip</value>
+  </data>
+  <data name="AlternativeLeftFormulaError" xml:space="preserve">
+    <value>AlternativeLeftFormulaError</value>
+  </data>
+  <data name="AlternativeRightFormulaError" xml:space="preserve">
+    <value>AlternativeRightFormulaError</value>
+  </data>
+  <data name="CalculateButton" xml:space="preserve">
+    <value>CalculateButton</value>
+  </data>
+  <data name="CalculateButtonScreenTip" xml:space="preserve">
+    <value>CalculateButtonScreenTip</value>
+  </data>
+  <data name="CannotAddActionError" xml:space="preserve">
+    <value>CannotAddActionError</value>
+  </data>
+  <data name="CannotAddCompoundActionError" xml:space="preserve">
+    <value>CannotAddCompoundActionError</value>
+  </data>
+  <data name="CannotAddFormulaError" xml:space="preserve">
+    <value>CannotAddFormulaError</value>
+  </data>
+  <data name="ChooseLanguage" xml:space="preserve">
+    <value>ChooseLanguage</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>ClearButton</value>
+  </data>
+  <data name="ClearButtonScreenTip" xml:space="preserve">
+    <value>ClearButtonScreenTip</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>CloseButton</value>
+  </data>
+  <data name="CloseButtonScreenTip" xml:space="preserve">
+    <value>CloseButtonScreenTip</value>
+  </data>
+  <data name="CompoundActionActionError" xml:space="preserve">
+    <value>CompoundActionActionError</value>
+  </data>
+  <data name="CompoundActionActionsError" xml:space="preserve">
+    <value>CompoundActionActionsError</value>
+  </data>
+  <data name="ConditionalEffectStatement" xml:space="preserve">
+    <value>ConditionalEffectStatement</value>
+  </data>
+  <data name="ConditionalEffectStatementActionError" xml:space="preserve">
+    <value>ConditionalEffectStatementActionError</value>
+  </data>
+  <data name="ConditionalEffectStatementPostconditionError" xml:space="preserve">
+    <value>ConditionalEffectStatementPostconditionError</value>
+  </data>
+  <data name="ConditionalEffectStatementPreconditionError" xml:space="preserve">
+    <value>ConditionalEffectStatementPreconditionError</value>
+  </data>
+  <data name="ConditionalEffectStatementScreenTip" xml:space="preserve">
+    <value>ConditionalEffectStatementScreenTip</value>
+  </data>
+  <data name="ConditionalFluentReleaseStatement" xml:space="preserve">
+    <value>ConditionalFluentReleaseStatement</value>
+  </data>
+  <data name="ConditionalFluentReleaseStatementActionError" xml:space="preserve">
+    <value>ConditionalFluentReleaseStatementActionError</value>
+  </data>
+  <data name="ConditionalFluentReleaseStatementFluentError" xml:space="preserve">
+    <value>ConditionalFluentReleaseStatementFluentError</value>
+  </data>
+  <data name="ConditionalFluentReleaseStatementPreconditionError" xml:space="preserve">
+    <value>ConditionalFluentReleaseStatementPreconditionError</value>
+  </data>
+  <data name="ConditionalFluentReleaseStatementScreenTip" xml:space="preserve">
+    <value>ConditionalFluentReleaseStatementScreenTip</value>
+  </data>
+  <data name="ConditionalImpossibilityStatement" xml:space="preserve">
+    <value>ConditionalImpossibilityStatement</value>
+  </data>
+  <data name="ConditionalImpossibilityStatementActionError" xml:space="preserve">
+    <value>ConditionalImpossibilityStatementActionError</value>
+  </data>
+  <data name="ConditionalImpossibilityStatementPreconditionError" xml:space="preserve">
+    <value>ConditionalImpossibilityStatementPreconditionError</value>
+  </data>
+  <data name="ConditionalImpossibilityStatementScreenTip" xml:space="preserve">
+    <value>ConditionalImpossibilityStatementScreenTip</value>
+  </data>
+  <data name="ConjunctionButton" xml:space="preserve">
+    <value>ConjunctionButton</value>
+  </data>
+  <data name="ConjunctionButtonScreenTip" xml:space="preserve">
+    <value>ConjunctionButtonScreenTip</value>
+  </data>
+  <data name="ConjunctionLeftFormulaError" xml:space="preserve">
+    <value>ConjunctionLeftFormulaError</value>
+  </data>
+  <data name="ConjunctionRightFormulaError" xml:space="preserve">
+    <value>ConjunctionRightFormulaError</value>
+  </data>
+  <data name="ConstantValueError" xml:space="preserve">
+    <value>ConstantValueError</value>
+  </data>
+  <data name="Constraint" xml:space="preserve">
+    <value>Constraint</value>
+  </data>
+  <data name="ConstraintScreenTip" xml:space="preserve">
+    <value>ConstraintScreenTip</value>
+  </data>
+  <data name="ConstraintStatement" xml:space="preserve">
+    <value>ConstraintStatement</value>
+  </data>
+  <data name="ConstraintStatementConditionError" xml:space="preserve">
+    <value>ConstraintStatementConditionError</value>
+  </data>
+  <data name="ConstraintStatementScreenTip" xml:space="preserve">
+    <value>ConstraintStatementScreenTip</value>
+  </data>
+  <data name="EditTab" xml:space="preserve">
+    <value>EditTab</value>
+  </data>
+  <data name="EffectStatement" xml:space="preserve">
+    <value>EffectStatement</value>
+  </data>
+  <data name="EffectStatementActionError" xml:space="preserve">
+    <value>EffectStatementActionError</value>
+  </data>
+  <data name="EffectStatementPostconditionError" xml:space="preserve">
+    <value>EffectStatementPostconditionError</value>
+  </data>
+  <data name="EffectStatementPreconditionError" xml:space="preserve">
+    <value>EffectStatementPreconditionError</value>
+  </data>
+  <data name="EquivalenceButton" xml:space="preserve">
+    <value>EquivalencyButton</value>
+  </data>
+  <data name="EquivalenceButtonScreenTip" xml:space="preserve">
+    <value>EquivalenceButtonScreenTip</value>
+  </data>
+  <data name="EquivalenceLeftFormulaError" xml:space="preserve">
+    <value>EquivalenceLeftFormulaError</value>
+  </data>
+  <data name="EquivalenceRightFormulaError" xml:space="preserve">
+    <value>EquivalenceRightFormulaError</value>
+  </data>
+  <data name="ErrorMessageItem" xml:space="preserve">
+    <value>ErrorMessageItem</value>
+  </data>
+  <data name="ExecutabilityQuery" xml:space="preserve">
+    <value>ExecutabilityQuery</value>
+  </data>
+  <data name="ExistentialExecutabilityQuery" xml:space="preserve">
+    <value>ExistentialExecutabilityQuery</value>
+  </data>
+  <data name="ExistentialExecutabilityQueryProgramError" xml:space="preserve">
+    <value>ExistentialExecutabilityQueryProgramError</value>
+  </data>
+  <data name="ExistentialExecutabilityQueryScreenTip" xml:space="preserve">
+    <value>ExistentialExecutabilityQueryScreenTip</value>
+  </data>
+  <data name="ExistentialValueQuery" xml:space="preserve">
+    <value>ExistentialValueQuery</value>
+  </data>
+  <data name="ExistentialValueQueryProgramError" xml:space="preserve">
+    <value>ExistentialValueQueryProgramError</value>
+  </data>
+  <data name="ExistentialValueQueryScreenTip" xml:space="preserve">
+    <value>ExistentialValueQueryScreenTip</value>
+  </data>
+  <data name="ExistentialValueQueryTargetError" xml:space="preserve">
+    <value>ExistentialValueQueryTargetError</value>
+  </data>
+  <data name="ExportButton" xml:space="preserve">
+    <value>ExportButton</value>
+  </data>
+  <data name="ExportButtonScreenTip" xml:space="preserve">
+    <value>ExportButtonScreenTip</value>
+  </data>
+  <data name="FalsityButton" xml:space="preserve">
+    <value>FalsityButton</value>
+  </data>
+  <data name="FalsityButtonScreenTip" xml:space="preserve">
+    <value>FalsityButtonScreenTip</value>
+  </data>
+  <data name="Fluent" xml:space="preserve">
+    <value>Fluent</value>
+  </data>
+  <data name="FluentDropDown" xml:space="preserve">
+    <value>FluentDropDown</value>
+  </data>
+  <data name="FluentDropDownScreenTip" xml:space="preserve">
+    <value>FluentDropDownScreenTip</value>
+  </data>
+  <data name="FluentErrorPrefix" xml:space="preserve">
+    <value>FluentErrorPrefix</value>
+  </data>
+  <data name="FluentErrorSuffix" xml:space="preserve">
+    <value>FluentErrorSuffix</value>
+  </data>
+  <data name="FluentReleaseActionError" xml:space="preserve">
+    <value>FluentReleaseActionError</value>
+  </data>
+  <data name="FluentReleaseFluentError" xml:space="preserve">
+    <value>FluentReleaseFluentError</value>
+  </data>
+  <data name="FluentReleasePreconditionError" xml:space="preserve">
+    <value>FluentReleasePreconditionError</value>
+  </data>
+  <data name="FluentReleaseStatement" xml:space="preserve">
+    <value>FluentReleaseStatement</value>
+  </data>
+  <data name="FluentScreenTip" xml:space="preserve">
+    <value>FluentScreenTip</value>
+  </data>
+  <data name="FluentSpecificationStatement" xml:space="preserve">
+    <value>FluentSpecificationStatement</value>
+  </data>
+  <data name="FluentSpecificationStatementFluentError" xml:space="preserve">
+    <value>FluentSpecificationStatementFluentError</value>
+  </data>
+  <data name="FluentSpecificationStatementScreenTip" xml:space="preserve">
+    <value>FluentSpecificationStatementScreenTip</value>
+  </data>
+  <data name="FormulaGroupBox" xml:space="preserve">
+    <value>FormulaGroupBox</value>
+  </data>
+  <data name="FormulaTypeErrorPrefix" xml:space="preserve">
+    <value>FormulaTypeErrorPrefix</value>
+  </data>
+  <data name="FormulaTypeErrorSuffix" xml:space="preserve">
+    <value>FormulaTypeErrorSuffix</value>
+  </data>
+  <data name="GeneralExecutabilityQuery" xml:space="preserve">
+    <value>GeneralExecutabilityQuery</value>
+  </data>
+  <data name="GeneralExecutabilityQueryProgramError" xml:space="preserve">
+    <value>GeneralExecutabilityQueryProgramError</value>
+  </data>
+  <data name="GeneralExecutabilityQueryScreenTip" xml:space="preserve">
+    <value>GeneralExecutabilityQueryScreenTip</value>
+  </data>
+  <data name="GeneralValueQuery" xml:space="preserve">
+    <value>GeneralValueQuery</value>
+  </data>
+  <data name="GeneralValueQueryProgramError" xml:space="preserve">
+    <value>GeneralValueQueryProgramError</value>
+  </data>
+  <data name="GeneralValueQueryScreenTip" xml:space="preserve">
+    <value>GeneralValueQueryScreenTip</value>
+  </data>
+  <data name="GeneralValueQueryTargetError" xml:space="preserve">
+    <value>GeneralValueQueryTargetError</value>
+  </data>
+  <data name="GrammarTab" xml:space="preserve">
+    <value>GrammarTab</value>
+  </data>
+  <data name="ImplicationAntecedentError" xml:space="preserve">
+    <value>ImplicationAntecedentError</value>
+  </data>
+  <data name="ImplicationButton" xml:space="preserve">
+    <value>ImplicationButton</value>
+  </data>
+  <data name="ImplicationButtonScreenTip" xml:space="preserve">
+    <value>ImplicationButtonScreenTip</value>
+  </data>
+  <data name="ImplicationConsequentError" xml:space="preserve">
+    <value>ImplicationConsequentError</value>
+  </data>
+  <data name="ImportButton" xml:space="preserve">
+    <value>ImportButton</value>
+  </data>
+  <data name="ImportButtonScreenTip" xml:space="preserve">
+    <value>ImportButtonScreenTip</value>
+  </data>
+  <data name="InitialCondition" xml:space="preserve">
+    <value>InitialCondition</value>
+  </data>
+  <data name="InitialConditionScreenTip" xml:space="preserve">
+    <value>InitialConditionScreenTip</value>
+  </data>
+  <data name="InitialValueStatement" xml:space="preserve">
+    <value>InitialValueStatement</value>
+  </data>
+  <data name="InitialValueStatementInitialConditionError" xml:space="preserve">
+    <value>InitialValueStatementInitialConditionError</value>
+  </data>
+  <data name="InitialValueStatementScreenTip" xml:space="preserve">
+    <value>InitialValueStatementScreenTip</value>
+  </data>
+  <data name="LanguageGroupBox" xml:space="preserve">
+    <value>LanguageGroupBox</value>
+  </data>
+  <data name="LiteralFluentError" xml:space="preserve">
+    <value>LiteralFluentError</value>
+  </data>
+  <data name="NegationButton" xml:space="preserve">
+    <value>NegationButton</value>
+  </data>
+  <data name="NegationButtonScreenTip" xml:space="preserve">
+    <value>NegationButtonScreenTip</value>
+  </data>
+  <data name="NegationFormulaError" xml:space="preserve">
+    <value>NegationFormulaError</value>
+  </data>
+  <data name="ObservationCondition" xml:space="preserve">
+    <value>ObservationCondition</value>
+  </data>
+  <data name="ObservationConditionScreenTip" xml:space="preserve">
+    <value>ObservationConditionScreenTip</value>
+  </data>
+  <data name="ObservationStatement" xml:space="preserve">
+    <value>ObservationStatement</value>
+  </data>
+  <data name="ObservationStatementActionError" xml:space="preserve">
+    <value>ObservationStatementActionError</value>
+  </data>
+  <data name="ObservationStatementConditionError" xml:space="preserve">
+    <value>ObservationStatementConditionError</value>
+  </data>
+  <data name="ObservationStatementScreenTip" xml:space="preserve">
+    <value>ObservationStatementScreenTip</value>
+  </data>
+  <data name="OptionsTab" xml:space="preserve">
+    <value>OptionsTab</value>
+  </data>
+  <data name="PogramCompoundActionError" xml:space="preserve">
+    <value>PogramCompoundActionError</value>
+  </data>
+  <data name="Postcondition" xml:space="preserve">
+    <value>Postcondition</value>
+  </data>
+  <data name="PostconditionScreenTip" xml:space="preserve">
+    <value>PostconditionScreenTip</value>
+  </data>
+  <data name="Precondition" xml:space="preserve">
+    <value>Precondition</value>
+  </data>
+  <data name="PreconditionScreenTip" xml:space="preserve">
+    <value>PreconditionScreenTip</value>
+  </data>
+  <data name="Program" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="ProgramCompoundActionsError" xml:space="preserve">
+    <value>ProgramCompoundActionsError</value>
+  </data>
+  <data name="ProgramScreenTip" xml:space="preserve">
+    <value>ProgramScreenTip</value>
+  </data>
+  <data name="QueryClauseGroupBox" xml:space="preserve">
+    <value>QueryClauseGroupBox</value>
+  </data>
+  <data name="ScenarioDeserializationFailed" xml:space="preserve">
+    <value>ScenarioDeserializationFailed</value>
+  </data>
+  <data name="ScenarioRebuildingError" xml:space="preserve">
+    <value>ScenarioRebuildingError</value>
+  </data>
+  <data name="ScenarioSerializationFailed" xml:space="preserve">
+    <value>ScenarioSerializationFailed</value>
+  </data>
+  <data name="SystemGroupBox" xml:space="preserve">
+    <value>SystemGroupBox</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="TargetScreenTip" xml:space="preserve">
+    <value>TargetScreenTip</value>
+  </data>
+  <data name="TruthButton" xml:space="preserve">
+    <value>TruthButton</value>
+  </data>
+  <data name="TruthButtonScreenTip" xml:space="preserve">
+    <value>TruthButtonScreenTip</value>
+  </data>
+  <data name="UnconditionalEffectStatement" xml:space="preserve">
+    <value>UnconditionalEffectStatement</value>
+  </data>
+  <data name="UnconditionalEffectStatementActionError" xml:space="preserve">
+    <value>UnconditionalEffectStatementActionError</value>
+  </data>
+  <data name="UnconditionalEffectStatementPostconditionError" xml:space="preserve">
+    <value>UnconditionalEffectStatementPostconditionError</value>
+  </data>
+  <data name="UnconditionalEffectStatementScreenTip" xml:space="preserve">
+    <value>UnconditionalEffectStatementScreenTip</value>
+  </data>
+  <data name="UnconditionalFluentReleaseStatement" xml:space="preserve">
+    <value>UnconditionalFluentReleaseStatement</value>
+  </data>
+  <data name="UnconditionalFluentReleaseStatementActionError" xml:space="preserve">
+    <value>UnconditionalFluentReleaseStatementActionError</value>
+  </data>
+  <data name="UnconditionalFluentReleaseStatementFluentError" xml:space="preserve">
+    <value>UnconditionalFluentReleaseStatementFluentError</value>
+  </data>
+  <data name="UnconditionalFluentReleaseStatementScreenTip" xml:space="preserve">
+    <value>UnconditionalFluentReleaseStatementScreenTip</value>
+  </data>
+  <data name="UnconditionalImpossibilityStatement" xml:space="preserve">
+    <value>UnconditionalImpossibilityStatement</value>
+  </data>
+  <data name="UnconditionalImpossibilityStatementActionError" xml:space="preserve">
+    <value>UnconditionalImpossibilityStatementActionError</value>
+  </data>
+  <data name="UnconditionalImpossibilityStatementScreenTip" xml:space="preserve">
+    <value>UnconditionalImpossibilityStatementScreenTip</value>
+  </data>
+  <data name="ValueCondition" xml:space="preserve">
+    <value>ValueCondition</value>
+  </data>
+  <data name="ValueConditionScreenTip" xml:space="preserve">
+    <value>ValueConditionScreenTip</value>
+  </data>
+  <data name="ValueQuery" xml:space="preserve">
+    <value>ValueQuery</value>
+  </data>
+  <data name="ValueStatement" xml:space="preserve">
+    <value>ValueStatement</value>
+  </data>
+  <data name="ValueStatementActionError" xml:space="preserve">
+    <value>ValueStatementActionError</value>
+  </data>
+  <data name="ValueStatementConditionError" xml:space="preserve">
+    <value>ValueStatementConditionError</value>
+  </data>
+  <data name="ValueStatementScreenTip" xml:space="preserve">
+    <value>ValueStatementScreenTip</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>WindowTitle</value>
+  </data>
+</root>

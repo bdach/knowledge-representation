@@ -20,6 +20,11 @@ namespace Model.QueryLanguage
         public Program Program { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public GeneralValueQuery() { }
+
+        /// <summary>
         /// Initializes an instance of the <see cref="GeneralValueQuery"/> class.
         /// </summary>
         /// <param name="target">The target <see cref="IFormula"/> to be executed.</param>

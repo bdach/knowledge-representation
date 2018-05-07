@@ -15,6 +15,11 @@ namespace Model.QueryLanguage
         public IFormula Target { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public AccessibilityQuery() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AccessibilityQuery"/> class.
         /// </summary>
         /// <param name="target">The target <see cref="IFormula"/> to be satisfied.</param>

@@ -14,6 +14,11 @@ namespace Model
         public string Name { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Fluent() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Fluent"/> class with a specified name.
         /// </summary>
         /// <param name="name">The name of the fluent.</param>

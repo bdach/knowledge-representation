@@ -1,0 +1,472 @@
+﻿<UserControl x:Class="Client.View.RibbonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Provider"
+             xmlns:fluent="urn:fluent-ribbon"
+             mc:Ignorable="d">
+    <Grid>
+        <fluent:Ribbon
+            CanCustomizeQuickAccessToolBarItems="False"
+            CanQuickAccessLocationChanging="False"
+            CanCustomizeRibbon="False"
+            CanMinimize="False">
+
+            <fluent:Ribbon.Menu>
+                <fluent:Backstage>
+                    <fluent:BackstageTabControl>
+
+                        <fluent:Button
+                            Name="ClearButton"
+                            Header="{local:Loc ClearButton}">
+
+                            <fluent:Button.ToolTip>
+
+                                <fluent:ScreenTip
+                                    Title="{local:Loc ClearButton}"
+                                    Text="{local:Loc ClearButtonScreenTip}"/>
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
+
+                        <fluent:Button
+                            Name="ImportButton"
+                            Header="{local:Loc ImportButton}">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc ImportButton}"
+                                    Text="{local:Loc ImportButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
+
+                        <fluent:Button
+                            Name="ExportButton"
+                            Header="{local:Loc ExportButton}">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc ExportButton}"
+                                    Text="{local:Loc ExportButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
+
+                        <fluent:BackstageTabItem
+                            Name="OptionsTab"
+                            Header="{local:Loc OptionsTab}">
+
+                            <Grid Style="{DynamicResource FluentMargin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel>
+
+                                    <TextBlock
+                                        Style="{DynamicResource BackstageTitle}"
+                                        Text="{local:Loc ChooseLanguage}" />
+
+                                    <Rectangle
+                                        Style="{DynamicResource BackstageSeparator}"/>
+
+                                    <fluent:Button
+                                        Name="EnglishButton"
+                                        Header="[en] English (US)"
+                                        Foreground="Black"
+                                        Size="Middle" />
+
+                                    <fluent:Button
+                                        Name="PolishButton"
+                                        Header="[pl] polski"
+                                        Foreground="Black"
+                                        Size="Middle" />
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </fluent:BackstageTabItem>
+
+                        <fluent:Button
+                            Name="CloseButton"
+                            Header="{local:Loc CloseButton}">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc CloseButton}"
+                                    Text="{local:Loc CloseButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
+
+                    </fluent:BackstageTabControl>
+                </fluent:Backstage>
+            </fluent:Ribbon.Menu>
+
+            <fluent:RibbonTabItem
+                Name="EditTab"
+                KeyTip="E"
+                Header="{local:Loc EditTab}">
+
+                <fluent:RibbonGroupBox
+                    Name="LanguageGroupBox"
+                    KeyTip="L"
+                    Header="{local:Loc LanguageGroupBox}">
+
+                    <fluent:DropDownButton
+                        Style="{DynamicResource RibbonLargeNarrowDropDown}"
+                        Name="FluentDropDown"
+                        KeyTip="F"
+                        Header="{local:Loc FluentDropDown}"
+                        Icon="/Client;component/Resources/Images/fluents-64.png"
+                        LargeIcon="/Client;component/Resources/Images/fluents-128.png">
+                        
+                        <fluent:DropDownButton.ToolTip>
+                            
+                            <fluent:ScreenTip Title="{local:Loc FluentDropDown}"
+                                              Text="{local:Loc FluentDropDownScreenTip}" />
+
+                        </fluent:DropDownButton.ToolTip>
+
+                        <fluent:MenuItem
+                            Name="AddFluentButton"
+                            KeyTip="A"
+                            Header="{local:Loc AddFluentButton}"
+                            Icon="/Client;component/Resources/Images/plus-64.png" />
+
+                        <fluent:GroupSeparatorMenuItem 
+                            Visibility="Collapsed"
+                            Style="{DynamicResource RibbonMenuItemSeparator}"
+                            Name="FluentSeparator" />
+
+                        <fluent:Gallery
+                            Name="FluentsGallery"
+                            Orientation="Vertical" />
+
+                    </fluent:DropDownButton>
+
+                    <fluent:DropDownButton
+                        Style="{DynamicResource RibbonLargeNarrowDropDown}"
+                        Name="ActionDropDown"
+                        KeyTip="A"
+                        Header="{local:Loc ActionDropDown}"
+                        Icon="/Client;component/Resources/Images/actions-64.png"
+                        LargeIcon="/Client;component/Resources/Images/actions-128.png">
+                        
+                        <fluent:DropDownButton.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="{local:Loc ActionDropDown}"
+                                Text="{local:Loc ActionDropDownScreenTip}" />
+
+                        </fluent:DropDownButton.ToolTip>
+
+                        <fluent:MenuItem
+                            Name="AddActionButton"
+                            KeyTip="A"
+                            Header="{local:Loc AddActionButton}"
+                            Icon="/Client;component/Resources/Images/plus-64.png" />
+
+                        <fluent:GroupSeparatorMenuItem
+                            Visibility="Collapsed"
+                            Style="{DynamicResource RibbonMenuItemSeparator}"
+                            Name="ActionSeparator" />
+
+                        <fluent:Gallery
+                            Name="ActionsGallery"
+                            Orientation="Vertical" />
+
+                    </fluent:DropDownButton>
+                    
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox
+                    Name="FormulaGroupBox"
+                    KeyTip="F"
+                    Header="{local:Loc FormulaGroupBox}">
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonMiddleMediumButton}"
+                        Name="ConjunctionButton"
+                        KeyTip="C"
+                        Header="{local:Loc ConjunctionButton}"
+                        Icon="/Client;component/Resources/Images/conjunction-64.png"
+                        LargeIcon="/Client;component/Resources/Images/conjunction-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc ConjunctionButton}"
+                                Text="{local:Loc ConjunctionButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonMiddleMediumButton}"
+                        Name="ImplicationButton"
+                        KeyTip="I"
+                        Header="{local:Loc ImplicationButton}"
+                        Icon="/Client;component/Resources/Images/implication-64.png"
+                        LargeIcon="/Client;component/Resources/Images/implication-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc ImplicationButton}"
+                                Text="{local:Loc ImplicationButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonMiddleMediumButton}"
+                        Name="NegationButton"
+                        KeyTip="N"
+                        Header="{local:Loc NegationButton}"
+                        Icon="/Client;component/Resources/Images/negation-64.png"
+                        LargeIcon="/Client;component/Resources/Images/negation-128.png">
+
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc NegationButton}"
+                                Text="{local:Loc NegationButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonMiddleWideButton}"
+                        Name="AlternativeButton"
+                        KeyTip="A"
+                        Header="{local:Loc AlternativeButton}"
+                        Icon="/Client;component/Resources/Images/disjunction-64.png"
+                        LargeIcon="/Client;component/Resources/Images/disjunction-128.png">
+                        
+                        <fluent:Button.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="{local:Loc AlternativeButton}"
+                                Text="{local:Loc AlternativeButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonMiddleWideButton}"
+                        Name="EquivalenceButton"
+                        KeyTip="E"
+                        Header="{local:Loc EquivalenceButton}"
+                        Icon="/Client;component/Resources/Images/equivalency-64.png"
+                        LargeIcon="/Client;component/Resources/Images/equivalency-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc EquivalenceButton}"
+                                Text="{local:Loc EquivalenceButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                    <StackPanel>
+
+                        <fluent:Button
+                            Style="{DynamicResource RibbonMiddleNarrowButton}"
+                            Name="TruthButton"
+                            KeyTip="T"
+                            Header="{local:Loc TruthButton}"
+                            Icon="/Client;component/Resources/Images/truth-64.png"
+                            LargeIcon="/Client;component/Resources/Images/truth-128.png">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc TruthButton}"
+                                    Text="{local:Loc TruthButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
+
+                        <fluent:Button
+                            Style="{DynamicResource RibbonMiddleNarrowButton}"
+                            Name="FalsityButton"
+                            KeyTip="F"
+                            Header="{local:Loc FalsityButton}"
+                            Icon="/Client;component/Resources/Images/falsity-64.png"
+                            LargeIcon="/Client;component/Resources/Images/falsity-128.png">
+                            
+                            <fluent:Button.ToolTip>
+                                
+                                <fluent:ScreenTip
+                                    Title="{local:Loc FalsityButton}"
+                                    Text="{local:Loc FalsityButtonScreenTip}" />
+
+                            </fluent:Button.ToolTip>
+
+                        </fluent:Button>
+
+                    </StackPanel>
+
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox
+                    Name="ActionClauseGroupBox"
+                    KeyTip="D"
+                    Header="{local:Loc ActionDomainGroupBox}">
+
+                    <fluent:DropDownButton
+                        Style="{DynamicResource RibbonLargeWideDropDown}"
+                        KeyTip="D"
+                        Name="AddActionClauseDropDown"
+                        Header="{local:Loc AddActionStatementDropDown}"
+                        Icon="/Client;component/Resources/Images/domain-64.png"
+                        LargeIcon="/Client;component/Resources/Images/domain-128.png">
+                        
+                        <fluent:DropDownButton.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc AddActionStatementDropDown}"
+                                Text="{local:Loc AddActionStatementDropDownScreenTip}" />
+
+                        </fluent:DropDownButton.ToolTip>
+
+                        <fluent:Gallery
+                            Name="ActionClauseGallery"
+                            Width="200"
+                            Orientation="Vertical" />
+
+                    </fluent:DropDownButton>
+
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox
+                    Name="QueryClauseGroupBox"
+                    KeyTip="Q"
+                    Header="{local:Loc QueryClauseGroupBox}">
+
+                    <fluent:DropDownButton
+                        Style="{DynamicResource RibbonLargeSlimDropDown}"
+                        KeyTip="Q"
+                        Name="AddQueryClauseDropDown"
+                        Header="{local:Loc AddQueryStatementDropDown}"
+                        Icon="/Client;component/Resources/Images/queries-64.png"
+                        LargeIcon="/Client;component/Resources/Images/queries-128.png">
+                        
+                        <fluent:DropDownButton.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc AddQueryStatementDropDown}"
+                                Text="{local:Loc AddQueryStatementDropDownScreenTip}" />
+
+                        </fluent:DropDownButton.ToolTip>
+                        
+                        <fluent:Gallery
+                            Name="QueryClauseGallery"
+                            Width="200"
+                            Orientation="Vertical" />
+
+                    </fluent:DropDownButton>
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonLargeSlimButton}"
+                        KeyTip="B"
+                        Name="AddCompoundActionButton"
+                        Header="{local:Loc AddCompoundActionButton}"
+                        Icon="/Client;component/Resources/Images/compound-action-64.png"
+                        LargeIcon="/Client;component/Resources/Images/compound-action-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc AddCompoundActionButtonUnbroken}"
+                                Text="{local:Loc AddCompoundActionButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox
+                    KeyTip="S"
+                    Name="SystemGroupBox"
+                    Header="{local:Loc SystemGroupBox}">
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonLargeWideButton}"
+                        KeyTip="R"
+                        Name="CalculateButton"
+                        Header="{local:Loc CalculateButton}"
+                        Icon="/Client;component/Resources/Images/calculate-64.png"
+                        LargeIcon="/Client;component/Resources/Images/calculate-128.png">
+                        
+                        <fluent:Button.ToolTip>
+                            
+                            <fluent:ScreenTip
+                                Title="{local:Loc CalculateButton}"
+                                Text="{local:Loc CalculateButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                </fluent:RibbonGroupBox>
+
+            </fluent:RibbonTabItem>
+
+            <fluent:RibbonTabItem
+                Name="GrammarTab"
+                KeyTip="G"
+                Header="{local:Loc GrammarTab}">
+
+                <fluent:RibbonGroupBox
+                    KeyTip="S"
+                    Name="GrammarSystemGroupBox"
+                    Header="{local:Loc SystemGroupBox}">
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonLargeWideButton}"
+                        KeyTip="R"
+                        Name="GrammarCalculateButton"
+                        Header="{local:Loc CalculateButton}"
+                        Icon="/Client;component/Resources/Images/calculate-64.png"
+                        LargeIcon="/Client;component/Resources/Images/calculate-128.png">
+
+                        <fluent:Button.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="{local:Loc CalculateButton}"
+                                Text="{local:Loc CalculateButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                </fluent:RibbonGroupBox>
+
+            </fluent:RibbonTabItem>
+
+        </fluent:Ribbon>
+
+    </Grid>
+</UserControl>
+    
