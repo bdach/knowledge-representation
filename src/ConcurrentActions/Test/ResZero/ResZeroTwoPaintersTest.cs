@@ -73,7 +73,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action>() {_takeA});
             var resultStates = new List<State>() {_stateOne};
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction.Actions);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -88,7 +88,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action> {_takeB});
             var resultStates = new List<State> {_stateTwo};
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction.Actions);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -102,7 +102,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action>() {_paint});
             var resultStates = new List<State>() {_stateZero,_stateOne,_stateTwo};
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction.Actions);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -116,7 +116,7 @@ namespace Test.ResZero
             var resTestObjInstance = CreateResZeroObjInstance();
             var compoundAction = new CompoundAction(new List<Action> {_takeA, _takeB});
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction.Actions);
             //then
             resZeroStates.Should().BeEmpty();
             // I know that this might seem counterintuitive that we're expecting an empty set of result states here,

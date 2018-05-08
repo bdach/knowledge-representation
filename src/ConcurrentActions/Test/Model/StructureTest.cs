@@ -31,7 +31,7 @@ namespace Test.Model
             var fluents = new[] { new Fluent("test"), new Fluent("test2") };
             var values1 = new[] { true, true };
             var values2 = new[] { false, true };
-            var values3 = new[] { true, true };
+            var values3 = new[] { true, false };
             var state1 = new State(fluents, values1);
             var state2 = new State(fluents, values2);
             var state3 = new State(fluents, values3);

@@ -63,7 +63,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action>() { _peek });
             var resultStates = new List<State>() {_stateZero, _stateOne, _stateTwo};
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction.Actions);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -77,7 +77,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action>() { _pet });
             var resultStates = new List<State>() {_stateZero };
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction.Actions);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();

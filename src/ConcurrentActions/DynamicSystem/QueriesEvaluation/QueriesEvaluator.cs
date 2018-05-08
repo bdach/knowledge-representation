@@ -17,6 +17,44 @@ namespace DynamicSystem.QueriesEvaluation
     /// </summary>
     public static class QueriesEvaluator
     {
+        // TODO: reorganize this class to operate on structures instead
+        public static QueryResolution EvaluateQueries(ICollection<Structure> models, QuerySet queries)
+        {
+            var queryResolution = new QueryResolution();
+            var initialStates = new HashSet<State>(models.Select(model => model.InitialState));
+            var transitionFunction = models.Select(model => model.TransitionFunction).FirstOrDefault();
+
+            foreach (var query in queries.AccessibilityQueries)
+            {
+                queryResolution.AccessibilityQueryResults[query] =
+                    EvaluateAccessibilityQuery(initialStates, transitionFunction, query);
+            }
+
+            foreach (var query in queries.ExistentialExecutabilityQueries)
+            {
+                queryResolution.ExistentialExecutabilityQueryResults[query] =
+                    EvaluateExistentialExecutabilityQuery(initialStates, transitionFunction, query);
+            }
+
+            foreach (var query in queries.ExistentialValueQueries)
+            {
+                queryResolution.ExistentialValueQueryResults[query] =
+                    EvaluateExistentialValueQuery(initialStates, transitionFunction, query);
+            }
+
+            foreach (var query in queries.GeneralExecutabilityQueries)
+            {
+                queryResolution.GeneralExecutabilityQueryResults[query] =
+                    EvaluateGeneralExecutabilityQuery(initialStates, transitionFunction, query);
+            }
+            foreach (var query in queries.GeneralValueQueries)
+            {
+                queryResolution.GeneralValueQueryResults[query] =
+                    EvaluateGeneralValueQuery(initialStates, transitionFunction, query);
+            }
+            return queryResolution;
+        }
+
         /// <summary>
         /// Evaluates a <see cref="ExistentialExecutabilityQuery"/>
         /// </summary>
@@ -140,7 +178,7 @@ namespace DynamicSystem.QueriesEvaluation
             foreach (var state in possibleStates)
             {
                 HashSet<State> newPossibleStates = transitionFunction[currentAction, state];
-                bool result = ExistentialValueQueryRecursion(newPossibleStates, transitionFunction, actions, currentActionIndex + 1, formula);
+                bool result = GeneralValueQueryRecursion(newPossibleStates, transitionFunction, actions, currentActionIndex + 1, formula);
                 if (!result)
                 {
                     return false;

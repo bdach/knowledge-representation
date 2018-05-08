@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Model
 {
@@ -84,6 +85,50 @@ namespace Model
             {
                 throw new ArgumentException($"Attempted to get state of unknown fluent {fluent}", ex);
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is State otherState)) return false;
+            var theseKeys = new HashSet<Fluent>(fluentState.Keys);
+            var thoseKeys = new HashSet<Fluent>(otherState.fluentState.Keys);
+            if (!theseKeys.SetEquals(thoseKeys)) return false;
+            foreach (var key in thoseKeys)
+            {
+                if (this[key] != otherState[key]) return false;
+            }
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 0;
+            foreach (var pair in fluentState)
+            {
+                if (pair.Value)
+                {
+                    hashCode ^= pair.Key.GetHashCode();
+                }
+                else
+                {
+                    hashCode ^= pair.Key.GetHashCode() / 2;
+                }
+            }
+            return hashCode;
+        }
+
+        public override string ToString()
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append("{");
+            foreach (var pair in fluentState)
+            {
+                if (!pair.Value) stringBuilder.Append("\u00AC");
+                stringBuilder.Append(pair.Key.Name);
+                stringBuilder.Append(",");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
         }
     }
 }

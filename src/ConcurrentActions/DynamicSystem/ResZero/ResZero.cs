@@ -8,7 +8,7 @@ namespace DynamicSystem.ResZero
     /// <summary>
     /// Class for generating states that are the output of Res Zero.
     /// </summary>
-    internal class ResZero
+    public class ResZero
     {
         private readonly List<EffectStatement> _effectStatement;
         private readonly HashSet<State> _allStates;
@@ -30,10 +30,10 @@ namespace DynamicSystem.ResZero
         /// <param name="initialState">State on which ResZero will perform.</param>
         /// <param name="decomposition">The decomposition to be performed in a given state</param>
         /// <returns>Iterable collection of <see cref="State"/>, which is the result of ResZero </returns>
-        public IEnumerable<State> GetStates(State initialState, CompoundAction decomposition)
+        public IEnumerable<State> GetStates(State initialState, HashSet<Action> decomposition)
         {
             var statementsOnAction =
-                _effectStatement.FindAll(effect => decomposition.Actions.Contains(effect.Action));
+                _effectStatement.FindAll(effect => decomposition.Contains(effect.Action));
             if (statementsOnAction.Count == 0)
             {
                 return new HashSet<State>(_allStates);

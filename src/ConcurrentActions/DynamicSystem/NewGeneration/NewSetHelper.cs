@@ -13,17 +13,17 @@ namespace DynamicSystem.NewGeneration
     /// <summary>
     /// Class for generating sets of literals for New.
     /// </summary>
-    public class NewGenerator
+    internal class NewSetHelper
     {
         private ActionDomain _actionDomain;
         private HashSet<Fluent> _fluents;
 
         /// <summary>
-        /// Initializes an instance of the <see cref="NewGenerator"/> class.
+        /// Initializes an instance of the <see cref="NewSetHelper"/> class.
         /// </summary>
         /// <param name="actionDomain"><see cref="ActionDomain"/> containing fluent release statements.</param>
         /// <param name="fluents">Set of <see cref="Fluent"/>.</param>
-        public NewGenerator(ActionDomain actionDomain, HashSet<Fluent> fluents)
+        public NewSetHelper(ActionDomain actionDomain, HashSet<Fluent> fluents)
         {
             _actionDomain = actionDomain;
             _fluents = fluents;
@@ -32,7 +32,7 @@ namespace DynamicSystem.NewGeneration
         /// <summary>
         /// Generates New, a set of literals,
         /// where either the inertial fluents changed values between states
-        /// or they where released.
+        /// or they were released.
         /// </summary>
         /// <param name="action"><see cref="Action"/></param>
         /// <param name="from"><see cref="State"/></param>
@@ -52,7 +52,7 @@ namespace DynamicSystem.NewGeneration
         /// <summary>
         /// Generates New, a set of literals, 
         /// where either the inertial fluents changed values between states
-        /// or they where released.
+        /// or they were released.
         /// </summary>
         /// <param name="actions">Set of <see cref="Action"/></param>
         /// <param name="from"><see cref="State"/></param>

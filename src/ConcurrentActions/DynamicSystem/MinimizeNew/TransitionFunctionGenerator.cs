@@ -13,7 +13,7 @@ namespace DynamicSystem.MinimizeNew
     /// </summary>
     public static class TransitionFunctionGenerator
     {
-
+        // TODO: make Res0 be a TransitionFunction and maybe do something with the newSets parameter
         /// <summary>
         /// Generates <see cref="TransitionFunction"/> by finding states belonging to output of Res_0 function 
         /// that minimalize New set of inertial fluent that can change with action execution.

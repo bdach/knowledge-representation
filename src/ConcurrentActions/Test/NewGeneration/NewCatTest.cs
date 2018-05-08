@@ -55,7 +55,7 @@ namespace Test.NewGeneration
         [Test]
         public void NewCatS0ToS0()
         {
-            var newGenerator = new NewGenerator(_actionDomain, _fluents);
+            var newGenerator = new NewSetHelper(_actionDomain, _fluents);
             var literals = newGenerator.GetLiterals(_peek, _stateZero, _stateZero);
 
             Assert.IsTrue(literals.Contains(new Literal(_alive, false)));
@@ -65,7 +65,7 @@ namespace Test.NewGeneration
         [Test]
         public void NewCatS0ToS1()
         {
-            var newGenerator = new NewGenerator(_actionDomain, _fluents);
+            var newGenerator = new NewSetHelper(_actionDomain, _fluents);
             var literals = newGenerator.GetLiterals(_peek, _stateZero, _stateOne);
 
             Assert.IsTrue(literals.Contains(new Literal(_alive, false)));
@@ -75,7 +75,7 @@ namespace Test.NewGeneration
         [Test]
         public void NewCatS0ToS2()
         {
-            var newGenerator = new NewGenerator(_actionDomain, _fluents);
+            var newGenerator = new NewSetHelper(_actionDomain, _fluents);
             var literals = newGenerator.GetLiterals(_peek, _stateZero, _stateTwo);
 
             Assert.IsTrue(literals.Contains(new Literal(_alive, true)));
@@ -85,7 +85,7 @@ namespace Test.NewGeneration
         [Test]
         public void NewCatS1ToS2CompoundAction()
         {
-            var newGenerator = new NewGenerator(_actionDomain, _fluents);
+            var newGenerator = new NewSetHelper(_actionDomain, _fluents);
             var newFluentsForPeek = newGenerator.GetLiterals(_peek, _stateOne, _stateTwo);
             var newFluentsForPet = newGenerator.GetLiterals(_pet, _stateOne, _stateTwo);
 
@@ -99,7 +99,7 @@ namespace Test.NewGeneration
         [Test]
         public void NewCatS1ToS1CompoundAction()
         {
-            var newGenerator = new NewGenerator(_actionDomain, _fluents);
+            var newGenerator = new NewSetHelper(_actionDomain, _fluents);
             var actions = new List<Action>() { _peek, _pet};
 
             var outLiterals = newGenerator.GetLiterals(actions, _stateOne, _stateOne);
@@ -112,7 +112,7 @@ namespace Test.NewGeneration
         [Test]
         public void NewCatS2ToS2CompoundAction()
         {
-            var newGenerator = new NewGenerator(_actionDomain, _fluents);
+            var newGenerator = new NewSetHelper(_actionDomain, _fluents);
             var actions = new List<Action>() { _peek, _pet };
 
             var outLiterals = newGenerator.GetLiterals(actions, _stateTwo, _stateTwo);
