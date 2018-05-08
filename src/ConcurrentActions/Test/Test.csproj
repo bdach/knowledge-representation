@@ -82,6 +82,11 @@
     <Compile Include="DNF\Visitors\NegationPropagatingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\SimplifyingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\VisitorTestUtils.cs" />
+    <Compile Include="MinimizeNew\TestCases\ITransitionFunctionGenerationTestCase.cs" />
+    <Compile Include="MinimizeNew\TestCases\ProducerAndConsumerTransitionFunctionGenerationTestCase.cs" />
+    <Compile Include="MinimizeNew\TestCases\SchoedingerCatTransitionFunctionGenerationTestCase.cs" />
+    <Compile Include="MinimizeNew\TestCases\TwoPaintersTransitionFunctionGenerationTestCase.cs" />
+    <Compile Include="MinimizeNew\TransitionFunctionGeneratorTest.cs" />
     <Compile Include="Grammar\GrammarTest.cs" />
     <Compile Include="Model\ActionTest.cs" />
     <Compile Include="Model\CompoundActionTest.cs" />
@@ -98,6 +103,7 @@
     <Compile Include="Model\TransitionFunctionTest.cs" />
     <Compile Include="NewGeneration\NewCatTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueriesEvaluation\QueriesEvaluatorTest.cs" />
     <Compile Include="ResZero\ProducentConsumerTest.cs" />
     <Compile Include="ResZero\ResZeroCatTest.cs" />
     <Compile Include="ResZero\ResZeroTwoPaintersTest.cs" />
@@ -106,7 +112,9 @@
     <Compile Include="SetGeneration\AdmissibleStatesTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DynamicSystem\DynamicSystem.csproj">
