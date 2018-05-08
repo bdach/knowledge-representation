@@ -5,6 +5,7 @@ using Client.Exception;
 using Client.Interface;
 using Client.View;
 using Client.ViewModel.Terminal;
+using DynamicSystem;
 using Model.QueryLanguage;
 using ReactiveUI;
 
@@ -137,6 +138,14 @@ namespace Client.ViewModel
             }
 
             return querySet;
+        }
+
+        public void AcceptResults(QueryResolution results)
+        {
+            foreach (var queryClauseViewModel in QuerySet)
+            {
+                queryClauseViewModel.AcceptResult(results);
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ using Client.Global;
 using Client.Interface;
 using Client.View.QueryLanguage;
 using Client.ViewModel.Terminal;
+using DynamicSystem;
 using Model.QueryLanguage;
 using ReactiveUI;
 
@@ -111,6 +112,15 @@ namespace Client.ViewModel.QueryLanguage
         public IQueryClauseViewModel NewInstance()
         {
             return new ExistentialExecutabilityQueryViewModel();
+        }
+
+        // TODO: this should be cleared upon any changes
+        public bool? Result { get; set; }
+        public void AcceptResult(QueryResolution results)
+        {
+            // TODO: SUPER dirty
+            Result = results.ExistentialExecutabilityQueryResults.First().Item2;
+            results.ExistentialExecutabilityQueryResults.RemoveAt(0);
         }
 
         /// <inheritdoc />

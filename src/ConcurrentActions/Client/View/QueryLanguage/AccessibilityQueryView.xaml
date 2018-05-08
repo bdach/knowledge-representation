@@ -13,8 +13,11 @@
         <fluent:ScreenTip Title="{local:Loc AccessibilityQuery}"
                           Text="{local:Loc AccessibilityQueryScreenTip}" />
     </view:ExpressionButton.ToolTip>
-    <WrapPanel>
-        <TextBlock Name="Label" Style="{DynamicResource StatementLabel}" />
-        <reactiveUi:ViewModelViewHost Name="Target" ToolTip="{DynamicResource TargetScreenTip}" />
-    </WrapPanel>
+    <StackPanel>
+        <WrapPanel>
+            <TextBlock Name="Label" Style="{DynamicResource StatementLabel}" />
+            <reactiveUi:ViewModelViewHost Name="Target" ToolTip="{DynamicResource TargetScreenTip}" />
+        </WrapPanel>
+        <TextBlock Name="Result" Style="{DynamicResource ResultLabel}" />
+    </StackPanel>
 </view:ExpressionButton>

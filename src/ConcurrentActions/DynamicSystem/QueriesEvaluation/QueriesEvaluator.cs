@@ -26,31 +26,28 @@ namespace DynamicSystem.QueriesEvaluation
 
             foreach (var query in queries.AccessibilityQueries)
             {
-                queryResolution.AccessibilityQueryResults[query] =
-                    EvaluateAccessibilityQuery(initialStates, transitionFunction, query);
+                queryResolution.AccessibilityQueryResults.Add(
+                    (query, EvaluateAccessibilityQuery(initialStates, transitionFunction, query)));
             }
-
             foreach (var query in queries.ExistentialExecutabilityQueries)
             {
-                queryResolution.ExistentialExecutabilityQueryResults[query] =
-                    EvaluateExistentialExecutabilityQuery(initialStates, transitionFunction, query);
+                queryResolution.ExistentialExecutabilityQueryResults.Add(
+                    (query, EvaluateExistentialExecutabilityQuery(initialStates, transitionFunction, query)));
             }
-
             foreach (var query in queries.ExistentialValueQueries)
             {
-                queryResolution.ExistentialValueQueryResults[query] =
-                    EvaluateExistentialValueQuery(initialStates, transitionFunction, query);
+                queryResolution.ExistentialValueQueryResults.Add(
+                    (query, EvaluateExistentialValueQuery(initialStates, transitionFunction, query)));
             }
-
             foreach (var query in queries.GeneralExecutabilityQueries)
             {
-                queryResolution.GeneralExecutabilityQueryResults[query] =
-                    EvaluateGeneralExecutabilityQuery(initialStates, transitionFunction, query);
+                queryResolution.GeneralExecutabilityQueryResults.Add(
+                    (query, EvaluateGeneralExecutabilityQuery(initialStates, transitionFunction, query)));
             }
             foreach (var query in queries.GeneralValueQueries)
             {
-                queryResolution.GeneralValueQueryResults[query] =
-                    EvaluateGeneralValueQuery(initialStates, transitionFunction, query);
+                queryResolution.GeneralValueQueryResults.Add(
+                    (query, EvaluateGeneralValueQuery(initialStates, transitionFunction, query)));
             }
             return queryResolution;
         }

@@ -114,6 +114,23 @@
             <Style x:Key="StatementLabel" TargetType="TextBlock" BasedOn="{StaticResource BaseLabel}">
                 <Setter Property="FontWeight" Value="Bold" />
             </Style>
+            <Style x:Key="ResultLabel" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Padding" Value="10 1 1 1" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding}" Value="True">
+                        <Setter Property="Foreground" Value="Green" />
+                        <Setter Property="Text" Value="True" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding}" Value="False">
+                        <Setter Property="Foreground" Value="DarkRed" />
+                        <Setter Property="Text" Value="False" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
 
             <Style x:Key="BackstageTitle" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="Black" />

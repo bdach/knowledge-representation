@@ -13,8 +13,11 @@
         <fluent:ScreenTip Title="{local:Loc GeneralExecutabilityQuery}"
                           Text="{local:Loc GeneralExecutabilityQueryScreenTip}" />
     </view:ExpressionButton.ToolTip>
-    <WrapPanel>
-        <TextBlock Name="Label" Style="{DynamicResource StatementLabel}" />
-        <reactiveUi:ViewModelViewHost Name="Program" ToolTip="{DynamicResource ProgramScreenTip}" />
-    </WrapPanel>
+    <StackPanel>
+        <WrapPanel>
+            <TextBlock Name="Label" Style="{DynamicResource StatementLabel}" />
+            <reactiveUi:ViewModelViewHost Name="Program" ToolTip="{DynamicResource ProgramScreenTip}" />
+        </WrapPanel>
+        <TextBlock Name="Result" Style="{DynamicResource ResultLabel}" />
+    </StackPanel>
 </view:ExpressionButton>

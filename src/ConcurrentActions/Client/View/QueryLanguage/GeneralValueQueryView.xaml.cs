@@ -26,6 +26,7 @@ namespace Client.View.QueryLanguage
             this.OneWayBind(ViewModel, vm => vm.Target, v => v.Target.ViewModel);
             this.OneWayBind(ViewModel, vm => vm.LabelRight, v => v.LabelRight.Text);
             this.OneWayBind(ViewModel, vm => vm.Program, v => v.Program.ViewModel);
+            this.OneWayBind(ViewModel, vm => vm.Result, v => v.Result.DataContext);
 
             this.WhenAnyValue(v => v.IsFocused)
                 .BindTo(this, v => v.ViewModel.IsFocused);

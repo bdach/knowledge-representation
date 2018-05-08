@@ -5,19 +5,19 @@ namespace DynamicSystem
 {
     public class QueryResolution
     {
-        public Dictionary<AccessibilityQuery, bool> AccessibilityQueryResults { get; }
-        public Dictionary<ExistentialExecutabilityQuery, bool> ExistentialExecutabilityQueryResults { get; }
-        public Dictionary<GeneralExecutabilityQuery, bool> GeneralExecutabilityQueryResults { get; }
-        public Dictionary<ExistentialValueQuery, bool> ExistentialValueQueryResults { get; }
-        public Dictionary<GeneralValueQuery, bool> GeneralValueQueryResults { get; }
+        public List<(AccessibilityQuery, bool)> AccessibilityQueryResults { get; }
+        public List<(ExistentialExecutabilityQuery, bool)> ExistentialExecutabilityQueryResults { get; }
+        public List<(GeneralExecutabilityQuery, bool)> GeneralExecutabilityQueryResults { get; }
+        public List<(ExistentialValueQuery, bool)> ExistentialValueQueryResults { get; }
+        public List<(GeneralValueQuery, bool)> GeneralValueQueryResults { get; }
 
         public QueryResolution()
         {
-            AccessibilityQueryResults = new Dictionary<AccessibilityQuery, bool>();
-            ExistentialExecutabilityQueryResults = new Dictionary<ExistentialExecutabilityQuery, bool>();
-            GeneralExecutabilityQueryResults = new Dictionary<GeneralExecutabilityQuery, bool>();
-            ExistentialValueQueryResults = new Dictionary<ExistentialValueQuery, bool>();
-            GeneralValueQueryResults = new Dictionary<GeneralValueQuery, bool>();
+            AccessibilityQueryResults = new List<(AccessibilityQuery, bool)>();
+            ExistentialExecutabilityQueryResults = new List<(ExistentialExecutabilityQuery, bool)>();
+            GeneralExecutabilityQueryResults = new List<(GeneralExecutabilityQuery, bool)>();
+            ExistentialValueQueryResults = new List<(ExistentialValueQuery, bool)>();
+            GeneralValueQueryResults = new List<(GeneralValueQuery, bool)>();
         }
     }
 }

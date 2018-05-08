@@ -10,6 +10,7 @@ using Client.View.Modal;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Modal;
 using Client.ViewModel.Terminal;
+using DynamicSystem;
 using ReactiveUI;
 using Splat;
 
@@ -51,7 +52,7 @@ namespace Client.ViewModel
         /// <summary>
         /// Command used to trigger editor scenario evaluation.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> PerformCalculations { get; protected set; }
+        public ReactiveCommand<Unit, QueryResolution> PerformCalculations { get; set; }
 
         /// <summary>
         /// Command used to trigger grammar scenario evaluation.
@@ -170,7 +171,6 @@ namespace Client.ViewModel
             CloseWindow = ReactiveCommand.Create(() => Unit.Default);
             SetEnglishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.AmericanEnglish));
             SetPolishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.Polish));
-            PerformCalculations = ReactiveCommand.Create(() => Unit.Default);
             PerformGrammarCalculations = ReactiveCommand.Create(() => Unit.Default);
             ImportFromFile = ReactiveCommand.Create(() => Unit.Default);
             ExportToFile = ReactiveCommand.Create(() => Unit.Default);
