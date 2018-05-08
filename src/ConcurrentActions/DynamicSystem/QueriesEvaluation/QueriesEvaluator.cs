@@ -127,6 +127,10 @@ namespace DynamicSystem.QueriesEvaluation
 
         private static bool ExistentialValueQueryRecursion(HashSet<State> possibleStates, TransitionFunction transitionFunction, List<CompoundAction> actions, int currentActionIndex, IFormula formula)
         {
+            if (possibleStates.Count == 0)
+            {
+                return false;
+            }
             if (actions.Count == currentActionIndex)
             {
                 foreach (var state in possibleStates)
@@ -162,6 +166,10 @@ namespace DynamicSystem.QueriesEvaluation
 
         private static bool GeneralValueQueryRecursion(HashSet<State> possibleStates, TransitionFunction transitionFunction, List<CompoundAction> actions, int currentActionIndex, IFormula formula)
         {
+            if (possibleStates.Count == 0)
+            {
+                return false;
+            }
             if (actions.Count == currentActionIndex)
             {
                 foreach (var state in possibleStates)
