@@ -246,7 +246,7 @@ namespace DynamicSystem.QueriesEvaluation
 
                 foreach (var state in possibleStates)
                 {
-                    if (state == currentState)
+                    if (state.Equals(currentState))
                     {
                         continue;
                     }

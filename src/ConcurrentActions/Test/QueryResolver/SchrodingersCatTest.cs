@@ -53,7 +53,7 @@ namespace Test.QueryResolver
 
             // Pet causes purring if alive
             actionDomain.EffectStatements.Add(
-                new EffectStatement(pet, purring, alive)
+                new EffectStatement(pet, alive, purring)
             );
 
             // always ~alive -> ~purring
