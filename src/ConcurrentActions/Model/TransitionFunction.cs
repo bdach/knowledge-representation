@@ -15,6 +15,16 @@ namespace Model
         private readonly Dictionary<ValueTuple<CompoundAction, State>, HashSet<State>> transitionFunction;
 
         /// <summary>
+        /// Property for accessing compound actions that are used within a function domain.
+        /// </summary>
+        public ICollection<CompoundAction> CompoundActions { get; }
+
+        /// <summary>
+        /// Property for accessing states that are used within a function domain.
+        /// </summary>
+        public ICollection<State> States { get; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TransitionFunction"/> class.
         /// </summary>
         /// <param name="compoundActions">
@@ -25,6 +35,9 @@ namespace Model
         /// </param>
         public TransitionFunction(ICollection<CompoundAction> compoundActions, ICollection<State> states)
         {
+            CompoundActions = compoundActions;
+            States = states;
+
             transitionFunction = new Dictionary<(CompoundAction, State), HashSet<State>>();
             foreach (var compoundAction in compoundActions)
             {
@@ -49,5 +62,6 @@ namespace Model
             get => transitionFunction[ValueTuple.Create(compoundAction, state)];
             set => transitionFunction[ValueTuple.Create(compoundAction, state)] = value;
         }
+        
     }
 }
