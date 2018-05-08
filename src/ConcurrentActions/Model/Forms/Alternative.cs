@@ -17,6 +17,11 @@
         public IFormula Right { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Alternative() { }
+
+        /// <summary>
         /// Initializes a new <see cref="Alternative"/> instance, representing a logical conjunction of the supplied <see cref="IFormula"/> instances.
         /// </summary>
         /// <param name="left">The left <see cref="IFormula"/> instance</param>

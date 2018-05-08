@@ -1,9 +1,247 @@
 ﻿<Application x:Class="Client.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Client"
-             StartupUri="MainWindow.xaml">
+             xmlns:reactiveUi="http://reactiveui.net"
+             xmlns:view="clr-namespace:Client.View"
+             xmlns:fluent="urn:fluent-ribbon"
+             xmlns:local="clr-namespace:Client.Provider">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Global styles -->
+
+            <Style TargetType="reactiveUi:ViewModelViewHost">
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            </Style>
+
+            <Style TargetType="ItemsControl" x:Key="EditorControl">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border BorderThickness="1"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}">
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="ItemsControl" x:Key="ButtonSequence">
+                <Setter Property="AlternationCount" Value="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" />
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Name="Separator" Text=", " Style="{DynamicResource BaseLabel}" />
+                                <reactiveUi:ViewModelViewHost ViewModel="{Binding}" />
+                            </StackPanel>
+                            <DataTemplate.Triggers>
+                                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                    <Setter Property="Visibility" TargetName="Separator" Value="Collapsed" />
+                                </Trigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="TextBox" x:Key="EditorBox">
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="AcceptsReturn" Value="True" />
+            </Style>
+
+            <Style TargetType="{x:Type view:ExpressionButton}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="view:ExpressionButton">
+                            <Border BorderThickness="2" DataContext="{Binding RelativeSource={RelativeSource AncestorType=view:ExpressionButton, Mode=FindAncestor}}">
+                                <ContentPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                <Setter Property="ToolTipService.InitialShowDelay" Value="1000" />
+                <Setter Property="ToolTipService.BetweenShowDelay" Value="500" />
+                <Style.Resources>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Highlight}" Value="True">
+                                <DataTrigger.Setters>
+                                    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                                    <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsFocused}" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="WrapPanel">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+
+            <Style x:Key="BaseLabel" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Padding" Value="3 1" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="ActionLabel" TargetType="TextBlock" BasedOn="{StaticResource BaseLabel}">
+                <Setter Property="Typography.Capitals" Value="SmallCaps" />
+            </Style>
+            <Style x:Key="FluentLabel" TargetType="TextBlock" BasedOn="{StaticResource BaseLabel}">
+                <Setter Property="FontStyle" Value="Italic" />
+            </Style>
+            <Style x:Key="StatementLabel" TargetType="TextBlock" BasedOn="{StaticResource BaseLabel}">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="BackstageTitle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Margin" Value="0 0 0 5" />
+            </Style>
+            <Style x:Key="BackstageSeparator" TargetType="Rectangle">
+                <Setter Property="Height" Value="1" />
+                <Setter Property="Fill">
+                    <Setter.Value>
+                        <LinearGradientBrush MappingMode="Absolute" SpreadMethod="Repeat" StartPoint="0,0.5" EndPoint="4,0.5">
+                            <GradientStop Offset="0" Color="#40000000" />
+                            <GradientStop Offset="0.5" Color="#40000000" />
+                            <GradientStop Offset="0.501" Color="Transparent" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="RibbonLargeNarrowDropDown" TargetType="fluent:DropDownButton">
+                <Setter Property="Size" Value="Large" />
+                <Setter Property="Width" Value="64" />
+            </Style>
+            <Style x:Key="RibbonLargeSlimDropDown" TargetType="fluent:DropDownButton">
+                <Setter Property="Size" Value="Large" />
+                <Setter Property="Width" Value="80" />
+            </Style>
+            <Style x:Key="RibbonLargeMediumDropDown" TargetType="fluent:DropDownButton">
+                <Setter Property="Size" Value="Large" />
+                <Setter Property="Width" Value="96" />
+            </Style>
+            <Style x:Key="RibbonMiddleNarrowButton" TargetType="fluent:Button">
+                <Setter Property="Size" Value="Middle" />
+                <Setter Property="Width" Value="64" />
+            </Style>
+            <Style x:Key="RibbonMiddleMediumButton" TargetType="fluent:Button">
+                <Setter Property="Size" Value="Middle" />
+                <Setter Property="Width" Value="96" />
+            </Style>
+            <Style x:Key="RibbonMiddleWideButton" TargetType="fluent:Button">
+                <Setter Property="Size" Value="Middle" />
+                <Setter Property="Width" Value="112" />
+            </Style>
+            <Style x:Key="RibbonLargeSlimButton" TargetType="fluent:Button">
+                <Setter Property="Size" Value="Large" />
+                <Setter Property="Width" Value="80" />
+            </Style>
+            <Style x:Key="RibbonLargeWideButton" TargetType="fluent:Button">
+                <Setter Property="Size" Value="Large" />
+                <Setter Property="Width" Value="112" />
+            </Style>
+            <Style x:Key="RibbonMenuItemSeparator" TargetType="fluent:GroupSeparatorMenuItem">
+                <Setter Property="Height" Value="1" />
+            </Style>
+            <Style TargetType="fluent:Gallery">
+                <Setter Property="Selectable" Value="False"></Setter>
+                <Style.Resources>
+                    <Style TargetType="view:ExpressionButton">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </Style>
+                    <Style TargetType="reactiveUi:ViewModelViewHost">
+                        <!-- nasty fix to combat stupid control fade-in -->
+                        <Setter Property="MinHeight" Value="25" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+            <Style TargetType="Image">
+                <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+            </Style>
+
+            <Style x:Key="FluentMargin" TargetType="Grid">
+                <Setter Property="Margin" Value="15" />
+            </Style>
+
+            <Style x:Key="ModalTextBox" TargetType="TextBox">
+                <Setter Property="Margin" Value="0 5 0 5" />
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="Red" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="ModalButtonStackPanel" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="Margin" Value="0 5 0 0" />
+            </Style>
+            <Style x:Key="ModalButton" TargetType="Button">
+                <Setter Property="Margin" Value="5 0 0 0" />
+                <Setter Property="Width" Value="64" />
+            </Style>
+            
+            <!-- Some common tooltips -->
+            
+            <fluent:ScreenTip
+                x:Key="ActionScreenTip"
+                Title="{local:Loc Action}"
+                Text="{local:Loc ActionScreenTip}"/>
+
+            <fluent:ScreenTip
+                x:Key="PreconditionScreenTip"
+                Title="{local:Loc Precondition}"
+                Text="{local:Loc PreconditionScreenTip}"/>
+
+            <fluent:ScreenTip
+                x:Key="PostconditionScreenTip"
+                Title="{local:Loc Postcondition}"
+                Text="{local:Loc PostconditionScreenTip}"/>
+
+            <fluent:ScreenTip
+                x:Key="FluentScreenTip"
+                Title="{local:Loc Fluent}"
+                Text="{local:Loc FluentScreenTip}"/>
+            
+            <fluent:ScreenTip
+                x:Key="TargetScreenTip"
+                Title="{local:Loc Target}"
+                Text="{local:Loc TargetScreenTip}" />
+
+            <fluent:ScreenTip
+                x:Key="ProgramScreenTip"
+                Title="{local:Loc Program}"
+                Text="{local:Loc ProgramScreenTip}" />
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
+ 

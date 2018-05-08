@@ -13,6 +13,8 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,8 +36,44 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Fluent, Version=6.1.0.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fluent.Ribbon.6.1.0.233\lib\net45\Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyChanged, Version=2.5.4.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.2.5.4\lib\net452\PropertyChanged.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyChanging, Version=1.29.0.0, Culture=neutral, PublicKeyToken=8b75edd8e1086950, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanging.Fody.1.29.0\lib\net452\PropertyChanging.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI, Version=7.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\reactiveui-core.7.4.0\lib\Net45\ReactiveUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Splat.1.6.0\lib\Net45\Splat.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-XAML.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -48,13 +86,191 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="XSerializer, Version=0.1.0.0, Culture=neutral, PublicKeyToken=9ab97cfaa8f0c80a, processorArchitecture=MSIL">
+      <HintPath>..\packages\XSerializer.0.4.1\lib\net40\XSerializer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Abstract\FodyReactiveObject.cs" />
+    <Compile Include="Exception\MemberNotDefinedException.cs" />
+    <Compile Include="Exception\SerializationException.cs" />
+    <Compile Include="Global\ClauseTypes.cs" />
+    <Compile Include="Global\Interactions.cs" />
+    <Compile Include="Global\LanguageSignature.cs" />
+    <Compile Include="DataTransfer\Scenario.cs" />
+    <Compile Include="Interface\IActionClauseViewModel.cs" />
+    <Compile Include="Interface\IClauseViewModel.cs" />
+    <Compile Include="Interface\IEditorViewModel.cs" />
+    <Compile Include="Interface\IFormulaViewModel.cs" />
+    <Compile Include="Interface\IQueryClauseViewModel.cs" />
+    <Compile Include="Interface\IScenarioConverter.cs" />
+    <Compile Include="Interface\IScenarioOwner.cs" />
+    <Compile Include="Interface\IViewModelFor.cs" />
+    <Compile Include="Localization\Locale.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Locale.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\Locale.en-US.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Locale.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\Locale.pl-PL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Locale.pl-PL.resx</DependentUpon>
+    </Compile>
+    <Compile Include="AppStart\AppBootstrapper.cs" />
+    <Compile Include="Provider\LocExtention.cs" />
+    <Compile Include="Provider\LocalizationProvider.cs" />
+    <Compile Include="Provider\ScenarioSerializer.cs" />
+    <Compile Include="Provider\SerializationProvider.cs" />
+    <Compile Include="ViewModel\ActionLanguage\UnconditionalImpossibilityStatementViewModel.cs" />
+    <Compile Include="ViewModel\Modal\ActionModalViewModel.cs" />
+    <Compile Include="ViewModel\Modal\FluentModalViewModel.cs" />
+    <Compile Include="ViewModel\Terminal\PlaceholderViewModel.cs" />
+    <Compile Include="View\ExpressionButton.cs" />
+    <Compile Include="View\ActionLanguage\UnconditionalImpossibilityStatementView.xaml.cs">
+      <DependentUpon>UnconditionalImpossibilityStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Modal\ActionModalView.xaml.cs">
+      <DependentUpon>ActionModalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Modal\FluentModalView.xaml.cs">
+      <DependentUpon>FluentModalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Modal\Validation\UniqueNotEmptyActionValidationRule.cs" />
+    <Compile Include="View\Modal\Validation\UniqueNotEmptyFluentValidationRule.cs" />
+    <Compile Include="View\Terminal\ActionView.xaml.cs">
+      <DependentUpon>ActionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Terminal\CompoundActionView.xaml.cs">
+      <DependentUpon>CompoundActionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Terminal\PlaceholderView.xaml.cs">
+      <DependentUpon>PlaceholderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Terminal\ProgramView.xaml.cs">
+      <DependentUpon>ProgramView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\ActionAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ConditionalEffectStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ConditionalFluentReleaseStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ConstraintStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\FluentSpecificationStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ConditionalImpossibilityStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\InitialValueStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ObservationStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\UnconditionalEffectStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\UnconditionalFluentReleaseStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\UnconditionalImpossibilityStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionLanguage\ValueStatementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\AlternativeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\ConjunctionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\ConstantView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\EquivalenceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\ImplicationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\LiteralView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Formula\NegationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Modal\ActionModalView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Modal\FluentModalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\AccessibilityQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\ExistentialExecutabilityQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\ExistentialValueQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\GeneralExecutabilityQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QueryLanguage\GeneralValueQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RibbonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -62,10 +278,130 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="ViewModel\ActionAreaViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\UnconditionalEffectStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ConditionalFluentReleaseStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ConstraintStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\FluentSpecificationStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ConditionalImpossibilityStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\InitialValueStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ObservationStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ConditionalEffectStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\UnconditionalFluentReleaseStatementViewModel.cs" />
+    <Compile Include="ViewModel\ActionLanguage\ValueStatementViewModel.cs" />
+    <Compile Include="ViewModel\Formula\AlternativeViewModel.cs" />
+    <Compile Include="ViewModel\Formula\ConjunctionViewModel.cs" />
+    <Compile Include="ViewModel\Formula\ConstantViewModel.cs" />
+    <Compile Include="ViewModel\Formula\EquivalenceViewModel.cs" />
+    <Compile Include="ViewModel\Formula\ImplicationViewModel.cs" />
+    <Compile Include="ViewModel\Formula\LiteralViewModel.cs" />
+    <Compile Include="ViewModel\Formula\NegationViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\AccessibilityQueryViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\ExistentialExecutabilityQueryViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\ExistentialValueQueryViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\GeneralExecutabilityQueryViewModel.cs" />
+    <Compile Include="ViewModel\QueryLanguage\GeneralValueQueryViewModel.cs" />
+    <Compile Include="ViewModel\Terminal\ActionViewModel.cs" />
+    <Compile Include="ViewModel\QueryAreaViewModel.cs" />
+    <Compile Include="ViewModel\RibbonViewModel.cs" />
+    <Compile Include="ViewModel\ShellViewModel.cs" />
+    <Compile Include="ViewModel\Terminal\CompoundActionViewModel.cs" />
+    <Compile Include="ViewModel\Terminal\ProgramViewModel.cs" />
+    <Compile Include="View\ActionAreaView.xaml.cs">
+      <DependentUpon>ActionAreaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ConditionalEffectStatementView.xaml.cs">
+      <DependentUpon>ConditionalEffectStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ConditionalFluentReleaseStatementView.xaml.cs">
+      <DependentUpon>ConditionalFluentReleaseStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ConstraintStatementView.xaml.cs">
+      <DependentUpon>ConstraintStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\FluentSpecificationStatementView.xaml.cs">
+      <DependentUpon>FluentSpecificationStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ConditionalImpossibilityStatementView.xaml.cs">
+      <DependentUpon>ConditionalImpossibilityStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\InitialValueStatementView.xaml.cs">
+      <DependentUpon>InitialValueStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ObservationStatementView.xaml.cs">
+      <DependentUpon>ObservationStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\UnconditionalEffectStatementView.xaml.cs">
+      <DependentUpon>UnconditionalEffectStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\UnconditionalFluentReleaseStatementView.xaml.cs">
+      <DependentUpon>UnconditionalFluentReleaseStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionLanguage\ValueStatementView.xaml.cs">
+      <DependentUpon>ValueStatementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\AlternativeView.xaml.cs">
+      <DependentUpon>AlternativeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\ConjunctionView.xaml.cs">
+      <DependentUpon>ConjunctionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\ConstantView.xaml.cs">
+      <DependentUpon>ConstantView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\EquivalenceView.xaml.cs">
+      <DependentUpon>EquivalenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\ImplicationView.xaml.cs">
+      <DependentUpon>ImplicationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\LiteralView.xaml.cs">
+      <DependentUpon>LiteralView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Formula\NegationView.xaml.cs">
+      <DependentUpon>NegationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryAreaView.xaml.cs">
+      <DependentUpon>QueryAreaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\AccessibilityQueryView.xaml.cs">
+      <DependentUpon>AccessibilityQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\ExistentialExecutabilityQueryView.xaml.cs">
+      <DependentUpon>ExistentialExecutabilityQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\ExistentialValueQueryView.xaml.cs">
+      <DependentUpon>ExistentialValueQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\GeneralExecutabilityQueryView.xaml.cs">
+      <DependentUpon>GeneralExecutabilityQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueryLanguage\GeneralValueQueryView.xaml.cs">
+      <DependentUpon>GeneralValueQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RibbonView.xaml.cs">
+      <DependentUpon>RibbonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Terminal\ActionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Terminal\CompoundActionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Terminal\PlaceholderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Terminal\ProgramView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -81,10 +417,25 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Localization\Locale.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Locale.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Locale.pl-PL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Locale.pl-PL.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Locale.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Locale.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -103,5 +454,68 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\falsity-128.png" />
+    <Resource Include="Resources\Images\falsity-256.png" />
+    <Resource Include="Resources\Images\falsity-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\actions-128.png" />
+    <Resource Include="Resources\Images\actions-256.png" />
+    <Resource Include="Resources\Images\actions-64.png" />
+    <Resource Include="Resources\Images\calculate-128.png" />
+    <Resource Include="Resources\Images\calculate-256.png" />
+    <Resource Include="Resources\Images\calculate-64.png" />
+    <Resource Include="Resources\Images\conjunction-128.png" />
+    <Resource Include="Resources\Images\conjunction-256.png" />
+    <Resource Include="Resources\Images\conjunction-64.png" />
+    <Resource Include="Resources\Images\disjunction-128.png" />
+    <Resource Include="Resources\Images\disjunction-256.png" />
+    <Resource Include="Resources\Images\disjunction-64.png" />
+    <Resource Include="Resources\Images\domain-128.png" />
+    <Resource Include="Resources\Images\domain-256.png" />
+    <Resource Include="Resources\Images\domain-64.png" />
+    <Resource Include="Resources\Images\equivalency-128.png" />
+    <Resource Include="Resources\Images\equivalency-256.png" />
+    <Resource Include="Resources\Images\equivalency-64.png" />
+    <Resource Include="Resources\Images\fluents-128.png" />
+    <Resource Include="Resources\Images\fluents-256.png" />
+    <Resource Include="Resources\Images\fluents-64.png" />
+    <Resource Include="Resources\Images\implication-128.png" />
+    <Resource Include="Resources\Images\implication-256.png" />
+    <Resource Include="Resources\Images\implication-64.png" />
+    <Resource Include="Resources\Images\negation-128.png" />
+    <Resource Include="Resources\Images\negation-256.png" />
+    <Resource Include="Resources\Images\negation-64.png" />
+    <Resource Include="Resources\Images\plus-128.png" />
+    <Resource Include="Resources\Images\plus-256.png" />
+    <Resource Include="Resources\Images\plus-64.png" />
+    <Resource Include="Resources\Images\queries-128.png" />
+    <Resource Include="Resources\Images\queries-256.png" />
+    <Resource Include="Resources\Images\queries-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\truth-128.png" />
+    <Resource Include="Resources\Images\truth-256.png" />
+    <Resource Include="Resources\Images\truth-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\compound-action-128.png" />
+    <Resource Include="Resources\Images\compound-action-256.png" />
+    <Resource Include="Resources\Images\compound-action-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\warning-96.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.3\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.3.0.3\build\Fody.targets'))" />
+  </Target>
 </Project>

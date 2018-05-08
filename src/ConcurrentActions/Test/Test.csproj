@@ -87,6 +87,7 @@
     <Compile Include="MinimizeNew\TestCases\SchoedingerCatTransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TestCases\TwoPaintersTransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TransitionFunctionGeneratorTest.cs" />
+    <Compile Include="Grammar\GrammarTest.cs" />
     <Compile Include="Model\ActionTest.cs" />
     <Compile Include="Model\CompoundActionTest.cs" />
     <Compile Include="Model\Forms\AlternativeTest.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Model\StateTest.cs" />
     <Compile Include="Model\StructureTest.cs" />
     <Compile Include="Model\TransitionFunctionTest.cs" />
+    <Compile Include="NewGeneration\NewCatTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueriesEvaluation\QueriesEvaluatorTest.cs" />
     <Compile Include="ResZero\ProducentConsumerTest.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="SetGeneration\CompoundActionTest.cs" />
     <Compile Include="SetGeneration\InitialStatesTest.cs" />
     <Compile Include="SetGeneration\AdmissibleStatesTest.cs" />
+    <Compile Include="Verification\StructureVerificationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

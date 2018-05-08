@@ -20,6 +20,11 @@ namespace Model.QueryLanguage
         public Program Program { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public ExistentialValueQuery() { }
+
+        /// <summary>
         /// Initializes an instance of the <see cref="ExistentialValueQuery"/> class.
         /// </summary>
         /// <param name="target">The target <see cref="IFormula"/> to be executed.</param>
@@ -33,6 +38,27 @@ namespace Model.QueryLanguage
         public override string ToString()
         {
             return $"possibly {Target} after {Program}";
+        }
+
+        protected bool Equals(ExistentialValueQuery other)
+        {
+            return Equals(Target, other.Target) && Equals(Program, other.Program);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ExistentialValueQuery) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Target != null ? Target.GetHashCode() : 0) * 397) ^ (Program != null ? Program.GetHashCode() : 0);
+            }
         }
     }
 }

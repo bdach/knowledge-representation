@@ -14,6 +14,11 @@ namespace Model
         public string Name { get; set; }
 
         /// <summary>
+        /// Empty construction required by serialization.
+        /// </summary>
+        public Action() { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Action"/> class with the supplied name.
         /// </summary>
         /// <param name="name">The name of the action.</param>
