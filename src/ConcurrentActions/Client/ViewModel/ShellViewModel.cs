@@ -77,10 +77,16 @@ namespace Client.ViewModel
             RibbonViewModel.PerformCalculations = ReactiveCommand.CreateFromTask(() => Task.Run(() =>
             {
                 var scenario = GetCurrentScenario();
-                var signature = new Signature(scenario.Fluents, scenario.Actions);
-                return QueryResolver.ResolveQueries(signature, scenario.ActionDomain, scenario.QuerySet);
+                if (scenario != null)
+                {
+                    var signature = new Signature(scenario.Fluents, scenario.Actions);
+                    return QueryResolver.ResolveQueries(signature, scenario.ActionDomain, scenario.QuerySet);
+                }
+                return null;
             }));
-            RibbonViewModel.PerformCalculations.Subscribe(results => QueryAreaViewModel.AcceptResults(results));
+            RibbonViewModel.PerformCalculations
+                .Where(results => results != null)
+                .Subscribe(results => QueryAreaViewModel.AcceptResults(results));
 
             RibbonViewModel.PerformGrammarCalculations.Subscribe(_ =>
             {
