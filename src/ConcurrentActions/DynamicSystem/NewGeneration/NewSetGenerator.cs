@@ -7,10 +7,16 @@ namespace DynamicSystem.NewGeneration
 {
     public static class NewSetGenerator
     {
-        // TODO: I don't like this return type too much, but I'm gluing all of this as-is
-        public static Dictionary<(CompoundAction, State, State), HashSet<Literal>> GetNewSets(ActionDomain domain, Signature signature, TransitionFunction resZero)
+        /// <summary>
+        /// Calculates the New sets for each compound action, initial and resulting state.
+        /// </summary>
+        /// <param name="domain"><see cref="ActionDomain"/> instance to use.</param>
+        /// <param name="signature">The <see cref="Signature"/> of the action language.</param>
+        /// <param name="resZero"><see cref="TransitionFunction"/> instance representing the Res_0 mapping.</param>
+        /// <returns><see cref="NewSetMapping"/> instance containing the New sets.</returns>
+        public static NewSetMapping GetNewSets(ActionDomain domain, Signature signature, TransitionFunction resZero)
         {
-            var newMapping = new Dictionary<(CompoundAction, State, State), HashSet<Literal>>();
+            var newMapping = new NewSetMapping();
             var newHelper = new NewSetHelper(domain, signature.Fluents);
             foreach (var pair in resZero.Arguments)
             {
@@ -18,7 +24,7 @@ namespace DynamicSystem.NewGeneration
                 foreach (var resultState in resultStates)
                 {
                     var newValue = newHelper.GetLiterals(pair.action.Actions, pair.state, resultState);
-                    newMapping[(pair.action, pair.state, resultState)] = new HashSet<Literal>(newValue);
+                    newMapping[pair.action, pair.state, resultState] = new HashSet<Literal>(newValue);
                 }
             }
             return newMapping;

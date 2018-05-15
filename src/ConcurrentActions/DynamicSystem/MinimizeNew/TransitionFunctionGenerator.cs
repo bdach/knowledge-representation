@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DynamicSystem.NewGeneration;
 using Model;
-using Model.Forms;
 
 namespace DynamicSystem.MinimizeNew
 {
@@ -16,10 +16,9 @@ namespace DynamicSystem.MinimizeNew
         /// that minimalize New set of inertial fluent that can change with action execution.
         /// </summary>
         /// <param name="resZero"><see cref="TransitionFunction"/> instance describing Res_0 function.</param>
-        /// <param name="newSets"><see cref="Dictionary{ValueTuple{CompoundAction, State, State}, HashSet{Literal}}"/> describing New sets.</param>
+        /// <param name="newSets"><see cref="NewSetMapping"/> describing New sets.</param>
         /// <returns><see cref="TransitionFunction"/> object.</returns>
-        public static TransitionFunction GenerateTransitionFunction(TransitionFunction resZero,
-            Dictionary<(CompoundAction, State, State), HashSet<Literal>> newSets)
+        public static TransitionFunction GenerateTransitionFunction(TransitionFunction resZero, NewSetMapping newSets)
         {
             var transitionFunction = InitializeTransitionFunction(resZero);
 
@@ -50,17 +49,14 @@ namespace DynamicSystem.MinimizeNew
         /// <param name="compoundAction"><see cref="CompoundAction"/> to be executed.</param>
         /// <param name="state">Current <see cref="State"/> of a dynamic system.</param>
         /// <param name="potentialResults"><see cref="HashSet{StateT}"/> with possible results of compound action execution.</param>
-        /// <param name="newSets"><see cref="Dictionary{ValueTuple{CompoundAction, State, State}, HashSet{Literal}}"/> describing New sets.</param>
-        /// <returns><see cref="Dictionary{ValueTuple{CompoundAction, State, State}, HashSet{Literal}}"/> containing New sets that will be considered.</returns>
-        private static Dictionary<(CompoundAction, State, State), HashSet<Literal>> FindConsideredNewSets(
-            CompoundAction compoundAction, State state, HashSet<State> potentialResults,
-            Dictionary<(CompoundAction, State, State), HashSet<Literal>> newSets)
+        /// <param name="newSets"><see cref="NewSetMapping"/> describing New sets.</param>
+        /// <returns><see cref="NewSetMapping"/> containing New sets that will be considered.</returns>
+        private static NewSetMapping FindConsideredNewSets(CompoundAction compoundAction, State state, HashSet<State> potentialResults, NewSetMapping newSets)
         {
-            var consideredNewSets = new Dictionary<(CompoundAction, State, State), HashSet<Literal>>();
+            var consideredNewSets = new NewSetMapping();
             foreach (var result in potentialResults)
             {
-                var key = (compoundAction, state, result);
-                consideredNewSets.Add(key, newSets[key]);
+                consideredNewSets[compoundAction, state, result] = newSets[compoundAction, state, result];
             }
             return consideredNewSets;
         }
@@ -70,22 +66,20 @@ namespace DynamicSystem.MinimizeNew
         /// that minimalize New set of inertial fluent that can change with action execution.
         /// </summary>
         /// <param name="assignment"><see cref="ValueTuple{CompoundAction, State, HashSet{State}}"/> describing Res_0 assignment.</param>
-        /// <param name="newSetDict"><see cref="Dictionary{ValueTuple{CompoundAction, State, State}, HashSet{Literal}}"/> with New sets that are considered.</param>
+        /// <param name="newSetDict"><see cref="NewSetMapping"/> with New sets that are considered.</param>
         /// <returns></returns>
-        private static HashSet<State> GenerateTransitionFunction(
-            (CompoundAction, State, HashSet<State>) assignment,
-            Dictionary<(CompoundAction, State, State), HashSet<Literal>> newSetDict)
+        private static HashSet<State> GenerateTransitionFunction((CompoundAction, State, HashSet<State>) assignment, NewSetMapping newSetDict)
         {
             var compoundAction = assignment.Item1;
             var state = assignment.Item2;
             var potentialResults = assignment.Item3;
 
-            var newSets = newSetDict.Values;
+            var newSets = newSetDict.AllValues;
             var minimalizingStates = new HashSet<State>();
 
             foreach (var result in potentialResults)
             {
-                var resultNewSet = newSetDict[(compoundAction, state, result)];
+                var resultNewSet = newSetDict[compoundAction, state, result];
                 if (!newSets.Any(newSet => newSet.IsProperSubsetOf(resultNewSet)))
                     minimalizingStates.Add(result);
             }

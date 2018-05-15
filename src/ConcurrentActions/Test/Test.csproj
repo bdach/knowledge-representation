@@ -85,7 +85,7 @@
     <Compile Include="QueryResolver\ProducerConsumerTest.cs" />
     <Compile Include="MinimizeNew\TestCases\ITransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TestCases\ProducerAndConsumerTransitionFunctionGenerationTestCase.cs" />
-    <Compile Include="MinimizeNew\TestCases\SchoedingerCatTransitionFunctionGenerationTestCase.cs" />
+    <Compile Include="MinimizeNew\TestCases\SchroedingerCatTransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TestCases\TwoPaintersTransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TransitionFunctionGeneratorTest.cs" />
     <Compile Include="Grammar\GrammarTest.cs" />

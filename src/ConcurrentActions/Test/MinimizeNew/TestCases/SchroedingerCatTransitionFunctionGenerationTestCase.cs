@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using DynamicSystem.NewGeneration;
 using Model;
 using Model.Forms;
 
 namespace Test.MinimizeNew.TestCases
 {
-    internal class SchoedingerCatTransitionFunctionGenerationTestCase : ITransitionFunctionGenerationTestCase
+    internal class SchroedingerCatTransitionFunctionGenerationTestCase : ITransitionFunctionGenerationTestCase
     {
         public TransitionFunction ResZero => resZero;
-        public Dictionary<(CompoundAction, State, State), HashSet<Literal>> NewSets => newSets;
+        public NewSetMapping NewSets => newSets;
         public TransitionFunction TransitionFunction
         {
             get
@@ -70,44 +71,44 @@ namespace Test.MinimizeNew.TestCases
                 [CompoundAction["{PEEK, PET}"], State[2]] = new HashSet<State> {State[2]},
             };
 
-        private static Dictionary<(CompoundAction, State, State), HashSet<Literal>> newSets =
-            new Dictionary<(CompoundAction, State, State), HashSet<Literal>>
+        private static NewSetMapping newSets =
+            new NewSetMapping
             {
-                {(CompoundAction["{PEEK}"], State[0], State[0]), new HashSet<Literal> { Literal["alive"], Literal["purring"] }},
-                {(CompoundAction["{PEEK}"], State[0], State[1]), new HashSet<Literal> { Literal["alive"], Literal["~purring"] }},
-                {(CompoundAction["{PEEK}"], State[0], State[2]), new HashSet<Literal> { Literal["~alive"], Literal["~purring"] }},
+                [CompoundAction["{PEEK}"], State[0], State[0]] = new HashSet<Literal> { Literal["alive"], Literal["purring"] },
+                [CompoundAction["{PEEK}"], State[0], State[1]] = new HashSet<Literal> { Literal["alive"], Literal["~purring"] },
+                [CompoundAction["{PEEK}"], State[0], State[2]] = new HashSet<Literal> { Literal["~alive"], Literal["~purring"] },
 
-                {(CompoundAction["{PET}"], State[0], State[0]), new HashSet<Literal> { }},
-                {(CompoundAction["{PET}"], State[0], State[1]), new HashSet<Literal> { }},
-                {(CompoundAction["{PET}"], State[0], State[2]), new HashSet<Literal> { }},
+                [CompoundAction["{PET}"], State[0], State[0]] = new HashSet<Literal> { },
+                [CompoundAction["{PET}"], State[0], State[1]] = new HashSet<Literal> { },
+                [CompoundAction["{PET}"], State[0], State[2]] = new HashSet<Literal> { },
 
-                {(CompoundAction["{PEEK, PET}"], State[0], State[0]), new HashSet<Literal> { Literal["alive"], Literal["purring"] }},
-                {(CompoundAction["{PEEK, PET}"], State[0], State[1]), new HashSet<Literal> { Literal["alive"], Literal["~purring"] }},
-                {(CompoundAction["{PEEK, PET}"], State[0], State[2]), new HashSet<Literal> { Literal["~alive"], Literal["~purring"] }},
+                [CompoundAction["{PEEK, PET}"], State[0], State[0]] = new HashSet<Literal> { Literal["alive"], Literal["purring"] },
+                [CompoundAction["{PEEK, PET}"], State[0], State[1]] = new HashSet<Literal> { Literal["alive"], Literal["~purring"] },
+                [CompoundAction["{PEEK, PET}"], State[0], State[2]] = new HashSet<Literal> { Literal["~alive"], Literal["~purring"] },
 
-                {(CompoundAction["{PEEK}"], State[1], State[0]), new HashSet<Literal> { Literal["alive"], Literal["purring"] }},
-                {(CompoundAction["{PEEK}"], State[1], State[1]), new HashSet<Literal> { Literal["alive"], Literal["~purring"] }},
-                {(CompoundAction["{PEEK}"], State[1], State[2]), new HashSet<Literal> { Literal["~alive"], Literal["~purring"] }},
+                [CompoundAction["{PEEK}"], State[1], State[0]] = new HashSet<Literal> { Literal["alive"], Literal["purring"] },
+                [CompoundAction["{PEEK}"], State[1], State[1]] = new HashSet<Literal> { Literal["alive"], Literal["~purring"] },
+                [CompoundAction["{PEEK}"], State[1], State[2]] = new HashSet<Literal> { Literal["~alive"], Literal["~purring"] },
 
-                {(CompoundAction["{PET}"], State[1], State[0]), new HashSet<Literal> { Literal["purring"] }},
-                {(CompoundAction["{PET}"], State[1], State[1]), new HashSet<Literal> { }},
-                {(CompoundAction["{PET}"], State[1], State[2]), new HashSet<Literal> { }},
+                [CompoundAction["{PET}"], State[1], State[0]] = new HashSet<Literal> { Literal["purring"] },
+                [CompoundAction["{PET}"], State[1], State[1]] = new HashSet<Literal> { },
+                [CompoundAction["{PET}"], State[1], State[2]] = new HashSet<Literal> { },
 
-                {(CompoundAction["{PEEK, PET}"], State[1], State[0]), new HashSet<Literal> { Literal["alive"], Literal["purring"] }},
-                {(CompoundAction["{PEEK, PET}"], State[1], State[1]), new HashSet<Literal> { Literal["alive"], Literal["~purring"] }},
-                {(CompoundAction["{PEEK, PET}"], State[1], State[2]), new HashSet<Literal> { Literal["~alive"], Literal["~purring"] }},
+                [CompoundAction["{PEEK, PET}"], State[1], State[0]] = new HashSet<Literal> { Literal["alive"], Literal["purring"] },
+                [CompoundAction["{PEEK, PET}"], State[1], State[1]] = new HashSet<Literal> { Literal["alive"], Literal["~purring"] },
+                [CompoundAction["{PEEK, PET}"], State[1], State[2]] = new HashSet<Literal> { Literal["~alive"], Literal["~purring"] },
 
-                {(CompoundAction["{PEEK}"], State[2], State[0]), new HashSet<Literal> { }},
-                {(CompoundAction["{PEEK}"], State[2], State[1]), new HashSet<Literal> { }},
-                {(CompoundAction["{PEEK}"], State[2], State[2]), new HashSet<Literal> { }},
+                [CompoundAction["{PEEK}"], State[2], State[0]] = new HashSet<Literal> { },
+                [CompoundAction["{PEEK}"], State[2], State[1]] = new HashSet<Literal> { },
+                [CompoundAction["{PEEK}"], State[2], State[2]] = new HashSet<Literal> { },
 
-                {(CompoundAction["{PET}"], State[2], State[0]), new HashSet<Literal> { }},
-                {(CompoundAction["{PET}"], State[2], State[1]), new HashSet<Literal> { }},
-                {(CompoundAction["{PET}"], State[2], State[2]), new HashSet<Literal> { }},
+                [CompoundAction["{PET}"], State[2], State[0]] = new HashSet<Literal> { },
+                [CompoundAction["{PET}"], State[2], State[1]] = new HashSet<Literal> { },
+                [CompoundAction["{PET}"], State[2], State[2]] = new HashSet<Literal> { },
 
-                {(CompoundAction["{PEEK, PET}"], State[2], State[0]), new HashSet<Literal> { }},
-                {(CompoundAction["{PEEK, PET}"], State[2], State[1]), new HashSet<Literal> { }},
-                {(CompoundAction["{PEEK, PET}"], State[2], State[2]), new HashSet<Literal> { }}
+                [CompoundAction["{PEEK, PET}"], State[2], State[0]] = new HashSet<Literal> { },
+                [CompoundAction["{PEEK, PET}"], State[2], State[1]] = new HashSet<Literal> { },
+                [CompoundAction["{PEEK, PET}"], State[2], State[2]] = new HashSet<Literal> { }
             };
 
         private static Dictionary<(CompoundAction, State), HashSet<State>> res =
