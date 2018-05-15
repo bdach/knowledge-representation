@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Model
 {
+    /// <inheritdoc />
     /// <summary>
     /// Class representing the transition function for a structure.
     /// </summary>
-    public class TransitionFunction
+    public class TransitionFunction : IEnumerable<(CompoundAction action, State state, HashSet<State> resultStates)>
     {
         /// <summary>
         /// Inner dictionary mapping tuples of <see cref="CompoundAction"/>s and <see cref="State"/>s
@@ -62,6 +64,33 @@ namespace Model
             get => transitionFunction[ValueTuple.Create(compoundAction, state)];
             set => transitionFunction[ValueTuple.Create(compoundAction, state)] = value;
         }
-        
+
+        /// <summary>
+        /// Returns an enumerable of all argument pairs for which the transition function is defined.
+        /// </summary>
+        public IEnumerable<(CompoundAction action, State state)> Arguments => transitionFunction.Keys;
+
+        /// <summary>
+        /// Returns an enumerator for the transition function.
+        /// The enumerator yields tuples containing transition function arguments and values.
+        /// </summary>
+        /// <returns>An instance of <see cref="IEnumerator{T}"/>.</returns>
+        public IEnumerator<(CompoundAction action, State state, HashSet<State> resultStates)> GetEnumerator()
+        {
+            foreach (var entry in transitionFunction)
+            {
+                yield return (entry.Key.Item1, entry.Key.Item2, entry.Value);
+            }
+        }
+
+        /// <summary>
+        /// Returns an enumerator for the transition function.
+        /// The enumerator yields tuples containing transition function arguments and values.
+        /// </summary>
+        /// <returns>An instance of <see cref="IEnumerator"/>.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

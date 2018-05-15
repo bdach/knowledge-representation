@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Model;
 using Model.Forms;
 
@@ -13,26 +11,21 @@ namespace DynamicSystem.MinimizeNew
     /// </summary>
     public static class TransitionFunctionGenerator
     {
-        // TODO: make Res0 be a TransitionFunction and maybe do something with the newSets parameter
         /// <summary>
         /// Generates <see cref="TransitionFunction"/> by finding states belonging to output of Res_0 function 
         /// that minimalize New set of inertial fluent that can change with action execution.
         /// </summary>
-        /// <param name="resZero"><see cref="Dictionary{ValueTuple{CompoundAction, State}, HashSet{State}"/> describing Res_0 function.</param>
+        /// <param name="resZero"><see cref="TransitionFunction"/> instance describing Res_0 function.</param>
         /// <param name="newSets"><see cref="Dictionary{ValueTuple{CompoundAction, State, State}, HashSet{Literal}}"/> describing New sets.</param>
         /// <returns><see cref="TransitionFunction"/> object.</returns>
-        public static TransitionFunction GenerateTransitionFunction(
-            Dictionary<(CompoundAction, State), HashSet<State>> resZero,
+        public static TransitionFunction GenerateTransitionFunction(TransitionFunction resZero,
             Dictionary<(CompoundAction, State, State), HashSet<Literal>> newSets)
         {
             var transitionFunction = InitializeTransitionFunction(resZero);
 
             foreach (var assignment in resZero)
             {
-                var compoundAction = assignment.Key.Item1;
-                var state = assignment.Key.Item2;
-                var potentialResults = assignment.Value;
-
+                var (compoundAction, state, potentialResults) = assignment;
                 var consideredNewSets = FindConsideredNewSets(compoundAction, state, potentialResults, newSets);
 
                 transitionFunction[compoundAction, state] =
@@ -44,14 +37,11 @@ namespace DynamicSystem.MinimizeNew
         /// <summary>
         /// Initializes <see cref="TransitionFunction"/> with compound actions and states which are arguments of Res_0 function.
         /// </summary>
-        /// <param name="resZero"><see cref="Dictionary{ValueTuple{CompoundAction, State}, HashSet{State}"/> describing Res_0 function.</param>
+        /// <param name="resZero"><see cref="TransitionFunction"/> instance describing Res_0 function.</param>
         /// <returns>Empty <see cref="TransitionFunction"/>.</returns>
-        private static TransitionFunction InitializeTransitionFunction(Dictionary<(CompoundAction, State), HashSet<State>> resZero)
+        private static TransitionFunction InitializeTransitionFunction(TransitionFunction resZero)
         {
-            var compoundActions = resZero.Keys.Select(key => key.Item1).Distinct().ToArray();
-            var states = resZero.Keys.Select(key => key.Item2).Distinct().ToArray();
-
-            return new TransitionFunction(compoundActions, states);
+            return new TransitionFunction(resZero.CompoundActions, resZero.States);
         }
 
         /// <summary>

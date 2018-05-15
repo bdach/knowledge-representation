@@ -4,9 +4,9 @@ using Model.Forms;
 
 namespace Test.MinimizeNew.TestCases
 {
-    class TwoPaintersTransitionFunctionGenerationTestCase : ITransitionFunctionGenerationTestCase
+    internal class TwoPaintersTransitionFunctionGenerationTestCase : ITransitionFunctionGenerationTestCase
     {
-        public Dictionary<(CompoundAction, State), HashSet<State>> ResZero => resZero;
+        public TransitionFunction ResZero => resZero;
         public Dictionary<(CompoundAction, State, State), HashSet<Literal>> NewSets => newSets;
         public TransitionFunction TransitionFunction
         {
@@ -59,32 +59,32 @@ namespace Test.MinimizeNew.TestCases
             {"~brushB", new Literal(Fluent["brushB"], true)}
         };
 
-        private static Dictionary<(CompoundAction, State), HashSet<State>> resZero =
-            new Dictionary<(CompoundAction, State), HashSet<State>>
+        private static TransitionFunction resZero =
+            new TransitionFunction(CompoundAction.Values, State)
             {
-                {(CompoundAction["{TAKE_A}"], State[0]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{TAKE_B}"], State[0]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{PAINT}"], State[0]), new HashSet<State> {State[0]}},
-                {(CompoundAction["{TAKE_A, TAKE_B}"], State[0]), new HashSet<State> {State[1], State[2]}},
-                {(CompoundAction["{TAKE_A, PAINT}"], State[0]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{TAKE_B, PAINT}"], State[0]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{TAKE_A, TAKE_B, PAINT}"], State[0]), new HashSet<State> {State[1], State[2]}},
+                [CompoundAction["{TAKE_A}"], State[0]] = new HashSet<State> {State[1]},
+                [CompoundAction["{TAKE_B}"], State[0]] = new HashSet<State> {State[2]},
+                [CompoundAction["{PAINT}"], State[0]] = new HashSet<State> {State[0]},
+                [CompoundAction["{TAKE_A, TAKE_B}"], State[0]] = new HashSet<State> {State[1], State[2]},
+                [CompoundAction["{TAKE_A, PAINT}"], State[0]] = new HashSet<State> {State[1]},
+                [CompoundAction["{TAKE_B, PAINT}"], State[0]] = new HashSet<State> {State[2]},
+                [CompoundAction["{TAKE_A, TAKE_B, PAINT}"], State[0]] = new HashSet<State> {State[1], State[2]},
 
-                {(CompoundAction["{TAKE_A}"], State[1]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{TAKE_B}"], State[1]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{PAINT}"], State[1]), new HashSet<State> {State[0], State[2]}},
-                {(CompoundAction["{TAKE_A, TAKE_B}"], State[1]), new HashSet<State> {State[1], State[2]}},
-                {(CompoundAction["{TAKE_A, PAINT}"], State[1]), new HashSet<State> {State[0], State[1], State[2]}},
-                {(CompoundAction["{TAKE_B, PAINT}"], State[1]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{TAKE_A, TAKE_B, PAINT}"], State[1]), new HashSet<State> {State[1], State[2]}},
+                [CompoundAction["{TAKE_A}"], State[1]] = new HashSet<State> {State[1]},
+                [CompoundAction["{TAKE_B}"], State[1]] = new HashSet<State> {State[2]},
+                [CompoundAction["{PAINT}"], State[1]] = new HashSet<State> {State[0], State[2]},
+                [CompoundAction["{TAKE_A, TAKE_B}"], State[1]] = new HashSet<State> {State[1], State[2]},
+                [CompoundAction["{TAKE_A, PAINT}"], State[1]] = new HashSet<State> {State[0], State[1], State[2]},
+                [CompoundAction["{TAKE_B, PAINT}"], State[1]] = new HashSet<State> {State[2]},
+                [CompoundAction["{TAKE_A, TAKE_B, PAINT}"], State[1]] = new HashSet<State> {State[1], State[2]},
 
-                {(CompoundAction["{TAKE_A}"], State[2]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{TAKE_B}"], State[2]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{PAINT}"], State[2]), new HashSet<State> {State[0], State[1]}},
-                {(CompoundAction["{TAKE_A, TAKE_B}"], State[2]), new HashSet<State> {State[1], State[2]}},
-                {(CompoundAction["{TAKE_A, PAINT}"], State[2]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{TAKE_B, PAINT}"], State[2]), new HashSet<State> {State[0], State[1], State[2]}},
-                {(CompoundAction["{TAKE_A, TAKE_B, PAINT}"], State[2]), new HashSet<State> {State[1], State[2]}}
+                [CompoundAction["{TAKE_A}"], State[2]] = new HashSet<State> {State[1]},
+                [CompoundAction["{TAKE_B}"], State[2]] = new HashSet<State> {State[2]},
+                [CompoundAction["{PAINT}"], State[2]] = new HashSet<State> {State[0], State[1]},
+                [CompoundAction["{TAKE_A, TAKE_B}"], State[2]] = new HashSet<State> {State[1], State[2]},
+                [CompoundAction["{TAKE_A, PAINT}"], State[2]] = new HashSet<State> {State[1]},
+                [CompoundAction["{TAKE_B, PAINT}"], State[2]] = new HashSet<State> {State[0], State[1], State[2]},
+                [CompoundAction["{TAKE_A, TAKE_B, PAINT}"], State[2]] = new HashSet<State> {State[1], State[2]}
             };
 
         private static Dictionary<(CompoundAction, State, State), HashSet<Literal>> newSets =

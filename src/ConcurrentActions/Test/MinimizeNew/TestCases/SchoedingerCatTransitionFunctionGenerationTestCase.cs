@@ -4,9 +4,9 @@ using Model.Forms;
 
 namespace Test.MinimizeNew.TestCases
 {
-    public class SchoedingerCatTransitionFunctionGenerationTestCase : ITransitionFunctionGenerationTestCase
+    internal class SchoedingerCatTransitionFunctionGenerationTestCase : ITransitionFunctionGenerationTestCase
     {
-        public Dictionary<(CompoundAction, State), HashSet<State>> ResZero => resZero;
+        public TransitionFunction ResZero => resZero;
         public Dictionary<(CompoundAction, State, State), HashSet<Literal>> NewSets => newSets;
         public TransitionFunction TransitionFunction
         {
@@ -54,20 +54,20 @@ namespace Test.MinimizeNew.TestCases
             {"~purring", new Literal(Fluent["purring"], true)}
         };
 
-        private static Dictionary<(CompoundAction, State), HashSet<State>> resZero =
-            new Dictionary<(CompoundAction, State), HashSet<State>>
+        private static TransitionFunction resZero =
+            new TransitionFunction(CompoundAction.Values, State)
             {
-                {(CompoundAction["{PEEK}"], State[0]), new HashSet<State> {State[0], State[1], State[2]}},
-                {(CompoundAction["{PET}"], State[0]), new HashSet<State> {State[0]}},
-                {(CompoundAction["{PEEK, PET}"], State[0]), new HashSet<State> {State[0], State[1], State[2]}},
+                [CompoundAction["{PEEK}"], State[0]] = new HashSet<State> {State[0], State[1], State[2]},
+                [CompoundAction["{PET}"], State[0]] = new HashSet<State> {State[0]},
+                [CompoundAction["{PEEK, PET}"], State[0]] = new HashSet<State> {State[0], State[1], State[2]},
 
-                {(CompoundAction["{PEEK}"], State[1]), new HashSet<State> {State[0], State[1], State[2]}},
-                {(CompoundAction["{PET}"], State[1]), new HashSet<State> {State[0]}},
-                {(CompoundAction["{PEEK, PET}"], State[1]), new HashSet<State> {State[0], State[1], State[2]}},
+                [CompoundAction["{PEEK}"], State[1]] = new HashSet<State> {State[0], State[1], State[2]},
+                [CompoundAction["{PET}"], State[1]] = new HashSet<State> {State[0]},
+                [CompoundAction["{PEEK, PET}"], State[1]] = new HashSet<State> {State[0], State[1], State[2]},
 
-                {(CompoundAction["{PEEK}"], State[2]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{PET}"], State[2]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{PEEK, PET}"], State[2]), new HashSet<State> {State[2]}},
+                [CompoundAction["{PEEK}"], State[2]] = new HashSet<State> {State[2]},
+                [CompoundAction["{PET}"], State[2]] =  new HashSet<State> {State[2]},
+                [CompoundAction["{PEEK, PET}"], State[2]] = new HashSet<State> {State[2]},
             };
 
         private static Dictionary<(CompoundAction, State, State), HashSet<Literal>> newSets =

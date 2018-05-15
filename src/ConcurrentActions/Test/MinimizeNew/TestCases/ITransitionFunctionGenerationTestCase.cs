@@ -6,7 +6,7 @@ namespace Test.MinimizeNew.TestCases
 {
     public interface ITransitionFunctionGenerationTestCase
     {
-        Dictionary<(CompoundAction, State), HashSet<State>> ResZero { get; }
+        TransitionFunction ResZero { get; }
         Dictionary<(CompoundAction, State, State), HashSet<Literal>> NewSets { get; }
         TransitionFunction TransitionFunction { get; }
     }

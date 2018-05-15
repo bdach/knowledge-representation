@@ -6,7 +6,7 @@ namespace Test.MinimizeNew.TestCases
 {
     internal class ProducerAndConsumerTransitionFunctionGenerationTestCase : ITransitionFunctionGenerationTestCase
     {
-        public Dictionary<(CompoundAction, State), HashSet<State>> ResZero => resZero;
+        public TransitionFunction ResZero => resZero;
         public Dictionary<(CompoundAction, State, State), HashSet<Literal>> NewSets => newSets;
         public TransitionFunction TransitionFunction
         {
@@ -14,7 +14,7 @@ namespace Test.MinimizeNew.TestCases
             {
                 var transitionFunction = new TransitionFunction(CompoundAction.Values, State);
                 foreach (var entry in resZero)
-                    transitionFunction[entry.Key.Item1, entry.Key.Item2] = entry.Value;
+                    transitionFunction[entry.action, entry.state] = entry.resultStates;
                 return transitionFunction;
             }
         }
@@ -60,40 +60,40 @@ namespace Test.MinimizeNew.TestCases
             {"~HI", new Literal(Fluent["HI"], true)}
         };
 
-        private static Dictionary<(CompoundAction, State), HashSet<State>> resZero =
-            new Dictionary<(CompoundAction, State), HashSet<State>>
+        private static TransitionFunction resZero =
+            new TransitionFunction(CompoundAction.Values, State)
             {
-                {(CompoundAction["{PUT}"], State[0]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{GET}"], State[0]), new HashSet<State> {State[0]}},
-                {(CompoundAction["{CONSUME}"], State[0]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{PUT, GET}"], State[0]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{PUT, CONSUME}"], State[0]), new HashSet<State> {State[3]}},
-                {(CompoundAction["{GET, CONSUME}"], State[0]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[0]), new HashSet<State> {State[3]}},
+                [CompoundAction["{PUT}"], State[0]] = new HashSet<State> {State[1]},
+                [CompoundAction["{GET}"], State[0]] = new HashSet<State> {State[0]},
+                [CompoundAction["{CONSUME}"], State[0]] = new HashSet<State> {State[2]},
+                [CompoundAction["{PUT, GET}"], State[0]] = new HashSet<State> {State[1]},
+                [CompoundAction["{PUT, CONSUME}"], State[0]] = new HashSet<State> {State[3]},
+                [CompoundAction["{GET, CONSUME}"], State[0]] = new HashSet<State> {State[2]},
+                [CompoundAction["{PUT, GET, CONSUME}"], State[0]] = new HashSet<State> {State[3]},
 
-                {(CompoundAction["{PUT}"], State[1]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{GET}"], State[1]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{CONSUME}"], State[1]), new HashSet<State> {State[3]}},
-                {(CompoundAction["{PUT, GET}"], State[1]), new HashSet<State> {State[1]}},
-                {(CompoundAction["{PUT, CONSUME}"], State[1]), new HashSet<State> {State[3]}},
-                {(CompoundAction["{GET, CONSUME}"], State[1]), new HashSet<State> {State[3]}},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[1]), new HashSet<State> {State[3]}},
+                [CompoundAction["{PUT}"], State[1]] = new HashSet<State> {State[1]},
+                [CompoundAction["{GET}"], State[1]] = new HashSet<State> {State[1]},
+                [CompoundAction["{CONSUME}"], State[1]] = new HashSet<State> {State[3]},
+                [CompoundAction["{PUT, GET}"], State[1]] = new HashSet<State> {State[1]},
+                [CompoundAction["{PUT, CONSUME}"], State[1]] = new HashSet<State> {State[3]},
+                [CompoundAction["{GET, CONSUME}"], State[1]] = new HashSet<State> {State[3]},
+                [CompoundAction["{PUT, GET, CONSUME}"], State[1]] = new HashSet<State> {State[3]},
 
-                {(CompoundAction["{PUT}"], State[2]), new HashSet<State> {State[3]}},
-                {(CompoundAction["{GET}"], State[2]), new HashSet<State> {State[2]}},
-                {(CompoundAction["{CONSUME}"], State[2]), new HashSet<State> { }},
-                {(CompoundAction["{PUT, GET}"], State[2]), new HashSet<State> {State[3]}},
-                {(CompoundAction["{PUT, CONSUME}"], State[2]), new HashSet<State> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[2]), new HashSet<State> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[2]), new HashSet<State> { }},
+                [CompoundAction["{PUT}"], State[2]] = new HashSet<State> {State[3]},
+                [CompoundAction["{GET}"], State[2]] = new HashSet<State> {State[2]},
+                [CompoundAction["{CONSUME}"], State[2]] = new HashSet<State> { },
+                [CompoundAction["{PUT, GET}"], State[2]] = new HashSet<State> {State[3]},
+                [CompoundAction["{PUT, CONSUME}"], State[2]] = new HashSet<State> { },
+                [CompoundAction["{GET, CONSUME}"], State[2]] = new HashSet<State> { },
+                [CompoundAction["{PUT, GET, CONSUME}"], State[2]] = new HashSet<State> { },
 
-                {(CompoundAction["{PUT}"], State[3]), new HashSet<State> {State[3]}},
-                {(CompoundAction["{GET}"], State[3]), new HashSet<State> {State[0]}},
-                {(CompoundAction["{CONSUME}"], State[3]), new HashSet<State> { }},
-                {(CompoundAction["{PUT, GET}"], State[3]), new HashSet<State> {State[0]}},
-                {(CompoundAction["{PUT, CONSUME}"], State[3]), new HashSet<State> { }},
-                {(CompoundAction["{GET, CONSUME}"], State[3]), new HashSet<State> { }},
-                {(CompoundAction["{PUT, GET, CONSUME}"], State[3]), new HashSet<State> { }},
+                [CompoundAction["{PUT}"], State[3]] = new HashSet<State> {State[3]},
+                [CompoundAction["{GET}"], State[3]] = new HashSet<State> {State[0]},
+                [CompoundAction["{CONSUME}"], State[3]] = new HashSet<State> { },
+                [CompoundAction["{PUT, GET}"], State[3]] = new HashSet<State> {State[0]},
+                [CompoundAction["{PUT, CONSUME}"], State[3]] = new HashSet<State> { },
+                [CompoundAction["{GET, CONSUME}"], State[3]] = new HashSet<State> { },
+                [CompoundAction["{PUT, GET, CONSUME}"], State[3]] = new HashSet<State> { },
             };
 
         private static Dictionary<(CompoundAction, State, State), HashSet<Literal>> newSets =

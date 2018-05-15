@@ -7,10 +7,16 @@ namespace DynamicSystem.ResZero
 {
     public static class ResZeroGenerator
     {
-        // TODO: change this back to TransitionFunction
-        public static Dictionary<(CompoundAction, State), HashSet<State>> GenerateResZero(ActionDomain actionDomain, HashSet<CompoundAction> compoundActions, HashSet<State> states)
+        /// <summary>
+        /// Generates the Res_0 mapping for a given action domain.
+        /// </summary>
+        /// <param name="actionDomain">The <see cref="ActionDomain"/> instance describing the action domain.</param>
+        /// <param name="compoundActions">The set of <see cref="CompoundAction"/> instances to calculate the mapping values for.</param>
+        /// <param name="states">The set of <see cref="State"/> instances to calculate the mapping values for.</param>
+        /// <returns></returns>
+        public static TransitionFunction GenerateResZero(ActionDomain actionDomain, HashSet<CompoundAction> compoundActions, HashSet<State> states)
         {
-            var transitionFunction = new Dictionary<(CompoundAction, State), HashSet<State>>();
+            var transitionFunction = new TransitionFunction(compoundActions, states);
             var resZero = new ResZero(actionDomain.EffectStatements, states);
             var decompositionGenerator = new DecompositionGenerator();
 
@@ -25,7 +31,7 @@ namespace DynamicSystem.ResZero
                         var decompositionResult = resZero.GetStates(state, decomposition);
                         resultStates.UnionWith(decompositionResult);
                     }
-                    transitionFunction[(compoundAction, state)] = resultStates;
+                    transitionFunction[compoundAction, state] = resultStates;
                 }
             }
             return transitionFunction;
