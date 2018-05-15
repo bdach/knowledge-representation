@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DynamicSystem.QueriesEvaluation;
 using Model;
 using Model.Forms;
@@ -11,7 +12,7 @@ namespace Test.QueriesEvaluation
     [TestFixture]
     class QueriesEvaluatorTest
     {
-        public void BuildProducentConsument(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries)
+        public void BuildProducerConsumer(out ICollection<Structure> models, out QuerySet queries)
         {
             Fluent bufferEmpty = new Fluent("bufferEmpty");
             Fluent hasItem = new Fluent("hasItem");
@@ -22,7 +23,7 @@ namespace Test.QueriesEvaluation
             State s2 = new State(fluents, new List<bool>() { true, false });
             State s3 = new State(fluents, new List<bool>() { false, false });
             List<State> states = new List<State>() { s0, s1, s2, s3 };
-            initialStates = new HashSet<State>() { s0, s2 };
+            var initialStates = new HashSet<State>() { s0, s2 };
 
             Action put = new Action("Put");
             Action get = new Action("Get");
@@ -38,7 +39,7 @@ namespace Test.QueriesEvaluation
             {
                caPut,caPutGetConsume,caConsume,caGet,caPutConsume,caGetConsume,caPutGet
             };
-            transitionFunction =
+            var transitionFunction =
                 new TransitionFunction(compoundActions, states)
                 {
                     [caPut, s0] = new HashSet<State>() {s1},
@@ -62,6 +63,7 @@ namespace Test.QueriesEvaluation
                     [caGet, s3] = new HashSet<State>() {s0},
                     [caPutGet, s3] = new HashSet<State>() {s0}
                 };
+            models = initialStates.Select(state => new Structure(states, state, transitionFunction)).ToList();
 
             queries = new QuerySet();
             queries.ExistentialValueQueries.Add(
@@ -92,20 +94,20 @@ namespace Test.QueriesEvaluation
         public void ProducentConsumentExistentialExecutability()
         {
             // given
-            BuildProducentConsument(out var initialStates, out var transitionFunction, out var queries);
+            BuildProducerConsumer(out var models, out var queries);
             //do
-            bool result = QueriesEvaluator.EvaluateExistentialExecutabilityQuery(initialStates, transitionFunction, queries.ExistentialExecutabilityQueries[0]);
+            bool result = QueriesEvaluator.EvaluateExistentialExecutabilityQuery(models, queries.ExistentialExecutabilityQueries[0]);
             //check
-            Assert.AreEqual(true,result);
+            Assert.AreEqual(false, result);
         }
 
         [Test]
         public void ProducentConsumentGeneralExecutability()
         {
             // given
-            BuildProducentConsument(out var initialStates, out var transitionFunction, out var queries);
+            BuildProducerConsumer(out var models, out var queries);
             //do
-            bool result = QueriesEvaluator.EvaluateGeneralExecutabilityQuery(initialStates, transitionFunction, queries.GeneralExecutabilityQueries[0]);
+            bool result = QueriesEvaluator.EvaluateGeneralExecutabilityQuery(models, queries.GeneralExecutabilityQueries[0]);
             //check
             Assert.AreEqual(false, result);
         }
@@ -114,20 +116,20 @@ namespace Test.QueriesEvaluation
         public void ProducentConsumentExistentialValue()
         {
             // given
-            BuildProducentConsument(out var initialStates, out var transitionFunction, out var queries);
+            BuildProducerConsumer(out var models, out var queries);
             //do
-            bool result = QueriesEvaluator.EvaluateExistentialValueQuery(initialStates, transitionFunction, queries.ExistentialValueQueries[0]);
+            bool result = QueriesEvaluator.EvaluateExistentialValueQuery(models, queries.ExistentialValueQueries[0]);
             //check
-            Assert.AreEqual(true, result);
+            Assert.AreEqual(false, result);
         }
 
         [Test]
         public void ProducentConsumentGeneralValue()
         {
             // given
-            BuildProducentConsument(out var initialStates, out var transitionFunction, out var queries);
+            BuildProducerConsumer(out var models, out var queries);
             //do
-            bool result = QueriesEvaluator.EvaluateGeneralValueQuery(initialStates, transitionFunction, queries.GeneralValueQueries[0]);
+            bool result = QueriesEvaluator.EvaluateGeneralValueQuery(models, queries.GeneralValueQueries[0]);
             //check
             Assert.AreEqual(false, result);
         }
@@ -136,16 +138,16 @@ namespace Test.QueriesEvaluation
         public void ProducentConsumentAccessibility()
         {
             // given
-            BuildProducentConsument(out var initialStates, out var transitionFunction, out var queries);
+            BuildProducerConsumer(out var models, out var queries);
             //do
-            bool result = QueriesEvaluator.EvaluateAccessibilityQuery(initialStates, transitionFunction, queries.AccessibilityQueries[0]);
+            bool result = QueriesEvaluator.EvaluateAccessibilityQuery(models, queries.AccessibilityQueries[0]);
             //check
             Assert.AreEqual(true, result);
         }
 
 
 
-        public void BuildSchrodingerCat(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries)
+        public void BuildSchrodingerCat(out ICollection<Structure> models, out QuerySet queries)
         {
             Fluent alive = new Fluent("alive");
             Fluent purring = new Fluent("purring");
@@ -155,7 +157,7 @@ namespace Test.QueriesEvaluation
             State s1 = new State(fluents, new List<bool>() { true, false });
             State s2 = new State(fluents, new List<bool>() { false, false });
             List<State> states = new List<State>() { s0, s1, s2 };
-            initialStates = new HashSet<State>() { s0, s1 };
+            var initialStates = new HashSet<State>() { s0, s1 };
 
             Action peek = new Action("Peek");
             Action pet = new Action("Pet");
@@ -166,7 +168,7 @@ namespace Test.QueriesEvaluation
             {
                 caPeek,caPet,caPeekPet
             };
-            transitionFunction =
+            var transitionFunction =
                 new TransitionFunction(compoundActions, states)
                 {
                     [caPeek, s0] = new HashSet<State>() {s0,s1,s2},
@@ -179,6 +181,7 @@ namespace Test.QueriesEvaluation
                     [caPet, s2] = new HashSet<State>() {s2},
                     [caPeekPet, s2] = new HashSet<State>() {s2},
                 };
+            models = initialStates.Select(state => new Structure(states, state, transitionFunction)).ToList();
 
             queries = new QuerySet();
             queries.ExistentialValueQueries.Add(
@@ -209,9 +212,9 @@ namespace Test.QueriesEvaluation
         public void SchrodingerCatExistentialExecutability()
         {
             // given
-            BuildSchrodingerCat(out var initialStates, out var transitionFunction, out QuerySet queries);
+            BuildSchrodingerCat(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateExistentialExecutabilityQuery(initialStates, transitionFunction, queries.ExistentialExecutabilityQueries[0]);
+            bool result = QueriesEvaluator.EvaluateExistentialExecutabilityQuery(models, queries.ExistentialExecutabilityQueries[0]);
             //check
             Assert.AreEqual(true, result);
         }
@@ -219,9 +222,9 @@ namespace Test.QueriesEvaluation
         [Test]
         public void SchrodingerCatGeneralExecutability()
         {
-            BuildSchrodingerCat(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries);
+            BuildSchrodingerCat(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateGeneralExecutabilityQuery(initialStates, transitionFunction, queries.GeneralExecutabilityQueries[0]);
+            bool result = QueriesEvaluator.EvaluateGeneralExecutabilityQuery(models, queries.GeneralExecutabilityQueries[0]);
             //check
             Assert.AreEqual(true, result);
         }
@@ -229,9 +232,9 @@ namespace Test.QueriesEvaluation
         [Test]
         public void SchrodingerCatExistentialValue()
         {
-            BuildSchrodingerCat(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries);
+            BuildSchrodingerCat(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateExistentialValueQuery(initialStates, transitionFunction, queries.ExistentialValueQueries[0]);
+            bool result = QueriesEvaluator.EvaluateExistentialValueQuery(models, queries.ExistentialValueQueries[0]);
             //check
             Assert.AreEqual(true, result);
         }
@@ -239,9 +242,9 @@ namespace Test.QueriesEvaluation
         [Test]
         public void SchrodingerCatGeneralValue()
         {
-            BuildSchrodingerCat(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries);
+            BuildSchrodingerCat(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateGeneralValueQuery(initialStates, transitionFunction, queries.GeneralValueQueries[0]);
+            bool result = QueriesEvaluator.EvaluateGeneralValueQuery(models, queries.GeneralValueQueries[0]);
             //check
             Assert.AreEqual(false, result);
         }
@@ -249,16 +252,16 @@ namespace Test.QueriesEvaluation
         [Test]
         public void SchrodingerCatAccessibility()
         {
-            BuildSchrodingerCat(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries);
+            BuildSchrodingerCat(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateAccessibilityQuery(initialStates, transitionFunction, queries.AccessibilityQueries[0]);
+            bool result = QueriesEvaluator.EvaluateAccessibilityQuery(models, queries.AccessibilityQueries[0]);
             //check
             Assert.AreEqual(true, result);
         }
 
 
         
-        public void BuildTwoPainters(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries)
+        public void BuildTwoPainters(out ICollection<Structure> models, out QuerySet queries)
         {
             Fluent brushA = new Fluent("brushA");
             Fluent brushB = new Fluent("brushB");
@@ -268,7 +271,7 @@ namespace Test.QueriesEvaluation
             State s1 = new State(fluents, new List<bool>() { true, false });
             State s2 = new State(fluents, new List<bool>() { false, true });
             List<State> states = new List<State>() { s0, s1, s2 };
-            initialStates = new HashSet<State>() { s0 };
+            var initialStates = new HashSet<State>() { s0 };
 
             Action takeA = new Action("TakeA");
             Action takeB = new Action("TakeB");
@@ -284,7 +287,7 @@ namespace Test.QueriesEvaluation
             {
                 caTakeA, caTakeB, caPaint, caTakeAPaint, caTakeBPaint, caTakeATakeB,  caTakeATakeBPaint
             };
-            transitionFunction =
+            var transitionFunction =
                 new TransitionFunction(compoundActions, states)
                 {
                     [caPaint, s0] = new HashSet<State>() {s0},
@@ -309,6 +312,8 @@ namespace Test.QueriesEvaluation
                     [caTakeBPaint, s2] = new HashSet<State>() { s2 },
                     [caTakeATakeBPaint, s2] = new HashSet<State>() { s2 },
                 };
+            models = initialStates.Select(state => new Structure(states, state, transitionFunction)).ToList();
+            
 
             queries = new QuerySet();
             queries.ExistentialValueQueries.Add(
@@ -338,9 +343,9 @@ namespace Test.QueriesEvaluation
         [Test]
         public void TwoPaintersExistentialExecutability()
         {
-            BuildTwoPainters(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries);
+            BuildTwoPainters(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateExistentialExecutabilityQuery(initialStates, transitionFunction, queries.ExistentialExecutabilityQueries[0]);
+            bool result = QueriesEvaluator.EvaluateExistentialExecutabilityQuery(models, queries.ExistentialExecutabilityQueries[0]);
             //check
             Assert.AreEqual(true, result);
         }
@@ -348,9 +353,9 @@ namespace Test.QueriesEvaluation
         [Test]
         public void TwoPaintersGeneralExecutability()
         {
-            BuildTwoPainters(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries);
+            BuildTwoPainters(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateGeneralExecutabilityQuery(initialStates, transitionFunction, queries.GeneralExecutabilityQueries[0]);
+            bool result = QueriesEvaluator.EvaluateGeneralExecutabilityQuery(models, queries.GeneralExecutabilityQueries[0]);
             //check
             Assert.AreEqual(true, result);
         }
@@ -358,9 +363,9 @@ namespace Test.QueriesEvaluation
         [Test]
         public void TwoPaintersExistentialValue()
         {
-            BuildTwoPainters(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries);
+            BuildTwoPainters(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateExistentialValueQuery(initialStates, transitionFunction, queries.ExistentialValueQueries[0]);
+            bool result = QueriesEvaluator.EvaluateExistentialValueQuery(models, queries.ExistentialValueQueries[0]);
             //check
             Assert.AreEqual(true, result);
         }
@@ -368,9 +373,9 @@ namespace Test.QueriesEvaluation
         [Test]
         public void TwoPaintersGeneralValue()
         {
-            BuildTwoPainters(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries);
+            BuildTwoPainters(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateGeneralValueQuery(initialStates, transitionFunction, queries.GeneralValueQueries[0]);
+            bool result = QueriesEvaluator.EvaluateGeneralValueQuery(models, queries.GeneralValueQueries[0]);
             //check
             Assert.AreEqual(false, result);
         }
@@ -378,9 +383,9 @@ namespace Test.QueriesEvaluation
         [Test]
         public void TwoPaintersAccessibility()
         {
-            BuildTwoPainters(out HashSet<State> initialStates, out TransitionFunction transitionFunction, out QuerySet queries);
+            BuildTwoPainters(out var models, out QuerySet queries);
             //do
-            bool result = QueriesEvaluator.EvaluateAccessibilityQuery(initialStates, transitionFunction, queries.AccessibilityQueries[0]);
+            bool result = QueriesEvaluator.EvaluateAccessibilityQuery(models, queries.AccessibilityQueries[0]);
             //check
             Assert.AreEqual(false, result);
         }

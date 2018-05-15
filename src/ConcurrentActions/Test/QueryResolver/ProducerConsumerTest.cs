@@ -99,9 +99,9 @@ namespace Test.QueryResolver
             // when
             var queryResolution = DynamicSystem.QueryResolver.ResolveQueries(signature, actionDomain, querySet);
             // then
-            queryResolution.ExistentialValueQueryResults.First().Item2.Should().BeTrue();
+            queryResolution.ExistentialValueQueryResults.First().Item2.Should().BeFalse();
             queryResolution.GeneralValueQueryResults.First().Item2.Should().BeFalse();
-            queryResolution.ExistentialExecutabilityQueryResults.First().Item2.Should().BeTrue();
+            queryResolution.ExistentialExecutabilityQueryResults.First().Item2.Should().BeFalse();
             queryResolution.GeneralExecutabilityQueryResults.First().Item2.Should().BeFalse();
             queryResolution.AccessibilityQueryResults.First().Item2.Should().BeTrue();
         }
