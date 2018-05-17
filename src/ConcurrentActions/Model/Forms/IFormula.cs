@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Model.Forms
 {
@@ -25,6 +26,6 @@ namespace Model.Forms
         /// <returns>Boolean value of the formula in the supplied <see cref="state"/>.</returns>
         bool Evaluate(IState state);
         IFormula Accept(IFormulaVisitor visitor);
-
+        IEnumerable<Fluent> Fluents { get; }
     }
 }

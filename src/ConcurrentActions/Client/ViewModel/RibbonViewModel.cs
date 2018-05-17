@@ -57,7 +57,7 @@ namespace Client.ViewModel
         /// <summary>
         /// Command used to trigger grammar scenario evaluation.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> PerformGrammarCalculations { get; protected set; }
+        public ReactiveCommand<Unit, QueryResolution> PerformGrammarCalculations { get; set; }
 
         /// <summary>
         /// Command used to trigger import of scenario from a file.
@@ -171,7 +171,6 @@ namespace Client.ViewModel
             CloseWindow = ReactiveCommand.Create(() => Unit.Default);
             SetEnglishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.AmericanEnglish));
             SetPolishLocale = ReactiveCommand.Create(() => LocalizationProvider.SetLocale(LocalizationProvider.Polish));
-            PerformGrammarCalculations = ReactiveCommand.Create(() => Unit.Default);
             ImportFromFile = ReactiveCommand.Create(() => Unit.Default);
             ExportToFile = ReactiveCommand.Create(() => Unit.Default);
             EditTabSelected = ReactiveCommand.Create(() => Unit.Default);

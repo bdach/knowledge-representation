@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Model.Forms
 {
@@ -51,6 +52,8 @@ namespace Model.Forms
         {
             return visitor.Visit(this);
         }
+
+        public IEnumerable<Fluent> Fluents => Enumerable.Repeat(Fluent, 1);
 
         public override string ToString()
         {

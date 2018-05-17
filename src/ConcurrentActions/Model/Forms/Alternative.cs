@@ -1,4 +1,7 @@
-﻿namespace Model.Forms
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Model.Forms
 {
     /// <inheritdoc />
     /// <summary>
@@ -42,6 +45,8 @@
         {
             return visitor.Visit(this);
         }
+
+        public IEnumerable<Fluent> Fluents => Left.Fluents.Concat(Right.Fluents).Distinct();
 
         public override string ToString()
         {

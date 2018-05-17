@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Client.Abstract;
 using Client.DataTransfer;
@@ -15,9 +16,15 @@ using Client.View;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
 using DynamicSystem;
+using DynamicSystem.DNF;
+using DynamicSystem.Grammar;
 using Model;
+using Model.ActionLanguage;
+using Model.Forms;
+using Model.QueryLanguage;
 using ReactiveUI;
 using Splat;
+using Action = Model.Action;
 
 namespace Client.ViewModel
 {
@@ -88,10 +95,73 @@ namespace Client.ViewModel
                 .Where(results => results != null)
                 .Subscribe(results => QueryAreaViewModel.AcceptResults(results));
 
-            RibbonViewModel.PerformGrammarCalculations.Subscribe(_ =>
+            RibbonViewModel.PerformGrammarCalculations = ReactiveCommand.CreateFromTask(() => Task.Run(() =>
             {
-                // TODO: parse input with grammar, show errors, pass to DynamicSystem for evaluation
-            });
+                ActionDomain actionDomain = null;
+                QuerySet querySet = null;
+                try
+                {
+                    actionDomain = DynamicSystemParserUtils.ParseActionDomain(ActionAreaViewModel.ActionDomainInput);
+                }
+                catch (System.Exception e)
+                {
+                    Interactions.RaiseStatusBarError($"Failed to parse action domain: {e.Message}");
+                }
+
+                try
+                {
+                    querySet = DynamicSystemParserUtils.ParseQuerySet(QueryAreaViewModel.QuerySetInput);
+                }
+                catch (System.Exception e)
+                {
+                    Interactions.RaiseStatusBarError($"Failed to parse query set: {e.Message}");
+                }
+
+                var fluents = new HashSet<Model.Fluent>();
+                var actions = new HashSet<Action>();
+
+                actionDomain.ConstraintStatements.ForEach(stmt => fluents.UnionWith(stmt.Constraint.Fluents));
+                actionDomain.EffectStatements.ForEach(e =>
+                {
+                    fluents.UnionWith(e.Postcondition.Fluents);
+                    fluents.UnionWith(e.Precondition.Fluents);
+                    actions.Add(e.Action);
+                });
+                actionDomain.FluentReleaseStatements.ForEach(a =>
+                {
+                    fluents.Add(a.Fluent);
+                    actions.Add(a.Action);
+                    fluents.UnionWith(a.Precondition.Fluents);
+                });
+                actionDomain.FluentSpecificationStatements.ForEach(stmt => fluents.Add(stmt.Fluent));
+                actionDomain.InitialValueStatements.ForEach(stmt => fluents.UnionWith(stmt.InitialCondition.Fluents));
+                actionDomain.ObservationStatements.ForEach(stmt =>
+                {
+                    fluents.UnionWith(stmt.Condition.Fluents);
+                    actions.Add(stmt.Action);
+                });
+                actionDomain.ValueStatements.ForEach(stmt =>
+                {
+                    actions.Add(stmt.Action);
+                    fluents.UnionWith(stmt.Condition.Fluents);
+                });
+
+                var signature = new Signature(fluents, actions);
+                return QueryResolver.ResolveQueries(signature, actionDomain, querySet);
+
+            }));
+
+            RibbonViewModel.PerformGrammarCalculations.Where(results => results != null)
+                .Subscribe(results =>
+                {
+                    var stringResults = string.Join("\n", results.AccessibilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}")
+                        .Concat(results.ExistentialExecutabilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
+                        .Concat(results.ExistentialValueQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
+                        .Concat(results.GeneralExecutabilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
+                        .Concat(results.GeneralValueQueryResults.Select(r => $"{r.Item1} == {r.Item2}")));
+                    MessageBox.Show(stringResults);
+                    // TODO: better presentation
+                });
 
             Interactions.StatusBarError.RegisterHandler(interaction =>
             {

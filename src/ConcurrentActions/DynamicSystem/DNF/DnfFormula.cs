@@ -42,6 +42,8 @@ namespace DynamicSystem.DNF
             return Formula.Accept(visitor);
         }
 
+        public IEnumerable<Fluent> Fluents => Formula.Fluents;
+
         /// <inheritdoc />
         public bool Conflicts(IDnfFormula other)
         {
