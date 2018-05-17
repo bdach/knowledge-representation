@@ -82,9 +82,10 @@
     <Compile Include="DNF\Visitors\NegationPropagatingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\SimplifyingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\VisitorTestUtils.cs" />
+    <Compile Include="QueryResolver\ProducerConsumerTest.cs" />
     <Compile Include="MinimizeNew\TestCases\ITransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TestCases\ProducerAndConsumerTransitionFunctionGenerationTestCase.cs" />
-    <Compile Include="MinimizeNew\TestCases\SchoedingerCatTransitionFunctionGenerationTestCase.cs" />
+    <Compile Include="MinimizeNew\TestCases\SchroedingerCatTransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TestCases\TwoPaintersTransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TransitionFunctionGeneratorTest.cs" />
     <Compile Include="Grammar\GrammarTest.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="NewGeneration\NewCatTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueriesEvaluation\QueriesEvaluatorTest.cs" />
+    <Compile Include="QueryResolver\SchrodingersCatTest.cs" />
     <Compile Include="ResZero\ProducentConsumerTest.cs" />
     <Compile Include="ResZero\ResZeroCatTest.cs" />
     <Compile Include="ResZero\ResZeroTwoPaintersTest.cs" />

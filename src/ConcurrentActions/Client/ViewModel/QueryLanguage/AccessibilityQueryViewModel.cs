@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
@@ -7,6 +8,7 @@ using Client.Global;
 using Client.Interface;
 using Client.View.QueryLanguage;
 using Client.ViewModel.Terminal;
+using DynamicSystem;
 using Model.QueryLanguage;
 using ReactiveUI;
 
@@ -101,6 +103,18 @@ namespace Client.ViewModel.QueryLanguage
         public IQueryClauseViewModel NewInstance()
         {
             return new AccessibilityQueryViewModel();
+        }
+
+        // TODO: this should be cleared upon any changes
+        /// <inheritdoc />
+        public bool? Result { get; set; }
+
+        /// <inheritdoc />
+        public void AcceptResult(QueryResolution results)
+        {
+            // TODO: SUPER dirty
+            Result = results.AccessibilityQueryResults.First().Item2;
+            results.AccessibilityQueryResults.RemoveAt(0);
         }
 
         /// <inheritdoc />

@@ -1,5 +1,6 @@
 ﻿using System.Reactive;
 using Client.ViewModel.Terminal;
+using DynamicSystem;
 using ReactiveUI;
 
 namespace Client.Interface
@@ -25,5 +26,16 @@ namespace Client.Interface
         /// </summary>
         /// <returns>New empty instance of a <see cref="IQueryClauseViewModel"/>.</returns>
         IQueryClauseViewModel NewInstance();
+
+        /// <summary>
+        /// Stores the result of the query, if available.
+        /// </summary>
+        bool? Result { get; set; }
+
+        /// <summary>
+        /// Stores the result of the given query in the <see cref="Result"/> property.
+        /// </summary>
+        /// <param name="results">Instance of <see cref="QueryResolution"/> containing query results.</param>
+        void AcceptResult(QueryResolution results);
     }
 }

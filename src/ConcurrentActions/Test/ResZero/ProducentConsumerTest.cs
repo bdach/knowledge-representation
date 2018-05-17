@@ -73,7 +73,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action>() {_put});
             var resultStates = new List<State>() {_stateOne, _stateThree};
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero,compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero,compoundAction.Actions);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -87,7 +87,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action>() {_get});
             var resultStates = new List<State>() {_stateZero, _stateOne, _stateTwo,_stateThree};
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction.Actions);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -101,7 +101,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action>() { _consume });
             var resultStates = new List<State>() { _stateTwo,_stateThree };
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction.Actions);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -115,7 +115,7 @@ namespace Test.ResZero
             var compoundAction = new CompoundAction(new List<Action>() {_get, _put});
             var resultStates = new List<State>() { _stateOne, _stateThree };
             //when
-            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateZero, compoundAction.Actions);
             //then
             var sequenceEqual = resZeroStates.SequenceEqual(resultStates);
             sequenceEqual.Should().BeTrue();
@@ -128,7 +128,7 @@ namespace Test.ResZero
             var resTestObjInstance = CreateResZeroObjInstance();
             var compoundAction = new CompoundAction(new List<Action> {_put, _consume});
             // when
-            var resZeroStates = resTestObjInstance.GetStates(_stateTwo, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateTwo, compoundAction.Actions);
             // then
             resZeroStates.Should().BeEmpty();
         }
@@ -140,7 +140,7 @@ namespace Test.ResZero
             var resTestObjInstance = CreateResZeroObjInstance();
             var compoundAction = new CompoundAction(new List<Action> {_consume});
             // when
-            var resZeroStates = resTestObjInstance.GetStates(_stateTwo, compoundAction);
+            var resZeroStates = resTestObjInstance.GetStates(_stateTwo, compoundAction.Actions);
             // then
             resZeroStates.Should().BeEmpty();
         }

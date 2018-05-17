@@ -30,7 +30,7 @@ namespace Test.MinimizeNew
         [Test]
         public void TestTransitionFunctionGeneration_SchroedingerCat()
         {
-            Test(new SchoedingerCatTransitionFunctionGenerationTestCase());
+            Test(new SchroedingerCatTransitionFunctionGenerationTestCase());
         }
 
         [Test]

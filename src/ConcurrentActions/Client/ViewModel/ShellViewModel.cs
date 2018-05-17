@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Client.Abstract;
 using Client.DataTransfer;
@@ -13,6 +14,8 @@ using Client.Provider;
 using Client.View;
 using Client.ViewModel.Formula;
 using Client.ViewModel.Terminal;
+using DynamicSystem;
+using Model;
 using ReactiveUI;
 using Splat;
 
@@ -70,10 +73,20 @@ namespace Client.ViewModel
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
 
-            RibbonViewModel.PerformCalculations.Subscribe(_ =>
+            // TODO: for larger examples this could take a while, so entertain the user somehow
+            RibbonViewModel.PerformCalculations = ReactiveCommand.CreateFromTask(() => Task.Run(() =>
             {
-                // TODO: get the list of fluents, clauses, etc. (possibly filter out unused actions and fluents from galleries since deleting is not supported)
-            });
+                var scenario = GetCurrentScenario();
+                if (scenario != null)
+                {
+                    var signature = new Signature(scenario.Fluents, scenario.Actions);
+                    return QueryResolver.ResolveQueries(signature, scenario.ActionDomain, scenario.QuerySet);
+                }
+                return null;
+            }));
+            RibbonViewModel.PerformCalculations
+                .Where(results => results != null)
+                .Subscribe(results => QueryAreaViewModel.AcceptResults(results));
 
             RibbonViewModel.PerformGrammarCalculations.Subscribe(_ =>
             {

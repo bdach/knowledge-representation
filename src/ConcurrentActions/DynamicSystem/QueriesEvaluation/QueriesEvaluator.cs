@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
-using DynamicSystem.DNF;
 using Model;
 using Model.Forms;
 using Model.QueryLanguage;
@@ -18,11 +12,49 @@ namespace DynamicSystem.QueriesEvaluation
     public static class QueriesEvaluator
     {
         /// <summary>
+        /// Performs evaluation of queries for all supplied models.
+        /// </summary>
+        /// <param name="models">Collection of <see cref="Structure"/> instances representing the models.</param>
+        /// <param name="queries"><see cref="QuerySet"/> instance representing the set of queries.</param>
+        /// <returns><see cref="QueryResolution"/> object containing the results of the queries.</returns>
+        public static QueryResolution EvaluateQueries(ICollection<Structure> models, QuerySet queries)
+        {
+            var queryResolution = new QueryResolution();
+
+            foreach (var query in queries.AccessibilityQueries)
+            {
+                queryResolution.AccessibilityQueryResults.Add((query, EvaluateAccessibilityQuery(models, query)));
+            }
+            foreach (var query in queries.ExistentialExecutabilityQueries)
+            {
+                queryResolution.ExistentialExecutabilityQueryResults.Add((query, EvaluateExistentialExecutabilityQuery(models, query)));
+            }
+            foreach (var query in queries.ExistentialValueQueries)
+            {
+                queryResolution.ExistentialValueQueryResults.Add((query, EvaluateExistentialValueQuery(models, query)));
+            }
+            foreach (var query in queries.GeneralExecutabilityQueries)
+            {
+                queryResolution.GeneralExecutabilityQueryResults.Add((query, EvaluateGeneralExecutabilityQuery(models, query)));
+            }
+            foreach (var query in queries.GeneralValueQueries)
+            {
+                queryResolution.GeneralValueQueryResults.Add((query, EvaluateGeneralValueQuery(models, query)));
+            }
+            return queryResolution;
+        }
+
+        /// <summary>
         /// Evaluates a <see cref="ExistentialExecutabilityQuery"/>
         /// </summary>
-        public static bool EvaluateExistentialExecutabilityQuery(HashSet<State> initialStates, TransitionFunction transitionFunction, ExistentialExecutabilityQuery query)
+        public static bool EvaluateExistentialExecutabilityQuery(ICollection<Structure> models, ExistentialExecutabilityQuery query)
         {
-            return ExistentialExecutabilityQueryRecursion(initialStates, transitionFunction, query.Program.Actions, 0);
+            return models.All(model => ExistentialExecutabilityQueryRecursion(
+                new HashSet<State> {model.InitialState},
+                model.TransitionFunction,
+                query.Program.Actions,
+                0
+            ));
         }
 
         private static bool ExistentialExecutabilityQueryRecursion(HashSet<State> possibleStates, TransitionFunction transitionFunction, List<CompoundAction> actions, int currentActionIndex)
@@ -51,9 +83,14 @@ namespace DynamicSystem.QueriesEvaluation
         /// <summary>
         /// Evaluates a <see cref="GeneralExecutabilityQuery"/>
         /// </summary>
-        public static bool EvaluateGeneralExecutabilityQuery(HashSet<State> initialStates, TransitionFunction transitionFunction, GeneralExecutabilityQuery query)
+        public static bool EvaluateGeneralExecutabilityQuery(ICollection<Structure> models, GeneralExecutabilityQuery query)
         {
-            return GeneralExecutabilityQueryRecursion(initialStates, transitionFunction, query.Program.Actions, 0);
+            return models.All(model => GeneralExecutabilityQueryRecursion(
+                new HashSet<State> {model.InitialState},
+                model.TransitionFunction,
+                query.Program.Actions,
+                0
+            ));
         }
 
         private static bool GeneralExecutabilityQueryRecursion(HashSet<State> possibleStates, TransitionFunction transitionFunction, List<CompoundAction> actions, int currentActionIndex)
@@ -82,9 +119,15 @@ namespace DynamicSystem.QueriesEvaluation
         /// <summary>
         /// Evaluates a <see cref="ExistentialValueQuery"/>
         /// </summary>
-        public static bool EvaluateExistentialValueQuery(HashSet<State> initialStates, TransitionFunction transitionFunction, ExistentialValueQuery query)
+        public static bool EvaluateExistentialValueQuery(ICollection<Structure> models, ExistentialValueQuery query)
         {
-            return ExistentialValueQueryRecursion(initialStates, transitionFunction, query.Program.Actions, 0, query.Target);
+            return models.All(model => ExistentialValueQueryRecursion(
+                new HashSet<State> {model.InitialState},
+                model.TransitionFunction,
+                query.Program.Actions,
+                0,
+                query.Target
+            ));
         }
 
         private static bool ExistentialValueQueryRecursion(HashSet<State> possibleStates, TransitionFunction transitionFunction, List<CompoundAction> actions, int currentActionIndex, IFormula formula)
@@ -121,9 +164,15 @@ namespace DynamicSystem.QueriesEvaluation
         /// <summary>
         /// Evaluates a <see cref="GeneralValueQuery"/>
         /// </summary>
-        public static bool EvaluateGeneralValueQuery(HashSet<State> initialStates, TransitionFunction transitionFunction, GeneralValueQuery query)
+        public static bool EvaluateGeneralValueQuery(ICollection<Structure> models, GeneralValueQuery query)
         {
-            return GeneralValueQueryRecursion(initialStates, transitionFunction, query.Program.Actions, 0, query.Target);
+            return models.All(model => GeneralValueQueryRecursion(
+                new HashSet<State> {model.InitialState},
+                model.TransitionFunction,
+                query.Program.Actions,
+                0,
+                query.Target
+            ));
         }
 
         private static bool GeneralValueQueryRecursion(HashSet<State> possibleStates, TransitionFunction transitionFunction, List<CompoundAction> actions, int currentActionIndex, IFormula formula)
@@ -160,18 +209,15 @@ namespace DynamicSystem.QueriesEvaluation
         /// <summary>
         ///Evaluates a <see cref="AccessibilityQuery"/>
         /// </summary>
-        public static bool EvaluateAccessibilityQuery(HashSet<State> initialStates, TransitionFunction transitionFunction, AccessibilityQuery query)
+        public static bool EvaluateAccessibilityQuery(ICollection<Structure> models, AccessibilityQuery query)
         {
             HashSet<State> visitedStates = new HashSet<State>();
-            foreach (var state in initialStates)
-            {
-                bool result = AccessibilityQueryRecursion(visitedStates, state, transitionFunction, query);
-                if (!result)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return models.All(model => AccessibilityQueryRecursion(
+                visitedStates,
+                model.InitialState,
+                model.TransitionFunction,
+                query
+            ));
         }
 
         private static bool AccessibilityQueryRecursion(HashSet<State> visitedStates, State currentState, TransitionFunction transitionFunction, AccessibilityQuery query)
@@ -208,7 +254,7 @@ namespace DynamicSystem.QueriesEvaluation
 
                 foreach (var state in possibleStates)
                 {
-                    if (state == currentState)
+                    if (state.Equals(currentState))
                     {
                         continue;
                     }

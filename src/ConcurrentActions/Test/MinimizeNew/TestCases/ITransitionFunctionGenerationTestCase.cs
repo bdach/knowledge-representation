@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using DynamicSystem.NewGeneration;
 using Model;
-using Model.Forms;
 
 namespace Test.MinimizeNew.TestCases
 {
     public interface ITransitionFunctionGenerationTestCase
     {
-        Dictionary<(CompoundAction, State), HashSet<State>> ResZero { get; }
-        Dictionary<(CompoundAction, State, State), HashSet<Literal>> NewSets { get; }
+        TransitionFunction ResZero { get; }
+        NewSetMapping NewSets { get; }
         TransitionFunction TransitionFunction { get; }
     }
 }
