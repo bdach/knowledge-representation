@@ -23,6 +23,7 @@ EXECUTABLE: 'executable';
 SOMETIMES: 'sometimes';
 ACCESSIBLE: 'accessible';
 COMMA: ',';
+SEMICOLON: ';';
 
 OPEN_PAREN: '(';
 CLOSE_PAREN: ')';
@@ -64,21 +65,21 @@ constraintStatement: ALWAYS formula;
 fluentSpecificationStatement: NONINERTIAL fluent;
 
 actionDomain: statement*;
-statement: constraintStatement
+statement: SEMICOLON* (constraintStatement
     | effectStatement
     | fluentReleaseStatement
     | fluentSpecificationStatement
     | initialValueStatement
     | observationStatement
-    | valueStatement;
+    | valueStatement) SEMICOLON+;
 
 
 querySet: query*;
-query: accessibilityQuery
+query: SEMICOLON* (accessibilityQuery
 	| existentialExecutabilityQuery
 	| existentialValueQuery
 	| generalExecutabilityQuery
-	| generalValueQuery;
+	| generalValueQuery) SEMICOLON+;
 
 accessibilityQuery: ACCESSIBLE formula;
 generalExecutabilityQuery: EXECUTABLE ALWAYS compoundActions;
@@ -89,3 +90,5 @@ existentialValueQuery: POSSIBLY formula AFTER compoundActions;
 compoundAction: OPEN_BRACE actions CLOSE_BRACE;
 actions: (action (COMMA action)*)?;
 compoundActions: OPEN_PAREN (compoundAction (COMMA compoundAction)* )? CLOSE_PAREN;
+
+additionalSemicolon: SEMICOLON+;

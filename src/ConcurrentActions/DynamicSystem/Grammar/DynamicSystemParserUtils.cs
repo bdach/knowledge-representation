@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
@@ -31,7 +32,7 @@ namespace DynamicSystem.Grammar
         /// <returns>Parsed instance of <see cref="ActionDomain"/></returns>
         public static ActionDomain ParseActionDomain(string input)
         {
-            var parser = CreateParser(input);
+            var parser = CreateParser(PrepareInput(input));
             return parser.actionDomain().Accept(new ActionDomainParsingVisitor()) as ActionDomain;
         }
 
@@ -42,7 +43,7 @@ namespace DynamicSystem.Grammar
         /// <returns>Parsed instance of <see cref="IFormula"/></returns>
         public static IFormula ParseFormula(string input)
         {
-            var parser = CreateParser(input);
+            var parser = CreateParser(PrepareInput(input));
             return parser.actionDomain().Accept(new FormulaParsingVisitor());
         }
 
@@ -53,8 +54,14 @@ namespace DynamicSystem.Grammar
         /// <returns>Parsed instance of <see cref="QuerySet"/></returns>
         public static QuerySet ParseQuerySet(string input)
         {
-            var parser = CreateParser(input);
+            var parser = CreateParser(PrepareInput(input));
             return parser.querySet().Accept(new QuerySetParsingVisitor()) as QuerySet;
+        }
+
+
+        private static string PrepareInput(string input)
+        {
+            return string.Join(";\r\n", Regex.Split(input, @"\r\n")) + ";";
         }
 
         private static DynamicSystemParser CreateParser(string input)

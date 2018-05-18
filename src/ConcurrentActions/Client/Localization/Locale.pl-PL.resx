@@ -133,7 +133,7 @@
     <value>Domena akcji</value>
   </data>
   <data name="ActionDomainParseErrorPrefix" xml:space="preserve">
-    <value>Błąd parsowania domeny akcji:</value>
+    <value>Błąd parsowania domeny akcji</value>
   </data>
   <data name="ActionDropDown" xml:space="preserve">
     <value>Akcje</value>
@@ -571,7 +571,7 @@
     <value>Kwerendy</value>
   </data>
   <data name="QuerySetParseErrorPrefix" xml:space="preserve">
-    <value>Błąd parsowania kwerend:</value>
+    <value>Błąd parsowania kwerend</value>
   </data>
   <data name="ScenarioDeserializationFailed" xml:space="preserve">
     <value>Deserializacja wskazanego scenariusza nie powiodła się</value>
