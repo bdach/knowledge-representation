@@ -132,6 +132,9 @@
   <data name="ActionDomainGroupBox" xml:space="preserve">
     <value>Domena akcji</value>
   </data>
+  <data name="ActionDomainParseErrorPrefix" xml:space="preserve">
+    <value>Błąd parsowania domeny akcji:</value>
+  </data>
   <data name="ActionDropDown" xml:space="preserve">
     <value>Akcje</value>
   </data>
@@ -143,6 +146,12 @@
   </data>
   <data name="ActionErrorSuffix" xml:space="preserve">
     <value>nie została znaleziona w sygnaturze języka</value>
+  </data>
+  <data name="ActionNotDefinedInActionDomainPrefix" xml:space="preserve">
+    <value>Akcja</value>
+  </data>
+  <data name="ActionNotDefinedInActionDomainSuffix" xml:space="preserve">
+    <value>nie jest zdefiniowana w domenie akcji.</value>
   </data>
   <data name="ActionScreenTip" xml:space="preserve">
     <value>Akcja, z którą związane jest dane zdanie.</value>
@@ -402,6 +411,12 @@
   <data name="FluentErrorSuffix" xml:space="preserve">
     <value>nie został znaleziony w sygnaturze języka</value>
   </data>
+  <data name="FluentNotDefinedInActionDomainPrefix" xml:space="preserve">
+    <value>Fluent</value>
+  </data>
+  <data name="FluentNotDefinedInActionDomainSuffix" xml:space="preserve">
+    <value>nie jest zdefiniowany w domenie akcji.</value>
+  </data>
   <data name="FluentReleaseActionError" xml:space="preserve">
     <value>Akcja w zdaniu uwolnienia fluentu nie jest zdefiniowana</value>
   </data>
@@ -554,6 +569,9 @@
   </data>
   <data name="QueryClauseGroupBox" xml:space="preserve">
     <value>Kwerendy</value>
+  </data>
+  <data name="QuerySetParseErrorPrefix" xml:space="preserve">
+    <value>Błąd parsowania kwerend:</value>
   </data>
   <data name="ScenarioDeserializationFailed" xml:space="preserve">
     <value>Deserializacja wskazanego scenariusza nie powiodła się</value>

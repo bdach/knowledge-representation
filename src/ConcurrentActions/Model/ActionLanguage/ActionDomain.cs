@@ -55,5 +55,36 @@ namespace Model.ActionLanguage
             ObservationStatements = new List<ObservationStatement>();
             ValueStatements = new List<ValueStatement>();
         }
+
+        public IEnumerable<Fluent> Fluents()
+        {
+            var fluents = new HashSet<Fluent>();
+            ConstraintStatements.ForEach(stmt => fluents.UnionWith(stmt.Constraint.Fluents));
+            EffectStatements.ForEach(e =>
+            {
+                fluents.UnionWith(e.Postcondition.Fluents);
+                fluents.UnionWith(e.Precondition.Fluents);
+            });
+            FluentReleaseStatements.ForEach(a =>
+            {
+                fluents.Add(a.Fluent);
+                fluents.UnionWith(a.Precondition.Fluents);
+            });
+            FluentSpecificationStatements.ForEach(stmt => fluents.Add(stmt.Fluent));
+            InitialValueStatements.ForEach(stmt => fluents.UnionWith(stmt.InitialCondition.Fluents));
+            ObservationStatements.ForEach(stmt => fluents.UnionWith(stmt.Condition.Fluents));
+            ValueStatements.ForEach(stmt => fluents.UnionWith(stmt.Condition.Fluents));
+            return fluents;
+        }
+
+        public IEnumerable<Action> Actions()
+        {
+            var actions = new HashSet<Action>();
+            EffectStatements.ForEach(e => actions.Add(e.Action));
+            FluentReleaseStatements.ForEach(a => actions.Add(a.Action));
+            ObservationStatements.ForEach(stmt => actions.Add(stmt.Action));
+            ValueStatements.ForEach(stmt => actions.Add(stmt.Action));
+            return actions;
+        }
     }
 }

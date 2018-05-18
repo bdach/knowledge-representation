@@ -132,6 +132,9 @@
   <data name="ActionDomainGroupBox" xml:space="preserve">
     <value>Action Domain</value>
   </data>
+  <data name="ActionDomainParseErrorPrefix" xml:space="preserve">
+    <value>Failed to parse action domain:</value>
+  </data>
   <data name="ActionDropDown" xml:space="preserve">
     <value>Actions</value>
   </data>
@@ -143,6 +146,12 @@
   </data>
   <data name="ActionErrorSuffix" xml:space="preserve">
     <value>was not found in the language signature</value>
+  </data>
+  <data name="ActionNotDefinedInActionDomainPrefix" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ActionNotDefinedInActionDomainSuffix" xml:space="preserve">
+    <value>is not defined in action domain.</value>
   </data>
   <data name="ActionScreenTip" xml:space="preserve">
     <value>The action with which a given statement is associated.</value>
@@ -402,6 +411,12 @@
   <data name="FluentErrorSuffix" xml:space="preserve">
     <value>was not found in the language signature</value>
   </data>
+  <data name="FluentNotDefinedInActionDomainPrefix" xml:space="preserve">
+    <value>Fluent</value>
+  </data>
+  <data name="FluentNotDefinedInActionDomainSuffix" xml:space="preserve">
+    <value>is not defined in action domain.</value>
+  </data>
   <data name="FluentReleaseActionError" xml:space="preserve">
     <value>Action in a fluent release statement is not defined</value>
   </data>
@@ -554,6 +569,9 @@
   </data>
   <data name="QueryClauseGroupBox" xml:space="preserve">
     <value>Queries</value>
+  </data>
+  <data name="QuerySetParseErrorPrefix" xml:space="preserve">
+    <value>Failed to parse query set:</value>
   </data>
   <data name="ScenarioDeserializationFailed" xml:space="preserve">
     <value>Deserialization of specified scenario file failed</value>

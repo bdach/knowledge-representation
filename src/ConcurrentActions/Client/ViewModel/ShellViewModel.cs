@@ -89,6 +89,7 @@ namespace Client.ViewModel
                     var signature = new Signature(scenario.Fluents, scenario.Actions);
                     return QueryResolver.ResolveQueries(signature, scenario.ActionDomain, scenario.QuerySet);
                 }
+
                 return null;
             }));
             RibbonViewModel.PerformCalculations
@@ -97,6 +98,9 @@ namespace Client.ViewModel
 
             RibbonViewModel.PerformGrammarCalculations = ReactiveCommand.CreateFromTask(() => Task.Run(() =>
             {
+                Action<string> raiseError = err =>
+                    Application.Current.Dispatcher.Invoke(() => Interactions.RaiseStatusBarError(err));
+
                 ActionDomain actionDomain = null;
                 QuerySet querySet = null;
                 try
@@ -105,7 +109,8 @@ namespace Client.ViewModel
                 }
                 catch (System.Exception e)
                 {
-                    Interactions.RaiseStatusBarError($"Failed to parse action domain: {e.Message}");
+                    raiseError($"{LocalizationProvider.Instance["ActionDomainParseErrorPrefix"]}: {e.Message}");
+                    return null;
                 }
 
                 try
@@ -114,54 +119,55 @@ namespace Client.ViewModel
                 }
                 catch (System.Exception e)
                 {
-                    Interactions.RaiseStatusBarError($"Failed to parse query set: {e.Message}");
+                    raiseError($"{LocalizationProvider.Instance["QuerySetParseErrorPrefix"]}: {e.Message}");
+                    return null;
                 }
 
-                var fluents = new HashSet<Model.Fluent>();
-                var actions = new HashSet<Action>();
+                var actionDomainFluents = actionDomain.Fluents();
+                var actionDomainActions = actionDomain.Actions();
 
-                actionDomain.ConstraintStatements.ForEach(stmt => fluents.UnionWith(stmt.Constraint.Fluents));
-                actionDomain.EffectStatements.ForEach(e =>
-                {
-                    fluents.UnionWith(e.Postcondition.Fluents);
-                    fluents.UnionWith(e.Precondition.Fluents);
-                    actions.Add(e.Action);
-                });
-                actionDomain.FluentReleaseStatements.ForEach(a =>
-                {
-                    fluents.Add(a.Fluent);
-                    actions.Add(a.Action);
-                    fluents.UnionWith(a.Precondition.Fluents);
-                });
-                actionDomain.FluentSpecificationStatements.ForEach(stmt => fluents.Add(stmt.Fluent));
-                actionDomain.InitialValueStatements.ForEach(stmt => fluents.UnionWith(stmt.InitialCondition.Fluents));
-                actionDomain.ObservationStatements.ForEach(stmt =>
-                {
-                    fluents.UnionWith(stmt.Condition.Fluents);
-                    actions.Add(stmt.Action);
-                });
-                actionDomain.ValueStatements.ForEach(stmt =>
-                {
-                    actions.Add(stmt.Action);
-                    fluents.UnionWith(stmt.Condition.Fluents);
-                });
+                var querySetActions = querySet.Actions();
+                var querySetFluents = querySet.Fluents();
 
-                var signature = new Signature(fluents, actions);
+                var notFoundFluent = querySetFluents.FirstOrDefault(f => !actionDomainFluents.Contains(f));
+                if (notFoundFluent != null)
+                {
+                    raiseError(
+                        $"{LocalizationProvider.Instance["FluentNotDefinedInActionDomainPrefix"]}" +
+                        $" \"{notFoundFluent.Name}\" " +
+                        $"{LocalizationProvider.Instance["FluentNotDefinedInActionDomainSuffix"]}"
+                    );
+                    return null;
+                }
+
+                var notFoundAction = querySetActions.FirstOrDefault(a => !actionDomainActions.Contains(a));
+                if (notFoundAction != null)
+                {
+                    raiseError(
+                        $"{LocalizationProvider.Instance["ActionNotDefinedInActionDomainPrefix"]}" +
+                        $" \"{notFoundAction.Name}\" " +
+                        $"{LocalizationProvider.Instance["ActionNotDefinedInActionDomainSuffix"]}"
+                    );
+                    return null;
+                }
+
+                var signature = new Signature(actionDomainFluents, actionDomainActions);
                 return QueryResolver.ResolveQueries(signature, actionDomain, querySet);
-
             }));
 
-            RibbonViewModel.PerformGrammarCalculations.Where(results => results != null)
+            RibbonViewModel.PerformGrammarCalculations
+                .Where(results => results != null)
                 .Subscribe(results =>
                 {
-                    var stringResults = string.Join("\n", results.AccessibilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}")
-                        .Concat(results.ExistentialExecutabilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
-                        .Concat(results.ExistentialValueQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
-                        .Concat(results.GeneralExecutabilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
-                        .Concat(results.GeneralValueQueryResults.Select(r => $"{r.Item1} == {r.Item2}")));
+                    var stringResults = string.Join("\n",
+                        results.AccessibilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}")
+                            .Concat(results.ExistentialExecutabilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
+                            .Concat(results.ExistentialValueQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
+                            .Concat(results.GeneralExecutabilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
+                            .Concat(results.GeneralValueQueryResults.Select(r => $"{r.Item1} == {r.Item2}")));
                     MessageBox.Show(stringResults);
                     // TODO: better presentation
-                });
+                }, e => MessageBox.Show(e.Message));
 
             Interactions.StatusBarError.RegisterHandler(interaction =>
             {
@@ -298,7 +304,8 @@ namespace Client.ViewModel
         }
 
         /// <inheritdoc />
-        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses, string actionDomainInput = null)
+        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses,
+            string actionDomainInput = null)
         {
             if (actionClauses != null)
             {
@@ -340,7 +347,8 @@ namespace Client.ViewModel
                 scenario = new Scenario
                 {
                     Actions = LanguageSignature.ActionViewModels.Select(x => x.ToModel()).ToList(),
-                    Fluents = LanguageSignature.LiteralViewModels.Select(x => ((IViewModelFor<Model.Fluent>)x).ToModel()).ToList(),
+                    Fluents = LanguageSignature.LiteralViewModels
+                        .Select(x => ((IViewModelFor<Model.Fluent>) x).ToModel()).ToList(),
                     ActionDomain = ActionAreaViewModel.GetActionDomainModel(),
                     ActionDomainInput = ActionAreaViewModel.ActionDomainInput,
                     QuerySet = QueryAreaViewModel.GetQuerySetModel(),
