@@ -44,7 +44,7 @@ formula: formula EQUIVALENCE implication | implication;
 implication: implication IMPLICATION alternative | alternative;
 alternative: alternative ALTERNATIVE conjunction | conjunction;
 conjunction: conjunction CONJUNCTION negation | negation;
-negation: constant | literal | OPEN_BRACE formula CLOSE_PAREN | NEGATION OPEN_PAREN formula CLOSE_PAREN;
+negation: constant | literal | OPEN_PAREN formula CLOSE_PAREN | NEGATION OPEN_PAREN formula CLOSE_PAREN;
 condition: formula;
 
 initialValueStatement: INITIALLY formula;

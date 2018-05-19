@@ -14,6 +14,7 @@ using Client.Interface;
 using Client.Provider;
 using Client.View;
 using Client.ViewModel.Formula;
+using Client.ViewModel.Grammar;
 using Client.ViewModel.Terminal;
 using DynamicSystem;
 using DynamicSystem.DNF;
@@ -159,13 +160,14 @@ namespace Client.ViewModel
                 .Where(results => results != null)
                 .Subscribe(results =>
                 {
-                    var stringResults = string.Join("\n",
-                        results.AccessibilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}")
-                            .Concat(results.ExistentialExecutabilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
-                            .Concat(results.ExistentialValueQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
-                            .Concat(results.GeneralExecutabilityQueryResults.Select(r => $"{r.Item1} == {r.Item2}"))
-                            .Concat(results.GeneralValueQueryResults.Select(r => $"{r.Item1} == {r.Item2}")));
-                    MessageBox.Show(stringResults);
+                    var queryResult = results.AccessibilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2))
+                            .Concat(results.ExistentialExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                            .Concat(results.ExistentialValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                            .Concat(results.GeneralExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                            .Concat(results.GeneralValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .Select(qr => new QueryResultViewModel(qr.Item1, qr.Item2));
+                    QueryAreaViewModel.GrammarViewResults = true;
+                    QueryAreaViewModel.EvaluationResults = new ReactiveList<QueryResultViewModel>(queryResult.ToList());
                     // TODO: better presentation
                 }, e => MessageBox.Show(e.Message));
 
@@ -179,12 +181,14 @@ namespace Client.ViewModel
             {
                 ActionAreaViewModel.GrammarMode = false;
                 QueryAreaViewModel.GrammarMode = false;
+                QueryAreaViewModel.GrammarViewResults = false;
             });
 
             RibbonViewModel.GrammarTabSelected.Subscribe(_ =>
             {
                 ActionAreaViewModel.GrammarMode = true;
                 QueryAreaViewModel.GrammarMode = true;
+                QueryAreaViewModel.GrammarViewResults = false;
             });
 
             #region Proxying user choices to action area

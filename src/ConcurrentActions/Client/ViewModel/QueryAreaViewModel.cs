@@ -1,9 +1,11 @@
-﻿using System.Reactive;
+﻿using System.Collections.Generic;
+using System.Reactive;
 using System.Reactive.Linq;
 using Client.Abstract;
 using Client.Exception;
 using Client.Interface;
 using Client.View;
+using Client.ViewModel.Grammar;
 using Client.ViewModel.Terminal;
 using DynamicSystem;
 using Model.QueryLanguage;
@@ -41,6 +43,11 @@ namespace Client.ViewModel
         public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
 
         /// <summary>
+        /// Command used to close query result view.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> CloseQueryResults { get; protected set; }
+
+        /// <summary>
         /// Command used to delete the currently focused item.
         /// </summary>
         public ReactiveCommand<Unit, Unit> DeleteFocused { get; protected set; }
@@ -54,6 +61,10 @@ namespace Client.ViewModel
         /// Indicates whether the grammar tab is selected.
         /// </summary>
         public bool GrammarMode { get; set; }
+
+        public bool GrammarViewResults { get; set; }
+
+        public ReactiveList<QueryResultViewModel> EvaluationResults { get; set; }
 
         /// <summary>
         /// Initializes a new <see cref="QueryAreaViewModel"/> instance.
@@ -84,6 +95,12 @@ namespace Client.ViewModel
                 {
                     Observable.Start(() => action).InvokeCommand(viewModel, vm => vm.AddAtomicAction);
                 }
+            });
+
+            CloseQueryResults = ReactiveCommand.Create(() =>
+            {
+                this.GrammarViewResults = false;
+                this.EvaluationResults = null;
             });
 
             DeleteFocused = ReactiveCommand.Create(() =>
