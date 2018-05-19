@@ -700,6 +700,15 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu EditButton.
+        /// </summary>
+        public static string EditButton {
+            get {
+                return ResourceManager.GetString("EditButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu EditTab.
         /// </summary>
         public static string EditTab {
@@ -1119,6 +1128,24 @@ namespace Client.Localization {
         public static string GeneralValueQueryTargetError {
             get {
                 return ResourceManager.GetString("GeneralValueQueryTargetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu GrammarActionDomainInputHintText.
+        /// </summary>
+        public static string GrammarActionDomainInputHintText {
+            get {
+                return ResourceManager.GetString("GrammarActionDomainInputHintText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu GrammarQuerySetInputHintText.
+        /// </summary>
+        public static string GrammarQuerySetInputHintText {
+            get {
+                return ResourceManager.GetString("GrammarQuerySetInputHintText", resourceCulture);
             }
         }
         

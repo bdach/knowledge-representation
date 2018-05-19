@@ -181,14 +181,12 @@ namespace Client.ViewModel
             {
                 ActionAreaViewModel.GrammarMode = false;
                 QueryAreaViewModel.GrammarMode = false;
-                QueryAreaViewModel.GrammarViewResults = false;
             });
 
             RibbonViewModel.GrammarTabSelected.Subscribe(_ =>
             {
                 ActionAreaViewModel.GrammarMode = true;
                 QueryAreaViewModel.GrammarMode = true;
-                QueryAreaViewModel.GrammarViewResults = false;
             });
 
             #region Proxying user choices to action area

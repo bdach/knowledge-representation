@@ -12,7 +12,7 @@
             Name="QueryListView"
             Visibility="Visible" />
         <TextBox
-            Style="{DynamicResource EditorBox}"
+            Style="{DynamicResource QuerySetEditorBox}"
             Name="QueryTextBox"
             Visibility="Hidden" />
 
@@ -22,11 +22,14 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <fluent:Button Grid.Row="0"
-                Name="CloseButton"
-                Header="{provider:Loc CloseButton}">
+                           Icon="/Client;component/Resources/Images/edit-96.png"
+                           LargeIcon="/Client;component/Resources/Images/edit-96.png"
+                           Name="CloseButton" Size="Middle"
+                           HorizontalAlignment="Center"
+                           Header="{provider:Loc EditButton}">
             </fluent:Button>
 
-            <ListView Grid.Row="1" Name="QueryResultListView"/>
+            <ItemsControl Grid.Row="1" Name="QueryResultListView"/>
         </Grid>
         
     </Grid>

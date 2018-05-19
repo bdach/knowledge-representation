@@ -330,6 +330,9 @@
   <data name="ConstraintStatementScreenTip" xml:space="preserve">
     <value>Ensures that a certain condition is satisfied in all possible states.</value>
   </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="EditTab" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -470,6 +473,28 @@
   </data>
   <data name="GeneralValueQueryTargetError" xml:space="preserve">
     <value>Target in a general value query is not defined</value>
+  </data>
+  <data name="GrammarActionDomainInputHintText" xml:space="preserve">
+    <value>Provide action domain statements. 
+Symbols to use in formulas:
+Truth: T
+Falsity: F
+Negation: ~
+Implication: -&gt;
+Equivalence: &lt;-&gt;
+Conjunction: &amp;
+Alternative: |</value>
+  </data>
+  <data name="GrammarQuerySetInputHintText" xml:space="preserve">
+    <value>Provide queries. 
+Symbols to use in formulas:
+Truth: T
+Falsity: F
+Negation: ~
+Implication: -&gt;
+Equivalence: &lt;-&gt;
+Conjunction: &amp;
+Alternative: |</value>
   </data>
   <data name="GrammarTab" xml:space="preserve">
     <value>Grammar</value>

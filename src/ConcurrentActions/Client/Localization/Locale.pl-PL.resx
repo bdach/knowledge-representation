@@ -330,6 +330,9 @@
   <data name="ConstraintStatementScreenTip" xml:space="preserve">
     <value>Zapewnia spełnienie pewnego warunku logicznego we wszystkich możliwych stanach.</value>
   </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
   <data name="EditTab" xml:space="preserve">
     <value>Edycja</value>
   </data>
@@ -470,6 +473,28 @@
   </data>
   <data name="GeneralValueQueryTargetError" xml:space="preserve">
     <value>Cel w ogólnej kwerendzie wartości nie jest zdefiniowany</value>
+  </data>
+  <data name="GrammarActionDomainInputHintText" xml:space="preserve">
+    <value>Wprowadź zdania domeny akcji. 
+Symbole do użycia w formułach:
+Prawda: T
+Fałsz: F
+Negacja: ~
+Implikacja: -&gt;
+Równoważność: &lt;-&gt;
+Koniunkcja: &amp;
+Alternatywa: |</value>
+  </data>
+  <data name="GrammarQuerySetInputHintText" xml:space="preserve">
+    <value>Wprowadź kwerendy. 
+Symbole do użycia w formułach:
+Prawda: T
+Fałsz: F
+Negacja: ~
+Implikacja: -&gt;
+Równoważność: &lt;-&gt;
+Koniunkcja: &amp;
+Alternatywa: |</value>
   </data>
   <data name="GrammarTab" xml:space="preserve">
     <value>Gramatyka</value>

@@ -29,13 +29,25 @@ namespace Client.View
                 .Subscribe(grammarMode =>
                 {
                     QueryListView.Visibility = grammarMode ? Visibility.Hidden : Visibility.Visible;
-                    QueryTextBox.Visibility = grammarMode ? Visibility.Visible : Visibility.Hidden;
+                    QueryTextBox.Visibility = grammarMode && !ViewModel.GrammarViewResults? Visibility.Visible : Visibility.Hidden;
+                    QueryResults.Visibility = grammarMode &&
+                                              ViewModel.GrammarViewResults
+                        ? Visibility.Visible
+                        : Visibility.Hidden;
                 });
             this.WhenAnyValue(v => v.ViewModel.GrammarViewResults)
                 .Subscribe(grammarResults =>
                     {
-                        QueryTextBox.Visibility = grammarResults ? Visibility.Hidden : Visibility.Visible;
-                        QueryResults.Visibility = grammarResults ? Visibility.Visible : Visibility.Hidden;
+                        if (!ViewModel.GrammarMode)
+                        {
+                            QueryTextBox.Visibility = Visibility.Hidden;
+                            QueryResults.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            QueryTextBox.Visibility = grammarResults ? Visibility.Hidden : Visibility.Visible;
+                            QueryResults.Visibility = grammarResults ? Visibility.Visible : Visibility.Hidden;
+                        }
                     });
             this.BindCommand(ViewModel, vm => vm.CloseQueryResults, v => v.CloseButton);
 
