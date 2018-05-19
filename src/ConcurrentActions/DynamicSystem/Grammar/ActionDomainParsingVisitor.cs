@@ -42,18 +42,10 @@ namespace DynamicSystem.Grammar
                 ? context.condition().formula().Accept(new FormulaParsingVisitor())
                 : null;
             var formula = context.formula() != null ? context.formula().Accept(new FormulaParsingVisitor()) : null;
-
-            if (formula != null)
-            {
-                return condition != null
-                    ? new EffectStatement(action, condition, formula)
-                    : new EffectStatement(action, formula);
-            }
-            else
-            {
-                // impossible action
-                return new EffectStatement(action, Constant.Falsity, Constant.Truth);
-            }
+            var postCondition = formula ?? Constant.Falsity;
+            return condition != null
+                ? new EffectStatement(action, condition, postCondition)
+                : new EffectStatement(action, postCondition);
         }
 
         public override object VisitFluentReleaseStatement(

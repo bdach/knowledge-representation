@@ -35,9 +35,9 @@ namespace Test.Grammar
                             )
                         ),
                         new Conjunction(new Literal(c), new Literal(d))
-                    ), 
+                    ),
                     new Equivalence(
-                        new Literal(a), 
+                        new Literal(a),
                         new Literal(b)
                     )
                 )
@@ -74,7 +74,7 @@ namespace Test.Grammar
             var expected = new List<EffectStatement>()
             {
                 new EffectStatement(action, new Literal(fluent), new Negation(new Literal(fluent))),
-                new EffectStatement(action, Constant.Falsity, Constant.Truth),
+                new EffectStatement(action, new Literal(fluent), Constant.Falsity),
                 new EffectStatement(action, new Literal(fluent))
             };
             // when

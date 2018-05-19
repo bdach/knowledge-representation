@@ -163,6 +163,10 @@ namespace Client.ViewModel
             return querySet;
         }
 
+        /// <summary>
+        /// Forwards the query results to the viewmodels, which store them in the <see cref="IQueryClauseViewModel.Result"/> property.
+        /// </summary>
+        /// <param name="results"></param>
         public void AcceptResults(QueryResolution results)
         {
             foreach (var queryClauseViewModel in QuerySet)

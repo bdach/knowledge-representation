@@ -115,7 +115,10 @@ namespace Client.ViewModel.QueryLanguage
         }
 
         // TODO: this should be cleared upon any changes
+        /// <inheritdoc />
         public bool? Result { get; set; }
+
+        /// <inheritdoc />
         public void AcceptResult(QueryResolution results)
         {
             // TODO: SUPER dirty

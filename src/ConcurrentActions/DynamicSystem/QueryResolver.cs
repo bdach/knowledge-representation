@@ -12,8 +12,18 @@ using Model.QueryLanguage;
 
 namespace DynamicSystem
 {
+    /// <summary>
+    /// Main class of the dynamic system.
+    /// </summary>
     public static class QueryResolver
     {
+        /// <summary>
+        /// Resolves the queries supplied, using the language signature and action domain.
+        /// </summary>
+        /// <param name="signature">Instance of <see cref="Signature"/>, containing the fluents and atomic actions in the scenario.</param>
+        /// <param name="actionDomain">Instance of <see cref="ActionDomain"/>, containing the action statements in the scenario.</param>
+        /// <param name="querySet">Instance of <see cref="QuerySet"/>, containing the queries concerning the current scenario.</param>
+        /// <returns>An instance of <see cref="QueryResolution"/>, containing the results of supplied queries.</returns>
         public static QueryResolution ResolveQueries(Signature signature, ActionDomain actionDomain, QuerySet querySet)
         {
             var admissibleStates = new HashSet<State>(SetGenerator.GetAdmissibleStates(signature.Fluents, actionDomain));
