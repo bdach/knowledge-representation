@@ -56,6 +56,7 @@ namespace Model.Forms
             return visitor.Visit(this);
         }
 
+        /// <inheritdoc />
         public IEnumerable<Fluent> Fluents => Enumerable.Empty<Fluent>();
 
         /// <summary>

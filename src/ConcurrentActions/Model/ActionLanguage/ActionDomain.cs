@@ -56,6 +56,10 @@ namespace Model.ActionLanguage
             ValueStatements = new List<ValueStatement>();
         }
 
+        /// <summary>
+        /// Returns all unique <see cref="Fluent"/> used in this action domain
+        /// </summary>
+        /// <returns>Collection of unique <see cref="Fluent"/></returns>
         public IEnumerable<Fluent> Fluents()
         {
             var fluents = new HashSet<Fluent>();
@@ -77,6 +81,10 @@ namespace Model.ActionLanguage
             return fluents;
         }
 
+        /// <summary>
+        /// Returns all unique <see cref="Action"/> used in this action domain
+        /// </summary>
+        /// <returns>Collection of unique <see cref="Action"/></returns>
         public IEnumerable<Action> Actions()
         {
             var actions = new HashSet<Action>();

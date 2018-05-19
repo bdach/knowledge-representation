@@ -26,6 +26,9 @@ namespace Model.Forms
         /// <returns>Boolean value of the formula in the supplied <see cref="state"/>.</returns>
         bool Evaluate(IState state);
         IFormula Accept(IFormulaVisitor visitor);
+        /// <summary>
+        /// Returns all unique <see cref="Fluent"/> used in this formula
+        /// </summary>
         IEnumerable<Fluent> Fluents { get; }
     }
 }

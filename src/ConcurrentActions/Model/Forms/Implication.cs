@@ -46,6 +46,7 @@ namespace Model.Forms
             return visitor.Visit(this);
         }
 
+        /// <inheritdoc />
         public IEnumerable<Fluent> Fluents => Antecedent.Fluents.Concat(Consequent.Fluents).Distinct();
 
         public override string ToString()

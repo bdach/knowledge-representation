@@ -44,6 +44,10 @@ namespace Model.QueryLanguage
             GeneralValueQueries = new List<GeneralValueQuery>();
         }
 
+        /// <summary>
+        /// Returns all unique <see cref="Action"/> used in this query set
+        /// </summary>
+        /// <returns>Collection of unique <see cref="Action"/></returns>
         public IEnumerable<Action> Actions()
         {
             var actions = new HashSet<Action>();
@@ -55,6 +59,10 @@ namespace Model.QueryLanguage
             return actions;
         }
 
+        /// <summary>
+        /// Returns all unique <see cref="Fluent"/> used in this query set
+        /// </summary>
+        /// <returns>Collection of unique <see cref="Fluent"/></returns>
         public IEnumerable<Fluent> Fluents()
         {
             var fluents = new HashSet<Fluent>();

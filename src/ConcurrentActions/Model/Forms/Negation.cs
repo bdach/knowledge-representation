@@ -39,6 +39,7 @@ namespace Model.Forms
             return visitor.Visit(this);
         }
 
+        /// <inheritdoc />
         public IEnumerable<Fluent> Fluents => Formula.Fluents;
 
         public override string ToString()
