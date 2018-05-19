@@ -29,5 +29,23 @@
         {
             return $"noninertial {Fluent}";
         }
+
+        protected bool Equals(FluentSpecificationStatement other)
+        {
+            return Equals(Fluent, other.Fluent);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((FluentSpecificationStatement) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Fluent != null ? Fluent.GetHashCode() : 0);
+        }
     }
 }

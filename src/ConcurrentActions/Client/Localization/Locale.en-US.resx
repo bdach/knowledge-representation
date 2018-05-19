@@ -483,7 +483,19 @@ Negation: ~
 Implication: -&gt;
 Equivalence: &lt;-&gt;
 Conjunction: &amp;
-Alternative: |</value>
+Alternative: |
+
+Examples:
+always ~fluent
+action causes ~fluent if fluent
+impossible action if fluent
+action causes fluent
+action releases fluent
+action releases fluent if fluent
+initially fluent
+observable fluent after Action
+fluent after action
+noninertial fluent</value>
   </data>
   <data name="GrammarQuerySetInputHintText" xml:space="preserve">
     <value>Provide queries. 
@@ -494,7 +506,14 @@ Negation: ~
 Implication: -&gt;
 Equivalence: &lt;-&gt;
 Conjunction: &amp;
-Alternative: |</value>
+Alternative: |
+
+Examples:
+accessible ~fluent
+executable sometimes ({actionA, actionB})
+possibly ~fluent after ({actionA, actionB})
+executable always ({actionA, actionB})
+necessary fluent after ({actionA, actionB})</value>
   </data>
   <data name="GrammarTab" xml:space="preserve">
     <value>Grammar</value>

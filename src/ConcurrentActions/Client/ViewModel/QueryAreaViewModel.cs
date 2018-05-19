@@ -62,8 +62,14 @@ namespace Client.ViewModel
         /// </summary>
         public bool GrammarMode { get; set; }
 
+        /// <summary>
+        /// Indicates whether the grammar query results are shown
+        /// </summary>
         public bool GrammarViewResults { get; set; }
 
+        /// <summary>
+        /// Collection containing all grammar query results.
+        /// </summary>
         public ReactiveList<QueryResultViewModel> EvaluationResults { get; set; }
 
         /// <summary>

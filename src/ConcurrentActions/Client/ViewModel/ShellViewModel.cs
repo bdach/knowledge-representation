@@ -168,7 +168,6 @@ namespace Client.ViewModel
                         .Select(qr => new QueryResultViewModel(qr.Item1, qr.Item2));
                     QueryAreaViewModel.GrammarViewResults = true;
                     QueryAreaViewModel.EvaluationResults = new ReactiveList<QueryResultViewModel>(queryResult.ToList());
-                    // TODO: better presentation
                 }, e => MessageBox.Show(e.Message));
 
             Interactions.StatusBarError.RegisterHandler(interaction =>

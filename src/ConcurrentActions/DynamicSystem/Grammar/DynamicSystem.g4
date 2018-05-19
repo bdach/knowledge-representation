@@ -38,7 +38,7 @@ action: TEXT;
 WS : (' ' | '\t' | '\r' | '\n')+ -> channel(HIDDEN);
 
 constant: TRUTH | FALSITY;
-literal: NEGATION fluent | fluent;
+literal: NEGATION literal | fluent;
 
 formula: formula EQUIVALENCE implication | implication;
 implication: implication IMPLICATION alternative | alternative;

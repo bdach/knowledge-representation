@@ -17,13 +17,43 @@ namespace Test.Grammar
     [TestFixture()]
     public class GrammarTest
     {
+        [Test]
+        public void TestFormulaParsing()
+        {
+            // given
+            var formulaText = "~(~((~~~a | (c & d)) -> (a <-> b)))";
+            var a = new Fluent("a");
+            var b = new Fluent("b");
+            var c = new Fluent("c");
+            var d = new Fluent("d");
+            var expected = new Negation(new Negation(
+                new Implication(
+                    new Alternative(
+                        new Negation(
+                            new Negation(
+                                new Negation(new Literal(a))
+                            )
+                        ),
+                        new Conjunction(new Literal(c), new Literal(d))
+                    ), 
+                    new Equivalence(
+                        new Literal(a), 
+                        new Literal(b)
+                    )
+                )
+            ));
+            // when
+            var formula = DynamicSystemParserUtils.ParseFormula(formulaText);
+            // then
+            Assert.AreEqual(expected, formula);
+        }
 
         [Test]
         public void TestConstraintStatementParsing()
         {
             // given
             var input = "always ~healthy";
-            var expected = new ConstraintStatement(new Literal(new Fluent("healthy"), true));
+            var expected = new ConstraintStatement(new Negation(new Literal(new Fluent("healthy"))));
             // when
             var statements = DynamicSystemParserUtils.ParseActionDomain(input).ConstraintStatements;
             // then
@@ -43,7 +73,7 @@ namespace Test.Grammar
             var fluent = new Fluent("fluent");
             var expected = new List<EffectStatement>()
             {
-                new EffectStatement(action, new Literal(fluent), new Literal(fluent, true)),
+                new EffectStatement(action, new Literal(fluent), new Negation(new Literal(fluent))),
                 new EffectStatement(action, Constant.Falsity, Constant.Truth),
                 new EffectStatement(action, new Literal(fluent))
             };
@@ -112,6 +142,24 @@ namespace Test.Grammar
         }
 
         [Test]
+        public void TestFluentSpecificationStatement()
+        {
+            // given
+            var input = @"
+                noninertial fluent
+            ";
+            var fluent = new Fluent("fluent");
+            var expected = new List<FluentSpecificationStatement>()
+            {
+                new FluentSpecificationStatement(fluent)
+            };
+            // when
+            var statements = DynamicSystemParserUtils.ParseActionDomain(input).FluentSpecificationStatements;
+            // then
+            Assert.IsTrue(Enumerable.SequenceEqual(statements, expected));
+        }
+
+        [Test]
         public void TestValueStatementParsing()
         {
             // given
@@ -150,19 +198,19 @@ namespace Test.Grammar
             var paintB = new Action("PaintB");
             var initialStatements = new List<InitialValueStatement>()
             {
-                new InitialValueStatement(new Literal(brushA, true)),
-                new InitialValueStatement(new Literal(brushB, true)),
+                new InitialValueStatement(new Negation(new Literal(brushA))),
+                new InitialValueStatement(new Negation(new Literal(brushB))),
             };
             var effectStatements = new List<EffectStatement>()
             {
-                new EffectStatement(takeA, new Conjunction(new Literal(brushA), new Literal(brushB, true))),
-                new EffectStatement(takeB, new Conjunction(new Literal(brushB), new Literal(brushA, true))),
-                new EffectStatement(paintA, new Literal(brushA), new Literal(brushA, true)),
-                new EffectStatement(paintB, new Literal(brushB), new Literal(brushB, true)),
+                new EffectStatement(takeA, new Conjunction(new Literal(brushA), new Negation(new Literal(brushB)))),
+                new EffectStatement(takeB, new Conjunction(new Literal(brushB), new Negation(new Literal(brushA)))),
+                new EffectStatement(paintA, new Literal(brushA), new Negation(new Literal(brushA))),
+                new EffectStatement(paintB, new Literal(brushB), new Negation(new Literal(brushB))),
             };
             var constraintStatements = new List<ConstraintStatement>()
             {
-                new ConstraintStatement(new Alternative(new Literal(brushA, true), new Literal(brushB, true)))
+                new ConstraintStatement(new Alternative(new Negation(new Literal(brushA)), new Negation(new Literal(brushB))))
             };
             // when
             var actionDomain = DynamicSystemParserUtils.ParseActionDomain(input);
@@ -184,7 +232,7 @@ namespace Test.Grammar
             var fluent = new Fluent("fluent");
             var expected = new List<AccessibilityQuery>()
             {
-                new AccessibilityQuery(new Literal(fluent, true))
+                new AccessibilityQuery(new Negation(new Literal(fluent)))
             };
             // when
             var querySet = DynamicSystemParserUtils.ParseQuerySet(input);
@@ -222,7 +270,7 @@ namespace Test.Grammar
             var actionB = new Action("actionB");
             var expected = new List<ExistentialValueQuery>()
             {
-                new ExistentialValueQuery(new Literal(fluent, true), new Program(new List<CompoundAction>()
+                new ExistentialValueQuery(new Negation(new Literal(fluent)), new Program(new List<CompoundAction>()
                 {
                     new CompoundAction(new List<Action>()
                     {

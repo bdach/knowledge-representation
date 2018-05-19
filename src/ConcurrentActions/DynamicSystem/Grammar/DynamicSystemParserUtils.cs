@@ -43,8 +43,8 @@ namespace DynamicSystem.Grammar
         /// <returns>Parsed instance of <see cref="IFormula"/></returns>
         public static IFormula ParseFormula(string input)
         {
-            var parser = CreateParser(PrepareInput(input));
-            return parser.actionDomain().Accept(new FormulaParsingVisitor());
+            var parser = CreateParser(input);
+            return parser.formula().Accept(new FormulaParsingVisitor());
         }
 
         /// <summary>

@@ -20,7 +20,7 @@ using ReactiveUI;
 namespace Client.View.Grammar
 {
     /// <summary>
-    /// Logika interakcji dla klasy QueryResultView.xaml
+    /// Interaction logic for QueryResultView.xaml
     /// </summary>
     public partial class QueryResultView : IViewFor<QueryResultViewModel>
     {
