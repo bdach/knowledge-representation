@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -55,7 +56,19 @@ namespace DynamicSystem.Grammar
         public static QuerySet ParseQuerySet(string input)
         {
             var parser = CreateParser(PrepareInput(input));
-            return parser.querySet().Accept(new QuerySetParsingVisitor()) as QuerySet;
+            var result = parser.querySet().Accept(new QuerySetParsingVisitor()) as Tuple<QuerySet, Dictionary<object, int>>;
+            return result.Item1;
+        }
+
+        /// <summary>
+        /// Creates <see cref="QuerySet"/> instance from a string with query order dictionary
+        /// </summary>
+        /// <param name="input">Queries</param>
+        /// <returns>A tuple containing parsed instance of <see cref="QuerySet"/> as well as ordering of queries</returns>
+        public static Tuple<QuerySet, Dictionary<object, int>> ParseQuerySetWithOrder(string input)
+        {
+            var parser = CreateParser(PrepareInput(input));
+            return parser.querySet().Accept(new QuerySetParsingVisitor()) as Tuple<QuerySet, Dictionary<object, int>>;
         }
 
 

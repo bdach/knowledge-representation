@@ -14,11 +14,13 @@ namespace DynamicSystem.Grammar
     {
         public override object VisitQuerySet(DynamicSystemParser.QuerySetContext context)
         {
+            var queryOrder = new Dictionary<object, int>(); 
             var querySet = new QuerySet();
-
+            var current = 0;
             foreach (var query in context.query())
             {
                 var q = query.Accept(this);
+                queryOrder[q] = current++;
                 if (q is AccessibilityQuery accessibilityQuery)
                 {
                     querySet.AccessibilityQueries.Add(accessibilityQuery);
@@ -41,7 +43,7 @@ namespace DynamicSystem.Grammar
                 }
             }
 
-            return querySet;
+            return new Tuple<QuerySet, Dictionary<object, int>>(querySet, queryOrder);
         }
 
         public override object VisitQuery(DynamicSystemParser.QueryContext context)

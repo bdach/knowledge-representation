@@ -104,6 +104,7 @@ namespace Client.ViewModel
 
                 ActionDomain actionDomain = null;
                 QuerySet querySet = null;
+                Dictionary<object, int> queryOrder = null;
                 try
                 {
                     actionDomain = DynamicSystemParserUtils.ParseActionDomain(ActionAreaViewModel.ActionDomainInput);
@@ -116,7 +117,7 @@ namespace Client.ViewModel
 
                 try
                 {
-                    querySet = DynamicSystemParserUtils.ParseQuerySet(QueryAreaViewModel.QuerySetInput);
+                    (querySet, queryOrder) = DynamicSystemParserUtils.ParseQuerySetWithOrder(QueryAreaViewModel.QuerySetInput);
                 }
                 catch (System.Exception e)
                 {
@@ -153,19 +154,25 @@ namespace Client.ViewModel
                 }
 
                 var signature = new Signature(actionDomainFluents, actionDomainActions);
-                return QueryResolver.ResolveQueries(signature, actionDomain, querySet);
+                return new Tuple<QueryResolution, Dictionary<object ,int>>(QueryResolver.ResolveQueries(signature, actionDomain, querySet), queryOrder);
             }));
 
             RibbonViewModel.PerformGrammarCalculations
                 .Where(results => results != null)
-                .Subscribe(results =>
+                .Subscribe(data =>
                 {
+                    var results = data.Item1;
+                    var queryOrder = data.Item2.Select(v => (v.Key.ToString(), v.Value))
+                        .ToDictionary(v => v.Item1, v => v.Item2);
+
                     var queryResult = results.AccessibilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2))
                             .Concat(results.ExistentialExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
                             .Concat(results.ExistentialValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
                             .Concat(results.GeneralExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
                             .Concat(results.GeneralValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .OrderBy(q => queryOrder[q.Item1])
                         .Select(qr => new QueryResultViewModel(qr.Item1, qr.Item2));
+
                     QueryAreaViewModel.GrammarViewResults = true;
                     QueryAreaViewModel.EvaluationResults = new ReactiveList<QueryResultViewModel>(queryResult.ToList());
                 }, e => MessageBox.Show(e.Message));

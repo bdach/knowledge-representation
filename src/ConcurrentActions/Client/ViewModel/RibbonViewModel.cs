@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Client.Abstract;
@@ -57,7 +58,7 @@ namespace Client.ViewModel
         /// <summary>
         /// Command used to trigger grammar scenario evaluation.
         /// </summary>
-        public ReactiveCommand<Unit, QueryResolution> PerformGrammarCalculations { get; set; }
+        public ReactiveCommand<Unit, Tuple<QueryResolution, Dictionary<object, int>>> PerformGrammarCalculations { get; set; }
 
         /// <summary>
         /// Command used to trigger import of scenario from a file.
