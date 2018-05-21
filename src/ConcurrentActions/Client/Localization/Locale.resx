@@ -132,6 +132,9 @@
   <data name="ActionDomainGroupBox" xml:space="preserve">
     <value>ActionDomainGroupBox</value>
   </data>
+  <data name="ActionDomainParseErrorPrefix" xml:space="preserve">
+    <value>Failed to parse action domain:</value>
+  </data>
   <data name="ActionDropDown" xml:space="preserve">
     <value>AddActionButton</value>
   </data>
@@ -143,6 +146,12 @@
   </data>
   <data name="ActionErrorSuffix" xml:space="preserve">
     <value>ActionErrorSuffix</value>
+  </data>
+  <data name="ActionNotDefinedInActionDomainPrefix" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ActionNotDefinedInActionDomainSuffix" xml:space="preserve">
+    <value>is not defined in action domain.</value>
   </data>
   <data name="ActionScreenTip" xml:space="preserve">
     <value>ActionScreenTip</value>
@@ -321,6 +330,9 @@
   <data name="ConstraintStatementScreenTip" xml:space="preserve">
     <value>ConstraintStatementScreenTip</value>
   </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>EditButton</value>
+  </data>
   <data name="EditTab" xml:space="preserve">
     <value>EditTab</value>
   </data>
@@ -402,6 +414,12 @@
   <data name="FluentErrorSuffix" xml:space="preserve">
     <value>FluentErrorSuffix</value>
   </data>
+  <data name="FluentNotDefinedInActionDomainPrefix" xml:space="preserve">
+    <value>Fluent</value>
+  </data>
+  <data name="FluentNotDefinedInActionDomainSuffix" xml:space="preserve">
+    <value>is not defined in action domain.</value>
+  </data>
   <data name="FluentReleaseActionError" xml:space="preserve">
     <value>FluentReleaseActionError</value>
   </data>
@@ -455,6 +473,12 @@
   </data>
   <data name="GeneralValueQueryTargetError" xml:space="preserve">
     <value>GeneralValueQueryTargetError</value>
+  </data>
+  <data name="GrammarActionDomainInputHintText" xml:space="preserve">
+    <value>GrammarActionDomainInputHintText</value>
+  </data>
+  <data name="GrammarQuerySetInputHintText" xml:space="preserve">
+    <value>GrammarQuerySetInputHintText</value>
   </data>
   <data name="GrammarTab" xml:space="preserve">
     <value>GrammarTab</value>
@@ -554,6 +578,9 @@
   </data>
   <data name="QueryClauseGroupBox" xml:space="preserve">
     <value>QueryClauseGroupBox</value>
+  </data>
+  <data name="QuerySetParseErrorPrefix" xml:space="preserve">
+    <value>Failed to parse query set:</value>
   </data>
   <data name="ScenarioDeserializationFailed" xml:space="preserve">
     <value>ScenarioDeserializationFailed</value>

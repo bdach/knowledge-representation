@@ -23,13 +23,34 @@ namespace Client.View
             InitializeComponent();
             this.OneWayBind(ViewModel, vm => vm.QuerySet, v => v.QueryListView.ItemsSource);
             this.Bind(ViewModel, vm => vm.QuerySetInput, v => v.QueryTextBox.Text);
+            this.OneWayBind(ViewModel, vm => vm.EvaluationResults, v => v.QueryResultListView.ItemsSource);
 
             this.WhenAnyValue(v => v.ViewModel.GrammarMode)
                 .Subscribe(grammarMode =>
                 {
                     QueryListView.Visibility = grammarMode ? Visibility.Hidden : Visibility.Visible;
-                    QueryTextBox.Visibility = grammarMode ? Visibility.Visible : Visibility.Hidden;
+                    QueryTextBox.Visibility = grammarMode && !ViewModel.GrammarViewResults? Visibility.Visible : Visibility.Hidden;
+                    QueryResults.Visibility = grammarMode &&
+                                              ViewModel.GrammarViewResults
+                        ? Visibility.Visible
+                        : Visibility.Hidden;
                 });
+            this.WhenAnyValue(v => v.ViewModel.GrammarViewResults)
+                .Subscribe(grammarResults =>
+                    {
+                        if (!ViewModel.GrammarMode)
+                        {
+                            QueryTextBox.Visibility = Visibility.Hidden;
+                            QueryResults.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            QueryTextBox.Visibility = grammarResults ? Visibility.Hidden : Visibility.Visible;
+                            QueryResults.Visibility = grammarResults ? Visibility.Visible : Visibility.Hidden;
+                        }
+                    });
+            this.BindCommand(ViewModel, vm => vm.CloseQueryResults, v => v.CloseButton);
+
         }
 
         public QueryAreaViewModel ViewModel

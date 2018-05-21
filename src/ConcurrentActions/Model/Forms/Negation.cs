@@ -1,4 +1,7 @@
-﻿namespace Model.Forms
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Model.Forms
 {
     /// <inheritdoc />
     /// <summary>
@@ -35,6 +38,9 @@
         {
             return visitor.Visit(this);
         }
+
+        /// <inheritdoc />
+        public IEnumerable<Fluent> Fluents => Formula.Fluents;
 
         public override string ToString()
         {

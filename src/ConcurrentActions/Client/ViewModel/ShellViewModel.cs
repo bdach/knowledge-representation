@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Client.Abstract;
 using Client.DataTransfer;
@@ -13,11 +14,18 @@ using Client.Interface;
 using Client.Provider;
 using Client.View;
 using Client.ViewModel.Formula;
+using Client.ViewModel.Grammar;
 using Client.ViewModel.Terminal;
 using DynamicSystem;
+using DynamicSystem.DNF;
+using DynamicSystem.Grammar;
 using Model;
+using Model.ActionLanguage;
+using Model.Forms;
+using Model.QueryLanguage;
 using ReactiveUI;
 using Splat;
+using Action = Model.Action;
 
 namespace Client.ViewModel
 {
@@ -82,16 +90,92 @@ namespace Client.ViewModel
                     var signature = new Signature(scenario.Fluents, scenario.Actions);
                     return QueryResolver.ResolveQueries(signature, scenario.ActionDomain, scenario.QuerySet);
                 }
+
                 return null;
             }));
             RibbonViewModel.PerformCalculations
                 .Where(results => results != null)
                 .Subscribe(results => QueryAreaViewModel.AcceptResults(results));
 
-            RibbonViewModel.PerformGrammarCalculations.Subscribe(_ =>
+            RibbonViewModel.PerformGrammarCalculations = ReactiveCommand.CreateFromTask(() => Task.Run(() =>
             {
-                // TODO: parse input with grammar, show errors, pass to DynamicSystem for evaluation
-            });
+                Action<string> raiseError = err =>
+                    Application.Current.Dispatcher.Invoke(() => Interactions.RaiseStatusBarError(err));
+
+                ActionDomain actionDomain = null;
+                QuerySet querySet = null;
+                Dictionary<object, int> queryOrder = null;
+                try
+                {
+                    actionDomain = DynamicSystemParserUtils.ParseActionDomain(ActionAreaViewModel.ActionDomainInput);
+                }
+                catch (System.Exception e)
+                {
+                    raiseError($"{LocalizationProvider.Instance["ActionDomainParseErrorPrefix"]}: {e.Message}");
+                    return null;
+                }
+
+                try
+                {
+                    (querySet, queryOrder) = DynamicSystemParserUtils.ParseQuerySetWithOrder(QueryAreaViewModel.QuerySetInput);
+                }
+                catch (System.Exception e)
+                {
+                    raiseError($"{LocalizationProvider.Instance["QuerySetParseErrorPrefix"]}: {e.Message}");
+                    return null;
+                }
+
+                var actionDomainFluents = actionDomain.Fluents();
+                var actionDomainActions = actionDomain.Actions();
+
+                var querySetActions = querySet.Actions();
+                var querySetFluents = querySet.Fluents();
+
+                var notFoundFluent = querySetFluents.FirstOrDefault(f => !actionDomainFluents.Contains(f));
+                if (notFoundFluent != null)
+                {
+                    raiseError(
+                        $"{LocalizationProvider.Instance["FluentNotDefinedInActionDomainPrefix"]}" +
+                        $" \"{notFoundFluent.Name}\" " +
+                        $"{LocalizationProvider.Instance["FluentNotDefinedInActionDomainSuffix"]}"
+                    );
+                    return null;
+                }
+
+                var notFoundAction = querySetActions.FirstOrDefault(a => !actionDomainActions.Contains(a));
+                if (notFoundAction != null)
+                {
+                    raiseError(
+                        $"{LocalizationProvider.Instance["ActionNotDefinedInActionDomainPrefix"]}" +
+                        $" \"{notFoundAction.Name}\" " +
+                        $"{LocalizationProvider.Instance["ActionNotDefinedInActionDomainSuffix"]}"
+                    );
+                    return null;
+                }
+
+                var signature = new Signature(actionDomainFluents, actionDomainActions);
+                return new Tuple<QueryResolution, Dictionary<object ,int>>(QueryResolver.ResolveQueries(signature, actionDomain, querySet), queryOrder);
+            }));
+
+            RibbonViewModel.PerformGrammarCalculations
+                .Where(results => results != null)
+                .Subscribe(data =>
+                {
+                    var results = data.Item1;
+                    var queryOrder = data.Item2.Select(v => (v.Key.ToString(), v.Value))
+                        .ToDictionary(v => v.Item1, v => v.Item2);
+
+                    var queryResult = results.AccessibilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2))
+                            .Concat(results.ExistentialExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                            .Concat(results.ExistentialValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                            .Concat(results.GeneralExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                            .Concat(results.GeneralValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .OrderBy(q => queryOrder[q.Item1])
+                        .Select(qr => new QueryResultViewModel(qr.Item1, qr.Item2));
+
+                    QueryAreaViewModel.GrammarViewResults = true;
+                    QueryAreaViewModel.EvaluationResults = new ReactiveList<QueryResultViewModel>(queryResult.ToList());
+                }, e => MessageBox.Show(e.Message));
 
             Interactions.StatusBarError.RegisterHandler(interaction =>
             {
@@ -228,7 +312,8 @@ namespace Client.ViewModel
         }
 
         /// <inheritdoc />
-        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses, string actionDomainInput = null)
+        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses,
+            string actionDomainInput = null)
         {
             if (actionClauses != null)
             {
@@ -270,7 +355,8 @@ namespace Client.ViewModel
                 scenario = new Scenario
                 {
                     Actions = LanguageSignature.ActionViewModels.Select(x => x.ToModel()).ToList(),
-                    Fluents = LanguageSignature.LiteralViewModels.Select(x => ((IViewModelFor<Model.Fluent>)x).ToModel()).ToList(),
+                    Fluents = LanguageSignature.LiteralViewModels
+                        .Select(x => ((IViewModelFor<Model.Fluent>) x).ToModel()).ToList(),
                     ActionDomain = ActionAreaViewModel.GetActionDomainModel(),
                     ActionDomainInput = ActionAreaViewModel.ActionDomainInput,
                     QuerySet = QueryAreaViewModel.GetQuerySetModel(),

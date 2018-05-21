@@ -1,8 +1,10 @@
 ﻿<UserControl x:Class="Client.View.QueryAreaView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:provider="clr-namespace:Client.Provider"
+             xmlns:fluent="urn:fluent-ribbon"
              mc:Ignorable="d">
     <Grid>
         <ItemsControl
@@ -10,8 +12,25 @@
             Name="QueryListView"
             Visibility="Visible" />
         <TextBox
-            Style="{DynamicResource EditorBox}"
+            Style="{DynamicResource QuerySetEditorBox}"
             Name="QueryTextBox"
             Visibility="Hidden" />
+
+        <Grid Name="QueryResults" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <fluent:Button Grid.Row="0"
+                           Icon="/Client;component/Resources/Images/edit-96.png"
+                           LargeIcon="/Client;component/Resources/Images/edit-96.png"
+                           Name="CloseButton" Size="Middle"
+                           HorizontalAlignment="Center"
+                           Header="{provider:Loc EditButton}">
+            </fluent:Button>
+
+            <ItemsControl Grid.Row="1" Name="QueryResultListView"/>
+        </Grid>
+        
     </Grid>
 </UserControl>

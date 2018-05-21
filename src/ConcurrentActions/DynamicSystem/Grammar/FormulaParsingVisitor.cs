@@ -21,8 +21,15 @@ namespace DynamicSystem.Grammar
 
         public override IFormula VisitLiteral(DynamicSystemParser.LiteralContext context)
         {
-            var fluentContext = context.fluent();
-            return new Literal(new Fluent(fluentContext.Start.Text), context.NEGATION() != null);
+            if (context.NEGATION() != null)
+            {
+                return new Negation(VisitLiteral(context.literal()));
+            }
+            else
+            {
+                var fluentContext = context.fluent();
+                return  new Literal(new Fluent(fluentContext.Start.Text));
+            }
         }
 
         public override IFormula VisitFormula(DynamicSystemParser.FormulaContext context)

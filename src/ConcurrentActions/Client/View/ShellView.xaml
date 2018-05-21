@@ -26,6 +26,7 @@
 
         <Grid 
             Grid.Row="1"
+            Visibility="{Binding }"
             FocusManager.IsFocusScope="True">
 
             <Grid.ColumnDefinitions>

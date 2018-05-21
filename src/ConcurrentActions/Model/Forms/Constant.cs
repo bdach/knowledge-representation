@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Model.Forms
 {
@@ -52,6 +55,9 @@ namespace Model.Forms
         {
             return visitor.Visit(this);
         }
+
+        /// <inheritdoc />
+        public IEnumerable<Fluent> Fluents => Enumerable.Empty<Fluent>();
 
         /// <summary>
         /// The truth constant formula.

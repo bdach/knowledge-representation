@@ -43,5 +43,33 @@ namespace Model.QueryLanguage
             ExistentialValueQueries = new List<ExistentialValueQuery>();
             GeneralValueQueries = new List<GeneralValueQuery>();
         }
+
+        /// <summary>
+        /// Returns all unique <see cref="Action"/> used in this query set
+        /// </summary>
+        /// <returns>Collection of unique <see cref="Action"/></returns>
+        public IEnumerable<Action> Actions()
+        {
+            var actions = new HashSet<Action>();
+            ExistentialExecutabilityQueries.ForEach(q =>
+                q.Program.Actions.ForEach(ca => actions.UnionWith(ca.Actions)));
+            GeneralExecutabilityQueries.ForEach(q => q.Program.Actions.ForEach(ca => actions.UnionWith(ca.Actions)));
+            ExistentialValueQueries.ForEach(q => q.Program.Actions.ForEach(ca => actions.UnionWith(ca.Actions)));
+            GeneralValueQueries.ForEach(q => q.Program.Actions.ForEach(ca => actions.UnionWith(ca.Actions)));
+            return actions;
+        }
+
+        /// <summary>
+        /// Returns all unique <see cref="Fluent"/> used in this query set
+        /// </summary>
+        /// <returns>Collection of unique <see cref="Fluent"/></returns>
+        public IEnumerable<Fluent> Fluents()
+        {
+            var fluents = new HashSet<Fluent>();
+            AccessibilityQueries.ForEach(q => fluents.UnionWith(q.Target.Fluents));
+            ExistentialValueQueries.ForEach(q => fluents.UnionWith(q.Target.Fluents));
+            GeneralValueQueries.ForEach(q => fluents.UnionWith(q.Target.Fluents));
+            return fluents;
+        }
     }
 }
