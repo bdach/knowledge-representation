@@ -27,14 +27,18 @@ namespace DynamicSystem.SetGeneration
         }
 
         /// <summary>
-        /// Generates all states satisfying all initially conditions.
+        /// Generates all states satisfying all initially and always conditions.
         /// </summary>
         /// <param name="fluents">Iterable collection of <see cref="Fluent"/>s available in the system.</param>
         /// <param name="actionDomain">Action domain of the system, containing defined action statements.</param>
-        /// <returns>Iterable collection of <see cref="State"/>s satisfying initially conditions.</returns>
+        /// <returns>Iterable collection of <see cref="State"/>s satisfying initially and always conditions.</returns>
         public static IEnumerable<State> GetInitialStates(IEnumerable<Fluent> fluents, ActionDomain actionDomain)
         {
-            return GetFilteredStatesSet(fluents, (state => actionDomain.InitialValueStatements.All(initialStatement => initialStatement.InitialCondition.Evaluate(state))));
+            return GetFilteredStatesSet(fluents, (state =>
+            {
+                return actionDomain.InitialValueStatements.All(initialStatement => initialStatement.InitialCondition.Evaluate(state)) &&
+                       actionDomain.ConstraintStatements.All(constraintStatement => constraintStatement.Constraint.Evaluate(state));
+            }));
         }
 
         /// <summary>
