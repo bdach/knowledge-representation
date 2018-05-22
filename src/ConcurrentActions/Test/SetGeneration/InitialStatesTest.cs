@@ -75,5 +75,23 @@ namespace Test.SetGeneration
             //then
             initialStates.Count().Should().Be(0);
         }
+
+        [Test]
+        public void TestIntegrityConditions()
+        {
+            //given
+            var actionDomain = new ActionDomain();
+            actionDomain.InitialValueStatements.Add(new InitialValueStatement(new Conjunction(new Literal(fluents[1]), new Literal(fluents[2]))));
+            actionDomain.ConstraintStatements.Add(new ConstraintStatement(new Equivalence(new Literal(fluents[0]),
+                                                  new Equivalence(new Literal(fluents[1]), new Literal(fluents[2])))));
+            //when
+            var initialStates = SetGenerator.GetInitialStates(fluents, actionDomain);
+            //then
+            initialStates.Count().Should().Be(1);
+            foreach (var state in initialStates)
+            {
+                (state[fluents[0]] == (state[fluents[1]] == state[fluents[2]])).Should().BeTrue();
+            }
+        }
     }
 }
