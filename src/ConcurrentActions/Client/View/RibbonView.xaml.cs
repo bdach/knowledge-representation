@@ -49,6 +49,9 @@ namespace Client.View
             this.Bind(ViewModel, vm => vm.SelectedFluent, v => v.FluentsGallery.SelectedValue);
             this.Bind(ViewModel, vm => vm.SelectedActionClauseType, v => v.ActionClauseGallery.SelectedValue);
             this.Bind(ViewModel, vm => vm.SelectedQueryClauseType, v => v.QueryClauseGallery.SelectedValue);
+            this.Bind(ViewModel, vm => vm.IsEditTabSelected, v => v.EditTab.IsSelected);
+            this.Bind(ViewModel, vm => vm.IsGrammarTabSelected, v => v.GrammarTab.IsSelected);
+
 
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.ConjunctionButton, Observable.Start(() => new ConjunctionViewModel()));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.AlternativeButton, Observable.Start(() => new AlternativeViewModel()));

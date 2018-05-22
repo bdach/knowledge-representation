@@ -32,7 +32,7 @@ namespace Client.ViewModel
     /// <summary>
     /// View model for <see cref="ShellView" /> which is the root view of the application.
     /// </summary>
-    public class ShellViewModel : FodyReactiveObject, IScenarioOwner
+    public class ShellViewModel : FodyReactiveObject, IInputOwner
     {
         /// <summary>
         /// A global container instance holding the current language signature.
@@ -268,14 +268,14 @@ namespace Client.ViewModel
 
             RibbonViewModel.ImportFromFile.Subscribe(_ =>
             {
-                var serializationProvider = new SerializationProvider(this, new ScenarioSerializer());
-                serializationProvider.DeserializeScenario();
+                var serializationProvider = new SerializationProvider(this, new ScenarioSerializer(), new GrammarSerializer());
+                serializationProvider.DeserializeInput();
             });
 
             RibbonViewModel.ExportToFile.Subscribe(_ =>
-            {
-                var serializationProvider = new SerializationProvider(this, new ScenarioSerializer());
-                serializationProvider.SerializeScenario();
+            { 
+                var serializationProvider = new SerializationProvider(this, new ScenarioSerializer(), new GrammarSerializer());
+                serializationProvider.SerializeInput();
             });
 
             this.WhenAnyObservable(vm => vm.RibbonViewModel.SetEnglishLocale)
@@ -290,59 +290,31 @@ namespace Client.ViewModel
         public void ClearActionClauses()
         {
             ActionAreaViewModel.ActionDomain.Clear();
-            ActionAreaViewModel.ActionDomainInput = "";
         }
 
         /// <inheritdoc />
         public void ClearQueryClauses()
         {
             QueryAreaViewModel.QuerySet.Clear();
-            QueryAreaViewModel.QuerySetInput = "";
         }
 
         /// <inheritdoc />
-        public void ExtendActionClauses(string actionDomainInput)
-        {
-            if (!string.IsNullOrEmpty(actionDomainInput))
-            {
-                ActionAreaViewModel.ActionDomainInput = !string.IsNullOrEmpty(ActionAreaViewModel.ActionDomainInput)
-                    ? $"{ActionAreaViewModel.ActionDomainInput}{Environment.NewLine}{actionDomainInput}"
-                    : actionDomainInput;
-            }
-        }
-
-        /// <inheritdoc />
-        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses,
-            string actionDomainInput = null)
+        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses)
         {
             if (actionClauses != null)
             {
                 ActionAreaViewModel.ActionDomain.AddRange(actionClauses);
             }
-
-            ExtendActionClauses(actionDomainInput);
         }
 
-        /// <inheritdoc />
-        public void ExtendQueryClauses(string querySetInput)
-        {
-            if (!string.IsNullOrEmpty(querySetInput))
-            {
-                QueryAreaViewModel.QuerySetInput = !string.IsNullOrEmpty(QueryAreaViewModel.QuerySetInput)
-                    ? $"{QueryAreaViewModel.QuerySetInput}{Environment.NewLine}{querySetInput}"
-                    : querySetInput;
-            }
-        }
 
         /// <inheritdoc />
-        public void ExtendQueryClauses(IEnumerable<IQueryClauseViewModel> queryClauses, string querySetInput = null)
+        public void ExtendQueryClauses(IEnumerable<IQueryClauseViewModel> queryClauses)
         {
             if (queryClauses != null)
             {
                 QueryAreaViewModel.QuerySet.AddRange(queryClauses);
             }
-
-            ExtendQueryClauses(querySetInput);
         }
 
         /// <inheritdoc />
@@ -358,9 +330,7 @@ namespace Client.ViewModel
                     Fluents = LanguageSignature.LiteralViewModels
                         .Select(x => ((IViewModelFor<Model.Fluent>) x).ToModel()).ToList(),
                     ActionDomain = ActionAreaViewModel.GetActionDomainModel(),
-                    ActionDomainInput = ActionAreaViewModel.ActionDomainInput,
                     QuerySet = QueryAreaViewModel.GetQuerySetModel(),
-                    QuerySetInput = QueryAreaViewModel.QuerySetInput
                 };
             }
             catch (MemberNotDefinedException ex)
@@ -370,5 +340,75 @@ namespace Client.ViewModel
 
             return scenario;
         }
+
+        /// <inheritdoc />
+        public void ClearActionInput()
+        {
+            ActionAreaViewModel.ActionDomainInput = "";
+        }
+
+        /// <inheritdoc />
+        public void ClearQueryInput()
+        {
+            QueryAreaViewModel.QuerySetInput = "";
+        }
+
+        /// <inheritdoc />
+        public void ExtendActionInput(string actionDomainInput)
+        {
+            if (!string.IsNullOrEmpty(actionDomainInput))
+            {
+                ActionAreaViewModel.ActionDomainInput = !string.IsNullOrEmpty(ActionAreaViewModel.ActionDomainInput)
+                    ? $"{ActionAreaViewModel.ActionDomainInput}{Environment.NewLine}{actionDomainInput}"
+                    : actionDomainInput;
+            }
+        }
+
+        /// <inheritdoc />
+        public void ExtendQueryInput(string querySetInput)
+        {
+            if (!string.IsNullOrEmpty(querySetInput))
+            {
+                QueryAreaViewModel.QuerySetInput = !string.IsNullOrEmpty(QueryAreaViewModel.QuerySetInput)
+                    ? $"{QueryAreaViewModel.QuerySetInput}{Environment.NewLine}{querySetInput}"
+                    : querySetInput;
+            }
+        }
+
+        /// <inheritdoc />
+        public GrammarInput GetCurrentGrammar()
+        {
+            GrammarInput grammarInput = null;
+
+            try
+            {
+                grammarInput = new GrammarInput()
+                {
+                    QuerySetInput = QueryAreaViewModel.QuerySetInput,
+                    ActionDomainInput = ActionAreaViewModel.ActionDomainInput
+                };
+            }
+            catch (MemberNotDefinedException ex)
+            {
+                Interactions.RaiseStatusBarError(ex.Message);
+            }
+
+            return grammarInput;
+        }
+
+        /// <inheritdoc />
+        public bool GrammarMode
+        {
+            get => ActionAreaViewModel.GrammarMode && QueryAreaViewModel.GrammarMode;
+            set
+            {
+                ActionAreaViewModel.GrammarMode = value;
+                QueryAreaViewModel.GrammarMode = value;
+
+                RibbonViewModel.IsGrammarTabSelected = value;
+                RibbonViewModel.IsEditTabSelected = !value;
+            }
+        }
+
     }
 }

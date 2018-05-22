@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Windows.Shapes;
 using Client.DataTransfer;
 using Client.Exception;
 using Microsoft.Win32;
@@ -95,13 +98,13 @@ namespace Client.Provider
                     .ToString("s", System.Globalization.CultureInfo.InvariantCulture)
                     .Replace("-", string.Empty)
                     .Replace(":", string.Empty);
-
             var dialog = new SaveFileDialog
             {
-                FileName = $"scenario-{isoDateTimeString}Z.xml",
+                FileName = $"scenario-{isoDateTimeString}Z",
                 InitialDirectory = _defaultPath,
                 RestoreDirectory = true,
                 Filter = "XML|*.xml",
+                DefaultExt = "xml",
                 Title = "Save Scenario File"
             };
 
@@ -118,11 +121,13 @@ namespace Client.Provider
             {
                 InitialDirectory = _defaultPath,
                 RestoreDirectory = true,
-                Filter = "XML|*.xml",
+                Filter = "XML|*.xml| TXT|*.txt",
+                DefaultExt = "xml",
                 Title = "Open Scenario File"
             };
 
             return dialog.ShowDialog() == true ? dialog.FileName : null;
         }
+
     }
 }

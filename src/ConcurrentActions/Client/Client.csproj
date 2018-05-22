@@ -107,6 +107,8 @@
     <Compile Include="Interface\IClauseViewModel.cs" />
     <Compile Include="Interface\IEditorViewModel.cs" />
     <Compile Include="Interface\IFormulaViewModel.cs" />
+    <Compile Include="Interface\IGrammarOwner.cs" />
+    <Compile Include="Interface\IInputOwner.cs" />
     <Compile Include="Interface\IQueryClauseViewModel.cs" />
     <Compile Include="Interface\IScenarioConverter.cs" />
     <Compile Include="Interface\IScenarioOwner.cs" />
@@ -127,6 +129,8 @@
       <DependentUpon>Locale.pl-PL.resx</DependentUpon>
     </Compile>
     <Compile Include="AppStart\AppBootstrapper.cs" />
+    <Compile Include="DataTransfer\GrammarInput.cs" />
+    <Compile Include="Provider\GrammarSerializer.cs" />
     <Compile Include="Provider\LocExtention.cs" />
     <Compile Include="Provider\LocalizationProvider.cs" />
     <Compile Include="Provider\ScenarioSerializer.cs" />
