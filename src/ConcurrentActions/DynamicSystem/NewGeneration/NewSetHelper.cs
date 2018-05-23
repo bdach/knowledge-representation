@@ -43,7 +43,9 @@ namespace DynamicSystem.NewGeneration
             var releaseStatements = _actionDomain.FluentReleaseStatements
               .Where(e => e.Action.Equals(action) && e.Precondition.Evaluate(from)).ToList();
 
-            var literals = _fluents.Where(f => releaseStatements.Any(e => e.Fluent.Equals(f)) || !from[f].Equals(to[f]))
+            var literals = _fluents.Where(f =>
+                    releaseStatements.Any(e => e.Fluent.Equals(f)) ||
+                    (!from[f].Equals(to[f]) && !_actionDomain.FluentSpecificationStatements.Any(e => e.Fluent.Equals(f))))
                 .Select(f => new Literal(f, !to[f]));
 
             return literals;
@@ -63,7 +65,8 @@ namespace DynamicSystem.NewGeneration
             var releaseStatements = _actionDomain.FluentReleaseStatements
               .Where(e => actions.Contains(e.Action) && e.Precondition.Evaluate(from)).ToList();
 
-            var literals = _fluents.Where(f => releaseStatements.Any(e => e.Fluent.Equals(f)) || !from[f].Equals(to[f]))
+            var literals = _fluents.Where(f => releaseStatements.Any(e => e.Fluent.Equals(f)) ||
+                (!from[f].Equals(to[f]) && !_actionDomain.FluentSpecificationStatements.Any(e => e.Fluent.Equals(f))))
                 .Select(f => new Literal(f, !to[f]));
 
             return literals;
