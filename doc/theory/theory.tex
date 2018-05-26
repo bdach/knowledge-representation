@@ -695,17 +695,18 @@ Rozważmy teraz kilka przykładowych kwerend nad~$\mathcal{D}$.
 \begin{enumerate}
     \item Niech dana będzie kwerenda
     $$ \Possibly \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After \{ \textsc{Put} \}, \{ \textsc{Get, Consume} \} $$
-    Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ prowadzi dla~wszystkich $\Psi_\mathcal{S}$ (tj. dla~jedynej istniejącej funkcji $\Psi_\mathcal{S}$) do~osiągnięcia zadanego celu $\textit{bufferEmpty} \land \neg \textit{hasItem}$.
+    Kwerenda ta \textbf{nie będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_2$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ nie jest wykonywalny.
 
     \item Niech dana będzie kwerenda
     $$ \Necessary \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After \{ \textsc{Put} \}, \{ \textsc{Get, Consume} \} $$
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_2$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ nie~jest wykonywalny, więc odpowiednia wartość $\Psi_\mathcal{S}$ w~definicji konsekwencji nie~jest zdefiniowana.
 
-    \item Analogicznie, kwerenda
-    $$\Executable \Sometimes (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$$
-    \textbf{jest} konsekwencją $\mathcal{D}$, podczas gdy
-    $$\Executable \Always (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$$
-    \textbf{nie jest} konsekwencją $\mathcal{D}$.
+    \item Analogicznie, kwerendy
+    \begin{align*}
+    \Executable & \Sometimes (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) \\
+    \Executable & \Always (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})
+    \end{align*}
+    \textbf{nie są} konsekwencją $\mathcal{D}$.
 
     \item Niech dana będzie kwerenda
     $$ \Accessible \textit{bufferEmpty} \lor \neg \textit{hasItem} $$
