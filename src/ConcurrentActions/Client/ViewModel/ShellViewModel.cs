@@ -17,22 +17,19 @@ using Client.ViewModel.Formula;
 using Client.ViewModel.Grammar;
 using Client.ViewModel.Terminal;
 using DynamicSystem;
-using DynamicSystem.DNF;
 using DynamicSystem.Grammar;
 using Model;
 using Model.ActionLanguage;
-using Model.Forms;
 using Model.QueryLanguage;
 using ReactiveUI;
 using Splat;
-using Action = Model.Action;
 
 namespace Client.ViewModel
 {
     /// <summary>
     /// View model for <see cref="ShellView" /> which is the root view of the application.
     /// </summary>
-    public class ShellViewModel : FodyReactiveObject, IScenarioOwner
+    public class ShellViewModel : FodyReactiveObject, IInputOwner
     {
         /// <summary>
         /// A global container instance holding the current language signature.
@@ -99,12 +96,11 @@ namespace Client.ViewModel
 
             RibbonViewModel.PerformGrammarCalculations = ReactiveCommand.CreateFromTask(() => Task.Run(() =>
             {
-                Action<string> raiseError = err =>
-                    Application.Current.Dispatcher.Invoke(() => Interactions.RaiseStatusBarError(err));
+                Action<string> raiseError = err => Application.Current.Dispatcher.Invoke(() => Interactions.RaiseStatusBarError(err));
 
-                ActionDomain actionDomain = null;
-                QuerySet querySet = null;
-                Dictionary<object, int> queryOrder = null;
+                ActionDomain actionDomain;
+                QuerySet querySet;
+                Dictionary<object, int> queryOrder;
                 try
                 {
                     actionDomain = DynamicSystemParserUtils.ParseActionDomain(ActionAreaViewModel.ActionDomainInput);
@@ -166,10 +162,10 @@ namespace Client.ViewModel
                         .ToDictionary(v => v.Item1, v => v.Item2);
 
                     var queryResult = results.AccessibilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2))
-                            .Concat(results.ExistentialExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
-                            .Concat(results.ExistentialValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
-                            .Concat(results.GeneralExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
-                            .Concat(results.GeneralValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .Concat(results.ExistentialExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .Concat(results.ExistentialValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .Concat(results.GeneralExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .Concat(results.GeneralValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
                         .OrderBy(q => queryOrder[q.Item1])
                         .Select(qr => new QueryResultViewModel(qr.Item1, qr.Item2));
 
@@ -264,18 +260,20 @@ namespace Client.ViewModel
                 LanguageSignature.Clear();
                 ClearActionClauses();
                 ClearQueryClauses();
+                ClearActionInput();
+                ClearQueryInput();
             });
 
             RibbonViewModel.ImportFromFile.Subscribe(_ =>
             {
-                var serializationProvider = new SerializationProvider(this, new ScenarioSerializer());
-                serializationProvider.DeserializeScenario();
+                var serializationProvider = new SerializationProvider(this, new ScenarioSerializer(), new GrammarSerializer());
+                serializationProvider.DeserializeInput();
             });
 
             RibbonViewModel.ExportToFile.Subscribe(_ =>
-            {
-                var serializationProvider = new SerializationProvider(this, new ScenarioSerializer());
-                serializationProvider.SerializeScenario();
+            { 
+                var serializationProvider = new SerializationProvider(this, new ScenarioSerializer(), new GrammarSerializer());
+                serializationProvider.SerializeInput();
             });
 
             this.WhenAnyObservable(vm => vm.RibbonViewModel.SetEnglishLocale)
@@ -290,59 +288,31 @@ namespace Client.ViewModel
         public void ClearActionClauses()
         {
             ActionAreaViewModel.ActionDomain.Clear();
-            ActionAreaViewModel.ActionDomainInput = "";
         }
 
         /// <inheritdoc />
         public void ClearQueryClauses()
         {
             QueryAreaViewModel.QuerySet.Clear();
-            QueryAreaViewModel.QuerySetInput = "";
         }
 
         /// <inheritdoc />
-        public void ExtendActionClauses(string actionDomainInput)
-        {
-            if (!string.IsNullOrEmpty(actionDomainInput))
-            {
-                ActionAreaViewModel.ActionDomainInput = !string.IsNullOrEmpty(ActionAreaViewModel.ActionDomainInput)
-                    ? $"{ActionAreaViewModel.ActionDomainInput}{Environment.NewLine}{actionDomainInput}"
-                    : actionDomainInput;
-            }
-        }
-
-        /// <inheritdoc />
-        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses,
-            string actionDomainInput = null)
+        public void ExtendActionClauses(IEnumerable<IActionClauseViewModel> actionClauses)
         {
             if (actionClauses != null)
             {
                 ActionAreaViewModel.ActionDomain.AddRange(actionClauses);
             }
-
-            ExtendActionClauses(actionDomainInput);
         }
 
-        /// <inheritdoc />
-        public void ExtendQueryClauses(string querySetInput)
-        {
-            if (!string.IsNullOrEmpty(querySetInput))
-            {
-                QueryAreaViewModel.QuerySetInput = !string.IsNullOrEmpty(QueryAreaViewModel.QuerySetInput)
-                    ? $"{QueryAreaViewModel.QuerySetInput}{Environment.NewLine}{querySetInput}"
-                    : querySetInput;
-            }
-        }
 
         /// <inheritdoc />
-        public void ExtendQueryClauses(IEnumerable<IQueryClauseViewModel> queryClauses, string querySetInput = null)
+        public void ExtendQueryClauses(IEnumerable<IQueryClauseViewModel> queryClauses)
         {
             if (queryClauses != null)
             {
                 QueryAreaViewModel.QuerySet.AddRange(queryClauses);
             }
-
-            ExtendQueryClauses(querySetInput);
         }
 
         /// <inheritdoc />
@@ -358,9 +328,7 @@ namespace Client.ViewModel
                     Fluents = LanguageSignature.LiteralViewModels
                         .Select(x => ((IViewModelFor<Model.Fluent>) x).ToModel()).ToList(),
                     ActionDomain = ActionAreaViewModel.GetActionDomainModel(),
-                    ActionDomainInput = ActionAreaViewModel.ActionDomainInput,
                     QuerySet = QueryAreaViewModel.GetQuerySetModel(),
-                    QuerySetInput = QueryAreaViewModel.QuerySetInput
                 };
             }
             catch (MemberNotDefinedException ex)
@@ -370,5 +338,75 @@ namespace Client.ViewModel
 
             return scenario;
         }
+
+        /// <inheritdoc />
+        public void ClearActionInput()
+        {
+            ActionAreaViewModel.ActionDomainInput = "";
+        }
+
+        /// <inheritdoc />
+        public void ClearQueryInput()
+        {
+            QueryAreaViewModel.QuerySetInput = "";
+        }
+
+        /// <inheritdoc />
+        public void ExtendActionInput(string actionDomainInput)
+        {
+            if (!string.IsNullOrEmpty(actionDomainInput))
+            {
+                ActionAreaViewModel.ActionDomainInput = !string.IsNullOrEmpty(ActionAreaViewModel.ActionDomainInput)
+                    ? $"{ActionAreaViewModel.ActionDomainInput}{Environment.NewLine}{actionDomainInput}"
+                    : actionDomainInput;
+            }
+        }
+
+        /// <inheritdoc />
+        public void ExtendQueryInput(string querySetInput)
+        {
+            if (!string.IsNullOrEmpty(querySetInput))
+            {
+                QueryAreaViewModel.QuerySetInput = !string.IsNullOrEmpty(QueryAreaViewModel.QuerySetInput)
+                    ? $"{QueryAreaViewModel.QuerySetInput}{Environment.NewLine}{querySetInput}"
+                    : querySetInput;
+            }
+        }
+
+        /// <inheritdoc />
+        public GrammarInput GetCurrentGrammar()
+        {
+            GrammarInput grammarInput = null;
+
+            try
+            {
+                grammarInput = new GrammarInput()
+                {
+                    QuerySetInput = QueryAreaViewModel.QuerySetInput,
+                    ActionDomainInput = ActionAreaViewModel.ActionDomainInput
+                };
+            }
+            catch (MemberNotDefinedException ex)
+            {
+                Interactions.RaiseStatusBarError(ex.Message);
+            }
+
+            return grammarInput;
+        }
+
+        /// <inheritdoc />
+        public bool GrammarMode
+        {
+            get => ActionAreaViewModel.GrammarMode && QueryAreaViewModel.GrammarMode;
+            set
+            {
+                ActionAreaViewModel.GrammarMode = value;
+                QueryAreaViewModel.GrammarMode = value;
+
+                RibbonViewModel.IsGrammarTabSelected = value;
+                RibbonViewModel.IsEditTabSelected = !value;
+            }
+        }
+
     }
 }

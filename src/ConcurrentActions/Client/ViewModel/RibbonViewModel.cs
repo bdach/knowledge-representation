@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Windows.Documents;
 using Client.Abstract;
 using Client.Global;
 using Client.Interface;
@@ -154,7 +155,19 @@ namespace Client.ViewModel
         /// Command used to add a new empty compound action to a program.
         /// </summary>
         public ReactiveCommand<Unit, Unit> AddEmptyCompoundAction { get; protected set; }
+        #endregion
 
+        #region Properties
+        /// <summary>
+        /// Gets or sets whether edit tab is selected
+        /// </summary>
+        public bool IsEditTabSelected { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether grammar tab is selected
+        /// </summary>
+        public bool IsGrammarTabSelected { get; set; }
+  
         #endregion
 
         /// <summary>
@@ -176,7 +189,6 @@ namespace Client.ViewModel
             ExportToFile = ReactiveCommand.Create(() => Unit.Default);
             EditTabSelected = ReactiveCommand.Create(() => Unit.Default);
             GrammarTabSelected = ReactiveCommand.Create(() => Unit.Default);
-
             ShowAddFluentModal = ReactiveCommand.Create(() =>
             {
                 var modalView = (FluentModalView)Locator.Current.GetService<IViewFor<FluentModalViewModel>>();

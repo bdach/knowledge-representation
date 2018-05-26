@@ -663,4 +663,10 @@
   <data name="WindowTitle" xml:space="preserve">
     <value>WindowTitle</value>
   </data>
+  <data name="GrammarSerializationFailed" xml:space="preserve">
+    <value>GrammarSerializationFailed</value>
+  </data>
+  <data name="GrammarDeserializationFailed" xml:space="preserve">
+    <value>GrammarDeserializationFailed</value>
+  </data>
 </root>

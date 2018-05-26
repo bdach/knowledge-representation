@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Client.DataTransfer;
 using Client.Exception;
@@ -20,31 +21,36 @@ namespace Client.Provider
 {
     /// <inheritdoc />
     /// <summary>
-    /// Custom serialization helper used to serialize and deserialize <see cref="Scenario"/>
+    /// Custom serialization helper used to serialize and deserialize <see cref="Scenario"/>, <see cref="GrammarInput"/>
     /// instances. Can be also used as a plain converter from <see cref="Scenario"/> object
     /// to corresponding view models used by the editor via <see cref="IScenarioConverter"/> interface.
     /// </summary>
     /// <remarks>
     /// Instance of this class is used as an object that releases dependencies between
-    /// <see cref="ShellViewModel"/> referenced with <see cref="IScenarioOwner"/> interface 
+    /// <see cref="ShellViewModel"/> referenced with <see cref="IInputOwner"/> interface 
     /// and <see cref="ScenarioSerializer"/> and handles full conversion of a <see cref="Scenario"/>
     /// instance by implementing both mediator and visitor design patterns.
     /// 
     /// In case this object is going to be used as a converter only, <see cref="IScenarioOwner"/>
-    /// implementor  and <see cref="ScenarioSerializer"/> instances can be set to null explicitly
+    /// implementor, <see cref="ScenarioSerializer"/> and <see cref="GrammarSerializer"/> instances can be set to null explicitly
     /// or by use of default (parameterless) constructor.
     /// </remarks>
     public class SerializationProvider : IScenarioConverter
     {
         /// <summary>
-        /// Private <see cref="IScenarioOwner"/> implementor instance.
+        /// Private <see cref="IInputOwner"/> implementor instance.
         /// </summary>
-        private readonly IScenarioOwner _scenarioOwner;
+        private readonly IInputOwner _inputOwner;
 
         /// <summary>
         /// Private <see cref="ScenarioSerializer"/> instance.
         /// </summary>
         private readonly ScenarioSerializer _scenarioSerializer;
+
+        /// <summary>
+        /// Private <see cref="GrammarSerializer"/> instance.
+        /// </summary>
+        private readonly GrammarSerializer _grammarSerializer;
 
         /// <summary>
         /// Private <see cref="LanguageSignature"/> instance used during scenario conversion
@@ -67,42 +73,73 @@ namespace Client.Provider
 
         /// <summary>
         /// Initializes a new <see cref="SerializationProvider"/> instance
-        /// with the supplied <see cref="scenarioOwner"/> instance
-        /// and a default <see cref="ScenarioSerializer"/> instance.
+        /// with the supplied <see cref="inputOwner"/> instance
+        /// and default <see cref="ScenarioSerializer"/>, <see cref="GrammarSerializer"/> instances.
         /// </summary>
-        /// <param name="scenarioOwner">Current <see cref="IScenarioOwner"/> implementor instance.</param>
-        public SerializationProvider(IScenarioOwner scenarioOwner)
+        /// <param name="inputOwner">Current <see cref="IInputOwner"/> implementor instance.</param>
+        public SerializationProvider(IInputOwner inputOwner)
         {
-            _scenarioOwner = scenarioOwner;
+            _inputOwner = inputOwner;
             _scenarioSerializer = new ScenarioSerializer();
+            _grammarSerializer = new GrammarSerializer();
         }
 
         /// <summary>
         /// Initializes a new <see cref="SerializationProvider"/> instance
-        /// with the supplied <see cref="scenarioOwner"/> and <see cref="scenarioSerializer"/> instances.
+        /// with the supplied <see cref="inputOwner"/> and <see cref="scenarioSerializer"/>, <see cref="grammarSerializer"/>  instances.
         /// </summary>
-        /// <param name="scenarioOwner">Current <see cref="IScenarioOwner"/> implementor instance.</param>
+        /// <param name="inputOwner">Current <see cref="IInputOwner"/> implementor instance.</param>
         /// <param name="scenarioSerializer"><see cref="ScenarioSerializer"/> instance.</param>
-        public SerializationProvider(IScenarioOwner scenarioOwner, ScenarioSerializer scenarioSerializer)
+        /// <param name="grammarSerializer"><see cref="GrammarSerializer"/> instance.</param>
+        public SerializationProvider(IInputOwner inputOwner, ScenarioSerializer scenarioSerializer, GrammarSerializer grammarSerializer)
         {
-            _scenarioOwner = scenarioOwner;
+            _inputOwner = inputOwner;
             _scenarioSerializer = scenarioSerializer;
+            _grammarSerializer = grammarSerializer;
         }
 
         /// <summary>
-        /// Handles complete serialization of the currently defined scenario.
+        /// Handles complete serialization of the input from currently active mode.
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown when scenario owner or serializer instances are not defined.</exception>
-        public void SerializeScenario()
+        public void SerializeInput()
         {
             ValidateInstances();
 
             try
             {
-                var filepath = _scenarioSerializer.PromptSaveFile();
-                if (string.IsNullOrEmpty(filepath)) return;
-                var scenario = _scenarioOwner.GetCurrentScenario();
-                _scenarioSerializer.Serialize(scenario, filepath);
+                if (_inputOwner.GrammarMode)
+                {
+                    var filepath = _grammarSerializer.PromptSaveFile();
+                    if (string.IsNullOrEmpty(filepath)) return;
+
+                    var extension = Path.GetExtension(filepath);
+                    if (extension == ".txt")
+                    {
+                        var grammar = _inputOwner.GetCurrentGrammar();
+                        _grammarSerializer.Serialize(grammar, filepath);
+                    }
+                    else
+                    {
+                        throw new SerializationException("GrammarSerializationException");
+                    }
+                }
+                else
+                {
+                    var filepath = _scenarioSerializer.PromptSaveFile();
+                    if (string.IsNullOrEmpty(filepath)) return;
+
+                    var extension = Path.GetExtension(filepath);
+                    if (extension == ".xml")
+                    {
+                        var scenario = _inputOwner.GetCurrentScenario();
+                        _scenarioSerializer.Serialize(scenario, filepath);
+                    }
+                    else
+                    {
+                        throw new SerializationException("ScenarioSerializationException");
+                    }
+                }
             }
             catch (SerializationException ex)
             {
@@ -111,44 +148,63 @@ namespace Client.Provider
         }
 
         /// <summary>
-        /// Handles complete deserialization of scenario defined in a file
-        /// and populates the <see cref="IScenarioOwner"/> implementor instance accordingly.
+        /// Handles complete deserialization of input defined in a file
+        /// and populates the <see cref="IInputOwner"/> implementor instance accordingly.
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown when scenario owner or serializer instances are not defined.</exception>
-        public void DeserializeScenario()
+        public void DeserializeInput()
         {
             ValidateInstances();
 
-            Scenario scenario;
-            LanguageSignature languageSignature;
-            IEnumerable<IActionClauseViewModel> actionClauses;
-            IEnumerable<IQueryClauseViewModel> queryClauses;
-
             try
             {
-                var filepath = _scenarioSerializer.PromptOpenFile();
+                var filepath = _inputOwner.GrammarMode ? _grammarSerializer.PromptOpenFile() : _scenarioSerializer.PromptOpenFile();
                 if (string.IsNullOrEmpty(filepath)) return;
-                scenario = _scenarioSerializer.Deserialize(filepath);
 
-                languageSignature = GetLanguageSignature(scenario);
-                actionClauses = GetActionClauseViewModels(scenario);
-                queryClauses = GetQueryClauseViewModels(scenario);
+                var extension = Path.GetExtension(filepath);
+                if (extension == ".xml")
+                {
+                    var scenario = _scenarioSerializer.Deserialize(filepath);
+
+                    var languageSignature = GetLanguageSignature(scenario);
+                    var actionClauses = GetActionClauseViewModels(scenario);
+                    var queryClauses = GetQueryClauseViewModels(scenario);
+
+                    var currentSignature = Locator.Current.GetService<LanguageSignature>();
+                    currentSignature.Clear();
+                    currentSignature.Extend(languageSignature);
+
+                    _inputOwner.ClearActionClauses();
+                    _inputOwner.ExtendActionClauses(actionClauses);
+
+                    _inputOwner.ClearQueryClauses();
+                    _inputOwner.ExtendQueryClauses(queryClauses);
+
+                    _inputOwner.GrammarMode = false;
+                }
+                else if (extension == ".txt")
+                {
+                    var grammar = _grammarSerializer.Deserialize(filepath);
+
+                    _inputOwner.ClearQueryInput();
+                    _inputOwner.ExtendQueryInput(grammar.QuerySetInput);
+
+                    _inputOwner.ClearActionInput();
+                    _inputOwner.ExtendActionInput(grammar.ActionDomainInput);
+
+                    _inputOwner.GrammarMode = true;
+                }
+                else
+                {
+                    throw new SerializationException(_inputOwner.GrammarMode ?
+                        "GrammarDeserializationFailed" : "ScenarioDeserializationFailed");
+                }
             }
             catch (SerializationException ex)
             {
                 Interactions.RaiseStatusBarError(ex.Message);
-                return;
             }
 
-            var currentSignature = Locator.Current.GetService<LanguageSignature>();
-            currentSignature.Clear();
-            currentSignature.Extend(languageSignature);
-
-            _scenarioOwner.ClearActionClauses();
-            _scenarioOwner.ExtendActionClauses(actionClauses, scenario.ActionDomainInput);
-
-            _scenarioOwner.ClearQueryClauses();
-            _scenarioOwner.ExtendQueryClauses(queryClauses, scenario.QuerySetInput);
         }
 
         /// <summary>
@@ -158,7 +214,7 @@ namespace Client.Provider
         /// <exception cref="InvalidOperationException">Thrown when scenario owner or serializer instances are not defined.</exception>
         private void ValidateInstances()
         {
-            if (_scenarioOwner == null)
+            if (_inputOwner == null)
             {
                 throw new InvalidOperationException("IScenarioOwner implementor instance is not defined");
             }
@@ -166,6 +222,11 @@ namespace Client.Provider
             if (_scenarioSerializer == null)
             {
                 throw new InvalidOperationException("ScenarioSerializer instance is not defined");
+            }
+
+            if (_grammarSerializer == null)
+            {
+                throw new InvalidOperationException("GrammarSerializer instance is not defined");
             }
         }
 
@@ -730,7 +791,7 @@ namespace Client.Provider
                     {
                         throw new SerializationException("ImplicationAntecedentError");
                     }
-                    
+
                     if (implication.Consequent == null)
                     {
                         throw new SerializationException("ImplicationConsequentError");

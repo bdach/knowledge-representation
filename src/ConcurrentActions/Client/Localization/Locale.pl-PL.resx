@@ -620,11 +620,17 @@ necessary fluent after ({actionA, actionB})</value>
   <data name="ScenarioDeserializationFailed" xml:space="preserve">
     <value>Deserializacja wskazanego scenariusza nie powiodła się</value>
   </data>
+  <data name="GrammarDeserializationFailed" xml:space="preserve">
+    <value>Deserializacja wskazanego scenariusza tekstowego nie powiodła się</value>
+  </data>
   <data name="ScenarioRebuildingError" xml:space="preserve">
     <value>Odbudowanie dostarczonego scenariusza nie jest możliwe</value>
   </data>
   <data name="ScenarioSerializationFailed" xml:space="preserve">
     <value>Serializacja obecnego scenariusza nie powiodła się</value>
+  </data>
+  <data name="GrammarSerializationFailed" xml:space="preserve">
+    <value>Serializacja obecnego scenariusza tekstowego nie powiodła się</value>
   </data>
   <data name="SystemGroupBox" xml:space="preserve">
     <value>System dynamiczny</value>
