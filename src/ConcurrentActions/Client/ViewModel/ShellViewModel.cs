@@ -17,15 +17,12 @@ using Client.ViewModel.Formula;
 using Client.ViewModel.Grammar;
 using Client.ViewModel.Terminal;
 using DynamicSystem;
-using DynamicSystem.DNF;
 using DynamicSystem.Grammar;
 using Model;
 using Model.ActionLanguage;
-using Model.Forms;
 using Model.QueryLanguage;
 using ReactiveUI;
 using Splat;
-using Action = Model.Action;
 
 namespace Client.ViewModel
 {
@@ -99,12 +96,11 @@ namespace Client.ViewModel
 
             RibbonViewModel.PerformGrammarCalculations = ReactiveCommand.CreateFromTask(() => Task.Run(() =>
             {
-                Action<string> raiseError = err =>
-                    Application.Current.Dispatcher.Invoke(() => Interactions.RaiseStatusBarError(err));
+                Action<string> raiseError = err => Application.Current.Dispatcher.Invoke(() => Interactions.RaiseStatusBarError(err));
 
-                ActionDomain actionDomain = null;
-                QuerySet querySet = null;
-                Dictionary<object, int> queryOrder = null;
+                ActionDomain actionDomain;
+                QuerySet querySet;
+                Dictionary<object, int> queryOrder;
                 try
                 {
                     actionDomain = DynamicSystemParserUtils.ParseActionDomain(ActionAreaViewModel.ActionDomainInput);
@@ -166,10 +162,10 @@ namespace Client.ViewModel
                         .ToDictionary(v => v.Item1, v => v.Item2);
 
                     var queryResult = results.AccessibilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2))
-                            .Concat(results.ExistentialExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
-                            .Concat(results.ExistentialValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
-                            .Concat(results.GeneralExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
-                            .Concat(results.GeneralValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .Concat(results.ExistentialExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .Concat(results.ExistentialValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .Concat(results.GeneralExecutabilityQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
+                        .Concat(results.GeneralValueQueryResults.Select(r => (r.Item1.ToString(), r.Item2)))
                         .OrderBy(q => queryOrder[q.Item1])
                         .Select(qr => new QueryResultViewModel(qr.Item1, qr.Item2));
 
@@ -264,6 +260,8 @@ namespace Client.ViewModel
                 LanguageSignature.Clear();
                 ClearActionClauses();
                 ClearQueryClauses();
+                ClearActionInput();
+                ClearQueryInput();
             });
 
             RibbonViewModel.ImportFromFile.Subscribe(_ =>
