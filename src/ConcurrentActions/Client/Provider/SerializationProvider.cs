@@ -194,7 +194,7 @@ namespace Client.Provider
                 else
                 {
                     throw new SerializationException(_inputOwner.GrammarMode ? 
-                        "GrammarDeserializationException" : "ScenarioDeserializationException");
+                        "GrammarDeserializationFailed" : "ScenarioDeserializationFailed");
                 }
             }
             catch (SerializationException ex)
