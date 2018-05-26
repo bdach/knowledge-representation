@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Shapes;
 using Client.DataTransfer;
 using Client.Exception;
 using Microsoft.Win32;
-using XSerializer;
 
 namespace Client.Provider
 {
@@ -21,11 +18,14 @@ namespace Client.Provider
         private readonly string _defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
         /// <summary>
-        /// Initializes a new <see cref="Client.Provider.GrammarSerializer"/> instance.
+        /// Array of action domain keywords.
         /// </summary>
-        public GrammarSerializer()
-        {
-        }
+        private static readonly string[] ActionDomainKeyWords = { "causes", "impossible", "releases", "always", "noninertial", "initially", "observable", "after" };
+
+        /// <summary>
+        /// Array of query set keywords.
+        /// </summary>
+        private static readonly string[] QuerySetKeyWords = { "accessible", "executable", "possibly", "necessary" };
 
         /// <summary>
         /// Serializes given <see cref="GrammarInput"/> instance into a file with given name.
@@ -53,9 +53,6 @@ namespace Client.Provider
                 writer.Close();
             }
         }
-
-        private static readonly string[] ActionDomainKeyWords = {"causes","impossible","releases","always","noninertial","initially","observable","after"};
-        private static readonly string[] QuerySetKeyWords = { "accessible", "executable", "possibly", "necessary" };
 
         /// <summary>
         /// Deserializes a <see cref="GrammarInput"/> instance from a designated file.
@@ -124,7 +121,7 @@ namespace Client.Provider
                 RestoreDirectory = true,
                 Filter = "TXT|*.txt",
                 DefaultExt = "txt",
-                Title = "Save GrammarInput File"
+                Title = "Save Grammar Input File"
             };
 
             return dialog.ShowDialog() == true ? dialog.FileName : null;
@@ -140,9 +137,9 @@ namespace Client.Provider
             {
                 InitialDirectory = _defaultPath,
                 RestoreDirectory = true,
-                Filter = "TXT|*.txt| XML|*.xml",
+                Filter = "TXT|*.txt|XML|*.xml",
                 DefaultExt = "txt",
-                Title = "Open GrammarInput File"
+                Title = "Open Grammar Input File"
             };
 
             return dialog.ShowDialog() == true ? dialog.FileName : null;

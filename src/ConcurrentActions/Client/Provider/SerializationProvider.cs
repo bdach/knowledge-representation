@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Navigation;
 using Client.DataTransfer;
 using Client.Exception;
 using Client.Global;
@@ -121,7 +120,9 @@ namespace Client.Provider
                         _grammarSerializer.Serialize(grammar, filepath);
                     }
                     else
+                    {
                         throw new SerializationException("GrammarSerializationException");
+                    }
                 }
                 else
                 {
@@ -135,7 +136,9 @@ namespace Client.Provider
                         _scenarioSerializer.Serialize(scenario, filepath);
                     }
                     else
+                    {
                         throw new SerializationException("ScenarioSerializationException");
+                    }
                 }
             }
             catch (SerializationException ex)
@@ -155,7 +158,7 @@ namespace Client.Provider
 
             try
             {
-                var filepath =  _inputOwner.GrammarMode ? _grammarSerializer.PromptOpenFile() : _scenarioSerializer.PromptOpenFile();
+                var filepath = _inputOwner.GrammarMode ? _grammarSerializer.PromptOpenFile() : _scenarioSerializer.PromptOpenFile();
                 if (string.IsNullOrEmpty(filepath)) return;
 
                 var extension = Path.GetExtension(filepath);
@@ -179,7 +182,7 @@ namespace Client.Provider
 
                     _inputOwner.GrammarMode = false;
                 }
-                else if(extension == ".txt")
+                else if (extension == ".txt")
                 {
                     var grammar = _grammarSerializer.Deserialize(filepath);
 
@@ -193,14 +196,13 @@ namespace Client.Provider
                 }
                 else
                 {
-                    throw new SerializationException(_inputOwner.GrammarMode ? 
+                    throw new SerializationException(_inputOwner.GrammarMode ?
                         "GrammarDeserializationFailed" : "ScenarioDeserializationFailed");
                 }
             }
             catch (SerializationException ex)
             {
                 Interactions.RaiseStatusBarError(ex.Message);
-                return;
             }
 
         }
@@ -789,7 +791,7 @@ namespace Client.Provider
                     {
                         throw new SerializationException("ImplicationAntecedentError");
                     }
-                    
+
                     if (implication.Consequent == null)
                     {
                         throw new SerializationException("ImplicationConsequentError");

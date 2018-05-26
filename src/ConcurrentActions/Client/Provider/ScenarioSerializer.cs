@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Windows.Shapes;
 using Client.DataTransfer;
 using Client.Exception;
 using Microsoft.Win32;
@@ -121,7 +118,7 @@ namespace Client.Provider
             {
                 InitialDirectory = _defaultPath,
                 RestoreDirectory = true,
-                Filter = "XML|*.xml| TXT|*.txt",
+                Filter = "XML|*.xml|TXT|*.txt",
                 DefaultExt = "xml",
                 Title = "Open Scenario File"
             };
