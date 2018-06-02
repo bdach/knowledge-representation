@@ -83,6 +83,7 @@
     <Compile Include="DNF\Visitors\SimplifyingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\VisitorTestUtils.cs" />
     <Compile Include="NewGeneration\NewGenerationLightTest.cs" />
+    <Compile Include="QueryResolver\NoninertialTest.cs" />
     <Compile Include="QueryResolver\ProducerConsumerTest.cs" />
     <Compile Include="MinimizeNew\TestCases\ITransitionFunctionGenerationTestCase.cs" />
     <Compile Include="MinimizeNew\TestCases\ProducerAndConsumerTransitionFunctionGenerationTestCase.cs" />
