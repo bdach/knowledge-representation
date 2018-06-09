@@ -249,7 +249,7 @@ namespace DynamicSystem.QueriesEvaluation
             {
                 HashSet<State> possibleStates = transitionFunction[action, currentState];
 
-                bool fromEveryStateThereIsAPathToPositiveEnding = true;
+                bool thereIsAPathToPositiveEnding = false;
                 bool atLeastOneState = false;
 
                 foreach (var state in possibleStates)
@@ -260,14 +260,14 @@ namespace DynamicSystem.QueriesEvaluation
                     }
                     atLeastOneState = true;
                     bool result = AccessibilityQueryRecursion(newVisitedStates, state, transitionFunction, query);
-                    if (!result)
+                    if (result)
                     {
-                        fromEveryStateThereIsAPathToPositiveEnding = false;
+                        thereIsAPathToPositiveEnding = true;
                         break;
                     }
                 }
 
-                if (fromEveryStateThereIsAPathToPositiveEnding && atLeastOneState)
+                if (thereIsAPathToPositiveEnding && atLeastOneState)
                 {
                     atLeastOneActionLeadsToPositiveEnding = true;
                     break;
