@@ -114,14 +114,12 @@ namespace Client.ViewModel.QueryLanguage
             return new ExistentialExecutabilityQueryViewModel();
         }
 
-        // TODO: this should be cleared upon any changes
         /// <inheritdoc />
         public bool? Result { get; set; }
 
         /// <inheritdoc />
         public void AcceptResult(QueryResolution results)
         {
-            // TODO: SUPER dirty
             Result = results.ExistentialExecutabilityQueryResults.First().Item2;
             results.ExistentialExecutabilityQueryResults.RemoveAt(0);
         }

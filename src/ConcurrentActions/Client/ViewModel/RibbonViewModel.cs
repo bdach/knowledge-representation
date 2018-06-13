@@ -126,21 +126,11 @@ namespace Client.ViewModel
         /// <summary>
         /// Read-only collection of all available action clause types.
         /// </summary>
-        /// <remarks>
-        /// Fun fact: I tried to leave this out and bind onto a static property in the view.
-        /// Unfortunately ReactiveUI shat itself when I tried to do that, but this works, so here you go.
-        /// TODO: potentially get this outta here
-        /// </remarks>
         public ReadOnlyCollection<IActionClauseViewModel> ActionClauseTypes { get; } = ClauseTypes.GetAllImplementors<IActionClauseViewModel>();
 
         /// <summary>
         /// Read-only collection of all available query clause types.
         /// </summary>
-        /// <remarks>
-        /// Fun fact: I tried to leave this out and bind onto a static property in the view.
-        /// Unfortunately ReactiveUI shat itself when I tried to do that, but this works, so here you go.
-        /// TODO: potentially get this outta here
-        /// </remarks>
         public ReadOnlyCollection<IQueryClauseViewModel> QueryClauseTypes { get; } = ClauseTypes.GetAllImplementors<IQueryClauseViewModel>();
 
         /// <summary>
@@ -220,7 +210,6 @@ namespace Client.ViewModel
             LocalizeGroupName = obj => LocalizationProvider.Instance[((IClauseViewModel)obj).ClauseTypeNameKey];
             CancelCalculations = ReactiveCommand.Create(() => Unit.Default);
 
-            // TODO: fix this (maybe?)
             // force switch to new language
             LocalizationProvider.Instance.PropertyChanged += (sender, args) =>
             {

@@ -66,7 +66,6 @@ namespace Client.ViewModel.ActionLanguage
                 .Where(_ => AnyChildFocused)
                 .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddActionError"));
 
-            // TODO: wrong user choice COULD be handled here somehow, but *I'm* NOT doing it
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(
                 fluent => fluent,
                 this.WhenAnyValue(v => v.Fluent.IsFocused)

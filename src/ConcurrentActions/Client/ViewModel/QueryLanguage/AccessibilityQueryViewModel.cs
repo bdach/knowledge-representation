@@ -105,14 +105,12 @@ namespace Client.ViewModel.QueryLanguage
             return new AccessibilityQueryViewModel();
         }
 
-        // TODO: this should be cleared upon any changes
         /// <inheritdoc />
         public bool? Result { get; set; }
 
         /// <inheritdoc />
         public void AcceptResult(QueryResolution results)
         {
-            // TODO: SUPER dirty
             Result = results.AccessibilityQueryResults.First().Item2;
             results.AccessibilityQueryResults.RemoveAt(0);
         }

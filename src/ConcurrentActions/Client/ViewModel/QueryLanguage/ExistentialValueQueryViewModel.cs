@@ -148,14 +148,12 @@ namespace Client.ViewModel.QueryLanguage
             return new ExistentialValueQueryViewModel();
         }
 
-        // TODO: this should be cleared upon any changes
         /// <inheritdoc />
         public bool? Result { get; set; }
 
         /// <inheritdoc />
         public void AcceptResult(QueryResolution results)
         {
-            // TODO: SUPER dirty
             Result = results.ExistentialValueQueryResults.First().Item2;
             results.ExistentialValueQueryResults.RemoveAt(0);
         }

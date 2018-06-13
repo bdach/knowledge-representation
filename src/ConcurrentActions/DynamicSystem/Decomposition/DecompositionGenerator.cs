@@ -28,7 +28,6 @@ namespace DynamicSystem.Decomposition
                 if (!list.AllPairs().Any(pair => pair.a.IsConflicting(pair.b, state, domain)))
                     result.Add(list);
                 //Generate new lists with one less element
-                //TODO: Maybe don't generate duplicates?
                 foreach (var action in list)
                 {
                     listQueue.Enqueue(new HashSet<Action>(list.Where(l => !l.Equals(action))));

@@ -72,7 +72,6 @@ namespace Client.ViewModel.ActionLanguage
                 .Where(_ => Postcondition.AnyChildFocused)
                 .Subscribe(_ => Interactions.RaiseStatusBarError("CannotAddActionError"));
 
-            // TODO: wrong user choice COULD be handled here somehow, but *I'm* NOT doing it
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);

@@ -67,7 +67,6 @@ namespace Client.ViewModel.ActionLanguage
             );
             AddAction.BindTo(this, vm => vm.Action);
 
-            // TODO: wrong user choice COULD be handled here somehow, but *I'm* NOT doing it
             AddFluent = ReactiveCommand.Create<LiteralViewModel, LiteralViewModel>(fluent => fluent);
 
             AddFormula = ReactiveCommand.Create<IFormulaViewModel, IFormulaViewModel>(formula => formula);

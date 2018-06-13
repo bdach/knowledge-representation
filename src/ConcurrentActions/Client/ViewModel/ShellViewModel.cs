@@ -79,7 +79,6 @@ namespace Client.ViewModel
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
             
-            // TODO: for larger examples this could take a while, so entertain the user somehow
             RibbonViewModel.PerformCalculations = ReactiveCommand.CreateFromObservable(() => Observable.StartAsync(token => Task.Run(() =>
             {
                 var scenario = GetCurrentScenario();

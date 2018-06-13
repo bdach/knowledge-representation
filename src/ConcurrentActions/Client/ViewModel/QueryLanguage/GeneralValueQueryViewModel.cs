@@ -147,14 +147,12 @@ namespace Client.ViewModel.QueryLanguage
             return new GeneralValueQueryViewModel();
         }
 
-        // TODO: this should be cleared upon any changes
         /// <inheritdoc />
         public bool? Result { get; set; }
 
         /// <inheritdoc />
         public void AcceptResult(QueryResolution results)
         {
-            // TODO: SUPER dirty
             Result = results.GeneralValueQueryResults.First().Item2;
             results.GeneralValueQueryResults.RemoveAt(0);
         }
