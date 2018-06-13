@@ -9,6 +9,9 @@
 \usepackage{tabularx}
 \usepackage[hidelinks]{hyperref}
 \usepackage[polish]{babel}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{2mm}
 \begin{document}
 
 \title{Reprezentacja wiedzy \\
@@ -33,6 +36,69 @@
 \section{Instrukcja obsługi}
 
 \section{Raport z~przeprowadzonych testów}
+
+Zadaniem zespołu było przetestowanie aplikacji opracowanej przez~grupę nr~3.
+Tematem projektu nr~3 były \textbf{programy działań w~środowisku wieloagentowym}.
+
+Zespół nr~3 przekazał wersję aplikacji do~testów 4~czerwca.
+W~trakcie analizy dokumentacji i~programu wyszczególnione zostały następujące uwagi:
+
+\begin{itemize}
+    \item \textbf{Edytor czasem nie wprowadza zmian w~formułach i~kwerendach} \\
+    Po~użyciu przycisku do~edycji zdań w~scenariuszu pojawia~się okno dialogowe pozwalające na~zmianę zawartości zdania.
+    Po~wprowadzeniu żądanych zmian i~wciśnięciu \emph{Ok} zmiany nie~pojawiają~się w~głównym oknie aplikacji.
+    Przy ponownej próbie edycji tego samego zdania wprowadzone zmiany są~jednak widoczne.
+
+    Wciśnięcie przycisku odświeżania po~prawej stronie opcji \emph{Result} w~oknie dialogowym powoduje, że~wprowadzone zmiany są~widoczne wszędzie, lecz naszym zdaniem nie~jest intuicyjne.
+    \item \textbf{Awaria aplikacji po~usunięciu wszystkich fluentów i~agentów} \\
+    Po~usunięciu wszystkich fluentów i~agentów ze~scenariusza i~wciśnięciu przycisku \emph{Compute} program niespodziewanie się wyłącza.
+    \item \textbf{Nazwy fluentów, akcji i~agentów nie~są~unikalne, powodują awarię aplikacji} \\
+    Możliwe jest dodanie fluentu, akcji i~agenta o~tej samej nazwie, co~jeden z~istniejących.
+    Po~dodaniu duplikatu i~wciśnięciu przycisku \emph{Compute} program niespodziewanie się wyłącza.
+    \item \textbf{Błędny wynik zapytania w~historyjce 1. w~porównaniu z~wynikiem w~dokumentacji} \\
+    W historyjce 1, w dokumentacji zapytanie: 
+    $$\textbf{necessary accessible} \; (M_l) \; \textbf{from} \; (\neg M_l) \; \textbf{by} \; {M}$$
+    ma wynik \textsc{False}, podczas gdy w~programie zwrócone jest \textsc{True}, mimo że formuły w~dokumentacji i~programie są~takie same dla~historyjki~1.
+    \item \textbf{Awaria aplikacji po~zmianie typu istniejącej kwerendy} \\
+    Przy~edycji dowolnej kwerendy, zmiana jej~typu, wciśnięcie \emph{Ok}, a~następnie \emph{Compute} powoduje nieoczekiwany błąd programu.
+    \item \textbf{Błędne wyniki kwerend po~modyfikacji historii~1.} \\
+    Jeśli po~załadowaniu w~programie historii~1. usuniemy zdanie
+    $$\textsc{Attack} \; \textbf{by} \; (M) \; \textbf{releases} \; S_i \; \textbf{if} \; (M_l, S_i) $$
+    zmienimy formułę $ \textbf{initially} \; S_i $ na $ \textbf{initially} \; \neg S_i $ i~wciśniemy \emph{Compute}, to~zapytanie
+    $$ \textbf{possibly} \; \neg S_i \; \textbf{after} \; (\textsc{Attack} \; \textbf{by} \; (M)) \; \textbf{from} \; (M_i) $$
+    zwróci wynik \textsc{False}, chociaż oczekiwany jest wynik \textsc{True}, ponieważ $S_i$ ma~wartość początkową \textsc{False}.
+    Natomiast wstawienie zapytania
+    $$ \textbf{necessary} \; \neg S_i \; \textbf{after} \; (\textsc{Attack} \; \textbf{by} \; (M)) \; \textbf{from} \; (M_i) $$
+    powoduje nieoczekiwane zakończenie programu.
+    \item \textbf{Sprzeczne definicje prawdziwości zdania impossible} \\
+    Na~stronie~5. dokumentacji dana jest definicja prawdziwości zdania \textbf{impossible}:
+
+    \framebox[\textwidth]{
+        \begin{minipage}{0.8\textwidth}
+            Wyrażenie $(\textbf{impossible} \; A \; \textbf{by} \; G \; \textbf{if} \; \pi)$ jest prawdziwe w~$S$ wtedy i~tylko wtedy, gdy
+            \begin{equation*}
+                \forall \sigma \models \pi \rightarrow Res(A, G, \sigma) = \{ \sigma \}
+            \end{equation*}
+        \end{minipage}
+    }
+
+    Natomiast ponieważ zdanie
+    $$\textbf{impossible} \; A \; \textbf{by} \; G \; \textbf{if} \; \pi$$
+    jest alternatywnym zapisem zdania
+    $$A \; \textbf{by} \; G \; \textbf{causes} \; \bot \; \textbf{if} \; \pi$$
+    to z~definicji funkcji ${Res}_0$ wynika, że~dla~akcji $A$ objętej zdaniem \textbf{impossible}, pod~warunkiem spełnienia warunku wstępnego~$\pi$, dla~dowolnego stanu $\sigma'$ następnik implikacji w~definicji ${Res}_0$ jest fałszywy, zatem
+    $${Res}_0(A,G,\sigma') = Res(A,G,\sigma') = \emptyset$$
+    \item \textbf{Historia 2. --- wynik sprzeczny z~grafem przejść w~dokumentacji} \\
+    Dla~przykładu~2. (sekcja~4. w~dokumentacji) graf funkcji przejścia przedstawiony w~podsekcji~4.7. pokazuje, że ze~stanu $(L, P)$ nie~powinno być możliwe osiągnięcie stanu $(\neg L, P)$ Tymczasem wprowadzenie do~programu kwerend postaci
+    $$ \textbf{possibly accessible} \; (\neg L, P) \; \textbf{from} \; (L, P) \; \textbf{by} \; \{ J \} $$
+    $$ \textbf{necessary accessible} \; (\neg L, P) \; \textbf{from} \; (L, P) \; \textbf{by} \; \{ J \} $$
+    powoduje uzyskanie dwóch wyników \textsc{True}.
+    \item \textbf{Edytor scenariusza nie~pozwala na~wprowadzenie dowolnej formuły} \\
+    Dokumentacja specyfikuje, że w zdaniach wartości, obserwacji, ograniczeń i efektu można wstawiać formuły logiczne.
+    Edytor zdań scenariusza pozwala jednak tylko na wstawianie literałów.
+    \item \textbf{Brak opisu fluentu, akcji lub agenta powoduje awarię aplikacji} \\
+    Usunięcie wszystkich agentów, formuł i~akcji, dodanie nowych bez~opisu, a~następnie naciśnięcie przycisku \emph{Compute} program niespodziewanie~się wyłącza.
+\end{itemize}
 
 \section{Zgłoszone błędy w~aplikacji}
 
