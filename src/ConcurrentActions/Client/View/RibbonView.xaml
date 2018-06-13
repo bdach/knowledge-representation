@@ -334,7 +334,7 @@
                     Header="{local:Loc ActionDomainGroupBox}">
 
                     <fluent:DropDownButton
-                        Style="{DynamicResource RibbonLargeWideDropDown}"
+                        Style="{DynamicResource RibbonLargeMediumDropDown}"
                         KeyTip="D"
                         Name="AddActionClauseDropDown"
                         Header="{local:Loc AddActionStatementDropDown}"
@@ -412,7 +412,7 @@
                     Header="{local:Loc SystemGroupBox}">
 
                     <fluent:Button
-                        Style="{DynamicResource RibbonLargeWideButton}"
+                        Style="{DynamicResource RibbonLargeSlimButton}"
                         KeyTip="R"
                         Name="CalculateButton"
                         Header="{local:Loc CalculateButton}"
@@ -429,20 +429,19 @@
 
                     </fluent:Button>
 
-                    <!-- TODO stringi do resx -->
                     <fluent:Button
-                        Style="{DynamicResource RibbonLargeWideButton}"
-                        KeyTip="R"
+                        Style="{DynamicResource RibbonLargeSlimButton}"
+                        KeyTip="V"
                         Name="CancelCalculationsButton"
-                        Header="Zatrzymaj obliczenia"
-                        Icon="/Client;component/Resources/Images/calculate-64.png"
-                        LargeIcon="/Client;component/Resources/Images/calculate-128.png">
+                        Header="{local:Loc CancelButton}"
+                        Icon="/Client;component/Resources/Images/cancel-64.png"
+                        LargeIcon="/Client;component/Resources/Images/cancel-128.png">
 
                         <fluent:Button.ToolTip>
 
                             <fluent:ScreenTip
-                                Title="Zatrzymaj obliczenia"
-                                Text="Zatrzymuje obecnie trwające obliczenia." />
+                                Title="{local:Loc CancelButton}"
+                                Text="{local:Loc CancelButtonScreenTip}" />
 
                         </fluent:Button.ToolTip>
 

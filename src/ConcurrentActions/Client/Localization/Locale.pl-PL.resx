@@ -704,4 +704,10 @@ necessary fluent after ({actionA, actionB})</value>
   <data name="WindowTitle" xml:space="preserve">
     <value> Akcje równoległe</value>
   </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Zatrzymaj obliczenia</value>
+  </data>
+  <data name="CancelButtonScreenTip" xml:space="preserve">
+    <value>Zatrzymuje obecnie wykonywane obliczenia systemu dynamicznego.</value>
+  </data>
 </root>

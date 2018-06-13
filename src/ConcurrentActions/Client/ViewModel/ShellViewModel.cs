@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -89,7 +88,6 @@ namespace Client.ViewModel
                     var signature = new Signature(scenario.Fluents, scenario.Actions);
                     return QueryResolver.ResolveQueries(signature, scenario.ActionDomain, scenario.QuerySet);
                 }
-
                 return null;
             }, token)).TakeUntil(RibbonViewModel.CancelCalculations));
             RibbonViewModel.PerformCalculations
@@ -104,6 +102,7 @@ namespace Client.ViewModel
                 ActionDomain actionDomain;
                 QuerySet querySet;
                 Dictionary<object, int> queryOrder;
+
                 try
                 {
                     actionDomain = DynamicSystemParserUtils.ParseActionDomain(ActionAreaViewModel.ActionDomainInput);
