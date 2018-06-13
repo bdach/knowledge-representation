@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DynamicSystem.Decomposition;
 using Model;
 using Model.ActionLanguage;
+using Model.Forms;
 
 namespace DynamicSystem.ResZero
 {
@@ -24,6 +26,12 @@ namespace DynamicSystem.ResZero
             {
                 foreach (var state in states)
                 {
+                    if (compoundAction.Actions
+                        .Any(ac => actionDomain.EffectStatements
+                            .Any(s => s.Action.Equals(ac) && s.Precondition.Evaluate(state) && s.Postcondition.Equals(Constant.Falsity))))
+                    {
+                        continue;
+                    }
                     var decompositions = decompositionGenerator.GetDecompositions(actionDomain, compoundAction.Actions, state);
                     var resultStates = new HashSet<State>();
                     foreach (var decomposition in decompositions)

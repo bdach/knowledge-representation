@@ -39,11 +39,11 @@ namespace Test.QueryResolver
 
             // Put causes ~bufferEmpty if bufferEmpty
             actionDomain.EffectStatements.Add(
-                new EffectStatement(put, notBufferEmpty, bufferEmpty)
+                new EffectStatement(put, bufferEmpty, notBufferEmpty)
             );
             // Get causes bufferEmpty & hasItem if ~bufferEmpty & ~hasItem
             actionDomain.EffectStatements.Add(
-                new EffectStatement(get, new Conjunction(bufferEmpty, hasItem), new Conjunction(notBufferEmpty, notHasItem))
+                new EffectStatement(get, new Conjunction(notBufferEmpty, notHasItem), new Conjunction(bufferEmpty, hasItem))
             );
             // Consume causes hasItem
             actionDomain.EffectStatements.Add(
