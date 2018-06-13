@@ -92,7 +92,8 @@ namespace Client.ViewModel
             RibbonViewModel.PerformCalculations
                 .Where(results => results != null)
                 .Subscribe(results => QueryAreaViewModel.AcceptResults(results));
-            RibbonViewModel.ThrownExceptions.Subscribe(e => Debugger.Break());
+            RibbonViewModel.PerformCalculations.ThrownExceptions.Subscribe(ex =>
+                Interactions.RaiseStatusBarError(ex.Message));
 
             RibbonViewModel.PerformGrammarCalculations = ReactiveCommand.CreateFromObservable(() => Observable.StartAsync(token => Task.Run(() =>
             {
@@ -153,6 +154,8 @@ namespace Client.ViewModel
                 var signature = new Signature(actionDomainFluents, actionDomainActions);
                 return new Tuple<QueryResolution, Dictionary<object ,int>>(QueryResolver.ResolveQueries(signature, actionDomain, querySet), queryOrder);
             }, token)).TakeUntil(RibbonViewModel.CancelCalculations));
+            RibbonViewModel.PerformGrammarCalculations.ThrownExceptions.Subscribe(ex =>
+                Interactions.RaiseStatusBarError(ex.Message));
 
             RibbonViewModel.PerformGrammarCalculations
                 .Where(results => results != null)
@@ -319,25 +322,14 @@ namespace Client.ViewModel
         /// <inheritdoc />
         public Scenario GetCurrentScenario()
         {
-            Scenario scenario = null;
-
-            try
+            return new Scenario
             {
-                scenario = new Scenario
-                {
-                    Actions = LanguageSignature.ActionViewModels.Select(x => x.ToModel()).ToList(),
-                    Fluents = LanguageSignature.LiteralViewModels
-                        .Select(x => ((IViewModelFor<Model.Fluent>) x).ToModel()).ToList(),
-                    ActionDomain = ActionAreaViewModel.GetActionDomainModel(),
-                    QuerySet = QueryAreaViewModel.GetQuerySetModel(),
-                };
-            }
-            catch (MemberNotDefinedException ex)
-            {
-                Interactions.RaiseStatusBarError(ex.Message);
-            }
-
-            return scenario;
+                Actions = LanguageSignature.ActionViewModels.Select(x => x.ToModel()).ToList(),
+                Fluents = LanguageSignature.LiteralViewModels
+                    .Select(x => ((IViewModelFor<Model.Fluent>) x).ToModel()).ToList(),
+                ActionDomain = ActionAreaViewModel.GetActionDomainModel(),
+                QuerySet = QueryAreaViewModel.GetQuerySetModel(),
+            };
         }
 
         /// <inheritdoc />
