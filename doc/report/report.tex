@@ -10,6 +10,23 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage[polish]{babel}
 
+\DeclareMathOperator{\Initially}{\textbf{\textit{initially}}}
+\DeclareMathOperator{\After}{\textbf{\textit{after}}}
+\DeclareMathOperator{\Observable}{\textbf{\textit{observable}}}
+\DeclareMathOperator{\Causes}{\textbf{\textit{causes}}}
+\DeclareMathOperator{\If}{\textbf{\textit{if}}}
+\DeclareMathOperator{\Impossible}{\textbf{\textit{impossible}}}
+\DeclareMathOperator{\Releases}{\textbf{\textit{releases}}}
+\DeclareMathOperator{\Always}{\textbf{\textit{always}}}
+\DeclareMathOperator{\Sometimes}{\textbf{\textit{sometimes}}}
+\DeclareMathOperator{\Noninertial}{\textbf{\textit{noninertial}}}
+
+\DeclareMathOperator{\Executable}{\textbf{\textit{executable}}}
+\DeclareMathOperator{\Accessible}{\textbf{\textit{accessible}}}
+\DeclareMathOperator{\Possibly}{\textbf{\textit{possibly}}}
+\DeclareMathOperator{\Necessary}{\textbf{\textit{necessary}}}
+
+
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{2mm}
 \begin{document}
@@ -101,6 +118,41 @@ W~trakcie analizy dokumentacji i~programu wyszczególnione zostały następując
 \end{itemize}
 
 \section{Zgłoszone błędy w~aplikacji}
+
+Stworzona aplikacja dotycząca akcji współbieżnych została przekazana do~testów zespołowi nr~5 26~maja.
+Poniżej znajduje~się podsumowanie zgłoszonych błędów wraz~z~opisem sposobu ich~rozwiązania.
+
+\begin{itemize}
+    \item \textbf{Dodanie niezależnego nieinercjalnego fluentu zmienia wynik kwerendy}
+    \begin{itemize}
+        \item \textbf{Opis:}
+        Dodanie zdania $\Noninertial c$ do~domeny akcji
+        \begin{align*}
+            & \textsc{doA} \Causes a \If b \\
+            & \Initially \neg a \\
+            & \textsc{doB} \Releases b
+        \end{align*}
+        zmienia wynik kwerendy $\Accessible a$ z~\textsc{True} na~\textsc{False}.
+        \item \textbf{Sposób rozwiązania:}
+        Podczas analizy błędu okazało~się, że~sposób ewaluacji kwerendy $\Accessible$ był niezgodny z~opisem teoretycznym, ponieważ dla~danego stanu sprawdzane było, czy ze~wszystkich możliwych stanów wynikowych można osiągnąć cel $\gamma$ (zamiast czy można ten cel osiągnąć z~pewnego jednego stanu wynikowego).
+
+        Błąd został naprawiony.
+    \end{itemize}
+    \item \textbf{Długotrwałe obliczenia}
+    \begin{itemize}
+        \item \textbf{Opis:}
+        Dla~większych sygnatur języka (złożonych z~5~akcji i~3~fluentów) ewaluacja kwerendy typu
+        $$ \Accessible \bot $$
+        trwa długo (ponad~5~minut)
+        \item \textbf{Sposób rozwiązania:}
+        Zdaniem zespołu przyczyną jest wykładnicza złożoność znajdowania odpowiedzi na~kwerendy.
+        Dla~5~akcji atomowych i~3~fluentów otrzymujemy $2^5 = 32$~akcje złożone i~$2^3 = 8$~fluentów.
+        Ponieważ kwerendy typu $\Accessible \bot$ wymagają przejrzenia wszystkich możliwych kombinacji stanów i~akcji, ewaluacja kwerendy sprowadza~się do~rekurencji o~głębokości~8 i~stopniu rozgałęzienia 32.
+
+        Uznajemy, że program działa prawidłowo.
+        Do~aplikacji została jednak dodana opcja anulowania trwających obliczeń w~przypadku długotrwałego oczekiwania na~wynik.
+    \end{itemize}
+\end{itemize}
 
 \section{Podział prac}
 
