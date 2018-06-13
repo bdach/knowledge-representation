@@ -228,6 +228,12 @@
   <data name="CalculateButtonScreenTip" xml:space="preserve">
     <value>Evaluate the queries within the action domain entered.</value>
   </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel Calculations</value>
+  </data>
+  <data name="CancelButtonScreenTip" xml:space="preserve">
+    <value>Cancel currently running dynamic system calculations.</value>
+  </data>
   <data name="CannotAddActionError" xml:space="preserve">
     <value>The selected element does not support inserting atomic actions</value>
   </data>

@@ -52,7 +52,6 @@ namespace Client.View
             this.Bind(ViewModel, vm => vm.IsEditTabSelected, v => v.EditTab.IsSelected);
             this.Bind(ViewModel, vm => vm.IsGrammarTabSelected, v => v.GrammarTab.IsSelected);
 
-
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.ConjunctionButton, Observable.Start(() => new ConjunctionViewModel()));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.AlternativeButton, Observable.Start(() => new AlternativeViewModel()));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.ImplicationButton, Observable.Start(() => new ImplicationViewModel()));
@@ -61,6 +60,9 @@ namespace Client.View
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.TruthButton, Observable.Start(() => new ConstantViewModel(Constant.Truth)));
             this.BindCommand(ViewModel, vm => vm.SelectFormula, v => v.FalsityButton, Observable.Start(() => new ConstantViewModel(Constant.Falsity)));
             this.BindCommand(ViewModel, vm => vm.AddEmptyCompoundAction, v => v.AddCompoundActionButton);
+
+            this.BindCommand(ViewModel, vm => vm.CancelCalculations, v => v.CancelCalculationsButton);
+            this.BindCommand(ViewModel, vm => vm.CancelCalculations, v => v.CancelGrammarCalculationsButton);
 
             this.WhenAnyValue(v => v.ViewModel.SelectedFluent)
                 .Where(v => v != null)

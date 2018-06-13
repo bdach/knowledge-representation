@@ -334,7 +334,7 @@
                     Header="{local:Loc ActionDomainGroupBox}">
 
                     <fluent:DropDownButton
-                        Style="{DynamicResource RibbonLargeWideDropDown}"
+                        Style="{DynamicResource RibbonLargeMediumDropDown}"
                         KeyTip="D"
                         Name="AddActionClauseDropDown"
                         Header="{local:Loc AddActionStatementDropDown}"
@@ -412,7 +412,7 @@
                     Header="{local:Loc SystemGroupBox}">
 
                     <fluent:Button
-                        Style="{DynamicResource RibbonLargeWideButton}"
+                        Style="{DynamicResource RibbonLargeSlimButton}"
                         KeyTip="R"
                         Name="CalculateButton"
                         Header="{local:Loc CalculateButton}"
@@ -424,6 +424,24 @@
                             <fluent:ScreenTip
                                 Title="{local:Loc CalculateButton}"
                                 Text="{local:Loc CalculateButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonLargeSlimButton}"
+                        KeyTip="V"
+                        Name="CancelCalculationsButton"
+                        Header="{local:Loc CancelButton}"
+                        Icon="/Client;component/Resources/Images/cancel-64.png"
+                        LargeIcon="/Client;component/Resources/Images/cancel-128.png">
+
+                        <fluent:Button.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="{local:Loc CancelButton}"
+                                Text="{local:Loc CancelButtonScreenTip}" />
 
                         </fluent:Button.ToolTip>
 
@@ -456,6 +474,24 @@
                             <fluent:ScreenTip
                                 Title="{local:Loc CalculateButton}"
                                 Text="{local:Loc CalculateButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                    <fluent:Button
+                        Style="{DynamicResource RibbonLargeSlimButton}"
+                        KeyTip="V"
+                        Name="CancelGrammarCalculationsButton"
+                        Header="{local:Loc CancelButton}"
+                        Icon="/Client;component/Resources/Images/cancel-64.png"
+                        LargeIcon="/Client;component/Resources/Images/cancel-128.png">
+
+                        <fluent:Button.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="{local:Loc CancelButton}"
+                                Text="{local:Loc CancelButtonScreenTip}" />
 
                         </fluent:Button.ToolTip>
 

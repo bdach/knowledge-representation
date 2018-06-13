@@ -394,6 +394,24 @@ namespace Client.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CancelButton.
+        /// </summary>
+        public static string CancelButton {
+            get {
+                return ResourceManager.GetString("CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CancelButtonScreenTip.
+        /// </summary>
+        public static string CancelButtonScreenTip {
+            get {
+                return ResourceManager.GetString("CancelButtonScreenTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CannotAddActionError.
         /// </summary>
         public static string CannotAddActionError {

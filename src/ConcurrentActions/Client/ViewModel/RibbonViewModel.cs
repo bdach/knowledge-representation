@@ -57,6 +57,11 @@ namespace Client.ViewModel
         public ReactiveCommand<Unit, QueryResolution> PerformCalculations { get; set; }
 
         /// <summary>
+        /// Command used to cancel editor scenario evaluation.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> CancelCalculations { get; set; }
+
+        /// <summary>
         /// Command used to trigger grammar scenario evaluation.
         /// </summary>
         public ReactiveCommand<Unit, Tuple<QueryResolution, Dictionary<object, int>>> PerformGrammarCalculations { get; set; }
@@ -71,8 +76,14 @@ namespace Client.ViewModel
         /// </summary>
         public ReactiveCommand<Unit, Unit> ExportToFile { get; protected set; }
 
+        /// <summary>
+        /// Command used to determine editor tab selection.
+        /// </summary>
         public ReactiveCommand<Unit, Unit> EditTabSelected { get; protected set; }
 
+        /// <summary>
+        /// Command used to determine grammar tab selection.
+        /// </summary>
         public ReactiveCommand<Unit, Unit> GrammarTabSelected { get; protected set; }
 
         #endregion
@@ -206,8 +217,8 @@ namespace Client.ViewModel
 
             SelectFormula = ReactiveCommand.Create((IFormulaViewModel vm) => vm);
             AddEmptyCompoundAction = ReactiveCommand.Create(() => Unit.Default);
-
             LocalizeGroupName = obj => LocalizationProvider.Instance[((IClauseViewModel)obj).ClauseTypeNameKey];
+            CancelCalculations = ReactiveCommand.Create(() => Unit.Default);
 
             // TODO: fix this (maybe?)
             // force switch to new language

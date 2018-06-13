@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -77,9 +78,9 @@ namespace Client.ViewModel
             QueryAreaViewModel = new QueryAreaViewModel();
 
             DeleteFocused = ReactiveCommand.Create(() => Unit.Default);
-
+            
             // TODO: for larger examples this could take a while, so entertain the user somehow
-            RibbonViewModel.PerformCalculations = ReactiveCommand.CreateFromTask(() => Task.Run(() =>
+            RibbonViewModel.PerformCalculations = ReactiveCommand.CreateFromObservable(() => Observable.StartAsync(token => Task.Run(() =>
             {
                 var scenario = GetCurrentScenario();
                 if (scenario != null)
@@ -87,20 +88,21 @@ namespace Client.ViewModel
                     var signature = new Signature(scenario.Fluents, scenario.Actions);
                     return QueryResolver.ResolveQueries(signature, scenario.ActionDomain, scenario.QuerySet);
                 }
-
                 return null;
-            }));
+            }, token)).TakeUntil(RibbonViewModel.CancelCalculations));
             RibbonViewModel.PerformCalculations
                 .Where(results => results != null)
                 .Subscribe(results => QueryAreaViewModel.AcceptResults(results));
+            RibbonViewModel.ThrownExceptions.Subscribe(e => Debugger.Break());
 
-            RibbonViewModel.PerformGrammarCalculations = ReactiveCommand.CreateFromTask(() => Task.Run(() =>
+            RibbonViewModel.PerformGrammarCalculations = ReactiveCommand.CreateFromObservable(() => Observable.StartAsync(token => Task.Run(() =>
             {
                 Action<string> raiseError = err => Application.Current.Dispatcher.Invoke(() => Interactions.RaiseStatusBarError(err));
 
                 ActionDomain actionDomain;
                 QuerySet querySet;
                 Dictionary<object, int> queryOrder;
+
                 try
                 {
                     actionDomain = DynamicSystemParserUtils.ParseActionDomain(ActionAreaViewModel.ActionDomainInput);
@@ -151,7 +153,7 @@ namespace Client.ViewModel
 
                 var signature = new Signature(actionDomainFluents, actionDomainActions);
                 return new Tuple<QueryResolution, Dictionary<object ,int>>(QueryResolver.ResolveQueries(signature, actionDomain, querySet), queryOrder);
-            }));
+            }, token)).TakeUntil(RibbonViewModel.CancelCalculations));
 
             RibbonViewModel.PerformGrammarCalculations
                 .Where(results => results != null)
