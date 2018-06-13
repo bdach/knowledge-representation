@@ -479,20 +479,19 @@
 
                     </fluent:Button>
 
-                    <!-- TODO stringi do resx -->
                     <fluent:Button
-                        Style="{DynamicResource RibbonLargeWideButton}"
-                        KeyTip="R"
-                        Name="CancelGrammarCalculationsButton"
-                        Header="Zatrzymaj obliczenia"
-                        Icon="/Client;component/Resources/Images/calculate-64.png"
-                        LargeIcon="/Client;component/Resources/Images/calculate-128.png">
+                        Style="{DynamicResource RibbonLargeSlimButton}"
+                        KeyTip="V"
+                        Name="GrammarCancelCalculationsButton"
+                        Header="{local:Loc CancelButton}"
+                        Icon="/Client;component/Resources/Images/cancel-64.png"
+                        LargeIcon="/Client;component/Resources/Images/cancel-128.png">
 
                         <fluent:Button.ToolTip>
 
                             <fluent:ScreenTip
-                                Title="Zatrzymaj obliczenia"
-                                Text="Zatrzymuje obecnie trwające obliczenia." />
+                                Title="{local:Loc CancelButton}"
+                                Text="{local:Loc CancelButtonScreenTip}" />
 
                         </fluent:Button.ToolTip>
 
