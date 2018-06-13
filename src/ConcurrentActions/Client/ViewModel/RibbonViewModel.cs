@@ -56,6 +56,8 @@ namespace Client.ViewModel
         /// </summary>
         public ReactiveCommand<Unit, QueryResolution> PerformCalculations { get; set; }
 
+        public ReactiveCommand<Unit, Unit> CancelCalculations { get; set; }
+
         /// <summary>
         /// Command used to trigger grammar scenario evaluation.
         /// </summary>
@@ -215,6 +217,7 @@ namespace Client.ViewModel
             {
                 LocalizeGroupName = obj => LocalizationProvider.Instance[((IClauseViewModel)obj).ClauseTypeNameKey];
             };
+            CancelCalculations = ReactiveCommand.Create(() => Unit.Default);
         }
     }
 }

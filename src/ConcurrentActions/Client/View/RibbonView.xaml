@@ -429,6 +429,25 @@
 
                     </fluent:Button>
 
+                    <!-- TODO stringi do resx -->
+                    <fluent:Button
+                        Style="{DynamicResource RibbonLargeWideButton}"
+                        KeyTip="R"
+                        Name="CancelCalculationsButton"
+                        Header="Zatrzymaj obliczenia"
+                        Icon="/Client;component/Resources/Images/calculate-64.png"
+                        LargeIcon="/Client;component/Resources/Images/calculate-128.png">
+
+                        <fluent:Button.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="Zatrzymaj obliczenia"
+                                Text="Zatrzymuje obecnie trwające obliczenia." />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
                 </fluent:RibbonGroupBox>
 
             </fluent:RibbonTabItem>
@@ -456,6 +475,25 @@
                             <fluent:ScreenTip
                                 Title="{local:Loc CalculateButton}"
                                 Text="{local:Loc CalculateButtonScreenTip}" />
+
+                        </fluent:Button.ToolTip>
+
+                    </fluent:Button>
+
+                    <!-- TODO stringi do resx -->
+                    <fluent:Button
+                        Style="{DynamicResource RibbonLargeWideButton}"
+                        KeyTip="R"
+                        Name="CancelGrammarCalculationsButton"
+                        Header="Zatrzymaj obliczenia"
+                        Icon="/Client;component/Resources/Images/calculate-64.png"
+                        LargeIcon="/Client;component/Resources/Images/calculate-128.png">
+
+                        <fluent:Button.ToolTip>
+
+                            <fluent:ScreenTip
+                                Title="Zatrzymaj obliczenia"
+                                Text="Zatrzymuje obecnie trwające obliczenia." />
 
                         </fluent:Button.ToolTip>
 
