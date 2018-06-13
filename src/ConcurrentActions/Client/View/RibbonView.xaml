@@ -482,7 +482,7 @@
                     <fluent:Button
                         Style="{DynamicResource RibbonLargeSlimButton}"
                         KeyTip="V"
-                        Name="GrammarCancelCalculationsButton"
+                        Name="CancelGrammarCalculationsButton"
                         Header="{local:Loc CancelButton}"
                         Icon="/Client;component/Resources/Images/cancel-64.png"
                         LargeIcon="/Client;component/Resources/Images/cancel-128.png">
