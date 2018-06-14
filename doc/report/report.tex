@@ -7,6 +7,7 @@
 \usepackage{amsthm}
 \usepackage{float}
 \usepackage{tabularx}
+\usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 \usepackage[polish]{babel}
 
@@ -54,6 +55,42 @@ Niniejszy dokument zawiera raport z~implementacji projektu dotyczącego akcji ws
 Ponadto w~dokumencie zawarty jest raport z~fazy testów, podział prac w~grupie oraz~lista zawartości dołączonej płyty~CD.
 
 \section{Instrukcja obsługi}
+
+Do~wprowadzania zdań języka akcji oraz~kwerend opracowane zostały dwa~warianty interfejsu użytkownika:
+\begin{itemize}
+    \item Pierwszy wariant, dostępny w~zakładce \emph{Edycja}, to~typowy edytor graficzny, podobny działaniem do~edytora równań w~programach pakietu biurowego Microsoft Office.
+    W~tym wariancie zdania konstruowane~są poprzez~zaznaczanie odpowiednich elementów w~oknach edycji i~użycie opcji na~górze okna w~celu wypełnienia zdań zgodnie z~życzeniem użytkownika.
+    \item Drugą opcją jest zwykły edytor tekstowy, dostępny w~zakładce \emph{Gramatyka}.
+    W~tym wariancie formuły wprowadzane są w~postaci tekstowej i~interpretowane z~użyciem stworzonej gramatyki bezkontekstowej, która konwertuje zapis zdań na~ich postać semantyczną.
+\end{itemize}
+Oba rodzaje edytorów opisane są szerzej w~poniższych podrozdziałach.
+
+\subsection{Edytor graficzny}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{res/img/visual-editor.png}
+    \label{fig:visual-editor}
+    \caption{Wygląd edytora graficznego}
+\end{figure}
+
+\subsection{Edytor tekstowy}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{res/img/grammar-editor.png}
+    \label{fig:grammar-editor}
+    \caption{Wygląd edytora tekstowego}
+\end{figure}
+
+\subsection{Dostępne opcje}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{res/img/options.png}
+    \label{fig:options}
+    \caption{Menu opcji programu}
+\end{figure}
 
 \section{Raport z~przeprowadzonych testów}
 \label{sec:our-tests-report}
