@@ -74,6 +74,31 @@ Oba rodzaje edytorów opisane są szerzej w~poniższych podrozdziałach.
     \label{fig:visual-editor}
 \end{figure}
 
+Edytor graficzny zbliżony jest sposobem działania do~wizualnych edytorów równań z~innych programów biurowych.
+
+\begin{itemize}
+    \item Wstawianie nowego fluentu do~scenariusza wykonywane jest poprzez wciśnięcie przycisku \emph{Fluenty} i~wybranie opcji \emph{Dodaj nowy} z~menu rozwijanego.
+
+    Analogicznie do~scenariusza dodawane są nowe~akcje.
+    \item Za~wstawianie zdań języka akcji odpowiada przycisk \emph{Dodaj zdanie domeny akcji}.
+    Po~wciśnięciu przycisku pojawia~się menu rozwijane, z~którego należy wybrać żądany rodzaj zdania.
+
+    W~analogiczny sposób można dodawać zdania języka kwerend poprzez przycisk \emph{Dodaj kwerendę}.
+    \item Po~wybraniu zdania w~jednej z~list zajmujących główną część okna pojawia~się pusta instancja wybranego zdania, z~żółtymi znakami zapytania oznaczającymi miejsca, które należy wypełnić.
+    \begin{itemize}
+        \item Jeśli w~puste miejsce trzeba wstawić fluent, zaznaczamy lukę i~wybieramy fluent o~żądanej nazwie z~menu rozwijanego \emph{Fluenty}.
+        \item Podobnie, jeśli w~puste miejsce trzeba wstawić akcję, zaznaczamy lukę i~wybieramy fluent o~żądanej nazwie z~menu rozwijanego \emph{Akcje}.
+        \item Jeśli w~lukę należy wstawić formułę, po~zaznaczeniu luki możemy użyć zarówno fluentów z~menu rozwijanego \emph{Fluenty}, jak i~przycisków z~grupy \emph{Edytor formuł} na~górze ekranu.
+        \item Aby do~kwerendy zawierającej program dodać nową, pustą akcję złożoną, należy zaznaczyć program (oznaczony nawiasami \verb+()+) i~wcisnąć przycisk \emph{Dodaj akcję złożoną} żądaną liczbę razy.
+        \item Aby do~akcji złożonej dodać akcję atomową, należy zaznaczyć tę~akcję (oznaczoną nawiasami \verb+{}+) i~wybrać żądaną akcję z~menu rozwijanego \emph{Akcje}.
+    \end{itemize}
+    Wstawione akcje, fluenty i~formuły można usuwać ze~zdań używając przycisku \textbf{Delete} na~klawiaturze.
+    W~ten sam sposób można usuwać całe zdania.
+    \item Aby rozpocząć obliczenia, należy wybrać przycisk \emph{Wykonaj obliczenia}.
+\end{itemize}
+
+Na~płycie z~programem dołączony został film demonstracyjny, pokazujący sposób obsługi programu.
+
 \subsection{Edytor tekstowy}
 
 \begin{figure}[H]
@@ -260,6 +285,7 @@ Płyta~CD dołączona do~raportu zawiera następujące foldery:
     \item Folder \verb+bin/+ zawiera gotową wykonywalną wersję aplikacji.
     Aby uruchomić program, należy wybrać plik \verb+bin/ConcurrentActions.exe+.
     \item Folder \verb+doc/+ zawiera całość dokumentacji projektowej, tj. podstawy teoretyczne projektu oraz~niniejszy raport z~implementacji.
+    \item Folder \verb+demo/+ zawiera demonstracyjny materiał filmowy pokazujący sposób użytkowania stworzonego programu.
     \item W~folderze \verb+input/+ znajdują~się przykładowe pliki wejściowe dla~programu, w~formatach \verb+.xml+ oraz~\verb+.txt+.
     \item Katalog \verb+src/+ zawiera kod źródłowy opracowanej aplikacji.
 \end{itemize}
