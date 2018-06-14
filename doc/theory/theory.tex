@@ -449,13 +449,13 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
 
     \begin{defn}
         \textbf{Egzystencjalną kwerendą wartości} nazywamy zdanie
-        $$ \Possibly \gamma \After A_1, \dots, A_n $$
+        $$ \Possibly \gamma \After \; (A_1, \dots, A_n) $$
         gdzie $\gamma \in Forms(f)$, $A_1, \dots, A_n \subseteq \mathcal{A}c$.
     \end{defn}
 
     \begin{defn}
         \textbf{Ogólną kwerendą wartości} nazywamy zdanie
-        $$ \Necessary \gamma \After A_1, \dots, A_n $$
+        $$ \Necessary \gamma \After \; (A_1, \dots, A_n) $$
         gdzie $\gamma \in Forms(f)$, $A_1, \dots, A_n \subseteq \mathcal{A}c$.
     \end{defn}
 
@@ -463,13 +463,13 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
 
     \begin{defn}
         \textbf{Egzystencjalną kwerendą wykonywalności} nazywamy zdanie
-        $$ \Executable \Sometimes A_1, \dots, A_n $$
+        $$ \Executable \Sometimes \; (A_1, \dots, A_n) $$
         gdzie $A_1, \dots, A_n \subseteq \mathcal{A}c$.
     \end{defn}
 
     \begin{defn}
         \textbf{Ogólną kwerendą wykonywalności} nazywamy zdanie
-        $$ \Executable \Always A_1, \dots, A_n $$
+        $$ \Executable \Always \; (A_1, \dots, A_n) $$
         gdzie $A_1, \dots, A_n \subseteq \mathcal{A}c$.
     \end{defn}
 
@@ -494,19 +494,19 @@ W~języku kwerend formułowane będą zapytania stawiane systemowi dynamicznemu,
     \begin{enumerate}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wartości postaci:
         \begin{itemize}
-            \item $\Possibly \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
+            \item $\Possibly \gamma \After \; (A_1, \dots, A_n)$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ istnieje funkcja $\Psi_\mathcal{S}$ taka, że zachodzi $$\Psi_S((A_1,...,A_n),\sigma_{0}) \models \gamma$$
-            \item $\Necessary \gamma \After A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            \item $\Necessary \gamma \After \; (A_1, \dots, A_n)$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ i~dla~każdej funkcji $\Psi_\mathcal{S}$ zachodzi $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0}) \models \gamma$$
         \end{itemize}
         \item w przypadku gdy $\mathcal{Q}$ jest kwerendą wykonywalności postaci:
         \begin{itemize}
-            \item $\Executable \Sometimes A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
+            \item $\Executable \Sometimes \; (A_1, \dots, A_n)$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla~każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ takiego, że istnieje % TODO: do uzgodnienia
             funkcja $\Psi_\mathcal{S}$ taka, że
             $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$$
             jest zdefiniowane,
-            \item $\Executable \Always A_1, \dots, A_n$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
+            \item $\Executable \Always \; (A_1, \dots, A_n)$ -- wówczas $\mathcal{D} \consequence \mathcal{Q}$ wtedy i tylko wtedy, gdy dla każdego modelu % TODO: do uzgodnienia
             $\mathcal{S} = (\Sigma,\sigma_0,Res)$ domeny akcji $\mathcal{D}$ i~dla~każdej funkcji $\Psi_\mathcal{S}$
             $$\Psi_\mathcal{S}((A_1,...,A_n),\sigma_{0})$$
             jest zdefiniowane,
@@ -694,17 +694,17 @@ Rozważmy teraz kilka przykładowych kwerend nad~$\mathcal{D}$.
 
 \begin{enumerate}
     \item Niech dana będzie kwerenda
-    $$ \Possibly \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After \{ \textsc{Put} \}, \{ \textsc{Get, Consume} \} $$
+    $$ \Possibly \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After \; (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) $$
     Kwerenda ta \textbf{nie będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_2$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ nie jest wykonywalny.
 
     \item Niech dana będzie kwerenda
-    $$ \Necessary \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After \{ \textsc{Put} \}, \{ \textsc{Get, Consume} \} $$
+    $$ \Necessary \neg \textit{bufferEmpty} \land \neg \textit{hasItem} \After \; (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) $$
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_2$, program $(\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})$ nie~jest wykonywalny, więc odpowiednia wartość $\Psi_\mathcal{S}$ w~definicji konsekwencji nie~jest zdefiniowana.
 
     \item Analogicznie, kwerendy
     \begin{align*}
-    \Executable & \Sometimes (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) \\
-    \Executable & \Always (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})
+    \Executable & \Sometimes \; (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \}) \\
+    \Executable & \Always \; (\{ \textsc{Put} \}, \{ \textsc{Get, Consume} \})
     \end{align*}
     \textbf{nie są} konsekwencją $\mathcal{D}$.
 
@@ -830,11 +830,11 @@ Przykładowe kwerendy nad~$\mathcal{D}$:
 
 \begin{enumerate}
     \item Niech dana będzie kwerenda
-    $$ \Possibly \neg \textit{alive} \After \{ \textsc{Pet} \}, \{ \textsc{Peek} \} $$
+    $$ \Possibly \neg \textit{alive} \After \; (\{ \textsc{Pet} \}, \{ \textsc{Peek} \}) $$
     Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$ i dla modelu którego stanem początkowym jest $\sigma_1$, istnieje $\Psi_\mathcal{S}$, że program $(\{ \textsc{Pet} \}, \{ \textsc{Peek} \})$ prowadzi do stanu $\sigma_2$, w którym spełnione jest $\neg \textit{alive}$.
 
     \item Niech dana będzie kwerenda
-    $$ \Necessary \textit{purring} \After \{ \textsc{Peek}, \textsc{Pet} \} $$
+    $$ \Necessary \textit{purring} \After \; (\{ \textsc{Peek}, \textsc{Pet} \}) $$
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$ lub $\sigma_1$, dla programu $(\{ \textsc{Peek}, \textsc{Pet} \})$ istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca   do stanu $\sigma_2$.
 
     \item Kwerendy $\Executable \Sometimes$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla~każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~każdego modelu $\mathcal{D}$ z dowolnym stanem początkowym, ze względu na brak zdań $\Impossible$.
@@ -1013,11 +1013,11 @@ Przykładowe kwerendy nad~$\mathcal{D}$:
 
 \begin{enumerate}
     \item Niech dana będzie kwerenda
-    $$ \Possibly \textit{brushA} \After \{ \textsc{TakeA} , \textsc{TakeB} \} $$
+    $$ \Possibly \textit{brushA} \After \; (\{ \textsc{TakeA} , \textsc{TakeB} \}) $$
     Kwerenda ta \textbf{będzie} konsekwencją $\mathcal{D}$, ponieważ dla~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, istnieje $\Psi_\mathcal{S}$, że program $(\{ \textsc{TakeA} , \textsc{TakeB} \})$ prowadzi do stanu $\sigma_1$, w którym spełnione jest $\textit{brushA}$.
 
     \item Niech dana będzie kwerenda
-    $$ \Necessary \neg \textit{brushA} \land \neg \textit{brushB} \After \{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \} $$
+    $$ \Necessary \neg \textit{brushA} \land \neg \textit{brushB} \After \; (\{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \}) $$
     Kwerenda ta \textbf{nie~będzie} konsekwencją $\mathcal{D}$, ponieważ w~modelu~$\mathcal{D}$, którego stanem początkowym jest~$\sigma_0$, dla programu $(\{ \textsc{TakeA}, \textsc{TakeB} \}, \{ \textsc{TakeA}, \textsc{TakeB}, \textsc{Paint} \})$ nie istnieje ścieżka $\Psi_\mathcal{S}$ prowadząca do stanu $\sigma_0$.
 
     \item Kwerendy $\Executable \Sometimes$ oraz $\Executable \Always$ \textbf{są}~konsekwencjami $\mathcal{D}$ dla~każdego programu $\mathcal{P}$, ponieważ dowolny program da~się wykonać dla~modelu $\mathcal{D}$ ze stanem początkowym $\sigma_0$, ze względu na brak zdań $\Impossible$.
