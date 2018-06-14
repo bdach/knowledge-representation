@@ -83,6 +83,30 @@ Oba rodzaje edytorów opisane są szerzej w~poniższych podrozdziałach.
     \caption{Wygląd edytora tekstowego}
 \end{figure}
 
+Edytor tekstowy stanowi uproszczoną metodę wprowadzania scenariusza do~programu.
+W~tym wariancie okno programu składa~się z~dwóch pól tekstowych:
+\begin{itemize}
+    \item Lewe pole tekstowe służy do~wprowadzania zdań języka akcji.
+    \item Prawe pole tekstowe służy do~wprowadzania zdań języka kwerend.
+\end{itemize}
+Składnia wprowadzanych zdań jest zgodna z~tą wyspecyfikowaną w~dokumentacji teoretycznej.
+Jedyną różnicą jest wprowadzanie formuł --- dla~wygody użytkownika przyjęto następujące uproszczenia w~notacji logicznej:
+\begin{itemize}
+    \item prawdę ($\top$) zapisujemy \verb+T+ (\textbf{T}ruth),
+    \item fałsz ($\bot$) zapisujemy \verb+F+ (\textbf{F}alsity),
+    \item negację ($\neg p$) zapisujemy używając znaku tyldy: \verb+~p+,
+    \item koniunkcję ($p \land q$) zapisujemy \verb+p & q+,
+    \item alternatywę ($p \lor q$) zapisujemy \verb+p | q+,
+    \item implikację ($p \rightarrow q$) zapisujemy \verb+p -> q+,
+    \item równoważność ($p \equiv q$) zapisujemy \verb+p <-> q+.
+\end{itemize}
+Ewentualne błędy wykryte przez~program w~procesie analizy składniowej wprowadzonych zdań wyświetlane~są na~pasku statusu programu, na~dole okna.
+
+Do~programu zostały dołączone przykładowe pliki tekstowe demonstrujące format wejściowy zdań dla~edytora tekstowego.
+
+Tak samo, jak w~przypadku edytora graficznego, za~obliczenie wartości logicznej kwerend odpowiada przycisk \emph{Wykonaj obliczenia} w~górnej części okna.
+Długotrwałe obliczenia można przerwać przyciskiem \emph{Zatrzymaj obliczenia}.
+
 \subsection{Dostępne opcje}
 
 \begin{figure}[H]
