@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DynamicSystem.Decomposition;
 using Model;
 using Model.ActionLanguage;
 using Model.Forms;
+using Action = Model.Action;
 
 namespace DynamicSystem.ResZero
 {
@@ -16,11 +18,12 @@ namespace DynamicSystem.ResZero
         /// <param name="compoundActions">The set of <see cref="CompoundAction"/> instances to calculate the mapping values for.</param>
         /// <param name="states">The set of <see cref="State"/> instances to calculate the mapping values for.</param>
         /// <returns></returns>
-        public static TransitionFunction GenerateResZero(ActionDomain actionDomain, HashSet<CompoundAction> compoundActions, HashSet<State> states)
+        public static TransitionFunction
+            GenerateResZero(ActionDomain actionDomain, HashSet<CompoundAction> compoundActions, HashSet<State> states,
+                Dictionary<(CompoundAction, State), IEnumerable<HashSet<Action>>> allDecompositions)
         {
             var transitionFunction = new TransitionFunction(compoundActions, states);
             var resZero = new ResZero(actionDomain.EffectStatements, states);
-            var decompositionGenerator = new DecompositionGenerator();
 
             foreach (var compoundAction in compoundActions)
             {
@@ -32,7 +35,9 @@ namespace DynamicSystem.ResZero
                     {
                         continue;
                     }
-                    var decompositions = decompositionGenerator.GetDecompositions(actionDomain, compoundAction.Actions, state);
+
+                    allDecompositions.TryGetValue((compoundAction, state), out var decompositions);
+
                     var resultStates = new HashSet<State>();
                     foreach (var decomposition in decompositions)
                     {
@@ -42,6 +47,7 @@ namespace DynamicSystem.ResZero
                     transitionFunction[compoundAction, state] = resultStates;
                 }
             }
+
             return transitionFunction;
         }
     }

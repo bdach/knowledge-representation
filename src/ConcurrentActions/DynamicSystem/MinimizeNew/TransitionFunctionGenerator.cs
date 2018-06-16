@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DynamicSystem.NewGeneration;
 using Model;
+using Action = Model.Action;
 
 namespace DynamicSystem.MinimizeNew
 {
@@ -11,13 +12,7 @@ namespace DynamicSystem.MinimizeNew
     /// </summary>
     public static class TransitionFunctionGenerator
     {
-        /// <summary>
-        /// Generates <see cref="TransitionFunction"/> by finding states belonging to output of Res_0 function 
-        /// that minimalize New set of inertial fluent that can change with action execution.
-        /// </summary>
-        /// <param name="resZero"><see cref="TransitionFunction"/> instance describing Res_0 function.</param>
-        /// <param name="newSets"><see cref="NewSetMapping"/> describing New sets.</param>
-        /// <returns><see cref="TransitionFunction"/> object.</returns>
+        [Obsolete]
         public static TransitionFunction GenerateTransitionFunction(TransitionFunction resZero, NewSetMapping newSets)
         {
             var transitionFunction = InitializeTransitionFunction(resZero);
@@ -30,6 +25,51 @@ namespace DynamicSystem.MinimizeNew
                 transitionFunction[compoundAction, state] =
                     GenerateTransitionFunction((compoundAction, state, potentialResults), consideredNewSets);
             }
+            return transitionFunction;
+        }
+
+        /// <summary>
+        /// Generates <see cref="TransitionFunction"/> by finding states belonging to output of Res_0 function 
+        /// that minimalize New set of inertial fluent that can change with action execution.
+        /// </summary>
+        /// <param name="resZero"><see cref="TransitionFunction"/> instance describing Res_0 function.</param>
+        /// <param name="newSets"><see cref="NewSetMapping"/> describing New sets.</param>
+        /// <param name="allDecompositions">Decompositions</param>
+        /// <returns><see cref="TransitionFunction"/> object.</returns>
+        public static TransitionFunction GenerateTransitionFunction(TransitionFunction resZero, NewSetMapping newSets,
+            Dictionary<(CompoundAction, State), IEnumerable<HashSet<Action>>> allDecompositions)
+        {
+            var transitionFunction = InitializeTransitionFunction(resZero);
+
+            foreach (var assignment in resZero)
+            {
+                var (compoundAction, state, _) = assignment;
+
+                allDecompositions.TryGetValue((compoundAction, state), out var decompositions);
+
+                // generate RES for each decomposition and the sum them up
+                var states = new HashSet<State>();
+                if (decompositions != null)
+                {
+                    var potentialResults = resZero[compoundAction, state];
+                    var consideredNewSets = FindConsideredNewSets(compoundAction, state,
+                        potentialResults, newSets);
+                    var generatedTransition = GenerateTransitionFunction((compoundAction, state, potentialResults), consideredNewSets);
+                    states.UnionWith(generatedTransition);
+                    //foreach (var decomposition in decompositions)
+                    //{
+                    //    //var action = new CompoundAction(decomposition);
+                    //    //var potentialResults = resZero[action, state];
+
+                    //    var generatedTransition = GenerateTransitionFunction((action, state, potentialResults), consideredNewSets);
+                    //    states.UnionWith(generatedTransition);
+                    //}
+                }
+
+                transitionFunction[compoundAction, state] = states;
+                //}
+            }
+
             return transitionFunction;
         }
 
@@ -72,7 +112,7 @@ namespace DynamicSystem.MinimizeNew
         {
             var compoundAction = assignment.Item1;
             var state = assignment.Item2;
-            var potentialResults = assignment.Item3;
+            var potentialResults = assignment.Item3;    
 
             var newSets = newSetDict.AllValues;
             var minimalizingStates = new HashSet<State>();
