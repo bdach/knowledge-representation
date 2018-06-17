@@ -1,8 +1,8 @@
-﻿using System;
+﻿using DynamicSystem.NewGeneration;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DynamicSystem.NewGeneration;
-using Model;
 using Action = Model.Action;
 
 namespace DynamicSystem.MinimizeNew
@@ -43,31 +43,22 @@ namespace DynamicSystem.MinimizeNew
 
             foreach (var assignment in resZero)
             {
-                var (compoundAction, state, _) = assignment;
+                var (compoundAction, state, potentialResults) = assignment;
 
                 allDecompositions.TryGetValue((compoundAction, state), out var decompositions);
 
-                // generate RES for each decomposition and the sum them up
-                var states = new HashSet<State>();
-                if (decompositions != null)
-                {
-                    var potentialResults = resZero[compoundAction, state];
-                    var consideredNewSets = FindConsideredNewSets(compoundAction, state,
-                        potentialResults, newSets);
-                    var generatedTransition = GenerateTransitionFunction((compoundAction, state, potentialResults), consideredNewSets);
-                    states.UnionWith(generatedTransition);
-                    //foreach (var decomposition in decompositions)
-                    //{
-                    //    //var action = new CompoundAction(decomposition);
-                    //    //var potentialResults = resZero[action, state];
+                HashSet<State> states = new HashSet<State>();
 
-                    //    var generatedTransition = GenerateTransitionFunction((action, state, potentialResults), consideredNewSets);
-                    //    states.UnionWith(generatedTransition);
-                    //}
+                foreach (var decomposition in decompositions)
+                {
+                    var action = new CompoundAction(decomposition);
+                    var consideredNewSets = FindConsideredNewSets(action, state, resZero[action, state], newSets);
+
+                    var generatedTransition = GenerateTransitionFunction((action, state, resZero[action, state]), consideredNewSets);
+                    states.UnionWith(generatedTransition);
                 }
 
                 transitionFunction[compoundAction, state] = states;
-                //}
             }
 
             return transitionFunction;
@@ -108,7 +99,8 @@ namespace DynamicSystem.MinimizeNew
         /// <param name="assignment"><see cref="ValueTuple{CompoundAction, State, HashSet{State}}"/> describing Res_0 assignment.</param>
         /// <param name="newSetDict"><see cref="NewSetMapping"/> with New sets that are considered.</param>
         /// <returns></returns>
-        private static HashSet<State> GenerateTransitionFunction((CompoundAction, State, HashSet<State>) assignment, NewSetMapping newSetDict)
+        private static HashSet<State> GenerateTransitionFunction((CompoundAction, State, HashSet<State>) assignment,
+            NewSetMapping newSetDict)
         {
             var compoundAction = assignment.Item1;
             var state = assignment.Item2;

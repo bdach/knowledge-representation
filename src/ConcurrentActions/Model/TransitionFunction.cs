@@ -15,6 +15,7 @@ namespace Model
         /// to sets of potentially resulting <see cref="State"/>s.
         /// </summary>
         private readonly Dictionary<ValueTuple<CompoundAction, State>, HashSet<State>> transitionFunction;
+        private Dictionary<(CompoundAction, State), IEnumerable<HashSet<Action>>> allDecompositions;
 
         /// <summary>
         /// Property for accessing compound actions that are used within a function domain.
@@ -36,6 +37,21 @@ namespace Model
         /// A collection of <see cref="State"/>s in the structure to be considered in the function domain.
         /// </param>
         public TransitionFunction(ICollection<CompoundAction> compoundActions, ICollection<State> states)
+        {
+            CompoundActions = compoundActions;
+            States = states;
+
+            transitionFunction = new Dictionary<(CompoundAction, State), HashSet<State>>();
+            foreach (var compoundAction in compoundActions)
+            {
+                foreach (var state in states)
+                {
+                    transitionFunction[ValueTuple.Create(compoundAction, state)] = new HashSet<State>();
+                }
+            }
+        }
+
+        public TransitionFunction(ICollection<CompoundAction> compoundActions, ICollection<State> states, Dictionary<(CompoundAction, State), IEnumerable<HashSet<Action>>> allDecompositions) : this(compoundActions, states)
         {
             CompoundActions = compoundActions;
             States = states;

@@ -22,7 +22,9 @@ namespace DynamicSystem.ResZero
             GenerateResZero(ActionDomain actionDomain, HashSet<CompoundAction> compoundActions, HashSet<State> states,
                 Dictionary<(CompoundAction, State), IEnumerable<HashSet<Action>>> allDecompositions)
         {
-            var transitionFunction = new TransitionFunction(compoundActions, states);
+            //maybe should be initialized differently
+            var transitionFunction = new TransitionFunction(compoundActions, states, allDecompositions);
+
             var resZero = new ResZero(actionDomain.EffectStatements, states);
 
             foreach (var compoundAction in compoundActions)
@@ -39,11 +41,13 @@ namespace DynamicSystem.ResZero
                     allDecompositions.TryGetValue((compoundAction, state), out var decompositions);
 
                     var resultStates = new HashSet<State>();
-                    foreach (var decomposition in decompositions)
-                    {
-                        var decompositionResult = resZero.GetStates(state, decomposition);
-                        resultStates.UnionWith(decompositionResult);
-                    }
+                    if (decompositions != null)
+                        foreach (var decomposition in decompositions)
+                        {
+                            var decompositionResult = resZero.GetStates(state, decomposition);
+                            resultStates.UnionWith(decompositionResult);
+                        }
+
                     transitionFunction[compoundAction, state] = resultStates;
                 }
             }

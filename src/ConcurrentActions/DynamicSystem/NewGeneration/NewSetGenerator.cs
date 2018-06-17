@@ -38,29 +38,19 @@ namespace DynamicSystem.NewGeneration
             var newHelper = new NewSetHelper(domain, signature.Fluents);
             foreach (var pair in resZero.Arguments)
             {
+                var resultStates = resZero[pair.action, pair.state];
                 allDecompositions.TryGetValue((pair.action, pair.state), out var decompositions);
 
-                //NEW should be summed as well and contain only entry for the compound action and not its decomposition
-                foreach (var decomposition in decompositions)
+                foreach (var resultState in resultStates)
                 {
-                    var action = new CompoundAction(decomposition);
-                    var resultStates = resZero[action, pair.state];
-
-                    foreach (var resultState in resultStates)
-                    {
-                        var newValue = newHelper.GetLiterals(pair.action.Actions, pair.state, resultState);
-                        var newSetTemp = new HashSet<Literal>(newValue);
-
-                        if(newMapping.KeyExists((pair.action, pair.state, resultState)))
+                    if (decompositions != null)
+                        foreach (var decomposition in decompositions)
                         {
-                            newMapping[pair.action, pair.state, resultState].UnionWith(newSetTemp);
-                        }
-                        else
-                        {
-                            newMapping[pair.action, pair.state, resultState] = newSetTemp;
-                        }
+                            var action = new CompoundAction(decomposition);
+                            var literals = newHelper.GetLiterals(action.Actions, pair.state, resultState);
 
-                    }
+                            newMapping[action, pair.state, resultState] = new HashSet<Literal>(literals);
+                        }
                 }
             }
             return newMapping;
