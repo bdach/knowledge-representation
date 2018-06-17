@@ -44,6 +44,10 @@ namespace Test.QueriesEvaluation
             actionDomain.EffectStatements.Add(new EffectStatement(a, new Literal(f), new Alternative(new Literal(g), new Literal(h))));
             // B causes g|h if f
             actionDomain.EffectStatements.Add(new EffectStatement(b, new Literal(f), new Alternative(new Literal(g), new Literal(h))));
+            // noninertial g
+            actionDomain.FluentSpecificationStatements.Add(new FluentSpecificationStatement(g));
+            // noninertial h
+            actionDomain.FluentSpecificationStatements.Add(new FluentSpecificationStatement(h));
 
             // define query set
             var queries = new QuerySet();
