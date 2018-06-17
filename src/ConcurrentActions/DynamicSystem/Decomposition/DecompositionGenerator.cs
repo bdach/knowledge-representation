@@ -36,17 +36,16 @@ namespace DynamicSystem.Decomposition
             return result;
         }
 
-        public Dictionary<(CompoundAction ,State), IEnumerable<HashSet<Action>>> GenerateDecompositions(ActionDomain domain,
+        public Dictionary<(CompoundAction, State), IEnumerable<HashSet<Action>>> GenerateDecompositions(ActionDomain domain,
             HashSet<CompoundAction> compoundActions, HashSet<State> states)
         {
             var dict = new Dictionary<(CompoundAction, State), IEnumerable<HashSet<Action>>>();
             foreach (var compoundAction in compoundActions)
             {
-                var decomposedActions = new List<CompoundAction>();
                 foreach (var state in states)
                 {
                     var decompositions = GetDecompositions(domain, compoundAction.Actions, state);
-                    dict.Add((compoundAction, state), GetDecompositions(domain, compoundAction.Actions, state));
+                    dict.Add((compoundAction, state), decompositions);
                 }
             }
 

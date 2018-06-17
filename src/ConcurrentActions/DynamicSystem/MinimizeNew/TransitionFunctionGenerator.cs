@@ -3,6 +3,8 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Model.ActionLanguage;
+using Model.Forms;
 using Action = Model.Action;
 
 namespace DynamicSystem.MinimizeNew
@@ -32,21 +34,28 @@ namespace DynamicSystem.MinimizeNew
         /// Generates <see cref="TransitionFunction"/> by finding states belonging to output of Res_0 function 
         /// that minimalize New set of inertial fluent that can change with action execution.
         /// </summary>
+        /// <param name="actionDomain"><see cref="ActionDomain"/> instance describing the current scenario.</param>
         /// <param name="resZero"><see cref="TransitionFunction"/> instance describing Res_0 function.</param>
         /// <param name="newSets"><see cref="NewSetMapping"/> describing New sets.</param>
         /// <param name="allDecompositions">Decompositions</param>
         /// <returns><see cref="TransitionFunction"/> object.</returns>
-        public static TransitionFunction GenerateTransitionFunction(TransitionFunction resZero, NewSetMapping newSets,
+        public static TransitionFunction GenerateTransitionFunction(ActionDomain actionDomain, TransitionFunction resZero, NewSetMapping newSets,
             Dictionary<(CompoundAction, State), IEnumerable<HashSet<Action>>> allDecompositions)
         {
             var transitionFunction = InitializeTransitionFunction(resZero);
 
             foreach (var assignment in resZero)
             {
-                var (compoundAction, state, potentialResults) = assignment;
+                var (compoundAction, state, _) = assignment;
 
-                allDecompositions.TryGetValue((compoundAction, state), out var decompositions);
-
+                if (compoundAction.Actions
+                    .Any(ac => actionDomain.EffectStatements
+                        .Any(s => s.Action.Equals(ac) && s.Precondition.Evaluate(state) && s.Postcondition.Equals(Constant.Falsity))))
+                {
+                    continue;
+                }
+                
+                var decompositions = allDecompositions[(compoundAction, state)];
                 HashSet<State> states = new HashSet<State>();
 
                 foreach (var decomposition in decompositions)
@@ -104,7 +113,7 @@ namespace DynamicSystem.MinimizeNew
         {
             var compoundAction = assignment.Item1;
             var state = assignment.Item2;
-            var potentialResults = assignment.Item3;    
+            var potentialResults = assignment.Item3;
 
             var newSets = newSetDict.AllValues;
             var minimalizingStates = new HashSet<State>();

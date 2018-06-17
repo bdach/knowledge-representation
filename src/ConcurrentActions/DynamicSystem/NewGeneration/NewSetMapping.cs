@@ -35,11 +35,6 @@ namespace DynamicSystem.NewGeneration
             set => newMapping[(compoundAction, initialState, exitState)] = value;
         }
 
-        public bool KeyExists((CompoundAction compoundAction, State initialState, State exitState) key)
-        {
-            return newMapping.ContainsKey(key);
-        }
-
         /// <summary>
         /// Returns all values of the mapping.
         /// </summary>

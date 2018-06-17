@@ -31,13 +31,6 @@ namespace DynamicSystem.ResZero
             {
                 foreach (var state in states)
                 {
-                    if (compoundAction.Actions
-                        .Any(ac => actionDomain.EffectStatements
-                            .Any(s => s.Action.Equals(ac) && s.Precondition.Evaluate(state) && s.Postcondition.Equals(Constant.Falsity))))
-                    {
-                        continue;
-                    }
-
                     allDecompositions.TryGetValue((compoundAction, state), out var decompositions);
 
                     var resultStates = new HashSet<State>();

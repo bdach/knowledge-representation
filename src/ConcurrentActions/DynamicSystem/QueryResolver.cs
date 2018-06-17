@@ -35,8 +35,8 @@ namespace DynamicSystem
             var decompositions = decompositionGenerator.GenerateDecompositions(actionDomain, compoundActions, admissibleStates);
 
             var resZero = ResZeroGenerator.GenerateResZero(actionDomain, compoundActions, admissibleStates, decompositions);
-            var newSets = NewSetGenerator.GetNewSets(actionDomain, signature, resZero, decompositions);
-            var res = TransitionFunctionGenerator.GenerateTransitionFunction(resZero, newSets, decompositions);
+            var newSets = NewSetGenerator.GetNewSets(actionDomain, signature, resZero);
+            var res = TransitionFunctionGenerator.GenerateTransitionFunction(actionDomain, resZero, newSets, decompositions);
             var structures = initialStates.Select(state => new Structure(admissibleStates, state, res)).ToList();
 
             var models = structures.Where(structure => StructureVerification.CheckStatements(actionDomain, structure)).ToList();
