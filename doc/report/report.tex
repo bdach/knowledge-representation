@@ -258,6 +258,84 @@ Poniżej znajduje~się podsumowanie zgłoszonych błędów wraz~z~opisem sposobu
     \end{itemize}
 \end{itemize}
 
+Ponadto, podczas checkpointu~4. zaobserwowane zostały następujące wyniki programu:
+
+\begin{itemize}
+    \item \textbf{Nieprawidłowy sposób uwzględniania dekompozycji akcji}
+    \begin{itemize}
+        \item \textbf{Opis:}
+        Gdy dana jest dziedzina akcji
+        \begin{align*}
+            & \Initially hasKey \\
+            & \textsc{Open} \Causes doorOpen \If hasKey \\
+            & \textsc{Close} \Causes \neg doorOpen \If hasKey
+        \end{align*}
+        kwerendy
+        \begin{align*}
+            & \Possibly doorOpen \After (\{\textsc{Open}, \textsc{Close}\}) \\
+            & \Possibly \neg doorOpen \After (\{\textsc{Open}, \textsc{Close}\})
+        \end{align*}
+        zwracają wynik \textsc{False}.
+        \item \textbf{Sposób rozwiązania:}
+        Problemem był niewłaściwy sposób uwzględniania dekompozycji akcji.
+        Dokładniej, dekompozycje były wyznaczane i~uwzględniane na~etapie obliczania funkcji ${Res}_0$, co oznacza, że~dekompozycje podlegały minimalizacji zmian.
+        Powodowało to, że w~zależności od~stanu początkowego w~modelu, wynik jednej z~akcji \textsc{Open} lub~\textsc{Close} był~ignorowany.
+
+        Problem został rozwiązany.
+    \end{itemize}
+    \item \textbf{Nieintuicyjny wynik zapytania w~historii z~alternatywą}
+    \begin{itemize}
+        \item \textbf{Opis:}
+        Gdy dana jest dziedzina akcji
+        \begin{align*}
+            & \Initially f \\
+            & A \Causes g \lor h \If f \\
+            & B \Causes g \lor h \If f
+        \end{align*}
+        kwerendy
+        \begin{align*}
+            & \Possibly g \After (\{A, B\}) \\
+            & \Possibly h \After (\{A, B\})
+        \end{align*}
+        zwracają wynik \textsc{False}.
+        \item \textbf{Sposób rozwiązania:}
+        W~tym przypadku program działa poprawnie.
+        Przyczyną wyniku \textsc{False} jest minimalizacja zmian.
+
+        $A,B$ są akcjami konfliktowymi, więc wykonanie $\{A, B\}$ wiąże~się z~niedeterministycznym wykonaniem $A$ lub~$B$.
+        Ponieważ fluenty $g, h$ są~inercjalne, podlegają minimalizacji zmian.
+        Załóżmy przykładowo, że dany jest stan początkowy $\sigma_0 = (f, \neg g, h)$.
+        Mamy wówczas
+        \begin{align*}
+            {Res}_0((f, \neg g, h), \{A\}) &= \{ (f, \neg g, h), (f, g, \neg h), (f, g, h) \} \\
+            {Res}_0((f, \neg g, h), \{B\}) &= \{ (f, \neg g, h), (f, g, \neg h), (f, g, h) \} \\
+            \\
+            (*) \quad New(A, (f, \neg g, h), (f, \neg g, h)) &= \emptyset \\
+            New(A, (f, \neg g, h), (f, g, \neg h)) &= \{ g, \neg h \} \\
+            New(A, (f, \neg g, h), (f, g, h)) &= \{ h \} \\
+            \\
+            {Res}_0((f, \neg g, h), \{A\}) &= \{ (f, \neg g, h) \} \\
+            {Res}_0((f, \neg g, h), \{B\}) &= \{ (f, \neg g, h) \}
+        \end{align*}
+        Wobec tego istnieje model $D$ taki, w~którym zachodzi $\neg g$ po~wykonaniu $\{ A, B \}$.
+        Kwerenda $\Possibly g \After (\{A,B\})$ jest więc fałszywa.
+        W~analogiczny sposób fałszywa jest również kwerenda $\Possibly h \After (\{A,B\})$.
+        Kwerendy
+        \begin{align*}
+            & \Possibly g \lor h \After (\{A,B\}) \\
+            & \Necessary g \lor h \After (\{A,B\})
+        \end{align*}
+        są jednak prawdziwe.
+
+        Dodanie do~domeny akcji zdań
+        \begin{align*}
+            & \Noninertial g \\
+            & \Noninertial h
+        \end{align*}
+        powoduje uzyskanie intuicyjnego wyniku \textsc{True} na~dane kwerendy.
+    \end{itemize}
+\end{itemize}
+
 \section{Podział prac}
 
 W~implementacji aplikacji brali udział wszyscy członkowie zespołu.
