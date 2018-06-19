@@ -1,8 +1,11 @@
-﻿using System;
+﻿using DynamicSystem.NewGeneration;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DynamicSystem.NewGeneration;
-using Model;
+using Model.ActionLanguage;
+using Model.Forms;
+using Action = Model.Action;
 
 namespace DynamicSystem.MinimizeNew
 {
@@ -11,13 +14,7 @@ namespace DynamicSystem.MinimizeNew
     /// </summary>
     public static class TransitionFunctionGenerator
     {
-        /// <summary>
-        /// Generates <see cref="TransitionFunction"/> by finding states belonging to output of Res_0 function 
-        /// that minimalize New set of inertial fluent that can change with action execution.
-        /// </summary>
-        /// <param name="resZero"><see cref="TransitionFunction"/> instance describing Res_0 function.</param>
-        /// <param name="newSets"><see cref="NewSetMapping"/> describing New sets.</param>
-        /// <returns><see cref="TransitionFunction"/> object.</returns>
+        [Obsolete]
         public static TransitionFunction GenerateTransitionFunction(TransitionFunction resZero, NewSetMapping newSets)
         {
             var transitionFunction = InitializeTransitionFunction(resZero);
@@ -30,6 +27,49 @@ namespace DynamicSystem.MinimizeNew
                 transitionFunction[compoundAction, state] =
                     GenerateTransitionFunction((compoundAction, state, potentialResults), consideredNewSets);
             }
+            return transitionFunction;
+        }
+
+        /// <summary>
+        /// Generates <see cref="TransitionFunction"/> by finding states belonging to output of Res_0 function 
+        /// that minimalize New set of inertial fluent that can change with action execution.
+        /// </summary>
+        /// <param name="actionDomain"><see cref="ActionDomain"/> instance describing the current scenario.</param>
+        /// <param name="resZero"><see cref="TransitionFunction"/> instance describing Res_0 function.</param>
+        /// <param name="newSets"><see cref="NewSetMapping"/> describing New sets.</param>
+        /// <param name="allDecompositions">Decompositions</param>
+        /// <returns><see cref="TransitionFunction"/> object.</returns>
+        public static TransitionFunction GenerateTransitionFunction(ActionDomain actionDomain, TransitionFunction resZero, NewSetMapping newSets,
+            Dictionary<(CompoundAction, State), IEnumerable<HashSet<Action>>> allDecompositions)
+        {
+            var transitionFunction = InitializeTransitionFunction(resZero);
+
+            foreach (var assignment in resZero)
+            {
+                var (compoundAction, state, _) = assignment;
+
+                if (compoundAction.Actions
+                    .Any(ac => actionDomain.EffectStatements
+                        .Any(s => s.Action.Equals(ac) && s.Precondition.Evaluate(state) && s.Postcondition.Equals(Constant.Falsity))))
+                {
+                    continue;
+                }
+                
+                var decompositions = allDecompositions[(compoundAction, state)];
+                HashSet<State> states = new HashSet<State>();
+
+                foreach (var decomposition in decompositions)
+                {
+                    var action = new CompoundAction(decomposition);
+                    var consideredNewSets = FindConsideredNewSets(action, state, resZero[action, state], newSets);
+
+                    var generatedTransition = GenerateTransitionFunction((action, state, resZero[action, state]), consideredNewSets);
+                    states.UnionWith(generatedTransition);
+                }
+
+                transitionFunction[compoundAction, state] = states;
+            }
+
             return transitionFunction;
         }
 
@@ -68,7 +108,8 @@ namespace DynamicSystem.MinimizeNew
         /// <param name="assignment"><see cref="ValueTuple{CompoundAction, State, HashSet{State}}"/> describing Res_0 assignment.</param>
         /// <param name="newSetDict"><see cref="NewSetMapping"/> with New sets that are considered.</param>
         /// <returns></returns>
-        private static HashSet<State> GenerateTransitionFunction((CompoundAction, State, HashSet<State>) assignment, NewSetMapping newSetDict)
+        private static HashSet<State> GenerateTransitionFunction((CompoundAction, State, HashSet<State>) assignment,
+            NewSetMapping newSetDict)
         {
             var compoundAction = assignment.Item1;
             var state = assignment.Item2;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DynamicSystem.Decomposition;
 using DynamicSystem.MinimizeNew;
 using DynamicSystem.NewGeneration;
 using DynamicSystem.QueriesEvaluation;
@@ -30,9 +31,12 @@ namespace DynamicSystem
             var initialStates = new HashSet<State>(SetGenerator.GetInitialStates(signature.Fluents, actionDomain));
             var compoundActions = new HashSet<CompoundAction>(SetGenerator.GetCompoundActions(signature.Actions));
 
-            var resZero = ResZeroGenerator.GenerateResZero(actionDomain, compoundActions, admissibleStates);
+            var decompositionGenerator = new DecompositionGenerator();
+            var decompositions = decompositionGenerator.GenerateDecompositions(actionDomain, compoundActions, admissibleStates);
+
+            var resZero = ResZeroGenerator.GenerateResZero(actionDomain, compoundActions, admissibleStates, decompositions);
             var newSets = NewSetGenerator.GetNewSets(actionDomain, signature, resZero);
-            var res = TransitionFunctionGenerator.GenerateTransitionFunction(resZero, newSets);
+            var res = TransitionFunctionGenerator.GenerateTransitionFunction(actionDomain, resZero, newSets, decompositions);
             var structures = initialStates.Select(state => new Structure(admissibleStates, state, res)).ToList();
 
             var models = structures.Where(structure => StructureVerification.CheckStatements(actionDomain, structure)).ToList();

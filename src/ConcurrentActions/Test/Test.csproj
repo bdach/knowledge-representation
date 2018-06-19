@@ -83,6 +83,10 @@
     <Compile Include="DNF\Visitors\SimplifyingFormulaVisitorTest.cs" />
     <Compile Include="DNF\Visitors\VisitorTestUtils.cs" />
     <Compile Include="NewGeneration\NewGenerationLightTest.cs" />
+    <Compile Include="QueriesEvaluation\OpeningDoorTest.cs" />
+    <Compile Include="QueriesEvaluation\ProducentConsumerTest.cs" />
+    <Compile Include="QueriesEvaluation\SchrodingerCatTest.cs" />
+    <Compile Include="QueriesEvaluation\TwoPaintersTest.cs" />
     <Compile Include="QueryResolver\NoninertialTest.cs" />
     <Compile Include="QueryResolver\ProducerConsumerTest.cs" />
     <Compile Include="MinimizeNew\TestCases\ITransitionFunctionGenerationTestCase.cs" />
@@ -106,7 +110,7 @@
     <Compile Include="Model\TransitionFunctionTest.cs" />
     <Compile Include="NewGeneration\NewCatTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueriesEvaluation\QueriesEvaluatorTest.cs" />
+    <Compile Include="QueriesEvaluation\AlternativesTest.cs" />
     <Compile Include="QueryResolver\SchrodingersCatTest.cs" />
     <Compile Include="ResZero\ProducentConsumerTest.cs" />
     <Compile Include="ResZero\ResZeroCatTest.cs" />
